@@ -5,10 +5,10 @@ spring:
    suffix: .jsp
    #mybatis数据源
  datasource:
-  url: jdbc:mysql://127.0.0.1/furniture
+  url: jdbc:mysql://localhost:3306/furniture?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
   username: root
   password: a
-  driver-class-name: com.mysql.jdbc.Driver
+  driver-class-name: com.mysql.cj.jdbc.Driver
 #邮件发送
  mail:
  #邮箱服务器地址
