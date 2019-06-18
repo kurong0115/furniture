@@ -8,7 +8,7 @@
                    <div class="col-xl-2 col-lg-2">
                        <div class="logo pt-40">
                            <a href="index">
-                               <img src="assets/img/logo/logo.png" alt="">
+                               <img src="assets/img/logo/logo.png" alt="" style="margin-top:-25px;">
                            </a>
                        </div>
                    </div>
