@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class IndexAction {
 	
-	@RequestMapping("index")
+	@RequestMapping(value = {"index",""})
 	public String index() {
 		return "index";
 	}
