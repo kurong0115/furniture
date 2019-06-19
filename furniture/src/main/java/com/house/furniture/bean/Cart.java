@@ -13,7 +13,6 @@ public class Cart {
 
     private Product product;
     
-    
     @Override
 	public String toString() {
 		return "Cart [id=" + id + ", uid=" + uid + ", pid=" + pid + ", count=" + count + ", sum=" + sum + ", product="

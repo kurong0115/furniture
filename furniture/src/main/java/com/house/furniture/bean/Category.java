@@ -20,4 +20,11 @@ public class Category {
     public void setCategoryname(String categoryname) {
         this.categoryname = categoryname == null ? null : categoryname.trim();
     }
+
+	@Override
+	public String toString() {
+		return "Category [cid=" + cid + ", categoryname=" + categoryname + "]";
+	}
+    
+    
 }

@@ -4,12 +4,15 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.stereotype.Service;
+
 import com.house.furniture.bean.Cart;
 import com.house.furniture.bean.CartExample;
 import com.house.furniture.bean.User;
 import com.house.furniture.dao.CartMapper;
 import com.house.furniture.service.CartService;
 
+@Service
 public class CartServiceImpl implements CartService {
 
 	@Resource

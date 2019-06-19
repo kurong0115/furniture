@@ -202,7 +202,7 @@
 	                                        <div class="ht-product ht-product-action-on-hover ht-product-category-right-bottom mb-30">
 	                                            <div class="ht-product-inner">
 	                                                <div class="ht-product-image-wrap">
-	                                                    <a href="product-details?pid=${product.pid }" class="ht-product-image"> <img src="assets/img/product/product-1.jpg" alt="Universal Product Style"> </a>
+	                                                    <a href="product-details?pid=${product.pid }" class="ht-product-image"> <img src="${product.images[0].imgpath }" alt="Universal Product Style"> </a>
 	                                                    <div class="ht-product-action">
 	                                                        <ul>
 	                                                            <li><a href="#" data-toggle="modal" data-target="#exampleModal"><i class="sli sli-magnifier"></i><span class="ht-product-action-tooltip">快速预览</span></a></li>
@@ -214,11 +214,11 @@
 	                                                </div>
 	                                                <div class="ht-product-content">
 	                                                    <div class="ht-product-content-inner">
-	                                                        <div class="ht-product-categories"><a href="#">Chair</a></div>
+	                                                        <div class="ht-product-categories"><a href="#">${product.category.categoryname }</a></div>
 	                                                        <h4 class="ht-product-title"><a href="product-details.html">${product.productname }</a></h4>
 	                                                        <div class="ht-product-price">
-	                                                            <span class="new">$60.00</span>
-	                                                            <span class="old">$80.00</span>
+									                                                            ￥<span class="new">${product.price }</span>
+									                                                            ￥<span class="old">$80.00</span>
 	                                                        </div>
 	                                                        <div class="ht-product-ratting-wrap">
 	                                                            <span class="ht-product-ratting">
@@ -404,7 +404,7 @@
     
     <!-- ??????????????????????? -->
     <!-- Modal -->
-    <!-- <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog">
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -526,7 +526,7 @@
                 </div>
             </div>
         </div>
-    </div> -->
+    </div>
     <!-- Modal end -->
     
 </div>

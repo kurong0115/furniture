@@ -22,16 +22,11 @@ public class Product {
 
     private Timestamp createtime;
     
+    private Category category;
+    
     private List<Image> images;
     
     
-    
-    @Override
-	public String toString() {
-		return "Product [pid=" + pid + ", productname=" + productname + ", model=" + model + ", price=" + price
-				+ ", description=" + description + ", score=" + score + ", cid=" + cid + ", stock=" + stock
-				+ ", createtime=" + createtime + ", images=" + images + "]";
-	}
 
 	public Integer getPid() {
         return pid;
@@ -112,6 +107,20 @@ public class Product {
 	public void setImages(List<Image> images) {
 		this.images = images;
 	}
-    
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
+	@Override
+	public String toString() {
+		return "Product [pid=" + pid + ", productname=" + productname + ", model=" + model + ", price=" + price
+				+ ", description=" + description + ", score=" + score + ", cid=" + cid + ", stock=" + stock
+				+ ", createtime=" + createtime + ", category=" + category + ", images=" + images + "]";
+	}
     
 }

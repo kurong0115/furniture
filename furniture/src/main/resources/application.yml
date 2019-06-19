@@ -9,10 +9,13 @@ spring:
     username: root
     password: a
     driver-class-name: com.mysql.cj.jdbc.Driver
+
   # springboot默认开启文件上传
   # 静态资源映射配置 F:/upload/ ====> http://127.0.0.1/upload
-  resources:
-    staticLocations: file:D:/upload/
+    
+  resources: 
+    staticLocations: file:D:/PIAimages/
+
 #邮件发送
   mail:
     #邮箱服务器地址
