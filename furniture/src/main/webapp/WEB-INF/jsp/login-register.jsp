@@ -173,9 +173,20 @@
                             <div id="lg1" class="tab-pane active">
                                 <div class="login-form-container">
                                     <div class="login-register-form">
-                                        <form action="#" method="post">
-                                            <input type="text" name="user-name" placeholder="用户名">
-                                            <input type="password" name="user-password" placeholder="密码">
+                                        <form action="login.do" method="post">
+                                        	<font color="red">${msg}</font>
+                                            <input type="text" name="username" placeholder="用户名">
+                                            <input type="password" name="password" placeholder="密码">
+                                            <input type="text" name="code" placeholder="验 证 码"  style="width: 60%"/>
+                                            <img id="code" src="createCode" onclick="updateCode()" style="vertical-align: middle;">
+                                            <a href="javascript:updateCode()">换一张</a>
+													<script type="text/javascript">
+													function updateCode() {
+														var img=document.getElementById("code");
+														//相同的url请求，浏览器会在缓存里加载数据并不会往服务器重新发送，所以后面加一个随机数
+														img.src="createCode?"+Math.random();
+													}
+												</script>
                                             <div class="button-box">
                                                 <div class="login-toggle-btn">
                                                     <input type="checkbox">
