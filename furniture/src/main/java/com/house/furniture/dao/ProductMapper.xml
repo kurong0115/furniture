@@ -11,6 +11,14 @@
     <result column="cid" jdbcType="INTEGER" property="cid" />
     <result column="stock" jdbcType="INTEGER" property="stock" />
     <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
+    <association property="category" fetchType="lazy" column="cid" 
+        select="com.house.furniture.dao.CategoryMapper.selectByPrimaryKey" javaType="com.house.furniture.bean.Category">
+      <id column="cid" property="cid"/>
+    </association>
+    <collection property="images" fetchType="lazy" column="pid" 
+      select="com.house.furniture.dao.ImageMapper.listImagesByProduct" ofType="com.house.furniture.bean.Image">
+      <id column="imgId" property="imgid"/>
+    </collection>
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>

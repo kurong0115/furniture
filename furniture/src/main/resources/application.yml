@@ -9,6 +9,9 @@ spring:
     username: root
     password: aaaaaaaa
     driver-class-name: com.mysql.cj.jdbc.Driver
+    
+  resources: 
+    staticLocations: file:d:/PIAimages/
   
 #邮件发送
   mail:
