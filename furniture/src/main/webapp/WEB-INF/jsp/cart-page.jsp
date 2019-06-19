@@ -56,9 +56,9 @@
 	                                        <td class="product-thumbnail">
 	                                            <a href="#"><img src="${cartProduct.product.images[0].imgpath}" alt="" width="82px" height="82px"></a>
 	                                        </td>
-	                                        <td class="product-name"><a href="#">${cartProduct.product.productname}</a></td>
-	                                        <td class="product-price-cart">￥<span class="amount">${cartProduct.product.price}</span></td>
-	                                        <td class="product-quantity">
+	                                        <td  class="product-name"><a href="#">${cartProduct.product.productname}</a></td>
+	                                        <td  class="product-price-cart">￥<span class="amount">${cartProduct.product.price}</span></td>
+	                                        <td  class="product-quantity">
 	                                            <div class="cart-plus-minus">
 	                                                <input class="cart-plus-minus-box" type="text" name="qtybutton" value="${cartProduct.count}">
 	                                            </div>
