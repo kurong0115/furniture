@@ -24,7 +24,16 @@ public class Product {
     
     private List<Image> images;
     
-    public Integer getPid() {
+    
+    
+    @Override
+	public String toString() {
+		return "Product [pid=" + pid + ", productname=" + productname + ", model=" + model + ", price=" + price
+				+ ", description=" + description + ", score=" + score + ", cid=" + cid + ", stock=" + stock
+				+ ", createtime=" + createtime + ", images=" + images + "]";
+	}
+
+	public Integer getPid() {
         return pid;
     }
 
