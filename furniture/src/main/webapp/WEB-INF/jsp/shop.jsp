@@ -154,7 +154,7 @@
                     <li>
                         <a href="index">首页</a>
                     </li>
-                    <li class="active">Shop Grid 3 column </li>
+                    <li class="active">商品 </li>
                 </ul>
             </div>
         </div>

@@ -24,8 +24,8 @@ mail:
 logging:
  level:
   com:
-   yc:
-    blog:
+   house:
+    furniture:
      dao: debug
      action: warn
 
