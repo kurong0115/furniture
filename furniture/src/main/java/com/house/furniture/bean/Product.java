@@ -1,6 +1,7 @@
 package com.house.furniture.bean;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 public class Product {
     private Integer pid;
@@ -20,7 +21,9 @@ public class Product {
     private Integer stock;
 
     private Timestamp createtime;
-
+    
+    private List<Image> images;
+    
     public Integer getPid() {
         return pid;
     }
@@ -92,4 +95,14 @@ public class Product {
     public void setCreatetime(Timestamp createtime) {
         this.createtime = createtime;
     }
+
+	public List<Image> getImages() {
+		return images;
+	}
+
+	public void setImages(List<Image> images) {
+		this.images = images;
+	}
+    
+    
 }
