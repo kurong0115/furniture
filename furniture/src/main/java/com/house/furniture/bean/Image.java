@@ -30,11 +30,4 @@ public class Image {
     public void setPid(Integer pid) {
         this.pid = pid;
     }
-
-	@Override
-	public String toString() {
-		return "Image [imgid=" + imgid + ", imgpath=" + imgpath + ", pid=" + pid + "]";
-	}
-    
-    
 }

@@ -6,6 +6,7 @@
     <result column="uid" jdbcType="INTEGER" property="uid" />
     <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
     <result column="level" jdbcType="INTEGER" property="level" />
+    <result column="pid" jdbcType="INTEGER" property="pid" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.house.furniture.bean.Remark">
     <result column="content" jdbcType="LONGVARCHAR" property="content" />
@@ -69,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, uid, createTime, level
+    id, uid, createTime, level, pid
   </sql>
   <sql id="Blob_Column_List">
     content
@@ -127,9 +128,9 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into remark (uid, createTime, level, 
-      content)
+      pid, content)
     values (#{uid,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, #{level,jdbcType=INTEGER}, 
-      #{content,jdbcType=LONGVARCHAR})
+      #{pid,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.house.furniture.bean.Remark">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -146,6 +147,9 @@
       <if test="level != null">
         level,
       </if>
+      <if test="pid != null">
+        pid,
+      </if>
       <if test="content != null">
         content,
       </if>
@@ -159,6 +163,9 @@
       </if>
       <if test="level != null">
         #{level,jdbcType=INTEGER},
+      </if>
+      <if test="pid != null">
+        #{pid,jdbcType=INTEGER},
       </if>
       <if test="content != null">
         #{content,jdbcType=LONGVARCHAR},
@@ -186,6 +193,9 @@
       <if test="record.level != null">
         level = #{record.level,jdbcType=INTEGER},
       </if>
+      <if test="record.pid != null">
+        pid = #{record.pid,jdbcType=INTEGER},
+      </if>
       <if test="record.content != null">
         content = #{record.content,jdbcType=LONGVARCHAR},
       </if>
@@ -200,6 +210,7 @@
       uid = #{record.uid,jdbcType=INTEGER},
       createTime = #{record.createtime,jdbcType=TIMESTAMP},
       level = #{record.level,jdbcType=INTEGER},
+      pid = #{record.pid,jdbcType=INTEGER},
       content = #{record.content,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -210,7 +221,8 @@
     set id = #{record.id,jdbcType=INTEGER},
       uid = #{record.uid,jdbcType=INTEGER},
       createTime = #{record.createtime,jdbcType=TIMESTAMP},
-      level = #{record.level,jdbcType=INTEGER}
+      level = #{record.level,jdbcType=INTEGER},
+      pid = #{record.pid,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -227,6 +239,9 @@
       <if test="level != null">
         level = #{level,jdbcType=INTEGER},
       </if>
+      <if test="pid != null">
+        pid = #{pid,jdbcType=INTEGER},
+      </if>
       <if test="content != null">
         content = #{content,jdbcType=LONGVARCHAR},
       </if>
@@ -238,6 +253,7 @@
     set uid = #{uid,jdbcType=INTEGER},
       createTime = #{createtime,jdbcType=TIMESTAMP},
       level = #{level,jdbcType=INTEGER},
+      pid = #{pid,jdbcType=INTEGER},
       content = #{content,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -245,7 +261,8 @@
     update remark
     set uid = #{uid,jdbcType=INTEGER},
       createTime = #{createtime,jdbcType=TIMESTAMP},
-      level = #{level,jdbcType=INTEGER}
+      level = #{level,jdbcType=INTEGER},
+      pid = #{pid,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

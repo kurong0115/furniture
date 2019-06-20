@@ -11,7 +11,8 @@
     <result column="cid" jdbcType="INTEGER" property="cid" />
     <result column="stock" jdbcType="INTEGER" property="stock" />
     <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
-    <association property="category" fetchType="lazy" column="cid" 
+    <result column="content" jdbcType="VARCHAR" property="content" />
+	<association property="category" fetchType="lazy" column="cid" 
         select="com.house.furniture.dao.CategoryMapper.selectByPrimaryKey" javaType="com.house.furniture.bean.Category">
       <id column="cid" property="cid"/>
     </association>
@@ -79,7 +80,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    pid, productName, model, price, description, score, cid, stock, createTime
+    pid, productName, model, price, description, score, cid, stock, createTime, content
   </sql>
   <select id="selectByExample" parameterType="com.house.furniture.bean.ProductExample" resultMap="BaseResultMap">
     select
@@ -114,12 +115,12 @@
   <insert id="insert" parameterType="com.house.furniture.bean.Product">
     insert into product (pid, productName, model, 
       price, description, score, 
-      cid, stock, createTime
-      )
+      cid, stock, createTime, 
+      content)
     values (#{pid,jdbcType=INTEGER}, #{productname,jdbcType=VARCHAR}, #{model,jdbcType=VARCHAR}, 
       #{price,jdbcType=DOUBLE}, #{description,jdbcType=VARCHAR}, #{score,jdbcType=INTEGER}, 
-      #{cid,jdbcType=INTEGER}, #{stock,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}
-      )
+      #{cid,jdbcType=INTEGER}, #{stock,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{content,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.house.furniture.bean.Product">
     insert into product
@@ -151,6 +152,9 @@
       <if test="createtime != null">
         createTime,
       </if>
+      <if test="content != null">
+        content,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="pid != null">
@@ -179,6 +183,9 @@
       </if>
       <if test="createtime != null">
         #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -218,6 +225,9 @@
       <if test="record.createtime != null">
         createTime = #{record.createtime,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.content != null">
+        content = #{record.content,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -233,7 +243,8 @@
       score = #{record.score,jdbcType=INTEGER},
       cid = #{record.cid,jdbcType=INTEGER},
       stock = #{record.stock,jdbcType=INTEGER},
-      createTime = #{record.createtime,jdbcType=TIMESTAMP}
+      createTime = #{record.createtime,jdbcType=TIMESTAMP},
+      content = #{record.content,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -265,6 +276,9 @@
       <if test="createtime != null">
         createTime = #{createtime,jdbcType=TIMESTAMP},
       </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
     </set>
     where pid = #{pid,jdbcType=INTEGER}
   </update>
@@ -277,7 +291,8 @@
       score = #{score,jdbcType=INTEGER},
       cid = #{cid,jdbcType=INTEGER},
       stock = #{stock,jdbcType=INTEGER},
-      createTime = #{createtime,jdbcType=TIMESTAMP}
+      createTime = #{createtime,jdbcType=TIMESTAMP},
+      content = #{content,jdbcType=VARCHAR}
     where pid = #{pid,jdbcType=INTEGER}
   </update>
 </mapper>

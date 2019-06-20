@@ -3,11 +3,12 @@
 <mapper namespace="com.house.furniture.dao.OperationMapper">
   <resultMap id="BaseResultMap" type="com.house.furniture.bean.Operation">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="orderNo" jdbcType="INTEGER" property="orderno" />
+    <result column="orderId" jdbcType="INTEGER" property="orderid" />
     <result column="uid" jdbcType="INTEGER" property="uid" />
     <result column="pid" jdbcType="INTEGER" property="pid" />
     <result column="count" jdbcType="INTEGER" property="count" />
     <result column="sum" jdbcType="INTEGER" property="sum" />
+    <result column="price" jdbcType="DOUBLE" property="price" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -68,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, orderNo, uid, pid, count, sum
+    id, orderId, uid, pid, count, sum, price
   </sql>
   <select id="selectByExample" parameterType="com.house.furniture.bean.OperationExample" resultMap="BaseResultMap">
     select
@@ -104,10 +105,10 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into operation (orderNo, uid, pid, 
-      count, sum)
-    values (#{orderno,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, #{pid,jdbcType=INTEGER}, 
-      #{count,jdbcType=INTEGER}, #{sum,jdbcType=INTEGER})
+    insert into operation (orderId, uid, pid, 
+      count, sum, price)
+    values (#{orderid,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, #{pid,jdbcType=INTEGER}, 
+      #{count,jdbcType=INTEGER}, #{sum,jdbcType=INTEGER}, #{price,jdbcType=DOUBLE})
   </insert>
   <insert id="insertSelective" parameterType="com.house.furniture.bean.Operation">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -115,8 +116,8 @@
     </selectKey>
     insert into operation
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="orderno != null">
-        orderNo,
+      <if test="orderid != null">
+        orderId,
       </if>
       <if test="uid != null">
         uid,
@@ -130,10 +131,13 @@
       <if test="sum != null">
         sum,
       </if>
+      <if test="price != null">
+        price,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="orderno != null">
-        #{orderno,jdbcType=INTEGER},
+      <if test="orderid != null">
+        #{orderid,jdbcType=INTEGER},
       </if>
       <if test="uid != null">
         #{uid,jdbcType=INTEGER},
@@ -146,6 +150,9 @@
       </if>
       <if test="sum != null">
         #{sum,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DOUBLE},
       </if>
     </trim>
   </insert>
@@ -161,8 +168,8 @@
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.orderno != null">
-        orderNo = #{record.orderno,jdbcType=INTEGER},
+      <if test="record.orderid != null">
+        orderId = #{record.orderid,jdbcType=INTEGER},
       </if>
       <if test="record.uid != null">
         uid = #{record.uid,jdbcType=INTEGER},
@@ -176,6 +183,9 @@
       <if test="record.sum != null">
         sum = #{record.sum,jdbcType=INTEGER},
       </if>
+      <if test="record.price != null">
+        price = #{record.price,jdbcType=DOUBLE},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -184,11 +194,12 @@
   <update id="updateByExample" parameterType="map">
     update operation
     set id = #{record.id,jdbcType=INTEGER},
-      orderNo = #{record.orderno,jdbcType=INTEGER},
+      orderId = #{record.orderid,jdbcType=INTEGER},
       uid = #{record.uid,jdbcType=INTEGER},
       pid = #{record.pid,jdbcType=INTEGER},
       count = #{record.count,jdbcType=INTEGER},
-      sum = #{record.sum,jdbcType=INTEGER}
+      sum = #{record.sum,jdbcType=INTEGER},
+      price = #{record.price,jdbcType=DOUBLE}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -196,8 +207,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.house.furniture.bean.Operation">
     update operation
     <set>
-      <if test="orderno != null">
-        orderNo = #{orderno,jdbcType=INTEGER},
+      <if test="orderid != null">
+        orderId = #{orderid,jdbcType=INTEGER},
       </if>
       <if test="uid != null">
         uid = #{uid,jdbcType=INTEGER},
@@ -211,16 +222,20 @@
       <if test="sum != null">
         sum = #{sum,jdbcType=INTEGER},
       </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DOUBLE},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.house.furniture.bean.Operation">
     update operation
-    set orderNo = #{orderno,jdbcType=INTEGER},
+    set orderId = #{orderid,jdbcType=INTEGER},
       uid = #{uid,jdbcType=INTEGER},
       pid = #{pid,jdbcType=INTEGER},
       count = #{count,jdbcType=INTEGER},
-      sum = #{sum,jdbcType=INTEGER}
+      sum = #{sum,jdbcType=INTEGER},
+      price = #{price,jdbcType=DOUBLE}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

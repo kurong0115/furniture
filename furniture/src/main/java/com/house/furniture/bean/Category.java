@@ -21,10 +21,4 @@ public class Category {
         this.categoryname = categoryname == null ? null : categoryname.trim();
     }
 
-	@Override
-	public String toString() {
-		return "Category [cid=" + cid + ", categoryname=" + categoryname + "]";
-	}
-    
-    
 }
