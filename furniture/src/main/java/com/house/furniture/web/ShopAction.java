@@ -5,10 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.github.pagehelper.PageHelper;
 import com.house.furniture.bean.Category;
 import com.house.furniture.bean.Product;
 import com.house.furniture.service.CategoryService;
@@ -29,9 +31,21 @@ public class ShopAction {
 		model.addAttribute("categoryList", categoryList);
 	}
 	
-	@RequestMapping(value="shop")
-	public String shop(@RequestParam(value = "cid", defaultValue = "1") int cid, Model model) {
-		List<Product> productList = productService.listProductsByType(cid);
+	@RequestMapping(value = "shop")
+	public String shop(@RequestParam(value = "cid", defaultValue = "1") int cid, Model model,
+			@RequestParam(value="page", defaultValue = "1") int page, 
+			@RequestParam(value="size", defaultValue = "30") int size) {
+		
+		List<Product> productList = productService.listProductsByType(cid, page, size);
+		PageHelper.startPage(page, size);
+		model.addAttribute("productList", productList);
+		return "shop";
+	}
+	
+	@GetMapping(value = "condition")
+	public String selectByCondition(@RequestParam(value = "condition", defaultValue = "") String condition, 
+			Model model) {
+		List<Product> productList = productService.listProductByCondition(condition);
 		model.addAttribute("productList", productList);
 		return "shop";
 	}

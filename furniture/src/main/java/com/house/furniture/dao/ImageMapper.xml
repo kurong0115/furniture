@@ -178,10 +178,4 @@
       pid = #{pid,jdbcType=INTEGER}
     where imgId = #{imgid,jdbcType=INTEGER}
   </update>
-  
-  <select id="listImagesByProduct" parameterType="int" resultType="com.house.furniture.bean.Image">
-    select <include refid="Base_Column_List"></include>
-    from image 
-    where pid=#{pid}
-  </select>
 </mapper>

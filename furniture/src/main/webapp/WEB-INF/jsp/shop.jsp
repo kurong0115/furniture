@@ -207,7 +207,7 @@
 	                                                        <ul>
 	                                                            <li><a href="#" data-toggle="modal" data-target="#exampleModal"><i class="sli sli-magnifier"></i><span class="ht-product-action-tooltip">快速预览</span></a></li>
 	                                                            <li><a href="#"><i class="sli sli-heart"></i><span class="ht-product-action-tooltip">添加到愿望清单</span></a></li>
-	                                                            <li><a href="#"><i class="sli sli-refresh"></i><span class="ht-product-action-tooltip">对比</span></a></li>
+	                                                            <li><a href="#"><i class="sli sli-refresh"></i><span class="ht-product-action-tooltip">刷新</span></a></li>
 	                                                            <li><a href="#"><i class="sli sli-bag"></i><span class="ht-product-action-tooltip">添加到购物车</span></a></li>
 	                                                        </ul>
 	                                                    </div>
@@ -215,10 +215,10 @@
 	                                                <div class="ht-product-content">
 	                                                    <div class="ht-product-content-inner">
 	                                                        <div class="ht-product-categories"><a href="#">${product.category.categoryname }</a></div>
-	                                                        <h4 class="ht-product-title"><a href="product-details.html">${product.productname }</a></h4>
+	                                                        <h4 class="ht-product-title"><a href="product-details?pid=${product.pid }">${product.productname }</a></h4>
 	                                                        <div class="ht-product-price">
 									                                                            ￥<span class="new">${product.price }</span>
-									                                                            ￥<span class="old">$80.00</span>
+									                              <!-- ￥<span class="old">$80.00</span> -->
 	                                                        </div>
 	                                                        <div class="ht-product-ratting-wrap">
 	                                                            <span class="ht-product-ratting">
@@ -239,10 +239,10 @@
 	                                                    </div>
 	                                                    <div class="ht-product-action">
 	                                                        <ul>
-	                                                            <li><a href="#"><i class="sli sli-magnifier"></i><span class="ht-product-action-tooltip">Quick View</span></a></li>
-	                                                            <li><a href="#"><i class="sli sli-heart"></i><span class="ht-product-action-tooltip">Add to Wishlist</span></a></li>
-	                                                            <li><a href="#"><i class="sli sli-refresh"></i><span class="ht-product-action-tooltip">Add to Compare</span></a></li>
-	                                                            <li><a href="#"><i class="sli sli-bag"></i><span class="ht-product-action-tooltip">Add to Cart</span></a></li>
+	                                                            <li><a href="#"><i class="sli sli-magnifier"></i><span class="ht-product-action-tooltip">快速预览</span></a></li>
+	                                                            <li><a href="#"><i class="sli sli-heart"></i><span class="ht-product-action-tooltip">添加到愿望清单</span></a></li>
+	                                                            <li><a href="#"><i class="sli sli-refresh"></i><span class="ht-product-action-tooltip">刷新</span></a></li>
+	                                                            <li><a href="#"><i class="sli sli-bag"></i><span class="ht-product-action-tooltip">添加到购物车</span></a></li>
 	                                                        </ul>
 	                                                    </div>
 	                                                    <div class="ht-product-countdown-wrap">
@@ -262,12 +262,13 @@
                             <div id="shop-2" class="tab-pane">
                             
                                 <!-- 货品循环显示 -->
+                                <c:forEach items="${productList }" var="product">
                                 <div class="shop-list-wrap shop-list-mrg2 shop-list-mrg-none mb-30">
                                     <div class="row">
                                         <div class="col-lg-4 col-md-4">
                                             <div class="product-list-img">
-                                                <a href="product-details.html">
-                                                    <img src="assets/img/product/product-list-1.jpg" alt="Universal Product Style">
+                                                <a href="product-details?pid=${product.pid }">
+                                                    <img src="${product.images[0].imgpath }" alt="Universal Product Style">
                                                 </a>
                                                 <div class="product-quickview">
                                                     <a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModal"><i class="sli sli-magnifier-add"></i></a>
@@ -276,14 +277,14 @@
                                         </div>
                                         <div class="col-lg-8 col-md-8 align-self-center">
                                             <div class="shop-list-content">
-                                                <h3><a href="product-details.html">Demo Product Name</a></h3>
+                                                <h3><a href="product-details?pid=${product.pid }">${product.productname }</a></h3>
                                                 <p>It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard The standard chunk.</p>
                                                 <span>Chair</span>
                                                 <div class="shop-list-price-action-wrap">
                                                     <div class="shop-list-price-ratting">
                                                         <div class="ht-product-list-price">
-                                                            <span class="new">$40.00</span>
-                                                            <span class="old">$70.00</span>
+                                                            <span class="new">${product.price }</span>
+                                                            <!-- <span class="old">$70.00</span> -->
                                                         </div>
                                                         <div class="ht-product-list-ratting">
                                                             <i class="sli sli-star"></i>
@@ -294,16 +295,16 @@
                                                         </div>
                                                     </div>
                                                     <div class="ht-product-list-action">
-                                                        <a class="list-wishlist" title="Add To Wishlist" href="#"><i class="sli sli-heart"></i></a>
-                                                        <a class="list-cart" title="Add To Cart" href="#"><i class="sli sli-basket-loaded"></i> Add to Cart</a>
-                                                        <a class="list-refresh" title="Add To Compare" href="#"><i class="sli sli-refresh"></i></a>
+                                                        <a class="list-wishlist" title="添加到愿望清单" href="#"><i class="sli sli-heart"></i></a>
+                                                        <a class="list-cart" title="添加到购物车" href="#"><i class="sli sli-basket-loaded"></i> 添加到购物车</a>
+                                                        <a class="list-refresh" title="对比" href="#"><i class="sli sli-refresh"></i></a>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                
+                                </c:forEach>
                             </div>
                             
                         </div>
@@ -326,8 +327,8 @@
                         <div class="sidebar-widget">
                             <h4 class="pro-sidebar-title">搜索 </h4>
                             <div class="pro-sidebar-search mb-50 mt-25">
-                                <form class="pro-sidebar-search-form" action="#">
-                                    <input type="text" placeholder="在此处搜索...">
+                                <form class="pro-sidebar-search-form" action="condition">
+                                    <input type="text" placeholder="在此处搜索..." name="condition">
                                     <button>
                                         <i class="sli sli-magnifier"></i>
                                     </button>
@@ -340,22 +341,22 @@
                                 <ul>
                                     <li>
                                         <div class="sidebar-widget-list-left">
-                                            <input type="checkbox"> <a href="#">在售 <span>4</span> </a> 
+                                            <input type="checkbox" id="onSale"> <a href="#">在售 <!-- <span>4</span> --> </a> 
                                             <span class="checkmark"></span>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="sidebar-widget-list-left">
-                                            <input type="checkbox" value=""> <a href="#">新品 <span>5</span></a> 
+                                            <input type="checkbox" id="newProduct" value=""> <a href="#">新品 <!-- <span>5</span> --></a> 
                                             <span class="checkmark"></span>
                                         </div>
                                     </li>
-                                    <li>
+                                    <!-- <li>
                                         <div class="sidebar-widget-list-left">
                                             <input type="checkbox" value=""> <a href="#">现货 <span>6</span> </a>
                                             <span class="checkmark"></span>
                                         </div>
-                                    </li>
+                                    </li> -->
                                 </ul>
                             </div>
                         </div>
@@ -375,7 +376,7 @@
                                     <c:forEach items="${categoryList }" var="category">
                                         <li>
 	                                        <div class="sidebar-widget-list-left">
-	                                           <a href="shop?cid=${category.cid }">${category.categoryname } <span>7</span> </a>
+	                                           <a href="shop?cid=${category.cid }">${category.categoryname } <!-- <span>7</span> --> </a>
 	                                            <span class="checkmark"></span> 
 	                                        </div>
                                         </li>
@@ -404,7 +405,8 @@
     
     <!-- ??????????????????????? -->
     <!-- Modal -->
-    <!-- <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog">
+    
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -526,7 +528,7 @@
                 </div>
             </div>
         </div>
-    </div> -->
+    </div>
     <!-- Modal end -->
     
 </div>
@@ -534,7 +536,9 @@
 <!-- 引入底部链接 -->
 <%@include file="common/footer_link.jsp" %>
 
+<script type="text/javascript">
+    
+</script>
 </body>
-
 </html>
     

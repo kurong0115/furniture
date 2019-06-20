@@ -21,11 +21,13 @@ public class Product {
     private Integer stock;
 
     private Timestamp createtime;
+
+    private String content;
     
     private Category category;
     
     private List<Image> images;
-    
+
     public Integer getPid() {
         return pid;
     }
@@ -98,13 +100,13 @@ public class Product {
         this.createtime = createtime;
     }
 
-	public List<Image> getImages() {
-		return images;
-	}
+    public String getContent() {
+        return content;
+    }
 
-	public void setImages(List<Image> images) {
-		this.images = images;
-	}
+    public void setContent(String content) {
+        this.content = content == null ? null : content.trim();
+    }
 
 	public Category getCategory() {
 		return category;
@@ -114,11 +116,21 @@ public class Product {
 		this.category = category;
 	}
 
+	public List<Image> getImages() {
+		return images;
+	}
+
+	public void setImages(List<Image> images) {
+		this.images = images;
+	}
+
 	@Override
 	public String toString() {
 		return "Product [pid=" + pid + ", productname=" + productname + ", model=" + model + ", price=" + price
 				+ ", description=" + description + ", score=" + score + ", cid=" + cid + ", stock=" + stock
-				+ ", createtime=" + createtime + ", category=" + category + ", images=" + images + "]";
+				+ ", createtime=" + createtime + ", content=" + content + ", category=" + category + ", images="
+				+ images + "]";
 	}
+    
     
 }

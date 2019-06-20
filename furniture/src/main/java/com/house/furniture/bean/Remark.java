@@ -11,6 +11,8 @@ public class Remark {
 
     private Integer level;
 
+    private Integer pid;
+
     private String content;
 
     public Integer getId() {
@@ -43,6 +45,14 @@ public class Remark {
 
     public void setLevel(Integer level) {
         this.level = level;
+    }
+
+    public Integer getPid() {
+        return pid;
+    }
+
+    public void setPid(Integer pid) {
+        this.pid = pid;
     }
 
     public String getContent() {

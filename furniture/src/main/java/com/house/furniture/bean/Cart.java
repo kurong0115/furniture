@@ -9,8 +9,6 @@ public class Cart {
 
     private Integer count;
 
-    private Integer sum;
-
     public Integer getId() {
         return id;
     }
@@ -41,13 +39,5 @@ public class Cart {
 
     public void setCount(Integer count) {
         this.count = count;
-    }
-
-    public Integer getSum() {
-        return sum;
-    }
-
-    public void setSum(Integer sum) {
-        this.sum = sum;
     }
 }

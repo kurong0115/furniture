@@ -11,5 +11,13 @@ public interface ProductService {
 	 * @param cid
 	 * @return
 	 */
-	List<Product> listProductsByType(int cid);
+	List<Product> listProductsByType(int cid, int page, int size);
+	
+	
+	/**
+	  * 根据条件查询对应的产品
+	 * @param condition
+	 * @return
+	 */
+	List<Product> listProductByCondition(String condition);
 }

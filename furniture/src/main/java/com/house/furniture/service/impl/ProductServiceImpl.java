@@ -17,9 +17,19 @@ public class ProductServiceImpl implements ProductService {
 	ProductMapper productMapper;
 	
 	@Override
-	public List<Product> listProductsByType(int cid) {
+	public List<Product> listProductsByType(int cid, int page, int size) {
 		ProductExample example = new ProductExample();
 		example.createCriteria().andCidEqualTo(cid);
+		List<Product> productList = productMapper.selectByExample(example);
+		return productList.isEmpty()? null: productList;
+	}
+
+	@Override
+	public List<Product> listProductByCondition(String condition) {
+		ProductExample example = new ProductExample();
+		if (!"".equals(condition.trim())) {
+			example.createCriteria().andProductnameLike("%" + condition + "%");
+		}
 		List<Product> productList = productMapper.selectByExample(example);
 		return productList.isEmpty()? null: productList;
 	}
