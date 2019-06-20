@@ -1,4 +1,3 @@
-
 ;(function(global,$){
 	/* Created by Luoliang from xi'an, email 821981232@qq.com.
 	 * messageLite v1.0

@@ -21,8 +21,16 @@ public class CartPageAction {
 	@RequestMapping("seeCart")
 	public String seeCart(User user,Model model) {
 		user.setId(1);
+		
 		List<Cart> cartProductList = cartservice.listCartProductByUser(user);
 		model.addAttribute("cartProductList", cartProductList);
+		
+		long allSum=0;
+		for (Cart cart : cartProductList) {
+			allSum+=cart.getSum();
+		}
+		model.addAttribute("allSum", allSum);
+		
 		return "cart-page";
 	}
 }
