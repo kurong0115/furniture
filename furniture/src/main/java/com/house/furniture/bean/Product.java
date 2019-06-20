@@ -26,7 +26,9 @@ public class Product {
     
     private List<Image> images;
     
-    public Integer getPid() {
+    
+
+	public Integer getPid() {
         return pid;
     }
 

@@ -24,7 +24,6 @@ public class UserServiceImpl implements UserService {
 		UserExample userExample = new UserExample();
 		userExample.createCriteria().andNameEqualTo(username.trim()).andPasswordEqualTo(password.trim());
 		List<User> user =  userMapper.selectByExample(userExample);
-		System.out.println("正在登录的是：" + user.get(0).getName());
 		return user.size() == 0 ? null : user.get(0);
 	}
 

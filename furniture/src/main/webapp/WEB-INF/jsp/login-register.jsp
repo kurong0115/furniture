@@ -12,7 +12,67 @@
     <!-- 引入首部链接 -->
     <%@include file="common/header_link.jsp" %>
     <!-- jQuery JS -->
-<script src="assets/js/vendor/jquery-1.12.4.min.js"></script>
+	 <script type="text/javascript">
+          function login(){
+			if( $("#cheack").get(0).checked ){
+				var cheack = "1";
+			}else{
+				cheack = "2";
+			}
+        	$.ajax({
+       			url:"login.do",
+       			type:'POST',
+       			data:{
+       				username:$("input[name='username']").val(),
+       				password:$("input[name='password']").val(),
+       				code:$("input[name='code']").val(),
+       				cheack:cheack
+       			},
+       			dataType:"json",
+       			success:function(data){
+       				if( data.message == '登录成功' ){
+       					getSuccessMsg(data.message);
+       					window.location.href='index';
+       				}else{
+       					getInfoMsg(data.message);
+       				}
+       			},error:function(){
+       				getFailMsg('出现异常了，刷新试试！');
+       			}	
+     	  	});
+        }
+          
+ 
+		function updateCode() {
+			var img=document.getElementById("code");
+			//相同的url请求，浏览器会在缓存里加载数据并不会往服务器重新发送，所以后面加一个随机数
+			img.src="createCode?"+Math.random();
+		}
+		
+          
+        function getSuccessMsg(msg) {
+      		$.message({
+      	        message:msg,
+      	        type:'success',
+      	        duration:'3000'
+      	    });
+      	}
+      	function getInfoMsg(msg) {
+      		$.message({
+      	        message:msg,
+      	        type:'info',
+      	        duration:'3000'
+      	    });
+      	}
+      	function getFailMsg(msg) {
+      		$.message({
+      	        message:msg,
+      	        type:'error',
+      	        duration:'3000'
+      	    });
+      	}
+        </script>
+
 </head>
 
 <body>
@@ -176,48 +236,32 @@
                                 <div class="login-form-container">
                                     <div class="login-register-form">
                                         <form action="" method="post">
-                                        	<font color="red">${msg}</font>
-                                            <input type="text" name="username" placeholder="用户名">
+	                                        <c:choose>
+	                                         	<c:when test="${username==null || username==''}">
+	                                         		<input type="text" name="username" placeholder="用户名">
+	                                         	</c:when>
+	                                         	<c:when test="${username != null || username != '' }">
+		                                            <input type="text" name="username" placeholder="用户名" value="${username}">
+	                                         	</c:when>
+	                                        </c:choose>
                                             <input type="password" name="password" placeholder="密码">
                                             <input type="text" name="code" placeholder="验 证 码"  style="width: 60%"/>
                                             <img id="code" src="createCode" onclick="updateCode()" style="vertical-align: middle;">
-                                            <a href="javascript:updateCode()">换一张</a>
-													<script type="text/javascript">
-													function updateCode() {
-														var img=document.getElementById("code");
-														//相同的url请求，浏览器会在缓存里加载数据并不会往服务器重新发送，所以后面加一个随机数
-														img.src="createCode?"+Math.random();
-													}
-												</script>
+                                            <a href="javascript:updateCode()">换一张</a>		
                                             <div class="button-box">
                                                 <div class="login-toggle-btn">
-                                                    <input type="checkbox">
+                                                    <input type="checkbox" id="cheack" >
                                                     <label>记住账号</label>
                                                     <a href="#">忘记密码?</a>
                                                 </div>
                                                 <button type="button" onclick="login()">登录</button>
+                                               	
                                             </div>
                                         </form>
                                     </div>
                                 </div>
                             </div>
-                            <script type="text/javascript">
-	                            function login(){
-	                            	  $.ajax({
-	                          			url:"login.do",
-	                          			type:'POST',
-	                          			data:{
-	                          				username:$("input[name='username']").val(),
-	                          				password:$("input[name='password']").val(),
-	                          				code:$("input[name='code']").val()
-	                          			},
-	                          			dataType:"text",
-	                          			success:function(date){
-	                          				console.log(data.msg);
-	                          			}
-	                          		});
-	                            }
-                            </script>
+                            
                             <div id="lg2" class="tab-pane">
                                 <div class="login-form-container">
                                     <div class="login-register-form">

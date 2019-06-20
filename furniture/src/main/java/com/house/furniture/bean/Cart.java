@@ -11,7 +11,23 @@ public class Cart {
 
     private Integer sum;
 
-    public Integer getId() {
+    private Product product;
+    
+    @Override
+	public String toString() {
+		return "Cart [id=" + id + ", uid=" + uid + ", pid=" + pid + ", count=" + count + ", sum=" + sum + ", product="
+				+ product + "]";
+	}
+
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+
+	public Integer getId() {
         return id;
     }
 
