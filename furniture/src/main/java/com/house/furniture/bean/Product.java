@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 public class Product {
+	
     private Integer pid;
 
     private String productname;
@@ -131,6 +132,5 @@ public class Product {
 				+ ", createtime=" + createtime + ", content=" + content + ", category=" + category + ", images="
 				+ images + "]";
 	}
-    
-    
+       
 }

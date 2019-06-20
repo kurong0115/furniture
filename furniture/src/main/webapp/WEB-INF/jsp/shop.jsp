@@ -405,7 +405,10 @@
     
     <!-- ??????????????????????? -->
     <!-- Modal -->
+<<<<<<< HEAD
     
+=======
+>>>>>>> branch 'master' of https://github.com/kurong0115/furniture.git
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">

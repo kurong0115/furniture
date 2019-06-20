@@ -6,6 +6,10 @@
     <result column="uid" jdbcType="INTEGER" property="uid" />
     <result column="pid" jdbcType="INTEGER" property="pid" />
     <result column="count" jdbcType="INTEGER" property="count" />
+    <association property="product" fetchType="lazy" column="pid" 
+        select="com.house.furniture.dao.ProductMapper.selectByPrimaryKey" javaType="com.house.furniture.bean.Product">
+      <id column="pid" property="pid"/>
+    </association>
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>

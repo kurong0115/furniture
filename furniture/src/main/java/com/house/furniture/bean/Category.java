@@ -20,4 +20,5 @@ public class Category {
     public void setCategoryname(String categoryname) {
         this.categoryname = categoryname == null ? null : categoryname.trim();
     }
+
 }

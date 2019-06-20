@@ -277,26 +277,30 @@
         $('.quickview-slide-active a').removeClass('active');
     })
     
-    
     /*----------------------------
     	Cart Plus Minus Button
     ------------------------------ */
     var CartPlusMinus = $('.cart-plus-minus');
-    CartPlusMinus.prepend('<div class="dec qtybutton">-</div>');
-    CartPlusMinus.append('<div class="inc qtybutton">+</div>');
+    CartPlusMinus.prepend('<div class="dec qtybutton" >-</div>');
+    CartPlusMinus.append('<div class="inc qtybutton" >+</div>');
     $(".qtybutton").on("click", function() {
         var $button = $(this);
         var oldValue = $button.parent().find("input").val();
+        var price = $button.parent().parent().prev().find("span").text();
+        var newVal=null;
         if ($button.text() === "+") {
-            var newVal = parseFloat(oldValue) + 1;
+            newVal = parseFloat(oldValue) + 1;
         } else {
             // Don't allow decrementing below zero
-            if (oldValue > 0) {
-                var newVal = parseFloat(oldValue) - 1;
+            if (oldValue > 1) {
+                newVal = parseFloat(oldValue) - 1;
             } else {
                 newVal = 1;
+                getInfoMsg("别再减了，再减就没了");
             }
         }
+        var newPrice = parseFloat(price)*newVal;
+        $button.parent().parent().next().find("span").text(newPrice);
         $button.parent().find("input").val(newVal);
     });
     
@@ -694,7 +698,28 @@
         $(this).siblings('.payment-box').slideToggle(900);
     });
     
-    
+  //信息提示框
+	function getSuccessMsg(msg) {
+		$.message({
+	        message:msg,
+	        type:'success',
+	        duration:'3000'
+	    });
+	}
+	function getInfoMsg(msg) {
+		$.message({
+	        message:msg,
+	        type:'info',
+	        duration:'3000'
+	    });
+	}
+	function getFailMsg(msg) {
+		$.message({
+	        message:msg,
+	        type:'error',
+	        duration:'3000'
+	    });
+	}
     
     
 })(jQuery);

@@ -102,7 +102,7 @@
                                        </div>
                                        <div class="shopping-cart-btn btn-hover text-center">
                                            <a class="default-btn" href="checkout">结算</a>
-                                           <a class="default-btn" href="cart-page.html">查看购物车</a>
+                                           <a class="default-btn" href="seeCart">查看购物车</a>
                                        </div>
                                    </div>
                                </div>
