@@ -11,6 +11,8 @@
     
     <!-- 引入首部链接 -->
     <%@include file="common/header_link.jsp" %>
+    <!-- jQuery JS -->
+<script src="assets/js/vendor/jquery-1.12.4.min.js"></script>
 </head>
 
 <body>
@@ -173,7 +175,7 @@
                             <div id="lg1" class="tab-pane active">
                                 <div class="login-form-container">
                                     <div class="login-register-form">
-                                        <form action="login.do" method="post">
+                                        <form action="" method="post">
                                         	<font color="red">${msg}</font>
                                             <input type="text" name="username" placeholder="用户名">
                                             <input type="password" name="password" placeholder="密码">
@@ -193,12 +195,29 @@
                                                     <label>记住账号</label>
                                                     <a href="#">忘记密码?</a>
                                                 </div>
-                                                <button type="submit">登录</button>
+                                                <button type="button" onclick="login()">登录</button>
                                             </div>
                                         </form>
                                     </div>
                                 </div>
                             </div>
+                            <script type="text/javascript">
+	                            function login(){
+	                            	  $.ajax({
+	                          			url:"login.do",
+	                          			type:'POST',
+	                          			data:{
+	                          				username:$("input[name='username']").val(),
+	                          				password:$("input[name='password']").val(),
+	                          				code:$("input[name='code']").val()
+	                          			},
+	                          			dataType:"text",
+	                          			success:function(date){
+	                          				console.log(data.msg);
+	                          			}
+	                          		});
+	                            }
+                            </script>
                             <div id="lg2" class="tab-pane">
                                 <div class="login-form-container">
                                     <div class="login-register-form">
@@ -218,18 +237,11 @@
                 </div>
             </div>
         </div>
-    </div>
-    
+    </div> 
     <!-- 引入底部 -->
     <%@include file="common/footer.jsp" %>
-    
 </div>
-
-
 <!-- 引入底部链接 -->
 <%@include file="common/footer_link.jsp" %>
-
-
 </body>
-
 </html>

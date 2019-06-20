@@ -11,5 +11,5 @@ public interface UserService {
 	 * @param password
 	 * @return
 	 */
-	List<User> login(String username,String password);
+	User login(String username,String password);
 }

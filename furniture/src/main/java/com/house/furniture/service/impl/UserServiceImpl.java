@@ -20,11 +20,12 @@ public class UserServiceImpl implements UserService {
 	private UserMapper userMapper;
 	
 	@Override
-	public List<User> login(String username, String password) {
+	public User login(String username, String password) {
 		UserExample userExample = new UserExample();
 		userExample.createCriteria().andNameEqualTo(username.trim()).andPasswordEqualTo(password.trim());
 		List<User> user =  userMapper.selectByExample(userExample);
-		return user;
+		System.out.println("正在登录的是：" + user.get(0).getName());
+		return user.size() == 0 ? null : user.get(0);
 	}
 
 

@@ -1,26 +1,32 @@
 spring:
- mvc:
-  view:
-   prefix: WEB-INF/jsp/
-   suffix: .jsp
+  mvc:
+    view:
+      prefix: WEB-INF/jsp/
+      suffix: .jsp
    #mybatis数据源
- datasource:
-  url: jdbc:mysql://localhost:3306/furniture?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
-  username: root
-  password: a
-  driver-class-name: com.mysql.cj.jdbc.Driver
+  datasource:
+    url: jdbc:mysql://localhost:3306/furniture?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+    username: root
+    password: a
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    
+  resources: 
+    staticLocations: file:d:/PIAimages/
+  
 #邮件发送
- mail:
- #邮箱服务器地址
-  host: smtp.qq.com
-  username: 869872053@qq.com
-  password: sjopyrfmhrhbbcih
-  default-ending: UTF-8
-  #自定义属性，谁发送邮件
+  mail:
+    #邮箱服务器地址
+    host: smtp.qq.com
+    username: 869872053@qq.com
+    password: sjopyrfmhrhbbcih
+    default-ending: UTF-8
+  
+#自定义属性，谁发送邮件
 mail:
  fromMail:
   addr: 869872053@qq.com
- #日志配置
+  
+#日志配置
 logging:
  level:
   com:
@@ -28,7 +34,8 @@ logging:
     furniture:
      dao: debug
      action: warn
-     
+     web: warn
+
 
 
 

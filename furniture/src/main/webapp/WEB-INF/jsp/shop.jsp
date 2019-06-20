@@ -154,7 +154,7 @@
                     <li>
                         <a href="index">首页</a>
                     </li>
-                    <li class="active">Shop Grid 3 column </li>
+                    <li class="active">商品 </li>
                 </ul>
             </div>
         </div>
@@ -197,60 +197,62 @@
                                 
                                 	<!-- 货品循环显示 -->
                                 	<!--Product Start-->
-                                    <div class="col-xl-4 col-md-6 col-lg-6 col-sm-6">
-                                        <div class="ht-product ht-product-action-on-hover ht-product-category-right-bottom mb-30">
-                                            <div class="ht-product-inner">
-                                                <div class="ht-product-image-wrap">
-                                                    <a href="product-details.html" class="ht-product-image"> <img src="assets/img/product/product-1.jpg" alt="Universal Product Style"> </a>
-                                                    <div class="ht-product-action">
-                                                        <ul>
-                                                            <li><a href="#" data-toggle="modal" data-target="#exampleModal"><i class="sli sli-magnifier"></i><span class="ht-product-action-tooltip">Quick View</span></a></li>
-                                                            <li><a href="#"><i class="sli sli-heart"></i><span class="ht-product-action-tooltip">Add to Wishlist</span></a></li>
-                                                            <li><a href="#"><i class="sli sli-refresh"></i><span class="ht-product-action-tooltip">Add to Compare</span></a></li>
-                                                            <li><a href="#"><i class="sli sli-bag"></i><span class="ht-product-action-tooltip">Add to Cart</span></a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                                <div class="ht-product-content">
-                                                    <div class="ht-product-content-inner">
-                                                        <div class="ht-product-categories"><a href="#">Chair</a></div>
-                                                        <h4 class="ht-product-title"><a href="product-details.html">Demo Product Name</a></h4>
-                                                        <div class="ht-product-price">
-                                                            <span class="new">$60.00</span>
-                                                            <span class="old">$80.00</span>
-                                                        </div>
-                                                        <div class="ht-product-ratting-wrap">
-                                                            <span class="ht-product-ratting">
-                                                                <span class="ht-product-user-ratting" style="width: 100%;">
-                                                                    <i class="sli sli-star"></i>
-                                                                    <i class="sli sli-star"></i>
-                                                                    <i class="sli sli-star"></i>
-                                                                    <i class="sli sli-star"></i>
-                                                                    <i class="sli sli-star"></i>
-                                                                </span>
-                                                            <i class="sli sli-star"></i>
-                                                            <i class="sli sli-star"></i>
-                                                            <i class="sli sli-star"></i>
-                                                            <i class="sli sli-star"></i>
-                                                            <i class="sli sli-star"></i>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="ht-product-action">
-                                                        <ul>
-                                                            <li><a href="#"><i class="sli sli-magnifier"></i><span class="ht-product-action-tooltip">Quick View</span></a></li>
-                                                            <li><a href="#"><i class="sli sli-heart"></i><span class="ht-product-action-tooltip">Add to Wishlist</span></a></li>
-                                                            <li><a href="#"><i class="sli sli-refresh"></i><span class="ht-product-action-tooltip">Add to Compare</span></a></li>
-                                                            <li><a href="#"><i class="sli sli-bag"></i><span class="ht-product-action-tooltip">Add to Cart</span></a></li>
-                                                        </ul>
-                                                    </div>
-                                                    <div class="ht-product-countdown-wrap">
-                                                        <div class="ht-product-countdown" data-countdown="2020/01/01"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                	<c:forEach items="${productList }" var="product">
+	                                    <div class="col-xl-4 col-md-6 col-lg-6 col-sm-6">
+	                                        <div class="ht-product ht-product-action-on-hover ht-product-category-right-bottom mb-30">
+	                                            <div class="ht-product-inner">
+	                                                <div class="ht-product-image-wrap">
+	                                                    <a href="product-details?pid=${product.pid }" class="ht-product-image"> <img src="${product.images[0].imgpath }" alt="Universal Product Style"> </a>
+	                                                    <div class="ht-product-action">
+	                                                        <ul>
+	                                                            <li><a href="#" data-toggle="modal" data-target="#exampleModal"><i class="sli sli-magnifier"></i><span class="ht-product-action-tooltip">快速预览</span></a></li>
+	                                                            <li><a href="#"><i class="sli sli-heart"></i><span class="ht-product-action-tooltip">添加到愿望清单</span></a></li>
+	                                                            <li><a href="#"><i class="sli sli-refresh"></i><span class="ht-product-action-tooltip">对比</span></a></li>
+	                                                            <li><a href="#"><i class="sli sli-bag"></i><span class="ht-product-action-tooltip">添加到购物车</span></a></li>
+	                                                        </ul>
+	                                                    </div>
+	                                                </div>
+	                                                <div class="ht-product-content">
+	                                                    <div class="ht-product-content-inner">
+	                                                        <div class="ht-product-categories"><a href="#">${product.category.categoryname }</a></div>
+	                                                        <h4 class="ht-product-title"><a href="product-details.html">${product.productname }</a></h4>
+	                                                        <div class="ht-product-price">
+									                                                            ￥<span class="new">${product.price }</span>
+									                                                            ￥<span class="old">$80.00</span>
+	                                                        </div>
+	                                                        <div class="ht-product-ratting-wrap">
+	                                                            <span class="ht-product-ratting">
+	                                                                <span class="ht-product-user-ratting" style="width: 100%;">
+	                                                                    <i class="sli sli-star"></i>
+	                                                                    <i class="sli sli-star"></i>
+	                                                                    <i class="sli sli-star"></i>
+	                                                                    <i class="sli sli-star"></i>
+	                                                                    <i class="sli sli-star"></i>
+	                                                                </span>
+	                                                            <i class="sli sli-star"></i>
+	                                                            <i class="sli sli-star"></i>
+	                                                            <i class="sli sli-star"></i>
+	                                                            <i class="sli sli-star"></i>
+	                                                            <i class="sli sli-star"></i>
+	                                                            </span>
+	                                                        </div>
+	                                                    </div>
+	                                                    <div class="ht-product-action">
+	                                                        <ul>
+	                                                            <li><a href="#"><i class="sli sli-magnifier"></i><span class="ht-product-action-tooltip">Quick View</span></a></li>
+	                                                            <li><a href="#"><i class="sli sli-heart"></i><span class="ht-product-action-tooltip">Add to Wishlist</span></a></li>
+	                                                            <li><a href="#"><i class="sli sli-refresh"></i><span class="ht-product-action-tooltip">Add to Compare</span></a></li>
+	                                                            <li><a href="#"><i class="sli sli-bag"></i><span class="ht-product-action-tooltip">Add to Cart</span></a></li>
+	                                                        </ul>
+	                                                    </div>
+	                                                    <div class="ht-product-countdown-wrap">
+	                                                        <div class="ht-product-countdown" data-countdown="2020/01/01"></div>
+	                                                    </div>
+	                                                </div>
+	                                            </div>
+	                                        </div>
+	                                    </div>
+                                    </c:forEach>
                                     <!--Product End-->
                                     
                                 </div>
@@ -370,12 +372,15 @@
                             <h4 class="pro-sidebar-title">分类</h4>
                             <div class="sidebar-widget-list mt-20">
                                 <ul>
-                                    <li>
-                                        <div class="sidebar-widget-list-left">
-                                           <a href="#">客厅 <span>7</span> </a>
-                                            <span class="checkmark"></span> 
-                                        </div>
-                                    </li>
+                                    <c:forEach items="${categoryList }" var="category">
+                                        <li>
+	                                        <div class="sidebar-widget-list-left">
+	                                           <a href="shop?cid=${category.cid }">${category.categoryname } <span>7</span> </a>
+	                                            <span class="checkmark"></span> 
+	                                        </div>
+                                        </li>
+                                    </c:forEach>
+                                    
                                 </ul>
                             </div>
                         </div>
