@@ -276,7 +276,7 @@
     $('.quickview-slide-active a').on('click', function() {
         $('.quickview-slide-active a').removeClass('active');
     })
-    
+
     /*----------------------------
     	Cart Plus Minus Button
     ------------------------------ */
@@ -307,18 +307,6 @@
         var newAllSum=allSum-sum+newSum;
         $('#allSum').text(newAllSum);
         $button.parent().find("input").val(newVal);
-    });
-   
-    $(".btnDel").click(function() {
-        //$(".box-mask").css({"display":"block"});
-        $(".box-mask").fadeIn(500);
-        center($(".box"));
-        //载入弹出窗口上的按钮事件
-        checkEvent($(this).parent(), $(".btnSure"), $(".btnCancel"));
-    });
-    
-    $('.sli-close').on("click", function() {
-    	alert(111);
     });
     
     /*--

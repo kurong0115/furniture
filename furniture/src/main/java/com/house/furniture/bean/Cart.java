@@ -8,15 +8,12 @@ public class Cart {
     private Integer pid;
 
     private Integer count;
-
-    private Integer sum;
-
+    
     private Product product;
-
 
 	@Override
 	public String toString() {
-		return "Cart [id=" + id + ", uid=" + uid + ", pid=" + pid + ", count=" + count + ", sum=" + sum + ", product="
+		return "Cart [id=" + id + ", uid=" + uid + ", pid=" + pid + ", count=" + count + ", product="
 				+ product + "]";
 	}
 
@@ -28,7 +25,7 @@ public class Cart {
 		this.product = product;
 	}
 
-	public Integer getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -60,11 +57,4 @@ public class Cart {
         this.count = count;
     }
 
-    public Integer getSum() {
-        return sum;
-    }
-
-    public void setSum(Integer sum) {
-        this.sum = sum;
-    }
 }

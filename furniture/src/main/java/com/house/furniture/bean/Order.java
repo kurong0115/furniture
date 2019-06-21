@@ -13,6 +13,8 @@ public class Order {
 
     private Integer sum;
 
+    private String address;
+
     public Integer getId() {
         return id;
     }
@@ -51,5 +53,13 @@ public class Order {
 
     public void setSum(Integer sum) {
         this.sum = sum;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address == null ? null : address.trim();
     }
 }

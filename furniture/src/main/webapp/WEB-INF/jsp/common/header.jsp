@@ -1,7 +1,61 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%> 
 <header class="header-area sticky-bar">
+
+		<script type="text/javascript">
+		function headerDelCart(del) { 			
+			$.post("cart/delCart",{
+				id:$(del).parent().next().val()
+			},function(data){
+				if(data.code==1){
+					var str=$(del).parent().parent().prev().find("span").text().split("x");
+					var count=str[0];
+					var price=str[1];
+					var sum=count*price;
+					var allSum=$('#sum').val();
+					var rows=$(del).parent().parent().parent().prevAll().length;
+					var CartCount=$('.headerCartCount').text();
+					getSuccessMsg(data.message);				
+					
+					$(del).parent().parent().parent().remove();
+					if($('#cartUl li').length==0){
+						$('#cartUl').append(
+							'<li>暂无商品</li>'
+						);
+					}
+					$('#tbb tr:eq('+rows+')').remove();
+					$('.allSum').text(allSum-sum);
+					$('.headerCartCount').text(--CartCount);
+				}else{
+					getFailMsg(data.msg);
+				}
+			});
+		}
+		
+		function getSuccessMsg(msg) {
+	  		$.message({
+	  	        message:msg,
+	  	        type:'success',
+	  	        duration:'3000'
+	  	    });
+	  	}
+	  	function getInfoMsg(msg) {
+	  		$.message({
+	  	        message:msg,
+	  	        type:'info',
+	  	        duration:'3000'
+	  	    });
+	  	}
+	  	function getFailMsg(msg) {
+	  		$.message({
+	  	        message:msg,
+	  	        type:'error',
+	  	        duration:'3000'
+	  	    });
+	  	}
+		</script>
        <div class="main-header-wrap">
            <div class="container">
                <div class="row">
@@ -53,60 +107,63 @@
                    <div class="col-xl-3 col-lg-3">
                        <div class="header-right-wrap pt-40">
                            <div class="header-search">
-                               <a class="search-active" href="#"><i class="sli sli-magnifier"></i></a>
+                               <a class="search-active" href="javascript:void(0)"><i class="sli sli-magnifier"></i></a>
                            </div>
-                           <div class="cart-wrap">
-                               <button class="icon-cart-active">
-                                   <span class="icon-cart">
-                                       <i class="sli sli-bag"></i>
-                                       <span class="count-style">02</span>
-                                   </span>
-                                   <span class="cart-price">
-                                   		￥320.00
-                                   </span>
-                               </button>
-                               <div class="shopping-cart-content">
-                                   <div class="shopping-cart-top">
-                                       <h4>购物车</h4>
-                                       <a class="cart-close" href="#"><i class="sli sli-close"></i></a>
-                                   </div>
-                                   <ul>
-                                       <li class="single-shopping-cart">
-                                           <div class="shopping-cart-img">
-                                               <a href="#"><img alt="" src="assets/img/cart/cart-1.jpg"></a>
-                                               <div class="item-close">
-                                                   <a href="#"><i class="sli sli-close"></i></a>
-                                               </div>
-                                           </div>
-                                           <div class="shopping-cart-title">
-                                               <h4><a href="#">商品名 </a></h4>
-                                               <span>1 x 90.00</span>
-                                           </div>
-                                       </li>
-                                       <li class="single-shopping-cart">
-                                           <div class="shopping-cart-img">
-                                               <a href="#"><img alt="" src="assets/img/cart/cart-2.jpg"></a>
-                                               <div class="item-close">
-                                                   <a href="#"><i class="sli sli-close"></i></a>
-                                               </div>
-                                           </div>
-                                           <div class="shopping-cart-title">
-                                               <h4><a href="#">商品名</a></h4>
-                                               <span>1 x 90.00</span>
-                                           </div>
-                                       </li>
-                                   </ul>
-                                   <div class="shopping-cart-bottom">
-                                       <div class="shopping-cart-total">
-                                           <h4>总价 : <span class="shop-total">￥260.00</span></h4>
-                                       </div>
-                                       <div class="shopping-cart-btn btn-hover text-center">
-                                           <a class="default-btn" href="checkout">结算</a>
-                                           <a class="default-btn" href="seeCart">查看购物车</a>
-                                       </div>
-                                   </div>
-                               </div>
-                           </div>
+                           <%-- <c:if test="${empty loginUser}">
+                            	<div>
+                                    <h6>您尚未登录&nbsp;&nbsp;&nbsp;<a href="#">去登录</a></h6>
+                                </div>
+                           </c:if> --%>
+                           <%-- <c:if test="${!empty loginUser}"> --%>
+	                           <div class="cart-wrap">
+	                               <button class="icon-cart-active">
+	                                   <span class="icon-cart">
+	                                       <i class="sli sli-bag"></i>
+	                                       <span class="count-style headerCartCount">${fn:length(cartProductList)}</span>
+	                                   </span>
+	                                   <span>￥<font class="cart-price allSum">${allSum}</font></span>
+	                               </button>
+	                               <div class="shopping-cart-content">
+	                                   <div class="shopping-cart-top">
+	                                       <h4>购物车</h4>
+	                                       <a class="cart-close" href="#"><i class="sli sli-close"></i></a>
+	                                   </div>
+	                                   <ul style="height: 250px;" id="cartUl">
+	                                   
+	                                   		<c:if test="${empty cartProductList}">
+	                                   			<li>暂无商品</li>
+	                                   		</c:if>
+	                                   		<c:if test="${!empty cartProductList}">
+		                                   		<c:forEach items="${cartProductList}" var="cartProduct">
+													<li class="single-shopping-cart">
+			                                           <div class="shopping-cart-img">
+			                                               <a href="#"><img alt="" src="${cartProduct.product.images[0].imgpath }"></a>       
+			                                           </div>
+			                                           <div class="shopping-cart-title" style="width: 100px;overflow: hidden;">
+			                                               <h4><a href="#">${cartProduct.product.productname}</a></h4>
+			                                               <span>${cartProduct.count} x ${cartProduct.product.price}</span>
+			                                           </div>
+			                                           <div class="item-close" style="margin-left: 20px">
+		                                                   <a href="#"><i class="sli sli-close" onclick="headerDelCart(this)"></i></a>
+		                                                   <input type="hidden" value="${cartProduct.id}">
+		                                                   <input type="hidden" value="${allSum}" id="sum">
+		                                               </div>
+			                                       </li>
+		                                   		</c:forEach>
+		                                   	</c:if>
+	                                   </ul>
+	                                   <div class="shopping-cart-bottom">
+	                                       <div class="shopping-cart-total">
+	                                           <h4>总价 : <span>￥<span class="shop-total allSum">${allSum}</span></span></h4>
+	                                       </div>
+	                                       <div class="shopping-cart-btn btn-hover text-center">
+	                                           <a class="default-btn" href="checkout">结算</a>
+	                                           <a class="default-btn" href="seeCart">查看购物车</a>
+	                                       </div>
+	                                   </div>
+	                               </div>
+	                           </div>
+                          <%--  </c:if> --%>
                            <div class="setting-wrap">
                                <button class="setting-active">
                                    <i class="sli sli-settings"></i>
