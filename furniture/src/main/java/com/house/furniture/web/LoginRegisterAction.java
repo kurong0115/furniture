@@ -1,27 +1,19 @@
 package com.house.furniture.web;
 
-import java.util.Map;
-import java.util.Map.Entry;
+
 import java.util.Random;
-
 import javax.annotation.Resource;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.house.furniture.bean.User;
 import com.house.furniture.service.UserService;
 import com.house.furniture.util.MyUtils;
@@ -41,12 +33,8 @@ public class LoginRegisterAction {
 
 	@PostMapping("login.do")
 	@ResponseBody
-	public Result login(String username, String password, String code, String cheack, HttpSession session) {
+	public Result login(String username, String password, String code,  HttpSession session) {
 		String msg = "";
-		if( username.trim() == ""  || password.trim() == "" || code.trim() == "") {
-			msg = "请输入完整的信息！";
-			return new Result(Result.EXECUTION_FAILED, msg);
-		}
 		// 根据用户名和密码查询
 		User user = userservice.login(username, password);
 		// 获取正确的验证码
@@ -55,11 +43,9 @@ public class LoginRegisterAction {
 			if (user == null) {// 登录失败
 				msg = "用户名或者密码输入错误！";
 				return new Result(Result.EXECUTION_FAILED, msg);
-			} else {// 登录成功,跳转到主页
-				if (cheack.trim() == "1" || cheack.trim().equals("1")) {
-					// 登陆成功，将用户添加到会话当中
-					session.setAttribute("user", user);
-				}
+			} else {
+				// 登陆成功，将用户添加到会话当中
+				session.setAttribute("user", user);
 				msg = "登录成功!";
 				return new Result(Result.EXECUTION_SUCCESS, msg);
 			}
@@ -73,22 +59,24 @@ public class LoginRegisterAction {
 	@ResponseBody
 	public Result reg(String username, String password,String email,String code,HttpSession session) {
 		String msg = "";
-		if( username.trim() == ""  || password.trim() == "" || email.trim() == "" || code.trim()=="") {
-			msg = "请输入完整的信息！";
-			return new Result(Result.EXECUTION_FAILED, msg);
+		
+		 if( username.trim() == "" || password.trim() == "" || email.trim() == "" || code.trim()=="") {
+			 msg = "请输入完整的信息！"; return new
+			 Result(Result.EXECUTION_FAILED, msg); 
 		}
+		 
 		//判断邮箱格式是否正确
 		if( !MyUtils.isEmail(email) ) {
 			msg = "邮箱格式不正确，请重新输入！";
 			return new Result(Result.EXECUTION_FAILED, msg);
 		}
-		
 		String realCode = (String)session.getAttribute("realCode");
+		System.out.println(realCode);
+		System.out.println(code);
 		if( !code.equals(realCode) ) {
 			msg = "验证码输入错误！";
 			return new Result(Result.EXECUTION_FAILED, msg);
 		}
-		
 		//根据用户名判断用户是否可以注册
 		User user1 = userservice.selectByUsername(username);
 		
@@ -122,24 +110,15 @@ public class LoginRegisterAction {
 	
 	@PostMapping("forgetPassword.do")
 	@ResponseBody
-	public Result resertPassword(String username ,String password1,String password2,String email,String code) {
+	public Result resertPassword(String username ,String password,String email,String code) {
 		String msg = "";
-		if( username.trim() == ""  || password1.trim() == "" || code.trim() == "" || password2.trim() == "" || email.trim() == "") {
-			msg = "请输入完整的信息！";
-			return new Result(Result.EXECUTION_FAILED, msg);
-		}
 		User user = userservice.selectByUsernameAndEmail(username, email);
 		if( user == null ) {
 			msg = "邮箱与用户名不对应！";
 			return new Result(Result.EXECUTION_FAILED, msg);
 		}
-		
-		if( !password1.equals(password2) ) {
-			msg = "两次密码输入不一致！";
-			return new Result(Result.EXECUTION_FAILED, msg);
-		}
 		//将新的密码设置到用户里面
-		user.setPassword(password1);
+		user.setPassword(password);
 		Integer result = userservice.resertPassword(user);
 		if( result == 1 ) {
 			msg = "修改成功!";
@@ -163,9 +142,12 @@ public class LoginRegisterAction {
 		mailSender.send(message);
 	}
 	
-	@PostMapping("email")
+	@PostMapping("send")
 	@ResponseBody
-	public Result send(String email,Model model) {
+	public Result send(String email,HttpSession session) {
+		if( !MyUtils.isEmail(email) ) {
+			return new Result(Result.EXECUTION_FAILED,"请输入正确的邮箱地址");
+		}
 		String str="0123456789";
 		StringBuilder sb=new StringBuilder(4);
 		for(int i=0;i<4;i++){
@@ -173,23 +155,17 @@ public class LoginRegisterAction {
 			sb.append(ch);
 		}
 		String realCode = sb.toString();
-		model.addAttribute("realCode", realCode);
+		//将验证码加入session中
+		session.setAttribute("realCode", realCode);
 		String content = "您的验证码为：" + realCode;
-		if( email.equals("") || email == "" ) {
-			return new Result(Result.EXECUTION_FAILED,"请输入邮箱地址");
-		}
+		
 		sendMail(email, "密码修改邮件", content);
 		return new Result(Result.EXECUTION_SUCCESS,"发送成功！");
 	}
-	
-	
 		
 	@PostMapping("forgetCount.do")
 	@ResponseBody
 	public Result searchCount(String email) {
-		if( email.equals("") || email == "" ) {
-			return new Result(Result.EXECUTION_FAILED,"请输入邮箱地址");
-		}
 		if( !MyUtils.isEmail(email) ) {
 			return new Result(Result.EXECUTION_FAILED,"请输入正确的邮箱地址");
 		}
@@ -197,11 +173,6 @@ public class LoginRegisterAction {
 		String content = "您邮箱对应的账号是：" + user.getName();
 		sendMail(email, "查找账号邮件", content);
 		return new Result(Result.EXECUTION_SUCCESS,"账号已发送至您的邮箱,请查收!");
-	}
-	
-	@GetMapping("test")
-	public String test() {
-		return "test";
 	}
 	
 	/**

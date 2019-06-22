@@ -12,7 +12,7 @@
     <!-- 引入首部链接 -->
     <%@include file="common/header_link.jsp" %>
    	<!-- 引入login-register.js文件 -->
-	<script src="assets/js/login-register.js"></script>
+	<script src="assets/js/forgetPassword.js"></script>
 
 </head>
 
