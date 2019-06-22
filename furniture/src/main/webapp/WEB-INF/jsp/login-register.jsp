@@ -76,6 +76,7 @@
                                             <input type="password" id="RegPassword1" placeholder="重复密码">
                                             <input id="email" placeholder="邮箱" type="email" style="width: 60%">
                                             <button type="button" onclick="sendCode()">发送邮件</button>
+                                            <input type="button" value="免费获取验证码" onclick="getUpdateCode(this)"/> 
                                             <input type="text" id="regCode" placeholder="验证码">
                                             <div class="button-box">
                                                 <button type="button" onclick="reg()">注册</button>
