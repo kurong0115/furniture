@@ -58,12 +58,6 @@ public interface UserService {
 	public int isExist(String type, String str);
 	
 	/**
-	 * 判断邮箱是否被占用（1：成功，0：被占用）
-	 * @param name
-	 * @return
-	 */
-	
-	/**
 	 * 新增用户
 	 * @param user
 	 */
