@@ -13,7 +13,12 @@ public class User {
         return id;
     }
 
-    public void setId(Integer id) {
+    @Override
+	public String toString() {
+		return "User [id=" + id + ", name=" + name + ", password=" + password + ", email=" + email + "]";
+	}
+
+	public void setId(Integer id) {
         this.id = id;
     }
 

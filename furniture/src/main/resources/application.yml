@@ -7,7 +7,7 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/furniture?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
     username: root
-    password: a
+    password: aaaaaaaa
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   # springboot默认开启文件上传
@@ -36,7 +36,9 @@ logging:
    house:
     furniture:
      dao: debug
+     action: warn
      web: warn
+
 
 
 

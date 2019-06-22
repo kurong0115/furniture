@@ -503,15 +503,17 @@
     /*---------------------
         Price slider
     --------------------- */
+    
     var sliderrange = $('#slider-range');
     var amountprice = $('#amount');
+    
     $(function() {
-        sliderrange.slider({
+        sliderrange.slider({      	
             range: true,
-            min: 16,
-            max: 400,
-            values: [0, 300],
-            slide: function(event, ui) {
+            min: 1,
+            max: 30000,
+            values: [1, 30000],
+            slide: function(event, ui) {         
                 amountprice.val("￥" + ui.values[0] + " - ￥" + ui.values[1]);
             }
         });
@@ -740,6 +742,4 @@
 	        duration:'3000'
 	    });
 	}
-	
-    
 })(jQuery);
