@@ -7,7 +7,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Parlo - eCommerce Bootstrap 4 Template</title>
+    <title>登录 / 注册</title>
     
     <!-- 引入首部链接 -->
     <%@include file="common/header_link.jsp" %>
@@ -74,10 +74,12 @@
                                             <input type="text" id="RegUsername" placeholder="用户名">
                                             <input type="password" id="RegPassword" placeholder="密码">
                                             <input type="password" id="RegPassword1" placeholder="重复密码">
-                                            <input id="email" placeholder="邮箱" type="email" style="width: 60%">
-                                            <button type="button" onclick="sendCode()">发送邮件</button>
-                                            <input type="button" value="免费获取验证码" onclick="getUpdateCode(this)"/> 
-                                            <input type="text" id="regCode" placeholder="验证码">
+                                            <div>
+                                            	<input id="email" placeholder="邮箱" type="email" style="width: 60%">
+                                           		<input type="button" value="获取验证码" onclick="sendCode()" id="getCodeByEmail" style="width: 38%">
+                                            </div>
+                                            
+                                            <input type="text" id="regCode" placeholder="验证码" >
                                             <div class="button-box">
                                                 <button type="button" onclick="reg()">注册</button>
                                             </div>
