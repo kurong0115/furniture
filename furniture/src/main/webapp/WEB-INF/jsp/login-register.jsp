@@ -11,67 +11,8 @@
     
     <!-- 引入首部链接 -->
     <%@include file="common/header_link.jsp" %>
-    <!-- jQuery JS -->
-	 <script type="text/javascript">
-          function login(){
-			if( $("#cheack").get(0).checked ){
-				var cheack = "1";
-			}else{
-				cheack = "2";
-			}
-        	$.ajax({
-       			url:"login.do",
-       			type:'POST',
-       			data:{
-       				username:$("input[name='username']").val(),
-       				password:$("input[name='password']").val(),
-       				code:$("input[name='code']").val(),
-       				cheack:cheack
-       			},
-       			dataType:"json",
-       			success:function(data){
-       				if( data.message == '登录成功' ){
-       					getSuccessMsg(data.message);
-       					window.location.href='index';
-       				}else{
-       					getInfoMsg(data.message);
-       				}
-       			},error:function(){
-       				getFailMsg('出现异常了，刷新试试！');
-       			}	
-     	  	});
-        }
-          
- 
-		function updateCode() {
-			var img=document.getElementById("code");
-			//相同的url请求，浏览器会在缓存里加载数据并不会往服务器重新发送，所以后面加一个随机数
-			img.src="createCode?"+Math.random();
-		}
-		
-          
-        function getSuccessMsg(msg) {
-      		$.message({
-      	        message:msg,
-      	        type:'success',
-      	        duration:'3000'
-      	    });
-      	}
-      	function getInfoMsg(msg) {
-      		$.message({
-      	        message:msg,
-      	        type:'info',
-      	        duration:'3000'
-      	    });
-      	}
-      	function getFailMsg(msg) {
-      		$.message({
-      	        message:msg,
-      	        type:'error',
-      	        duration:'3000'
-      	    });
-      	}
-        </script>
+   	<!-- 引入login-register.js文件 -->
+	<script src="assets/js/login-register.js"></script>
 
 </head>
 
@@ -237,11 +178,11 @@
                                     <div class="login-register-form">
                                         <form action="" method="post">
 	                                        <c:choose>
-	                                         	<c:when test="${username==null || username==''}">
+	                                         	<c:when test="${user.name==null || user.name==''}">
 	                                         		<input type="text" name="username" placeholder="用户名">
 	                                         	</c:when>
-	                                         	<c:when test="${username != null || username != '' }">
-		                                            <input type="text" name="username" placeholder="用户名" value="${username}">
+	                                         	<c:when test="${user.name != null || user.name != '' }">
+		                                            <input type="text" name="username" placeholder="用户名" value="${user.name}">
 	                                         	</c:when>
 	                                        </c:choose>
                                             <input type="password" name="password" placeholder="密码">
@@ -252,25 +193,25 @@
                                                 <div class="login-toggle-btn">
                                                     <input type="checkbox" id="cheack" >
                                                     <label>记住账号</label>
-                                                    <a href="#">忘记密码?</a>
+                                                    <a href="forgetPassword">忘记密码?</a>
                                                 </div>
                                                 <button type="button" onclick="login()">登录</button>
-                                               	
                                             </div>
                                         </form>
                                     </div>
                                 </div>
-                            </div>
-                            
+                            </div>  
                             <div id="lg2" class="tab-pane">
                                 <div class="login-form-container">
                                     <div class="login-register-form">
-                                        <form action="#" method="post">
-                                            <input type="text" name="user-name" placeholder="Username">
-                                            <input type="password" name="user-password" placeholder="Password">
-                                            <input name="user-email" placeholder="Email" type="email">
+                                        <form action="" method="post">
+                                            <input type="text" id="RegUsername" placeholder="用户名">
+                                            <input type="password" id="RegPassword" placeholder="密码">
+                                            <input id="email" placeholder="邮箱" type="email" style="width: 60%">
+                                            <button type="button" onclick="sendCode()">发送邮件</button>
+                                            <input type="text" id="code" placeholder="验证码">
                                             <div class="button-box">
-                                                <button type="submit">注册</button>
+                                                <button type="button" onclick="reg()">注册</button>
                                             </div>
                                         </form>
                                     </div>

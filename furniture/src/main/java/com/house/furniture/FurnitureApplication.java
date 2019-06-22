@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 
 
-@SpringBootApplication(scanBasePackages = {"com.house"})
-@MapperScan("com.house.furniture.dao")
+@SpringBootApplication(scanBasePackages = {"com.house.furniture"})
+@MapperScan(basePackages = {"com.house.furniture.dao","com.house.furniture.bean"})
 public class FurnitureApplication {
 
 	public static void main(String[] args) {

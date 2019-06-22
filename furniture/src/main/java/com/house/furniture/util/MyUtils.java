@@ -8,6 +8,8 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpSession;
 
@@ -66,5 +68,16 @@ public class MyUtils {
 		}
 		return "";
 	}
-	
+	/**
+	 * 判断是否是邮箱格式，默认不加www.
+	 * @param email
+	 * @return
+	 */
+	public static boolean isEmail(String email) {
+		String str="^([a-zA-Z0-9]*[-_]?[a-zA-Z0-9]+)*@([a-zA-Z0-9]*[-_]?[a-zA-Z0-9]+)+[\\.][A-Za-z]{2,3}([\\.][A-Za-z]{2})?$";
+	    Pattern p = Pattern.compile(str);
+	    Matcher m = p.matcher(email);
+	    return m.matches();
+	}
+		
 }
