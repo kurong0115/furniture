@@ -110,6 +110,7 @@ function login(){
    			success:function(data){
    				if( data.message == '发送成功！' ){
    					getSuccessMsg(data.message);
+   					
    				}else{
    					getInfoMsg(data.message);
    				}		

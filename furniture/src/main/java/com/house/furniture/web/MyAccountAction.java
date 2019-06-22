@@ -4,13 +4,11 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.house.furniture.bean.Order;
 import com.house.furniture.bean.User;
 import com.house.furniture.service.OrderService;
-import com.house.furniture.service.UserService;
 
 @Controller
 public class MyAccountAction {
