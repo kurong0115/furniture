@@ -7416,4 +7416,40 @@ h3.cart-page-title {
   font-size: 14px;
   padding: 20px 0; }
 
+.box-mask {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: #000;
+	opacity: 0.5;
+	filter: alpha(opacity=50);
+	z-index: 99;
+	display: none;
+}
+.box {
+	position: absolute;
+	width: 200px;
+	height: 100px;
+	border: 1px solid #ccc;
+	background: #F0F0F0;
+	text-align: center;
+	z-index: 101;
+	display: none;
+}
+.btnDel {
+	font: "Î¢ÈíÑÅºÚ";
+	font-size: 14px;
+	width: 125px;
+	height: 33px;
+	line-height: 33px;
+	vertical-align: middle;
+	background-image: url(images/btn.png);
+	background-repeat: no-repeat;
+	border: 0px !important;
+	color: #fff;
+	cursor: pointer;
+	background-color: transparent;
+}
 /*-------- Start My Account Page Wrapper --------*/
