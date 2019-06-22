@@ -3,9 +3,9 @@ package com.house.furniture.vo;
 
 /**
  * 
-  *  类描述: 用户返回结果的展示
+ * 类描述: 用户返回结果的展示
  * @author Administrator
-  *  创建时间: 2019年6月3日下午8:38:03
+ * 创建时间: 2019年6月3日下午8:38:03
  */
 public class Result {
 	public static final Integer EXECUTION_FAILED = 0;

@@ -8,6 +8,22 @@ public class Cart {
     private Integer pid;
 
     private Integer count;
+    
+    private Product product;
+
+	@Override
+	public String toString() {
+		return "Cart [id=" + id + ", uid=" + uid + ", pid=" + pid + ", count=" + count + ", product="
+				+ product + "]";
+	}
+
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
+	}
 
     public Integer getId() {
         return id;

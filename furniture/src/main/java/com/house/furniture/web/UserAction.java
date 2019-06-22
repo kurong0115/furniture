@@ -45,6 +45,15 @@ public class UserAction {
 	// 保存新增用户信息
 	@RequestMapping("save")
 	public Result save(@Valid User user, Errors errors) {
+		if(us.isExist("name", user.getName()) == 0) {
+			//用户名被占用
+			return new Result(2, "用户名被占用");
+		}
+		if(us.isExist("email", user.getEmail()) == 0) {
+			//邮箱被占用
+			return new Result(2, "邮箱被占用");
+		}
+		
 		if(errors.hasErrors()) {
 			return new Result(Result.EXECUTION_FAILED, "用户新增失败", errors.getAllErrors());
 		}else {

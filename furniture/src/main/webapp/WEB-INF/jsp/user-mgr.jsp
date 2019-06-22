@@ -33,6 +33,19 @@
 		$('#dlg').dialog('open');
 	}
 	
+	//新增时，ajax判断用户名和邮箱是否被占用
+	/* $(function() {
+		//用户名判断
+		$('#exist').next('span').children().first().blur(function(){
+			$.post("user/save",{
+				name : $('#exist').val()
+			},function(data){
+				data = JSON.parse(data);
+				if(data)
+			});
+		});
+	}); */
+	
 	// 保存编辑信息
 	function save(){
 		$('#ff').form('submit',{
@@ -42,22 +55,23 @@
 			},
 			success: function(data){	//data是json字符串而不是json对象
 				data = JSON.parse(data);
-				//消息框弹窗
-				$.messager.alert("提醒", data.message);
-				//alert(data.message);
-				if(data.code == 1){
-					$('#dg').datagrid('reload');
-					$('#dlg').dialog('close');
-				}else{
-					// console.info(data); 在服务器控制台输出Result，查看报错信息结构
+				if(data.code == 0){
 					// 提示错误信息
 					for(var i = 0; i < data.data.length; i++){
-						alert(data.data[i].defaultMessage);
+						$.messager.alert("提醒", data.data[i].defaultMessage);
 					}
+				}else {
+					if(data.code == 1){
+						$('#dg').datagrid('reload');
+						$('#dlg').dialog('close');
+					}
+					//消息框弹窗
+					$.messager.alert("提醒", data.message);
 				}
 			}
 		});
 	}
+	
 	
 	// 头像格式化
 	function fmtimgs(value, row, index){
@@ -173,7 +187,7 @@
 			<input type="hidden" name="head" id="head">
 			<input type="file" name="file" style="display: none;" onchange="upload()">
 			
-			<input class="easyui-textbox" name="name" data-options="label:'用户名',width:400"><br/>
+			<input class="easyui-textbox" name="name" data-options="label:'用户名',width:400" id="nameExist"><br/>
 			<input class="easyui-textbox" name="password" data-options="label:'密码',width:400"><br/>
 			<input class="easyui-textbox" name="email" data-options="label:'邮箱',width:400"><br/>
 		</form>

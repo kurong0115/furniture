@@ -36,7 +36,9 @@ logging:
    house:
     furniture:
      dao: debug
+     action: warn
      web: warn
+
 
 
 

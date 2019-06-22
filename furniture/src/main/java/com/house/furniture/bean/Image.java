@@ -1,7 +1,11 @@
 package com.house.furniture.bean;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(value = { "handler" })
 public class Image {
-    private Integer imgid;
+   
+	private Integer imgid;
 
     private String imgpath;
 

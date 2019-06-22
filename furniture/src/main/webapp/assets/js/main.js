@@ -276,7 +276,7 @@
     $('.quickview-slide-active a').on('click', function() {
         $('.quickview-slide-active a').removeClass('active');
     })
-    
+
     /*----------------------------
     	Cart Plus Minus Button
     ------------------------------ */
@@ -287,6 +287,8 @@
         var $button = $(this);
         var oldValue = $button.parent().find("input").val();
         var price = $button.parent().parent().prev().find("span").text();
+        var sum=$button.parent().parent().next().find("span").text();
+        var allSum=$('#allSum').text();
         var newVal=null;
         if ($button.text() === "+") {
             newVal = parseFloat(oldValue) + 1;
@@ -299,11 +301,13 @@
                 getInfoMsg("别再减了，再减就没了");
             }
         }
-        var newPrice = parseFloat(price)*newVal;
-        $button.parent().parent().next().find("span").text(newPrice);
+        var newSum = parseFloat(price)*newVal;
+        
+        $button.parent().parent().next().find("span").text(newSum);       
+        var newAllSum=allSum-sum+newSum;
+        $('#allSum').text(newAllSum);
         $button.parent().find("input").val(newVal);
     });
-    
     
     /*--
     instafeed
@@ -483,15 +487,17 @@
     /*---------------------
         Price slider
     --------------------- */
+    
     var sliderrange = $('#slider-range');
     var amountprice = $('#amount');
+    
     $(function() {
-        sliderrange.slider({
+        sliderrange.slider({      	
             range: true,
-            min: 16,
-            max: 400,
-            values: [0, 300],
-            slide: function(event, ui) {
+            min: 1,
+            max: 30000,
+            values: [1, 30000],
+            slide: function(event, ui) {         
                 amountprice.val("￥" + ui.values[0] + " - ￥" + ui.values[1]);
             }
         });
@@ -720,6 +726,4 @@
 	        duration:'3000'
 	    });
 	}
-    
-    
 })(jQuery);

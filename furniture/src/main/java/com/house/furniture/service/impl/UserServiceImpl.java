@@ -10,17 +10,71 @@ import com.house.furniture.bean.User;
 import com.house.furniture.bean.UserExample;
 import com.house.furniture.bean.UserExample.Criteria;
 import com.house.furniture.dao.AddressMapper;
+import java.util.List;
+
+import org.springframework.context.annotation.ComponentScan;
 import com.house.furniture.dao.UserMapper;
 import com.house.furniture.service.UserService;
 
 @Service
+@ComponentScan(basePackages = {"com.house.furniture.dao","com.house.furniture.bean"})
 public class UserServiceImpl implements UserService {
+
 	@Resource
 	UserMapper userMapper;
 	
 	@Resource
 	AddressMapper address;
 
+	@Override
+	public User login(String username, String password) {
+		UserExample userExample = new UserExample();
+		userExample.createCriteria().andNameEqualTo(username.trim()).andPasswordEqualTo(password.trim());
+		List<User> user =  userMapper.selectByExample(userExample);
+		return user.size() == 0 ? null : user.get(0);
+	}
+	
+	@Override
+	public Integer reg(String username, String password, String email) {
+		User user = new User();
+		user.setName(username);
+		user.setPassword(password);
+		user.setEmail(email);
+		Integer inner =  userMapper.insert(user);
+		return inner;
+	}
+	
+	@Override
+	public User selectByUsername(String username) {
+		UserExample userExample = new UserExample();
+		userExample.createCriteria().andNameEqualTo(username.trim());
+		List<User> user =  userMapper.selectByExample(userExample);
+		return user.size() == 0 ? null : user.get(0);
+	}
+
+	@Override
+	public User selectByEmail(String email) {
+		UserExample userExample = new UserExample();
+		userExample.createCriteria().andEmailEqualTo(email.trim());
+		List<User> user =  userMapper.selectByExample(userExample);
+		return user.size() == 0 ? null : user.get(0);
+	}
+
+	@Override
+	public User selectByUsernameAndEmail(String username, String email) {
+		UserExample userExample = new UserExample();
+		userExample.createCriteria().andNameEqualTo(username.trim()).andEmailEqualTo(email.trim());
+		List<User> user =  userMapper.selectByExample(userExample);
+		return user.size() == 0 ? null : user.get(0);
+	}
+
+	@Override
+	public Integer resertPassword(User user) {
+		Integer result = userMapper.updateByPrimaryKey(user);
+		return result;
+	}
+	
+	
 	@Override
 	public Page<User> selectAllUser(User user , int page, int size) {
 		UserExample ue = new UserExample();
@@ -39,6 +93,27 @@ public class UserServiceImpl implements UserService {
 		return p;
 	}
 	
+	
+	@Override
+	public int isExist(String type, String str) {
+		if("".equals(str)) {
+			return 1;
+		}
+		UserExample ue = new UserExample();
+		if("name".equals(type)) {
+			ue.createCriteria().andNameEqualTo(str);
+		}else if("email".equals(type)) {
+			ue.createCriteria().andEmailEqualTo(str);
+		}
+		List<User> list = userMapper.selectByExample(ue);
+		if(list.size() > 0) {
+			//被占用
+			return 0;
+		}else {
+			return 1;
+		}
+	}
+	@Override
 	public void save(User user) {
 		userMapper.insertSelective(user);
 	}
@@ -49,5 +124,4 @@ public class UserServiceImpl implements UserService {
 		address.selectByUid(uid);
 		return p;
 	}
-
 }
