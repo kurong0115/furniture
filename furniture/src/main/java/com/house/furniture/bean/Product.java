@@ -3,9 +3,12 @@ package com.house.furniture.bean;
 import java.sql.Timestamp;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(value = { "handler" })
 public class Product {
 	
-    private Integer pid;
+	private Integer pid;
 
     private String productname;
 

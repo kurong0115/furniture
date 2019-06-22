@@ -9,12 +9,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageHelper;
 import com.house.furniture.bean.Category;
 import com.house.furniture.bean.Product;
 import com.house.furniture.service.CategoryService;
 import com.house.furniture.service.ProductService;
+import com.house.furniture.vo.Result;
 
 @Controller
 public class ShopAction {
@@ -48,5 +50,27 @@ public class ShopAction {
 		List<Product> productList = productService.listProductByCondition(condition);
 		model.addAttribute("productList", productList);
 		return "shop";
+	}
+	
+	@GetMapping(value = "item") 
+	@ResponseBody
+	public Result selectProductByItem(@RequestParam(value = "onSale", required = false) String onSale, 
+			@RequestParam(value = "newProduct", required = false) String newProduct,
+			@RequestParam(value = "min", defaultValue = "1") double min, 
+			@RequestParam(value = "max", defaultValue = "20000") double max, 
+			@RequestParam(value = "cid") int cid) {
+		List<Product> productList = productService.selectProductByItem(onSale, newProduct, min, max, cid);
+		return new Result(Result.EXECUTION_SUCCESS, "", productList);
+	}
+	
+	@GetMapping(value = "quickView")
+	@ResponseBody
+	public Result getProductById(int pid) {
+		Product product = productService.getProductById(pid);
+		if (product == null) {
+			return new Result(Result.EXECUTION_FAILED, "该产品不存在");
+		} else {
+			return new Result(Result.EXECUTION_SUCCESS, "", product);
+		}
 	}
 }
