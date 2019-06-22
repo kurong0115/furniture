@@ -27,7 +27,7 @@ function login(){
 		success:function(data){
 			if( data.message == '登录成功!' ){
 				getSuccessMsg(data.message);
-				window.history.go(-1);
+				window.location.href='index';
 			}else{
 				getInfoMsg(data.message);
 			}

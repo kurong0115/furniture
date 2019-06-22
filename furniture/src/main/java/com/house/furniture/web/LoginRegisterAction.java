@@ -175,6 +175,12 @@ public class LoginRegisterAction {
 		return new Result(Result.EXECUTION_SUCCESS,"账号已发送至您的邮箱,请查收!");
 	}
 	
+	@RequestMapping("loginOut")
+	public String loginOut(HttpSession session) {
+		session.setAttribute("user", null);
+		return "login-register";
+	}
+	
 	/**
 	 * 返回创建验证码视图
 	 * 

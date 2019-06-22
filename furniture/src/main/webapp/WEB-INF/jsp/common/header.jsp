@@ -34,6 +34,12 @@
 			});
 		}
 		
+		function loginOut(){
+			var flag = confirm("您确认注销当前账号吗？");
+			
+			return flag;
+		}
+		
 		function getSuccessMsg(msg) {
 	  		$.message({
 	  	        message:msg,
@@ -173,7 +179,7 @@
                                            <h4>账户</h4>
 	                                       <ul>
                                                 <li><a href="my-account">我的账户</a></li>
-                                                <li><a href="#">注销</a>
+                                                <li><a href="loginOut" onclick="return loginOut();">注销</a>
                                            </ul>
                                        </li>
                                    </ul>

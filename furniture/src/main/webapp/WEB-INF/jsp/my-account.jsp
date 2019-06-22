@@ -13,6 +13,7 @@
 <div class="wrapper">
     <!-- 引入首部 -->
     <%@include file="common/header.jsp" %>
+    <script src="assets/js/myAccount.js"></script>
     <div class="breadcrumb-area pt-35 pb-35 bg-gray">
         <div class="container">
             <div class="breadcrumb-content text-center">
@@ -40,10 +41,10 @@
                                     	<i class="fa fa-dashboard"></i>操作</a>   
                                     <a href="#orders" data-toggle="tab"><i class="fa fa-cart-arrow-down"></i> 订单</a>    
                                     <a href="#download" data-toggle="tab"><i class="fa fa-cloud-download"></i> 下载</a>    
-                                    <a href="#payment-method" data-toggle="tab"><i class="fa fa-credit-card"></i> 付款方式</a>    
+                                       
                                     <a href="#address-edit" data-toggle="tab"><i class="fa fa-map-marker"></i> 地址</a>    
                                     <a href="#account-info" data-toggle="tab"><i class="fa fa-user"></i> 帐户详细信息</a>    
-                                    <a href="login-register"><i class="fa fa-sign-out"></i> 注销</a>
+                                    <a href="loginOut" onclick="return loginOut();"><i class="fa fa-sign-out"></i> 注销</a>
                                 </div>
                             </div>
                             <!-- My Account Tab Menu End -->    
@@ -55,7 +56,7 @@
                                         <div class="myaccount-content">
                                             <h3>用户面板</h3>    
                                             <div class="welcome">
-                                                <p>您好, <strong>${user.name}</strong> (如果你不是 <strong>${user.name} !</strong><a href="login-register" class="logout"> 请注销</a>)</p>
+                                                <p>您好, <strong>${user.name}</strong></p>
                                             </div>
     
                                             <p class="mb-0">从您的用户面板。您可以轻松地检查和查看您最近的订单，管理您的发货和账单地址，并编辑您的密码和帐户详细信息。</p>
@@ -103,26 +104,23 @@
                                                         <th>下载</th>
                                                     </tr>
                                                     </thead>    
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>Haven - Free Real Estate PSD Template</td>
-                                                            <td>Aug 22, 2018</td>
-                                                            <td>Yes</td>
-                                                            <td><a href="#" class="check-btn sqr-btn "><i class="fa fa-cloud-download"></i> 下载文件</a></td>
-                                                        </tr>
-                                                    </tbody>
+                                                    <c:forEach items="${myOrder }"  var="m">
+	                                                    <tbody>
+	                                                        <tr>
+	                                                            <td>${m.orderno}</td>
+	                                                            <td>${m.createtime}</td>
+	                                                            <td>Yes</td>
+	                                                            <td><a href="#" class="check-btn sqr-btn "><i class="fa fa-cloud-download"></i> 下载文件</a></td>
+	                                                        </tr>
+	                                                    </tbody>
+                                                    </c:forEach>
                                                 </table>
                                             </div>
                                         </div>
                                     </div>
                                     <!-- Single Tab Content End -->    
                                     <!-- Single Tab Content Start -->
-                                    <div class="tab-pane fade" id="payment-method" role="tabpanel">
-                                        <div class="myaccount-content">
-                                            <h3>付款方式</h3>
-                                            <p class="saved-message">您还不能选择您的付款方式.</p>
-                                        </div>
-                                    </div>
+                                    
                                     <!-- Single Tab Content End -->    
                                     <!-- Single Tab Content Start -->
                                     <div class="tab-pane fade" id="address-edit" role="tabpanel">
