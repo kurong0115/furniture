@@ -26,14 +26,14 @@
                                    <li><a href="contact-us"> 联系我们 </a></li>
                                    <li class="angle-shape"><a href="#">更多 </a>
                                        <ul class="submenu">
-                                           <li><a href="about-us.html">about us </a></li>
-                                           <li><a href="cart-page.html">cart page </a></li>
-                                           <li><a href="checkout">checkout </a></li>
+                                           <li><a href="about-us.html">关于我们 </a></li>
+                                           <li><a href="cart-page.html">购物车 </a></li>
+                                           <li><a href="checkout">结算 </a></li>
                                            <li><a href="compare-page.html">compare </a></li>
                                            <li><a href="wishlist.html">wishlist </a></li>
-                                           <li><a href="my-account">my account </a></li>
+                                           <li><a href="my-account">我的账户 </a></li>
                                            <li><a href="contact-us">contact us </a></li>
-                                           <li><a href="login-register">login/register </a></li>
+                                           <li><a href="login-register">登录/注册 </a></li>
                                        </ul>
                                    </li>
                                    <li class="angle-shape"><a href="blog"> 博客 </a>
@@ -102,7 +102,7 @@
                                        </div>
                                        <div class="shopping-cart-btn btn-hover text-center">
                                            <a class="default-btn" href="checkout">结算</a>
-                                           <a class="default-btn" href="seeCart">查看购物车</a>
+                                           <a class="default-btn" href="cart-page">查看购物车</a>
                                        </div>
                                    </div>
                                </div>

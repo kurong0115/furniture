@@ -24,7 +24,7 @@ public class CartServiceImpl implements CartService {
 		
 		example.createCriteria().andUidEqualTo(user.getId());
 		List<Cart> list = cartmapper.selectByExample(example);
-		
+
 		return list;
 		
 	}

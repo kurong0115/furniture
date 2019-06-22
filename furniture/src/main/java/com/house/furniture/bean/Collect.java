@@ -5,6 +5,8 @@ public class Collect {
 
     private Integer pid;
 
+    private Integer uid;
+
     public Integer getId() {
         return id;
     }
@@ -19,5 +21,13 @@ public class Collect {
 
     public void setPid(Integer pid) {
         this.pid = pid;
+    }
+
+    public Integer getUid() {
+        return uid;
+    }
+
+    public void setUid(Integer uid) {
+        this.uid = uid;
     }
 }

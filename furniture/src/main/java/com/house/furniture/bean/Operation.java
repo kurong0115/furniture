@@ -3,7 +3,7 @@ package com.house.furniture.bean;
 public class Operation {
     private Integer id;
 
-    private Integer orderno;
+    private Integer orderid;
 
     private Integer uid;
 
@@ -13,6 +13,8 @@ public class Operation {
 
     private Integer sum;
 
+    private Double price;
+
     public Integer getId() {
         return id;
     }
@@ -21,12 +23,12 @@ public class Operation {
         this.id = id;
     }
 
-    public Integer getOrderno() {
-        return orderno;
+    public Integer getOrderid() {
+        return orderid;
     }
 
-    public void setOrderno(Integer orderno) {
-        this.orderno = orderno;
+    public void setOrderid(Integer orderid) {
+        this.orderid = orderid;
     }
 
     public Integer getUid() {
@@ -59,5 +61,13 @@ public class Operation {
 
     public void setSum(Integer sum) {
         this.sum = sum;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
     }
 }

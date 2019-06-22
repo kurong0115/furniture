@@ -7,6 +7,7 @@
     <result column="uid" jdbcType="INTEGER" property="uid" />
     <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
     <result column="sum" jdbcType="INTEGER" property="sum" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -67,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, orderNo, uid, createTime, sum
+    id, orderNo, uid, createTime, sum, address
   </sql>
   <select id="selectByExample" parameterType="com.house.furniture.bean.OrderExample" resultMap="BaseResultMap">
     select
@@ -104,9 +105,9 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into order (orderNo, uid, createTime, 
-      sum)
+      sum, address)
     values (#{orderno,jdbcType=VARCHAR}, #{uid,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, 
-      #{sum,jdbcType=INTEGER})
+      #{sum,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.house.furniture.bean.Order">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -126,6 +127,9 @@
       <if test="sum != null">
         sum,
       </if>
+      <if test="address != null">
+        address,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="orderno != null">
@@ -139,6 +143,9 @@
       </if>
       <if test="sum != null">
         #{sum,jdbcType=INTEGER},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -166,6 +173,9 @@
       <if test="record.sum != null">
         sum = #{record.sum,jdbcType=INTEGER},
       </if>
+      <if test="record.address != null">
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -177,7 +187,8 @@
       orderNo = #{record.orderno,jdbcType=VARCHAR},
       uid = #{record.uid,jdbcType=INTEGER},
       createTime = #{record.createtime,jdbcType=TIMESTAMP},
-      sum = #{record.sum,jdbcType=INTEGER}
+      sum = #{record.sum,jdbcType=INTEGER},
+      address = #{record.address,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -197,6 +208,9 @@
       <if test="sum != null">
         sum = #{sum,jdbcType=INTEGER},
       </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -205,7 +219,8 @@
     set orderNo = #{orderno,jdbcType=VARCHAR},
       uid = #{uid,jdbcType=INTEGER},
       createTime = #{createtime,jdbcType=TIMESTAMP},
-      sum = #{sum,jdbcType=INTEGER}
+      sum = #{sum,jdbcType=INTEGER},
+      address = #{address,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
