@@ -28,6 +28,7 @@
 					$('#tbb tr:eq('+rows+')').remove();
 					$('.allSum').text(allSum-sum);
 					$('.headerCartCount').text(--CartCount);
+					$('#sum').val(allSum-sum);
 				}else{
 					getFailMsg(data.msg);
 				}
@@ -134,6 +135,7 @@
 	                                   			<li>暂无商品</li>
 	                                   		</c:if>
 	                                   		<c:if test="${!empty cartProductList}">
+	                                   			<input type="hidden" value="${allSum}" id="sum">
 		                                   		<c:forEach items="${cartProductList}" var="cartProduct">
 													<li class="single-shopping-cart">
 			                                           <div class="shopping-cart-img">
@@ -141,12 +143,11 @@
 			                                           </div>
 			                                           <div class="shopping-cart-title" style="width: 100px;overflow: hidden;">
 			                                               <h4><a href="#">${cartProduct.product.productname}</a></h4>
-			                                               <span>${cartProduct.count} x ${cartProduct.product.price}</span>
+			                                               <span><font>${cartProduct.count}</font> x ${cartProduct.product.price}</span>
 			                                           </div>
 			                                           <div class="item-close" style="margin-left: 20px">
 		                                                   <a href="#"><i class="sli sli-close" onclick="headerDelCart(this)"></i></a>
 		                                                   <input type="hidden" value="${cartProduct.id}">
-		                                                   <input type="hidden" value="${allSum}" id="sum">
 		                                               </div>
 			                                       </li>
 		                                   		</c:forEach>

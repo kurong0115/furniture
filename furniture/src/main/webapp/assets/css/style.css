@@ -7452,4 +7452,7 @@ h3.cart-page-title {
 	cursor: pointer;
 	background-color: transparent;
 }
+#addrUl li:hover {
+	background-color: #eeeff2;
+}
 /*-------- Start My Account Page Wrapper --------*/
