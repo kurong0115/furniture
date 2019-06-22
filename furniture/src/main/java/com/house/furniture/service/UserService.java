@@ -1,7 +1,5 @@
 package com.house.furniture.service;
 
-import java.util.List;
-
 import com.house.furniture.bean.User;
 
 public interface UserService {

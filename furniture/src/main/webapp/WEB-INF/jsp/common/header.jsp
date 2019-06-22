@@ -34,6 +34,12 @@
 			});
 		}
 		
+		function loginOut(){
+			var flag = confirm("您确认注销当前账号吗？");
+			
+			return flag;
+		}
+		
 		function getSuccessMsg(msg) {
 	  		$.message({
 	  	        message:msg,
@@ -109,12 +115,12 @@
                            <div class="header-search">
                                <a class="search-active" href="javascript:void(0)"><i class="sli sli-magnifier"></i></a>
                            </div>
-                           <%-- <c:if test="${empty loginUser}">
+                           <c:if test="${user == null}">
                             	<div>
-                                    <h6>您尚未登录&nbsp;&nbsp;&nbsp;<a href="#">去登录</a></h6>
+                                    <h6>您尚未登录&nbsp;&nbsp;&nbsp;<a  href="login-register">去登录</a></h6>
                                 </div>
-                           </c:if> --%>
-                           <%-- <c:if test="${!empty loginUser}"> --%>
+                           </c:if>
+                           <c:if test="${user!=null}">
 	                           <div class="cart-wrap">
 	                               <button class="icon-cart-active">
 	                                   <span class="icon-cart">
@@ -163,41 +169,24 @@
 	                                   </div>
 	                               </div>
 	                           </div>
-                          <%--  </c:if> --%>
-                           <div class="setting-wrap">
+	                           <div class="setting-wrap">
                                <button class="setting-active">
                                    <i class="sli sli-settings"></i>
                                </button>
                                <div class="setting-content">
                                    <ul>
                                        <li>
-                                           <h4>货币</h4>
-                                           <ul>
-                                               <li><a href="#">美元</a></li>
-                                               <li><a href="#">欧元</a></li>
-                                               <li><a href="#">Real</a></li>
-                                               <li><a href="#">BDT</a></li>
-                                           </ul>
-                                       </li>
-                                       <li>
-                                           <h4>语言</h4>
-                                           <ul>
-                                               <li><a href="#">英语 (US)</a></li>
-                                               <li><a href="#">英语 (UK)</a></li>
-                                               <li><a href="#">西班牙语</a></li>
-                                           </ul>
-                                       </li>
-                                       <li>
                                            <h4>账户</h4>
-                                           <ul>
-                                               <li><a href="login-register">登录</a></li>
-                                               <li><a href="login-register">注册</a></li>
-                                               <li><a href="my-account">我的账户</a></li>
+	                                       <ul>
+                                                <li><a href="my-account">我的账户</a></li>
+                                                <li><a href="loginOut" onclick="return loginOut();">注销</a>
                                            </ul>
                                        </li>
                                    </ul>
                                </div>
                            </div> 
+                          </c:if>
+                           
                        </div>
                    </div>
                </div>

@@ -1,5 +1,10 @@
 package com.house.furniture;
 
+import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
 import java.util.List;
 import java.util.Random;
 import java.util.regex.Matcher;
@@ -80,5 +85,22 @@ public class FurnitureApplicationTests {
 		System.out.println(sb.toString());
 	
 	}
-
+	
+	@Test
+	public void  jiami() {
+		String str = "a";
+		MessageDigest md5;
+		try {
+			md5=MessageDigest.getInstance("MD5");
+			md5.update(str.getBytes());
+			byte[] digest = md5.digest();
+			System.out.println(new BigInteger(1,digest).toString(16));
+			
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+		
 }
