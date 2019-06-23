@@ -55,6 +55,7 @@
 				$('#cartUl li:eq('+rows+')').remove();
 				$('.allSum').text(allSum-sum);
 				$('.headerCartCount').text(--CartCount);
+				$('#sum').val(allSum-sum);
 			}else{
 				getFailMsg(data.msg);
 			}
@@ -138,6 +139,7 @@
 		                                        <td  class="product-name"><a href="#">${cartProduct.product.productname}</a></td>
 		                                        <td  class="product-price-cart">￥<span class="amount">${cartProduct.product.price}</span></td>
 		                                        <td  class="product-quantity">
+		                                        	<input type="hidden" value="${cartProduct.product.pid}">
 		                                            <div class="cart-plus-minus">
 		                                                <input class="cart-plus-minus-box" type="text" name="qtybutton" value="${cartProduct.count}">
 		                                            </div>
@@ -174,7 +176,7 @@
                                 </div>
                                 <br/>
                                 <h4 class="grand-totall-title">总计  <span >￥<font class="allSum">${allSum}</font></span></h4>
-                                <a href="#">结账</a>
+                                <a href="checkout">结账</a>
                             </div>
                         </div>
                     </div>

@@ -88,7 +88,24 @@ function login(){
    			}	
  	  	});
     }
-	
+	var time=60;
+	//验证码过期倒数时间
+	function getTime() {
+
+		if(time==0){
+			$('#getCodeByEmail').removeAttr("disabled"); 
+			$('#getCodeByEmail').val("获取验证码"); 
+			time = 60;
+		}else{
+			$('#getCodeByEmail').attr("disabled",true); 
+			$('#getCodeByEmail').val("重新发送(" + time + ")");
+			--time;
+			setTimeout(function() { 
+				getTime() 
+			},1000); 
+		}
+		
+	}
 	
 	/**
 	 * 发送邮件
@@ -119,31 +136,9 @@ function login(){
    				getFailMsg('出现异常了，刷新试试！');
    			}
  	  	});
-    	getTime(this);
+    	getTime();
     }
 	
-	
-	var time=60;
-	//验证码过期倒数时间
-	function getTime(bnt) {
-		
-		if(time==0){
-			bnt.removeAttribute("disabled"); 
-			bnt.value="免费获取验证码"; 
-			time = 60;
-		}else{
-			bnt.setAttribute("disabled", true); 
-			bnt.value="重新发送(" + time + ")";
-			time--;
-			setTimeout(function() { 
-				getTime(bnt) 
-			},1000); 
-		}
-		
-	}
-	
-	
-		
 	
 	function updateCode() {
 		var img=document.getElementById("code");
