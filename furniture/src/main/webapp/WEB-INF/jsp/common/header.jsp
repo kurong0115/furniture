@@ -35,9 +35,9 @@
 			});
 		}
 		
+		/* 用户注销 */
 		function loginOut(){
 			var flag = confirm("您确认注销当前账号吗？");
-			
 			return flag;
 		}
 		

@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.house.furniture.bean.Order;
 import com.house.furniture.bean.User;
-import com.house.furniture.service.OrderService;
+import com.house.furniture.service.OrdersService;
 
 @Controller
 public class MyAccountAction {
 	@Resource
-	OrderService orderservice;
+	OrdersService orderservice;
 	
 	@RequestMapping("my-account")
 	public String MyAccount(HttpSession session) {

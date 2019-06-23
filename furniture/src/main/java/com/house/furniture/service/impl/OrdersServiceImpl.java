@@ -10,10 +10,10 @@ import org.springframework.stereotype.Service;
 import com.house.furniture.bean.Order;
 import com.house.furniture.bean.OrderExample;
 import com.house.furniture.dao.OrderMapper;
-import com.house.furniture.service.OrderService;
+import com.house.furniture.service.OrdersService;
 @Service
 @ComponentScan(basePackages = {"com.house.furniture.dao","com.house.furniture.bean"})
-public class OrderServiceImpl implements OrderService {
+public class OrdersServiceImpl implements OrdersService {
 	@Resource
 	private OrderMapper orderMapper;
 	
