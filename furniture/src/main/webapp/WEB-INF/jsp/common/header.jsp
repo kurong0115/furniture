@@ -28,15 +28,16 @@
 					$('#tbb tr:eq('+rows+')').remove();
 					$('.allSum').text(allSum-sum);
 					$('.headerCartCount').text(--CartCount);
+					$('#sum').val(allSum-sum);
 				}else{
 					getFailMsg(data.msg);
 				}
 			});
 		}
 		
+		/* 用户注销 */
 		function loginOut(){
 			var flag = confirm("您确认注销当前账号吗？");
-			
 			return flag;
 		}
 		
@@ -86,14 +87,14 @@
                                    <li><a href="contact-us"> 联系我们 </a></li>
                                    <li class="angle-shape"><a href="#">更多 </a>
                                        <ul class="submenu">
-                                           <li><a href="about-us.html">about us </a></li>
-                                           <li><a href="cart-page.html">cart page </a></li>
-                                           <li><a href="checkout">checkout </a></li>
+                                           <li><a href="about-us.html">关于我们 </a></li>
+                                           <li><a href="cart-page.html">购物车 </a></li>
+                                           <li><a href="checkout">结算 </a></li>
                                            <li><a href="compare-page.html">compare </a></li>
                                            <li><a href="wishlist.html">wishlist </a></li>
-                                           <li><a href="my-account">my account </a></li>
+                                           <li><a href="my-account">我的账户 </a></li>
                                            <li><a href="contact-us">contact us </a></li>
-                                           <li><a href="login-register">login/register </a></li>
+                                           <li><a href="login-register">登录/注册 </a></li>
                                        </ul>
                                    </li>
                                    <li class="angle-shape"><a href="blog"> 博客 </a>
@@ -140,6 +141,7 @@
 	                                   			<li>暂无商品</li>
 	                                   		</c:if>
 	                                   		<c:if test="${!empty cartProductList}">
+	                                   			<input type="hidden" value="${allSum}" id="sum">
 		                                   		<c:forEach items="${cartProductList}" var="cartProduct">
 													<li class="single-shopping-cart">
 			                                           <div class="shopping-cart-img">
@@ -147,12 +149,11 @@
 			                                           </div>
 			                                           <div class="shopping-cart-title" style="width: 100px;overflow: hidden;">
 			                                               <h4><a href="#">${cartProduct.product.productname}</a></h4>
-			                                               <span>${cartProduct.count} x ${cartProduct.product.price}</span>
+			                                               <span><font>${cartProduct.count}</font> x ${cartProduct.product.price}</span>
 			                                           </div>
 			                                           <div class="item-close" style="margin-left: 20px">
 		                                                   <a href="#"><i class="sli sli-close" onclick="headerDelCart(this)"></i></a>
 		                                                   <input type="hidden" value="${cartProduct.id}">
-		                                                   <input type="hidden" value="${allSum}" id="sum">
 		                                               </div>
 			                                       </li>
 		                                   		</c:forEach>

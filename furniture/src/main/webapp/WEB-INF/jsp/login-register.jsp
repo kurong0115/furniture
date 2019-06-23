@@ -73,11 +73,12 @@
                                         <form action="" method="post">
                                             <input type="text" id="RegUsername" placeholder="用户名">
                                             <input type="password" id="RegPassword" placeholder="密码">
-                                            <input type="password" id="RegPassword1" placeholder="重复密码">
-                                            <input id="email" placeholder="邮箱" type="email" style="width: 60%">
-                                            <div class="button-box" style="margin-left:350px;margin-top:-75px;"><button type="button" onclick="sendCode()" >发送邮件</button></div>
-                                            <br>
-                                            <input type="text" id="regCode" placeholder="验证码">
+                                            <input type="password" id="RegPassword1" placeholder="重复密码">                          
+                                            <div>
+                                            	<input id="email" placeholder="邮箱" type="email" style="width: 60%">
+                                           		<input type="button" value="获取验证码" onclick="sendCode()" id="getCodeByEmail" style="width: 38%">
+                                            </div>
+                                            <input type="text" id="regCode" placeholder="验证码" >
                                             <div class="button-box">
                                                 <button type="button" onclick="reg()">注册</button>
                                             </div>

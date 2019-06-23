@@ -25,7 +25,7 @@ public class CartServiceImpl implements CartService {
 		
 		example.createCriteria().andUidEqualTo(user.getId());
 		List<Cart> list = cartmapper.selectByExample(example);
-		
+
 		return list;
 		
 	}
@@ -46,6 +46,11 @@ public class CartServiceImpl implements CartService {
 		example.createCriteria().andUidEqualTo(id);
 		cartmapper.deleteByExample(example);
 		
+	}
+
+	@Override
+	public void updataCartCountById(Cart cart) {
+		cartmapper.updateByPrimaryKeySelective(cart);	
 	}
 
 }

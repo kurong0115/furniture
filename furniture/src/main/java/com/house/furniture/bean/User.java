@@ -1,13 +1,19 @@
 package com.house.furniture.bean;
 
+import javax.validation.constraints.NotEmpty;
+
 public class User {
+    
     private Integer id;
 
+    @NotEmpty(message="用户名不能为空")
     private String name;
-
+    @NotEmpty(message="密码不能为空")
     private String password;
-
+    @NotEmpty(message="邮箱不能为空")
     private String email;
+
+    private String head;
 
     public Integer getId() {
         return id;
@@ -44,5 +50,13 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email == null ? null : email.trim();
+    }
+
+    public String getHead() {
+        return head;
+    }
+
+    public void setHead(String head) {
+        this.head = head == null ? null : head.trim();
     }
 }

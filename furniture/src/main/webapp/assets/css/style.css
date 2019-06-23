@@ -7452,4 +7452,14 @@ h3.cart-page-title {
 	cursor: pointer;
 	background-color: transparent;
 }
+#addrUl li:hover {
+	background-color: #eeeff2;
+}
+#getCodeByEmail:hover {
+	background-color: #eeeff2;
+	cursor:pointer;
+}
+#getCodeByEmail[disabled]:hover{
+    cursor:not-allowed;
+}
 /*-------- Start My Account Page Wrapper --------*/

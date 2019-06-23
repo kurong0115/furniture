@@ -16,4 +16,7 @@ public interface CartService {
 	//清空购物车
 	void clearCart(Integer id);
 
+	//修改购物车数量
+	void updataCartCountById(Cart cart);
+
 }

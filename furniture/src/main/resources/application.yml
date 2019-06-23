@@ -3,11 +3,11 @@ spring:
     view:
       prefix: WEB-INF/jsp/
       suffix: .jsp
-   #mybatis数据源
+  #mybatis数据源
   datasource:
     url: jdbc:mysql://localhost:3306/furniture?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
     username: root
-    password: aaaaaaaa
+    password: system
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   # springboot默认开启文件上传

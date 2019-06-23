@@ -288,7 +288,8 @@
         var oldValue = $button.parent().find("input").val();
         var price = $button.parent().parent().prev().find("span").text();
         var sum=$button.parent().parent().next().find("span").text();
-        var allSum=$('#allSum').text();
+        var allSum=$('#sum').val();
+        var rows=$button.parent().parent().parent().prevAll().length;
         var newVal=null;
         if ($button.text() === "+") {
             newVal = parseFloat(oldValue) + 1;
@@ -301,11 +302,26 @@
                 getInfoMsg("别再减了，再减就没了");
             }
         }
+        
+        $.post("cart/updataCartCount",{
+        	id:$button.parent().parent().next().next().find("input").val(),
+        	count:newVal,
+        	pid:$button.parent().prev().val()
+        },function(data){
+        	if(data.code==1){
+        		getSuccessMsg(data.message);
+        		$('#cartUl li:eq('+rows+')').find("div").eq(1).find("span").find("font").text(newVal);
+        	}else{
+        		getFailMsg("修改失败");
+        	}
+        });
+       
         var newSum = parseFloat(price)*newVal;
         
         $button.parent().parent().next().find("span").text(newSum);       
         var newAllSum=allSum-sum+newSum;
-        $('#allSum').text(newAllSum);
+        $('.allSum').text(newAllSum);
+        $('#sum').val(newAllSum);
         $button.parent().find("input").val(newVal);
     });
     

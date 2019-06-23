@@ -27,7 +27,7 @@ public class ShopAction {
 	@Autowired
 	ProductService productService;
 	
-	@ModelAttribute
+	@ModelAttribute		//所有类别
 	public void initParam(Model model) {
 		List<Category> categoryList = categoryService.listAllCategory();
 		model.addAttribute("categoryList", categoryList);
@@ -35,8 +35,8 @@ public class ShopAction {
 	
 	@RequestMapping(value = "shop")
 	public String shop(@RequestParam(value = "cid", defaultValue = "1") int cid, Model model,
-			@RequestParam(value="page", defaultValue = "1") int page, 
-			@RequestParam(value="size", defaultValue = "30") int size) {
+			@RequestParam(value = "page", defaultValue = "1") int page,
+			@RequestParam(value = "size", defaultValue = "30") int size) {
 		
 		List<Product> productList = productService.listProductsByType(cid, page, size);
 		PageHelper.startPage(page, size);
@@ -44,6 +44,12 @@ public class ShopAction {
 		return "shop";
 	}
 	
+	/**
+	 * 根据条件查询对应的产品
+	 * @param condition
+	 * @param model
+	 * @return
+	 */
 	@GetMapping(value = "condition")
 	public String selectByCondition(@RequestParam(value = "condition", defaultValue = "") String condition, 
 			Model model) {

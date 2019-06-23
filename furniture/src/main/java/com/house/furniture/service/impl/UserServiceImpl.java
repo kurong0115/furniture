@@ -1,23 +1,30 @@
 package com.house.furniture.service.impl;
 
-import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.house.furniture.bean.User;
 import com.house.furniture.bean.UserExample;
+import com.house.furniture.bean.UserExample.Criteria;
+import com.house.furniture.dao.AddressMapper;
+import java.util.List;
+
 import com.house.furniture.dao.UserMapper;
 import com.house.furniture.service.UserService;
 
 @Service
 @ComponentScan(basePackages = {"com.house.furniture.dao","com.house.furniture.bean"})
 public class UserServiceImpl implements UserService {
+
+	@Resource
+	UserMapper userMapper;
 	
-	@Resource()
-	private UserMapper userMapper;
-	
+	@Resource
+	AddressMapper address;
 
 	@Override
 	public User login(String username, String password) {
@@ -27,7 +34,6 @@ public class UserServiceImpl implements UserService {
 		return user.size() == 0 ? null : user.get(0);
 	}
 	
-
 	@Override
 	public Integer reg(String username, String password, String email) {
 		User user = new User();
@@ -38,10 +44,6 @@ public class UserServiceImpl implements UserService {
 		return inner;
 	}
 	
-	
-
-
-
 	@Override
 	public User selectByUsername(String username) {
 		UserExample userExample = new UserExample();
@@ -49,8 +51,6 @@ public class UserServiceImpl implements UserService {
 		List<User> user =  userMapper.selectByExample(userExample);
 		return user.size() == 0 ? null : user.get(0);
 	}
-
-
 
 	@Override
 	public User selectByEmail(String email) {
@@ -60,7 +60,6 @@ public class UserServiceImpl implements UserService {
 		return user.size() == 0 ? null : user.get(0);
 	}
 
-
 	@Override
 	public User selectByUsernameAndEmail(String username, String email) {
 		UserExample userExample = new UserExample();
@@ -69,7 +68,6 @@ public class UserServiceImpl implements UserService {
 		return user.size() == 0 ? null : user.get(0);
 	}
 
-
 	@Override
 	public Integer resertPassword(User user) {
 		Integer result = userMapper.updateByPrimaryKey(user);
@@ -77,8 +75,53 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	
+	@Override
+	public Page<User> selectAllUser(User user , int page, int size) {
+		UserExample ue = new UserExample();
+		Criteria c = ue.createCriteria();
+		
+		if(user.getName() != null && user.getName().isEmpty() == false) {
+			c.andNameLike("%" + user.getName() + "%");
+		}
+		
+		if(user.getEmail() != null && user.getEmail().isEmpty() == false) {
+			c.andEmailLike("%" + user.getEmail() + "%");
+		}
+		
+		Page<User> p = PageHelper.startPage(page, size);
+		userMapper.selectByExample(ue);
+		return p;
+	}
 	
-
-
 	
+	@Override
+	public int isExist(String type, String str) {
+		if("".equals(str)) {
+			return 1;
+		}
+		UserExample ue = new UserExample();
+		if("name".equals(type)) {
+			ue.createCriteria().andNameEqualTo(str);
+		}else if("email".equals(type)) {
+			ue.createCriteria().andEmailEqualTo(str);
+		}
+		List<User> list = userMapper.selectByExample(ue);
+		if(list.size() > 0) {
+			//被占用
+			return 0;
+		}else {
+			return 1;
+		}
+	}
+	@Override
+	public void save(User user) {
+		userMapper.insertSelective(user);
+	}
+
+	@Override
+	public Page<User> queryAddress(int uid, int page, int rows) {
+		Page<User> p = PageHelper.startPage(page, rows);
+		address.selectByUid(uid);
+		return p;
+	}
 }

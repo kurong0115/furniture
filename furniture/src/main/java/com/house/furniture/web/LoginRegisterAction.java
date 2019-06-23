@@ -1,6 +1,5 @@
 package com.house.furniture.web;
 
-
 import java.util.Random;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -9,7 +8,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -159,7 +157,7 @@ public class LoginRegisterAction {
 		session.setAttribute("realCode", realCode);
 		String content = "您的验证码为：" + realCode;
 		
-		sendMail(email, "密码修改邮件", content);
+		sendMail(email, "OurHouse邮件", content);
 		return new Result(Result.EXECUTION_SUCCESS,"发送成功！");
 	}
 		
@@ -171,7 +169,7 @@ public class LoginRegisterAction {
 		}
 		User user = userservice.selectByEmail(email);
 		String content = "您邮箱对应的账号是：" + user.getName();
-		sendMail(email, "查找账号邮件", content);
+		sendMail(email, "OurHouse邮件", content);
 		return new Result(Result.EXECUTION_SUCCESS,"账号已发送至您的邮箱,请查收!");
 	}
 	
