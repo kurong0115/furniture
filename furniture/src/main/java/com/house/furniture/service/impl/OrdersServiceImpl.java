@@ -26,4 +26,10 @@ public class OrdersServiceImpl implements OrdersService {
 		return order.size() == 0 ? null : order.get(0);
 	}
 
+
+	@Override
+	public void produceOrder(Orders orders) {
+		orderMapper.insertSelective(orders);		
+	}
+
 }

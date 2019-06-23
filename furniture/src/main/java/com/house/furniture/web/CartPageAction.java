@@ -30,12 +30,24 @@ public class CartPageAction {
 	@Resource
 	AddressService addressservice;
 	
-	//需要修改用户id，根据session
+	/**
+	 * 查看购物车
+	 * @param user
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("seeCart")
 	public String seeCart(@SessionAttribute("user")User user,Model model) {
 		return "cart-page";
 	}
 	
+	/**
+	 * 删除购物车中的商品
+	 * @param id
+	 * @param user
+	 * @param model
+	 * @return
+	 */
 	@PostMapping("cart/delCart")
 	@ResponseBody
 	public Result delCart(Integer id,@SessionAttribute("user")User user,Model model) {
@@ -56,7 +68,12 @@ public class CartPageAction {
 		}
 	}
 	
-	//需要修改用户id，根据session
+	/**
+	 * 清空购物车
+	 * @param user
+	 * @param model
+	 * @return
+	 */
 	@PostMapping("cart/clearCart")
 	@ResponseBody
 	public Result clearCart(@SessionAttribute("user")User user,Model model) {
@@ -67,7 +84,12 @@ public class CartPageAction {
 		return new Result(Result.EXECUTION_SUCCESS, "清空成功");
 	}
 	
-	//user要根据session获取
+	/**
+	 * 跳转到结算页面
+	 * @param user
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("checkout")
 	public String checkout(@SessionAttribute("user")User user,Model model) {
 		List<Address> addrList=addressservice.getAddrByUser(user);
@@ -75,6 +97,13 @@ public class CartPageAction {
 		return "checkout";
 	}
 	
+	/**
+	 * 修改购物车商品的数量
+	 * @param cart
+	 * @param user
+	 * @param model
+	 * @return
+	 */
 	@PostMapping("cart/updataCartCount")
 	@ResponseBody
 	public Result updataCartCount(Cart cart,@SessionAttribute("user")User user,Model model) {

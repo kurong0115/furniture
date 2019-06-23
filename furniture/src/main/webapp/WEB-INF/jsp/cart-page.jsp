@@ -72,28 +72,6 @@
 		});
 	}
                                 	
-  	 //信息提示框
-  	function getSuccessMsg(msg) {
-  		$.message({
-  	        message:msg,
-  	        type:'success',
-  	        duration:'3000'
-  	    });
-  	}
-  	function getInfoMsg(msg) {
-  		$.message({
-  	        message:msg,
-  	        type:'info',
-  	        duration:'3000'
-  	    });
-  	}
-  	function getFailMsg(msg) {
-  		$.message({
-  	        message:msg,
-  	        type:'error',
-  	        duration:'3000'
-  	    });
-  	}
   </script>
 </head>
 
