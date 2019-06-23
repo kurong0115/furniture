@@ -1,6 +1,5 @@
 package com.house.furniture.web;
 
-
 import java.util.Random;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;

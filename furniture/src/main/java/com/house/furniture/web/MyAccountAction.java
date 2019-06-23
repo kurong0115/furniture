@@ -6,7 +6,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.house.furniture.bean.Order;
 import com.house.furniture.bean.User;
 import com.house.furniture.service.OrdersService;
 
