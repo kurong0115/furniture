@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.house.furniture.bean.Cart;
 import com.house.furniture.bean.Operation;
@@ -21,6 +22,7 @@ import com.house.furniture.service.OperationService;
 import com.house.furniture.service.OrdersService;
 
 @Controller
+@SessionAttributes(names= {"cartProductList","allSum"})
 public class CheckoutAction {
 
 	@Resource
@@ -62,6 +64,8 @@ public class CheckoutAction {
 		}
 		
 		
+		model.addAttribute("cartProductList", "");
+		model.addAttribute("allSum", 0);
 		model.addAttribute("orderNo", orderNo);
 		return "produceOrder";
 	}
