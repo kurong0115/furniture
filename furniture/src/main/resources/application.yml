@@ -3,18 +3,19 @@ spring:
     view:
       prefix: WEB-INF/jsp/
       suffix: .jsp
+#    static-path-pattern: /static/**
   #mybatis数据源
   datasource:
     url: jdbc:mysql://localhost:3306/furniture?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
     username: root
-    password: system
+    password: aaaaaaaa
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   # springboot默认开启文件上传
   # 静态资源映射配置 F:/upload/ ====> http://127.0.0.1/upload
     
   resources: 
-    staticLocations: file:D:/PIAimages/
+    staticLocations: file:d:/PIAimages/
 
 #邮件发送
   mail:

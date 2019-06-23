@@ -1,5 +1,7 @@
 package com.house.furniture.web;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +20,8 @@ public class ProductDetailAction {
 	public String showDetail(int pid, Model model) {
 		Product product = productService.getProductById(pid);
 		model.addAttribute("product", product);
+		List<Product> relatedProducts = productService.listRelatedProduct(product.getCid());
+		model.addAttribute("relatedProducts", relatedProducts);
 		return "product-details";
 	}
 }

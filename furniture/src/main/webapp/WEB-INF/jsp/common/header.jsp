@@ -90,10 +90,10 @@
                                            <li><a href="about-us.html">关于我们 </a></li>
                                            <li><a href="cart-page.html">购物车 </a></li>
                                            <li><a href="checkout">结算 </a></li>
-                                           <li><a href="compare-page.html">compare </a></li>
-                                           <li><a href="wishlist.html">wishlist </a></li>
+                                           <li><a href="compare-page">对比 </a></li>
+                                           <li><a href="wishlist.html">愿望清单 </a></li>
                                            <li><a href="my-account">我的账户 </a></li>
-                                           <li><a href="contact-us">contact us </a></li>
+                                           <li><a href="contact-us">联系我们</a></li>
                                            <li><a href="login-register">登录/注册 </a></li>
                                        </ul>
                                    </li>

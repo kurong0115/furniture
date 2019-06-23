@@ -175,7 +175,7 @@ public class LoginRegisterAction {
 	
 	@RequestMapping("loginOut")
 	public String loginOut(HttpSession session) {
-		session.setAttribute("user", null);
+		session.invalidate();
 		return "login-register";
 	}
 	

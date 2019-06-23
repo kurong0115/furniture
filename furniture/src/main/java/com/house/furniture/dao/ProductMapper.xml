@@ -310,6 +310,6 @@
   <select id="listProductsByCid" resultMap="listProductsByCidMap" parameterType="int">
     select a.*,b.categoryname,c.imgid,c.imgpath
     from product a,category b,image c
-    where a.pid=c.pid and a.cid=b.cid and a.cid=#{cid}
+    where a.pid=c.pid and a.cid=b.cid and a.cid=#{cid} order by score desc
   </select>
 </mapper>
