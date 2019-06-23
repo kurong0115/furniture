@@ -75,7 +75,7 @@
                                             <input type="password" id="RegPassword" placeholder="密码">
                                             <input type="password" id="RegPassword1" placeholder="重复密码">
                                             <input id="email" placeholder="邮箱" type="email" style="width: 60%">
-                                            <div class="button-box" style="margin-left:350px;margin-top:-75px;"><button type="button" onclick="sendCode()" >发送邮件</button></div>
+                                            <div class="button-box" style="margin-left:350px;margin-top:-75px;"><button type="button" id="sendCode" onclick="sendCode()" >发送邮件</button></div>
                                             <br>
                                             <input type="text" id="regCode" placeholder="验证码">
                                             <div class="button-box">

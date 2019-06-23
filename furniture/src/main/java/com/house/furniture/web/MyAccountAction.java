@@ -21,9 +21,9 @@ public class MyAccountAction {
 		//查询该用户的所有订单
 		User user = (User)session.getAttribute("user");
 		
-		Order order = orderservice.selectByUid(user.getId());
+		//Order order = orderservice.selectByUid(user.getId());
 		//将用户的所有订单添加到会话中
-		session.setAttribute("myOrder", order);
+		//session.setAttribute("myOrder", order);
 		return "my-account";
 	}
 }
