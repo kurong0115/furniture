@@ -48,4 +48,9 @@ public class CartServiceImpl implements CartService {
 		
 	}
 
+	@Override
+	public void updataCartCountById(Cart cart) {
+		cartmapper.updateByPrimaryKeySelective(cart);	
+	}
+
 }

@@ -28,10 +28,17 @@
 					$('#tbb tr:eq('+rows+')').remove();
 					$('.allSum').text(allSum-sum);
 					$('.headerCartCount').text(--CartCount);
+					$('#sum').val(allSum-sum);
 				}else{
 					getFailMsg(data.msg);
 				}
 			});
+		}
+		
+		function loginOut(){
+			var flag = confirm("您确认注销当前账号吗？");
+			
+			return flag;
 		}
 		
 		function getSuccessMsg(msg) {
@@ -109,13 +116,12 @@
                            <div class="header-search">
                                <a class="search-active" href="javascript:void(0)"><i class="sli sli-magnifier"></i></a>
                            </div>
-
-                           <%-- <c:if test="${empty loginUser}">
+                           <c:if test="${user == null}">
                             	<div>
-                                    <h6>您尚未登录&nbsp;&nbsp;&nbsp;<a href="#">去登录</a></h6>
+                                    <h6>您尚未登录&nbsp;&nbsp;&nbsp;<a  href="login-register">去登录</a></h6>
                                 </div>
-                           </c:if> --%>
-                           <%-- <c:if test="${!empty loginUser}"> --%>
+                           </c:if>
+                           <c:if test="${user!=null}">
 	                           <div class="cart-wrap">
 	                               <button class="icon-cart-active">
 	                                   <span class="icon-cart">
@@ -135,6 +141,7 @@
 	                                   			<li>暂无商品</li>
 	                                   		</c:if>
 	                                   		<c:if test="${!empty cartProductList}">
+	                                   			<input type="hidden" value="${allSum}" id="sum">
 		                                   		<c:forEach items="${cartProductList}" var="cartProduct">
 													<li class="single-shopping-cart">
 			                                           <div class="shopping-cart-img">
@@ -142,12 +149,11 @@
 			                                           </div>
 			                                           <div class="shopping-cart-title" style="width: 100px;overflow: hidden;">
 			                                               <h4><a href="#">${cartProduct.product.productname}</a></h4>
-			                                               <span>${cartProduct.count} x ${cartProduct.product.price}</span>
+			                                               <span><font>${cartProduct.count}</font> x ${cartProduct.product.price}</span>
 			                                           </div>
 			                                           <div class="item-close" style="margin-left: 20px">
 		                                                   <a href="#"><i class="sli sli-close" onclick="headerDelCart(this)"></i></a>
 		                                                   <input type="hidden" value="${cartProduct.id}">
-		                                                   <input type="hidden" value="${allSum}" id="sum">
 		                                               </div>
 			                                       </li>
 		                                   		</c:forEach>
@@ -164,42 +170,24 @@
 	                                   </div>
 	                               </div>
 	                           </div>
-                          <%--  </c:if> --%>
-                          
-                           <div class="setting-wrap">
+	                           <div class="setting-wrap">
                                <button class="setting-active">
                                    <i class="sli sli-settings"></i>
                                </button>
                                <div class="setting-content">
                                    <ul>
                                        <li>
-                                           <h4>货币</h4>
-                                           <ul>
-                                               <li><a href="#">美元</a></li>
-                                               <li><a href="#">欧元</a></li>
-                                               <li><a href="#">Real</a></li>
-                                               <li><a href="#">BDT</a></li>
-                                           </ul>
-                                       </li>
-                                       <li>
-                                           <h4>语言</h4>
-                                           <ul>
-                                               <li><a href="#">英语 (US)</a></li>
-                                               <li><a href="#">英语 (UK)</a></li>
-                                               <li><a href="#">西班牙语</a></li>
-                                           </ul>
-                                       </li>
-                                       <li>
                                            <h4>账户</h4>
-                                           <ul>
-                                               <li><a href="login-register">登录</a></li>
-                                               <li><a href="login-register">注册</a></li>
-                                               <li><a href="my-account">我的账户</a></li>
+	                                       <ul>
+                                                <li><a href="my-account">我的账户</a></li>
+                                                <li><a href="loginOut" onclick="return loginOut();">注销</a>
                                            </ul>
                                        </li>
                                    </ul>
                                </div>
                            </div> 
+                          </c:if>
+                           
                        </div>
                    </div>
                </div>

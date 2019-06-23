@@ -2,6 +2,7 @@ package com.house.furniture.service.impl;
 
 import javax.annotation.Resource;
 
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.Page;
@@ -12,7 +13,6 @@ import com.house.furniture.bean.UserExample.Criteria;
 import com.house.furniture.dao.AddressMapper;
 import java.util.List;
 
-import org.springframework.context.annotation.ComponentScan;
 import com.house.furniture.dao.UserMapper;
 import com.house.furniture.service.UserService;
 

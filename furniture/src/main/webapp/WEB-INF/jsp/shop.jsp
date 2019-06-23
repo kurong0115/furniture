@@ -233,28 +233,34 @@
 																	<!-- ￥<span class="old">$80.00</span> -->
 																</div>
 																<div class="ht-product-ratting-wrap">
-																	<span class="ht-product-ratting"> <span
-																		class="ht-product-user-ratting" style="width: 100%;">
-																			<i class="sli sli-star"></i> <i class="sli sli-star"></i>
-																			<i class="sli sli-star"></i> <i class="sli sli-star"></i>
-																			<i class="sli sli-star"></i>
-																	</span> <i class="sli sli-star"></i> <i class="sli sli-star"></i>
-																		<i class="sli sli-star"></i> <i class="sli sli-star"></i>
-																		<i class="sli sli-star"></i>
-																	</span>
+																	<span class="ht-product-ratting">
+		                                                                <span class="ht-product-user-ratting" style="width: 100%;">
+		                                                                    <c:forEach begin="1" end="${product.score }">
+										                                        <i class="sli sli-star"></i>
+										                                    </c:forEach>		                                                                    
+		                                                                </span>
+			                                                            <c:forEach begin="1" end="${product.score }">
+                                                                              <i class="sli sli-star"></i>
+                                                                        </c:forEach>
+                                                                        <c:forEach begin="${product.score }" end="4">
+                                                                              <i class="sli sli-star"></i>
+                                                                        </c:forEach>
+                                                                    </span>
 																</div>
 															</div>
 															<div class="ht-product-action">
 																<ul>
-																	<li><a href="#"><i class="sli sli-magnifier"></i><span
-																			class="ht-product-action-tooltip">快速预览</span></a></li>
-																	<li><a href="#"><i class="sli sli-heart"></i><span
-																			class="ht-product-action-tooltip">添加到愿望清单</span></a></li>
-																	<li><a href="#"><i class="sli sli-refresh"></i><span
-																			class="ht-product-action-tooltip">刷新</span></a></li>
-																	<li><a href="#"><i class="sli sli-bag"></i><span
-																			class="ht-product-action-tooltip">添加到购物车</span></a></li>
-																</ul>
+                                                                    <li><a href="#" onclick="quickView(${product.pid})" data-toggle="modal"
+                                                                            data-target="#exampleModal">
+                                                                            <i class="sli sli-magnifier"></i><span
+                                                                            class="ht-product-action-tooltip">快速预览</span></a></li>
+                                                                    <li><a href="#"><i class="sli sli-heart"></i><span
+                                                                            class="ht-product-action-tooltip">添加到愿望清单</span></a></li>
+                                                                    <li><a href="#"><i class="sli sli-refresh"></i><span
+                                                                            class="ht-product-action-tooltip">刷新</span></a></li>
+                                                                    <li><a href="#"><i class="sli sli-bag"></i><span
+                                                                            class="ht-product-action-tooltip">添加到购物车</span></a></li>
+                                                                </ul>
 															</div>
 															<div class="ht-product-countdown-wrap">
 																<div class="ht-product-countdown"
@@ -309,11 +315,14 @@
 																	<span class="new">${product.price }</span>
 																	<!-- <span class="old">$70.00</span> -->
 																</div>
-																<div class="ht-product-list-ratting">
-																	<i class="sli sli-star"></i> <i class="sli sli-star"></i>
-																	<i class="sli sli-star"></i> <i class="sli sli-star"></i>
-																	<i class="sli sli-star"></i>
-																</div>
+																
+																	<div class="ht-product-list-ratting">
+			                                                            <c:forEach begin="1" end="${product.score }">
+	                                                                        <i class="sli sli-star"></i>
+	                                                                    </c:forEach>    	                                                                     
+			                                                        </div>
+		                                                              <i class="sli sli-star"></i> 
+		                                                        
 															</div>
 															<div class="ht-product-list-action">
 																<a class="list-wishlist" title="添加到愿望清单" href="#"><i
@@ -448,34 +457,14 @@
 					</div>
 					<div class="modal-body">
 						<div class="row">
-							<div class="col-md-5 col-sm-12 col-xs-12">
-								<div class="tab-content quickview-big-img">
-									<div id="pro-1" class="tab-pane fade show active">
-										<img src="assets/img/product/quickview-l1.jpg" alt="">
-									</div>
-									<div id="pro-2" class="tab-pane fade">
-										<img src="assets/img/product/quickview-l2.jpg" alt="">
-									</div>
-									<div id="pro-3" class="tab-pane fade">
-										<img src="assets/img/product/quickview-l3.jpg" alt="">
-									</div>
-									<div id="pro-4" class="tab-pane fade">
-										<img src="assets/img/product/quickview-l2.jpg" alt="">
-									</div>
+							<div class="col-md-5 col-sm-12 col-xs-12" >
+								<div class="tab-content quickview-big-img" id="bigImage">
+									
 								</div>
-								Thumbnail Large Image End Thumbnail Image End
+								
 								<div class="quickview-wrap mt-15">
-									<div
-										class="quickview-slide-active owl-carousel nav nav-style-2"
-										role="tablist">
-										<a class="active" data-toggle="tab" href="#pro-1"><img
-											src="assets/img/product/quickview-s1.jpg" alt=""></a> <a
-											data-toggle="tab" href="#pro-2"><img
-											src="assets/img/product/quickview-s2.jpg" alt=""></a> <a
-											data-toggle="tab" href="#pro-3"><img
-											src="assets/img/product/quickview-s3.jpg" alt=""></a> <a
-											data-toggle="tab" href="#pro-4"><img
-											src="assets/img/product/quickview-s2.jpg" alt=""></a>
+									<div class="quickview-slide-active owl-carousel nav nav-style-2" role="tablist" id="smallImage">
+										
 									</div>
 								</div>
 							</div>
@@ -483,61 +472,30 @@
 								<div class="product-details-content quickview-content">
 									<h2 id="quickView-pname">Products Name Here</h2>
 									<div class="product-details-price">
-										<span id="quickView-price">$18.00 </span> <span class="old">$20.00 </span>
+										￥<span id="quickView-price">18.00 </span> <!-- ￥<span class="old">20.00 </span> -->
 									</div>
 									<div class="pro-details-rating-wrap">
-										<div class="pro-details-rating">
-											<i class="sli sli-star yellow"></i> <i
-												class="sli sli-star yellow"></i> <i
-												class="sli sli-star yellow"></i> <i class="sli sli-star"></i>
-											<i class="sli sli-star"></i>
+										<div class="pro-details-rating" id="quickView-score">
+											
 										</div>
-										<span>3 Reviews</span>
+										库存：<span id="stock"></span>
 									</div>
 									<p>Lorem ipsum dolor sit amet, consectetur adipisic elit
 										eiusm tempor incidid ut labore et dolore magna aliqua. Ut enim
 										ad minim venialo quis nostrud exercitation ullamco</p>
 									<div class="pro-details-list">
-										<ul>
-											<li>- 0.5 mm Dail</li>
-											<li>- Inspired vector icons</li>
-											<li>- Very modern style</li>
+										<ul id="quickView-size">
+											
 										</ul>
 									</div>
-									<div class="pro-details-size-color">
-										<div class="pro-details-color-wrap">
-											<span>Color</span>
-											<div class="pro-details-color-content">
-												<ul>
-													<li class="blue"></li>
-													<li class="maroon active"></li>
-													<li class="gray"></li>
-													<li class="green"></li>
-													<li class="yellow"></li>
-													<li class="white"></li>
-												</ul>
-											</div>
-										</div>
-										<div class="pro-details-size">
-											<span>Size</span>
-											<div class="pro-details-size-content">
-												<ul>
-													<li><a href="#">s</a></li>
-													<li><a href="#">m</a></li>
-													<li><a href="#">l</a></li>
-													<li><a href="#">xl</a></li>
-													<li><a href="#">xxl</a></li>
-												</ul>
-											</div>
-										</div>
-									</div>
+									<div class="pro-details-size-color"></div>
 									<div class="pro-details-quality">
 										<div class="cart-plus-minus">
 											<input class="cart-plus-minus-box" type="text"
-												name="qtybutton" value="2">
+												name="qtybutton" value="1">
 										</div>
 										<div class="pro-details-cart">
-											<a href="#">Add To Cart</a>
+											<a href="#">添加到购物车</a>
 										</div>
 										<div class="pro-details-wishlist">
 											<a title="Add To Wishlist" href="#"><i
@@ -547,23 +505,7 @@
 											<a title="Add To Compare" href="#"><i
 												class="sli sli-refresh"></i></a>
 										</div>
-									</div>
-									<div class="pro-details-meta">
-										<span>Categories :</span>
-										<ul>
-											<li><a href="#">Minimal,</a></li>
-											<li><a href="#">Furniture,</a></li>
-											<li><a href="#">Fashion</a></li>
-										</ul>
-									</div>
-									<div class="pro-details-meta">
-										<span>Tag :</span>
-										<ul>
-											<li><a href="#">Fashion, </a></li>
-											<li><a href="#">Furniture,</a></li>
-											<li><a href="#">Electronic</a></li>
-										</ul>
-									</div>
+									</div>																	
 								</div>
 							</div>
 						</div>
@@ -613,11 +555,44 @@
 					} else{
 						$("#quickView-pname").text(data.data.productname);
 						$("#quickView-price").text(data.data.price);
+						$("#bigImage").text('');
+						$("#smallImage").text('');
+						$("#quickView-size").empty();
+						$("#quickView-score").empty();
+						for (var i = 0; i < data.data.images.length;i++){
+							if (i == 0){
+								$("#bigImage").append('<div id="pro-'+(i+1)+'" class="tab-pane fade show active">'+
+	                                '<img src="' +data.data.images[i].imgpath+'" alt="">'+
+	                                '</div>');
+								$("#smallImage").append('<a class="active" data-toggle="tab" href="#pro-'+(i+1)+'">'+
+                                    '<img src="' +data.data.images[i].imgpath+'" alt="" style="width:80px;height:80px"></a>');
+							}else{
+								$("#bigImage").append('<div id="pro-'+(i+1)+'" class="tab-pane fade">'+
+								    '<img src="' +data.data.images[i].imgpath+'" alt="">'+
+		                            '</div>');
+								$("#smallImage").append('<a data-toggle="tab" href="#pro-'+(i+1)+'">'+
+									'<img src="' +data.data.images[i].imgpath+'" alt="" style="width:80px;height:80px"></a>');								
+							}
+						}
+						$("#stock").text(data.data.stock); 
+						var size=data.data.description;
+						if (size != ""){
+							size=size.split(",");
+	                        for (var i = 0; i < size.length;i++){
+	                        	$("#quickView-size").append('<li>- '+size[i]+' </li>');
+	                        }
+						} else{
+							$("#quickView-size").empty();							
+						}
 						
-						//data-toggle="modal"
-                        //data-target="#exampleModal"
-                        //$("#exampleModal").show();
-						//window.open("exampleModal"); 
+						
+						
+						for (var i = 0; i < data.data.score; i++){
+							$("#quickView-score").append('<i class="sli sli-star yellow"></i>');
+						}
+						for (var i = data.data.score; i < 5; i++){
+                            $("#quickView-score").append('<i class="sli sli-star"></i>');
+                        }
 					}
 				},
 				error:function(data){
@@ -660,12 +635,12 @@
 				url : 'item?' + item,
 				method : "get",
 				async : true,
-				success : function(data) {
-					$("#gridList").empty();
-					$("#shop-2").empty();
+				success : function(data) {					
 					if (data.data == null) {
 						getInfoMsg("没有数据");
 					} else {
+						$("#gridList").empty();
+	                    $("#shop-2").empty();
 						for (var i = 0; i < data.data.length; i++) {
 							setShop1(data.data[i]);
 							setShop2(data.data[i]);
@@ -678,7 +653,11 @@
 			})
 
 		}
-
+	    
+		function setModel(data){
+			
+		}
+		
 		function setShop1(data) {
 			$("#gridList")
 					.append(

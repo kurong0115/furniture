@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.house.furniture.bean.Address;
 import com.house.furniture.bean.Cart;
 import com.house.furniture.bean.User;
+import com.house.furniture.service.AddressService;
 import com.house.furniture.service.CartService;
 import com.house.furniture.service.ServiceException;
 import com.house.furniture.vo.Result;
@@ -23,6 +25,9 @@ public class CartPageAction {
 
 	@Resource
 	CartService cartservice;
+	
+	@Resource
+	AddressService addressservice;
 	
 	//需要修改用户id，根据session
 	@RequestMapping("seeCart")
@@ -73,4 +78,32 @@ public class CartPageAction {
 		model.addAttribute("allSum", 0);
 		return new Result(Result.EXECUTION_SUCCESS, "清空成功");
 	}
+	
+	//user要根据session获取
+	@RequestMapping("checkout")
+	public String checkout(User user,Model model) {
+		user.setId(1);
+		
+		List<Address> addrList=addressservice.getAddrByUser(user);
+		model.addAttribute("addrList", addrList);
+		return "checkout";
+	}
+	
+	@PostMapping("cart/updataCartCount")
+	@ResponseBody
+	public Result updataCartCount(Cart cart,User user,Model model) {
+		user.setId(1);
+		cart.setUid(user.getId());
+		cartservice.updataCartCountById(cart);
+
+		List<Cart> cartProductList = cartservice.listCartProductByUser(user);
+		model.addAttribute("cartProductList", cartProductList);
+		long allSum=0;
+		for (Cart c : cartProductList) {
+			allSum+=c.getCount()*c.getProduct().getPrice();
+		}
+		model.addAttribute("allSum", allSum);
+		return new Result(Result.EXECUTION_SUCCESS, "修改成功");
+	}
+	
 }
