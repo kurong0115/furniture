@@ -19,11 +19,11 @@ public class OrdersServiceImpl implements OrdersService {
 	
 	
 	@Override
-	public Orders selectByUid(Integer uid) {
+	public List<Orders> selectByUid(Integer uid) {
 		OrdersExample orderExample = new OrdersExample();
 		orderExample.createCriteria().andUidEqualTo(uid);
 		List<Orders> order = orderMapper.selectByExample(orderExample);
-		return order.size() == 0 ? null : order.get(0);
+		return order.size() == 0 ? null : order;
 	}
 
 }

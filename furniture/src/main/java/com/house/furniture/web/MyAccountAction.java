@@ -1,11 +1,15 @@
 package com.house.furniture.web;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.house.furniture.bean.Orders;
 import com.house.furniture.bean.User;
 import com.house.furniture.service.OrdersService;
 
@@ -15,14 +19,15 @@ public class MyAccountAction {
 	OrdersService orderservice;
 	
 	@RequestMapping("my-account")
-	public String MyAccount(HttpSession session) {
+	public String MyAccount(HttpSession session,Model model) {
 		//打开账户信息之前先加载各种信息
 		//查询该用户的所有订单
 		User user = (User)session.getAttribute("user");
 		
-		//Order order = orderservice.selectByUid(user.getId());
+		List<Orders> orders = orderservice.selectByUid(user.getId());
 		//将用户的所有订单添加到会话中
-		//session.setAttribute("myOrder", order);
+		model.addAttribute("myOrder", orders);
+		System.out.println(orders.get(0).getOrderno());
 		return "my-account";
 	}
 }

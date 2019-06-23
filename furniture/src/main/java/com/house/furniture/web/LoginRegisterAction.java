@@ -140,7 +140,7 @@ public class LoginRegisterAction {
 		mailSender.send(message);
 	}
 	
-	@GetMapping("send")
+	@PostMapping("send")
 	@ResponseBody
 	public Result send(String email,HttpSession session) {
 		if( !MyUtils.isEmail(email) ) {
@@ -155,8 +155,8 @@ public class LoginRegisterAction {
 		String realCode = sb.toString();
 		//将验证码加入session中
 		session.setAttribute("realCode", realCode);
-		String content = "您的验证码为：" + realCode;
 		
+		String content = "您的验证码为：" + realCode;
 		sendMail(email, "OurHouse邮件", content);
 		return new Result(Result.EXECUTION_SUCCESS,"发送成功！");
 	}
