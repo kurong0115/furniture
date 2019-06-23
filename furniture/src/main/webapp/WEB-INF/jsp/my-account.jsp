@@ -82,7 +82,7 @@
                                                            <td>666</td>
                                                            <td><a href="#" class="check-btn sqr-btn "><i class="fa fa-cloud-download"></i> 详情</a></td>
 		                                                 </tr>
-	                                                    <c:if test="${myorder != null }">
+	                                                    <c:if test="${myOrder != null }">
 		                                                    <c:forEach items="${myorder }"  var="m">
 		                                                       <tr>
 		                                                           <td>${m.orders.orderno}</td>
