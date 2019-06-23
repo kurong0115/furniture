@@ -1,8 +1,8 @@
 package com.house.furniture.service;
 
-import com.house.furniture.bean.Order;
+import com.house.furniture.bean.Orders;
 
 public interface OrdersService {
 	//根据用户id查询订单
-	Order selectByUid( Integer uid );
+	Orders selectByUid( Integer uid );
 }

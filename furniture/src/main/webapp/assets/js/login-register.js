@@ -118,7 +118,7 @@ function login(){
 		}
     	$.ajax({
    			url:"send",
-   			type:'POST',
+   			type:'GET',
    			data:{
    				username:$("#username").val(),
    				email:$("#email").val()

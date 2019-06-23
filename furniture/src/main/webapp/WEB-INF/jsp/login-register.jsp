@@ -59,7 +59,7 @@
                                             <a href="javascript:updateCode()">换一张</a>		
                                             <div class="button-box">
                                                 <div class="login-toggle-btn">
-                                                    <a href="forgetPassword">忘记密码?</a>
+                                                    <a href="forgetPassword">忘记密码/账号?</a>
                                                 </div>
                                                 <button type="button" onclick="login()">登录</button>
                                             </div>
