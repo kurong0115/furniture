@@ -2,7 +2,7 @@ package com.house.furniture.bean;
 
 import java.sql.Timestamp;
 
-public class Order {
+public class Orders {
     private Integer id;
 
     private String orderno;

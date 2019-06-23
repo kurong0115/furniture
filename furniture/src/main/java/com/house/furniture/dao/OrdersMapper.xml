@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.house.furniture.dao.OrderMapper">
-  <resultMap id="BaseResultMap" type="com.house.furniture.bean.Order">
+<mapper namespace="com.house.furniture.dao.OrdersMapper">
+  <resultMap id="BaseResultMap" type="com.house.furniture.bean.Orders">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="orderNo" jdbcType="VARCHAR" property="orderno" />
     <result column="uid" jdbcType="INTEGER" property="uid" />
@@ -70,13 +70,13 @@
   <sql id="Base_Column_List">
     id, orderNo, uid, createTime, sum, address
   </sql>
-  <select id="selectByExample" parameterType="com.house.furniture.bean.OrderExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.house.furniture.bean.OrdersExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from order
+    from orders
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -87,33 +87,33 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from order
+    from orders
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from order
+    delete from orders
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.house.furniture.bean.OrderExample">
-    delete from order
+  <delete id="deleteByExample" parameterType="com.house.furniture.bean.OrdersExample">
+    delete from orders
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.house.furniture.bean.Order">
+  <insert id="insert" parameterType="com.house.furniture.bean.Orders">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into order (orderNo, uid, createTime, 
+    insert into orders (orderNo, uid, createTime, 
       sum, address)
     values (#{orderno,jdbcType=VARCHAR}, #{uid,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, 
       #{sum,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.house.furniture.bean.Order">
+  <insert id="insertSelective" parameterType="com.house.furniture.bean.Orders">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into order
+    insert into orders
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="orderno != null">
         orderNo,
@@ -149,14 +149,14 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.house.furniture.bean.OrderExample" resultType="java.lang.Long">
-    select count(*) from order
+  <select id="countByExample" parameterType="com.house.furniture.bean.OrdersExample" resultType="java.lang.Long">
+    select count(*) from orders
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update order
+    update orders
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
@@ -182,7 +182,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update order
+    update orders
     set id = #{record.id,jdbcType=INTEGER},
       orderNo = #{record.orderno,jdbcType=VARCHAR},
       uid = #{record.uid,jdbcType=INTEGER},
@@ -193,8 +193,8 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.house.furniture.bean.Order">
-    update order
+  <update id="updateByPrimaryKeySelective" parameterType="com.house.furniture.bean.Orders">
+    update orders
     <set>
       <if test="orderno != null">
         orderNo = #{orderno,jdbcType=VARCHAR},
@@ -214,8 +214,8 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.house.furniture.bean.Order">
-    update order
+  <update id="updateByPrimaryKey" parameterType="com.house.furniture.bean.Orders">
+    update orders
     set orderNo = #{orderno,jdbcType=VARCHAR},
       uid = #{uid,jdbcType=INTEGER},
       createTime = #{createtime,jdbcType=TIMESTAMP},
