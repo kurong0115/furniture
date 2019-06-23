@@ -2,7 +2,7 @@ package com.house.furniture.bean;
 
 import java.sql.Timestamp;
 
-public class Order {
+public class Orders {
     private Integer id;
 
     private String orderno;
@@ -13,9 +13,15 @@ public class Order {
 
     private Integer sum;
 
-    private String address;
+    private Integer addressid;
 
-    public Integer getId() {
+    @Override
+	public String toString() {
+		return "Orders [id=" + id + ", orderno=" + orderno + ", uid=" + uid + ", createtime=" + createtime + ", sum="
+				+ sum + ", addressid=" + addressid + "]";
+	}
+
+	public Integer getId() {
         return id;
     }
 
@@ -55,11 +61,11 @@ public class Order {
         this.sum = sum;
     }
 
-    public String getAddress() {
-        return address;
+    public Integer getAddressid() {
+        return addressid;
     }
 
-    public void setAddress(String address) {
-        this.address = address == null ? null : address.trim();
+    public void setAddressid(Integer addressid) {
+        this.addressid = addressid;
     }
 }

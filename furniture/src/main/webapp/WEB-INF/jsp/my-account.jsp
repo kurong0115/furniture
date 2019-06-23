@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Parlo - eCommerce Bootstrap 4 Template</title>  
+    <title>我的账户</title>  
     <!-- 引入首部链接 -->
     <%@include file="common/header_link.jsp" %>
 </head>
@@ -39,9 +39,7 @@
                                 <div class="myaccount-tab-menu nav" role="tablist">
                                     <a href="#dashboad" class="active" data-toggle="tab">
                                     	<i class="fa fa-dashboard"></i>操作</a>   
-                                    <a href="#orders" data-toggle="tab"><i class="fa fa-cart-arrow-down"></i> 订单</a>    
-                                    <a href="#download" data-toggle="tab"><i class="fa fa-cloud-download"></i> 下载</a>    
-                                       
+                                    <a href="#orders" data-toggle="tab"><i class="fa fa-cart-arrow-down"></i> 订单</a> 
                                     <a href="#address-edit" data-toggle="tab"><i class="fa fa-map-marker"></i> 地址</a>    
                                     <a href="#account-info" data-toggle="tab"><i class="fa fa-user"></i> 帐户详细信息</a>    
                                     <a href="loginOut" onclick="return loginOut();"><i class="fa fa-sign-out"></i> 注销</a>
@@ -78,48 +76,28 @@
                                                         </tr>
                                                     </thead>    
                                                     <tbody>
-                                                        <tr>
-                                                            <td>1</td>
-                                                            <td>Aug 22, 2018</td>
-                                                            <td>$3000</td>
-                                                            <td><a href="https://demo.hasthemes.com/parlo/parlo/cart.html" class="check-btn sqr-btn ">查看</a></td>
-                                                        </tr>
+                                                    	<tr>
+                                                           <td>01</td>
+                                                           <td>2019-6-23</td>
+                                                           <td>666</td>
+                                                           <td><a href="#" class="check-btn sqr-btn "><i class="fa fa-cloud-download"></i> 详情</a></td>
+		                                                 </tr>
+	                                                    <c:if test="${myorder != null }">
+		                                                    <c:forEach items="${myorder }"  var="m">
+		                                                       <tr>
+		                                                           <td>${m.orders.orderno}</td>
+		                                                           <td>${m.orders.createtime}</td>
+		                                                           <td>${m.orders.sum}</td>
+		                                                           <td><a href="#" class="check-btn sqr-btn "><i class="fa fa-cloud-download"></i> 详情</a></td>
+		                                                       </tr>
+			                                                  </c:forEach>
+	                                                    </c:if>
                                                     </tbody>
                                                 </table>
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- Single Tab Content End -->    
-                                    <!-- Single Tab Content Start -->
-                                    <div class="tab-pane fade" id="download" role="tabpanel">
-                                        <div class="myaccount-content">
-                                            <h3>下载</h3>    
-                                            <div class="myaccount-table table-responsive text-center">
-                                                <table class="table table-bordered">
-                                                    <thead class="thead-light">
-                                                    <tr>
-                                                        <th>产品</th>
-                                                        <th>日期</th>
-                                                        <th>到期</th>
-                                                        <th>下载</th>
-                                                    </tr>
-                                                    </thead>    
-                                                    <c:forEach items="${myOrder }"  var="m">
-	                                                    <tbody>
-	                                                        <tr>
-	                                                            <td>${m.orderno}</td>
-	                                                            <td>${m.createtime}</td>
-	                                                            <td>Yes</td>
-	                                                            <td><a href="#" class="check-btn sqr-btn "><i class="fa fa-cloud-download"></i> 下载文件</a></td>
-	                                                        </tr>
-	                                                    </tbody>
-                                                    </c:forEach>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Single Tab Content End -->    
-                                    <!-- Single Tab Content Start -->
+                                   
                                     
                                     <!-- Single Tab Content End -->    
                                     <!-- Single Tab Content Start -->

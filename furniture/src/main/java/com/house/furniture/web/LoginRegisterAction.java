@@ -1,5 +1,7 @@
 package com.house.furniture.web;
 
+import java.util.List;
+
 import java.util.Random;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -8,18 +10,27 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
+
+import com.house.furniture.bean.Cart;
 import com.house.furniture.bean.User;
+import com.house.furniture.service.CartService;
 import com.house.furniture.service.UserService;
 import com.house.furniture.util.MyUtils;
 import com.house.furniture.vo.Result;
 
 @Controller
+@SessionAttributes(names= {"cartProductList","allSum"})
 public class LoginRegisterAction {
 
+	@Resource
+	CartService cartservice;
+	
 	@Resource
 	UserService userservice;
 
@@ -31,7 +42,7 @@ public class LoginRegisterAction {
 
 	@PostMapping("login.do")
 	@ResponseBody
-	public Result login(String username, String password, String code,  HttpSession session) {
+	public Result login(String username, String password, String code,  HttpSession session,Model model) {
 		String msg = "";
 		// 根据用户名和密码查询
 		User user = userservice.login(username, password);
@@ -45,6 +56,17 @@ public class LoginRegisterAction {
 				// 登陆成功，将用户添加到会话当中
 				session.setAttribute("user", user);
 				msg = "登录成功!";
+				
+				//成功之后把该用户的购物车查出来
+				List<Cart> cartProductList = cartservice.listCartProductByUser(user);
+				model.addAttribute("cartProductList", cartProductList);
+				
+				long allSum=0;
+				for (Cart cart : cartProductList) {
+					allSum+=cart.getCount()*cart.getProduct().getPrice();
+				}
+				model.addAttribute("allSum", allSum);
+				
 				return new Result(Result.EXECUTION_SUCCESS, msg);
 			}
 		} else {
@@ -92,7 +114,7 @@ public class LoginRegisterAction {
 					return new Result(Result.EXECUTION_FAILED, msg);
 				}
 			}else {
-				msg = "邮箱已存在!";
+				msg = "邮箱已存在！如果你忘记了账号，请点击忘记账号！";
 				return new Result(Result.EXECUTION_FAILED, msg);
 			}
 		}else {
@@ -155,8 +177,8 @@ public class LoginRegisterAction {
 		String realCode = sb.toString();
 		//将验证码加入session中
 		session.setAttribute("realCode", realCode);
-		String content = "您的验证码为：" + realCode;
 		
+		String content = "您的验证码为：" + realCode;
 		sendMail(email, "OurHouse邮件", content);
 		return new Result(Result.EXECUTION_SUCCESS,"发送成功！");
 	}

@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.house.furniture.bean.Address;
@@ -29,27 +30,27 @@ public class CartPageAction {
 	@Resource
 	AddressService addressservice;
 	
-	//需要修改用户id，根据session
+	/**
+	 * 查看购物车
+	 * @param user
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("seeCart")
-	public String seeCart(User user,Model model) {
-		user.setId(1);
-		
-		List<Cart> cartProductList = cartservice.listCartProductByUser(user);
-		model.addAttribute("cartProductList", cartProductList);
-		
-		long allSum=0;
-		for (Cart cart : cartProductList) {
-			allSum+=cart.getCount()*cart.getProduct().getPrice();
-		}
-		model.addAttribute("allSum", allSum);
-
+	public String seeCart(@SessionAttribute("user")User user,Model model) {
 		return "cart-page";
 	}
 	
+	/**
+	 * 删除购物车中的商品
+	 * @param id
+	 * @param user
+	 * @param model
+	 * @return
+	 */
 	@PostMapping("cart/delCart")
 	@ResponseBody
-	public Result delCart(Integer id,User user,Model model) {
-		user.setId(1);
+	public Result delCart(Integer id,@SessionAttribute("user")User user,Model model) {
 		try {
 			cartservice.delCartById(id);
 			List<Cart> cartProductList = cartservice.listCartProductByUser(user);
@@ -67,11 +68,15 @@ public class CartPageAction {
 		}
 	}
 	
-	//需要修改用户id，根据session
+	/**
+	 * 清空购物车
+	 * @param user
+	 * @param model
+	 * @return
+	 */
 	@PostMapping("cart/clearCart")
 	@ResponseBody
-	public Result clearCart(User user,Model model) {
-		user.setId(1);
+	public Result clearCart(@SessionAttribute("user")User user,Model model) {
 		
 		cartservice.clearCart(user.getId());
 		model.addAttribute("cartProductList", "");
@@ -79,20 +84,29 @@ public class CartPageAction {
 		return new Result(Result.EXECUTION_SUCCESS, "清空成功");
 	}
 	
-	//user要根据session获取
+	/**
+	 * 跳转到结算页面
+	 * @param user
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("checkout")
-	public String checkout(User user,Model model) {
-		user.setId(1);
-		
+	public String checkout(@SessionAttribute("user")User user,Model model) {
 		List<Address> addrList=addressservice.getAddrByUser(user);
 		model.addAttribute("addrList", addrList);
 		return "checkout";
 	}
 	
+	/**
+	 * 修改购物车商品的数量
+	 * @param cart
+	 * @param user
+	 * @param model
+	 * @return
+	 */
 	@PostMapping("cart/updataCartCount")
 	@ResponseBody
-	public Result updataCartCount(Cart cart,User user,Model model) {
-		user.setId(1);
+	public Result updataCartCount(Cart cart,@SessionAttribute("user")User user,Model model) {
 		cart.setUid(user.getId());
 		cartservice.updataCartCountById(cart);
 

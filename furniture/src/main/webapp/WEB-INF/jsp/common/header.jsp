@@ -5,6 +5,15 @@
 <header class="header-area sticky-bar">
 
 		<script type="text/javascript">
+		function checkOut() {
+			if($('#tbb').children("tr").children("td").find("span").text()=="暂无商品被加入购物车" 
+					|| $('#cartUl').children("li").text()=="暂无商品"){
+				getInfoMsg("购物车啥也没有");
+			}else{
+				location.href="checkout";
+			}
+		}
+		
 		function headerDelCart(del) { 			
 			$.post("cart/delCart",{
 				id:$(del).parent().next().val()
@@ -15,7 +24,7 @@
 					var price=str[1];
 					var sum=count*price;
 					var allSum=$('#sum').val();
-					var rows=$(del).parent().parent().parent().prevAll().length;
+					var rows=$(del).parent().parent().parent().prevAll().length-1;
 					var CartCount=$('.headerCartCount').text();
 					getSuccessMsg(data.message);				
 					
@@ -95,6 +104,15 @@
                                            <li><a href="my-account">我的账户 </a></li>
                                            <li><a href="contact-us">联系我们</a></li>
                                            <li><a href="login-register">登录/注册 </a></li>
+                                           <li><a href="compare-page.html">compare </a></li>
+                                           <li><a href="wishlist.html">wishlist </a></li>
+                                           <c:if test="${user  == null}">
+                                           		<li><a href="login-register">登录/注册 </a></li>
+                                           </c:if>
+                                           <c:if test="${user  != null}">
+                                           		<li><a href="my-account">我的账户 </a></li>
+                                           </c:if>
+                                           <li><a href="contact-us">contact us </a></li>
                                        </ul>
                                    </li>
                                    <li class="angle-shape"><a href="blog"> 博客 </a>
@@ -116,12 +134,12 @@
                            <div class="header-search">
                                <a class="search-active" href="javascript:void(0)"><i class="sli sli-magnifier"></i></a>
                            </div>
-                           <c:if test="${user == null}">
+                           <c:if test="${empty user}">
                             	<div>
                                     <h6>您尚未登录&nbsp;&nbsp;&nbsp;<a  href="login-register">去登录</a></h6>
                                 </div>
                            </c:if>
-                           <c:if test="${user!=null}">
+                           <c:if test="${!empty user}">
 	                           <div class="cart-wrap">
 	                               <button class="icon-cart-active">
 	                                   <span class="icon-cart">
@@ -164,7 +182,7 @@
 	                                           <h4>总价 : <span>￥<span class="shop-total allSum">${allSum}</span></span></h4>
 	                                       </div>
 	                                       <div class="shopping-cart-btn btn-hover text-center">
-	                                           <a class="default-btn" href="checkout">结算</a>
+	                                           <a class="default-btn" href="javascript:void(0)" onclick="checkOut()">结算</a>
 	                                           <a class="default-btn" href="seeCart">查看购物车</a>
 	                                       </div>
 	                                   </div>

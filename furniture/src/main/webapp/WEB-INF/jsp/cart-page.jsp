@@ -12,6 +12,7 @@
     <!-- 引入首部链接 -->
     <%@include file="common/header_link.jsp" %>
     <script type="text/javascript">
+	
     function clearCart() {
 		if($('#tbb').children("tr").children("td").find("span").text()=="暂无商品被加入购物车"){
 			getInfoMsg("购物车啥也没有");
@@ -25,6 +26,9 @@
 						'<tr style="text-align: center;">'+			
                         '<td colspan="6"><span>暂无商品被加入购物车</span></td>'+
                         '</tr>'	
+					);
+					$('#cartUl').append(
+							'<li>暂无商品</li>'
 					);
 					$('.allSum').text(0);
 					$('.headerCartCount').text(0);					
@@ -53,6 +57,12 @@
 					);
 				}
 				$('#cartUl li:eq('+rows+')').remove();
+				if($('#cartUl li').length==0){
+					$('#cartUl').append(
+						'<li>暂无商品</li>'
+					);
+				}
+				
 				$('.allSum').text(allSum-sum);
 				$('.headerCartCount').text(--CartCount);
 				$('#sum').val(allSum-sum);
@@ -62,33 +72,11 @@
 		});
 	}
                                 	
-  	 //信息提示框
-  	function getSuccessMsg(msg) {
-  		$.message({
-  	        message:msg,
-  	        type:'success',
-  	        duration:'3000'
-  	    });
-  	}
-  	function getInfoMsg(msg) {
-  		$.message({
-  	        message:msg,
-  	        type:'info',
-  	        duration:'3000'
-  	    });
-  	}
-  	function getFailMsg(msg) {
-  		$.message({
-  	        message:msg,
-  	        type:'error',
-  	        duration:'3000'
-  	    });
-  	}
   </script>
 </head>
 
 <body>
-<div class="wrapper">
+<div class="wrapper" >
     
     
     <!-- 引入首部 -->
@@ -176,7 +164,7 @@
                                 </div>
                                 <br/>
                                 <h4 class="grand-totall-title">总计  <span >￥<font class="allSum">${allSum}</font></span></h4>
-                                <a href="checkout">结账</a>
+                                <a href="javascript:void(0)" onclick="checkOut()">结账</a>
                             </div>
                         </div>
                     </div>
