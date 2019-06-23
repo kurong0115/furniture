@@ -1,7 +1,7 @@
 package com.house.furniture.web;
 
-
 import java.util.List;
+
 import java.util.Random;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -114,7 +114,7 @@ public class LoginRegisterAction {
 					return new Result(Result.EXECUTION_FAILED, msg);
 				}
 			}else {
-				msg = "邮箱已存在!";
+				msg = "邮箱已存在！如果你忘记了账号，请点击忘记账号！";
 				return new Result(Result.EXECUTION_FAILED, msg);
 			}
 		}else {
@@ -162,7 +162,7 @@ public class LoginRegisterAction {
 		mailSender.send(message);
 	}
 	
-	@PostMapping("send")
+	@GetMapping("send")
 	@ResponseBody
 	public Result send(String email,HttpSession session) {
 		if( !MyUtils.isEmail(email) ) {

@@ -69,12 +69,18 @@
 			<artifactId>jstl</artifactId>
 		</dependency>
 		
-		<!-- https://mvnrepository.com/artifact/com.github.pagehelper/pagehelper-spring-boot-starter -->
 		<dependency>
 			<groupId>com.github.pagehelper</groupId>
 			<artifactId>pagehelper-spring-boot-starter</artifactId>
 			<version>1.2.10</version>
 		</dependency>
+		
+		<!-- 将JSON格式的数据转化为类对象 -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+		</dependency>
+		
 	</dependencies>
 
 	<build>
@@ -82,6 +88,23 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			
+			<!-- mybatis反向工程 -->
+			<plugin>
+				<!-- 自动生成代码的maven命令：mybatis-generator:generate -->
+				<!-- generator自动生成代码的配置文件 -->
+				<groupId>org.mybatis.generator</groupId>
+				<artifactId>mybatis-generator-maven-plugin</artifactId>
+				<version>1.3.7</version>
+				<!-- 操作mysql需要驱动包支持 -->
+				<dependencies>
+					<dependency>
+						<groupId>mysql</groupId>
+						<artifactId>mysql-connector-java</artifactId>
+						<version>8.0.13</version>
+					</dependency>
+				</dependencies>
 			</plugin>
 		</plugins>
 	</build>

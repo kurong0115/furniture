@@ -208,4 +208,12 @@
       phone = #{phone,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  <!-- 通过uid查相关的地址信息 -->
+  <select id="selectByUid" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from address
+    where uid = #{uid,jdbcType=INTEGER}
+  </select>
 </mapper>

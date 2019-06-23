@@ -4,34 +4,4 @@
   <welcome-file-list>
     <welcome-file>index</welcome-file>
   </welcome-file-list>
-  
-  <!-- 分发器Servlet -->
-	<servlet>
-		<servlet-name>dispatcher</servlet-name>
-		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-		<init-param>
-			<!-- 配置spring的xml位置 -->
-			<param-name>contextConfigLocation</param-name>
-			<param-value>classpath:beans.xml</param-value>
-		</init-param>
-		<!-- 该Servlet在容器启动时加载 -->
-		<load-on-startup>1</load-on-startup>
-		<!-- 文件上传 -->
-		<multipart-config>
-			<!-- 
-			最大的上传文件大小
-			<max-file-size></max-file-size>
-			最大的上传文件总大小
-			<max-request-size></max-request-size>
-			上传文件临时保存的阀值
-			<file-size-threshold></file-size-threshold>
-			临时保存文件的路径
-			<location></location>
-			 -->
-		</multipart-config>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>dispatcher</servlet-name>
-		<url-pattern>/</url-pattern>
-	</servlet-mapping>
 </web-app>

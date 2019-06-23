@@ -18,7 +18,7 @@ public class CategoryServiceImpl implements CategoryService {
 	@Override
 	public List<Category> listAllCategory() {
 		List<Category> list = categoryMapper.selectByExample(null);
-		return list.isEmpty()? null: list;
+		return list.isEmpty() ? null : list;
 	}
 
 }

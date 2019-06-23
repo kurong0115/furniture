@@ -20,9 +20,10 @@ public class ProductServiceImpl implements ProductService {
 	
 	@Override
 	public List<Product> listProductsByType(int cid, int page, int size) {
-		ProductExample example = new ProductExample();
-		example.createCriteria().andCidEqualTo(cid);
-		List<Product> productList = productMapper.selectByExample(example);
+//		ProductExample example = new ProductExample();
+//		example.createCriteria().andCidEqualTo(cid);
+//		List<Product> productList = productMapper.selectByExample(example);
+		List<Product> productList = productMapper.listProductsByCid(cid);
 		return productList.isEmpty()? null: productList;
 	}
 

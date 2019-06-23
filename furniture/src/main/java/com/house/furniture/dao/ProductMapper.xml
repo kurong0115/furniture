@@ -295,4 +295,21 @@
       content = #{content,jdbcType=VARCHAR}
     where pid = #{pid,jdbcType=INTEGER}
   </update>
+  
+  <resultMap type="com.house.furniture.bean.Product" id="listProductsByCidMap" autoMapping="true">
+    <id column="pid" property="pid"/>
+    <association property="category" autoMapping="true" javaType="com.house.furniture.bean.Category">
+        <id column="cid" property="cid"/>
+    </association>
+    <collection property="images" ofType="com.house.furniture.bean.Image" autoMapping="true">
+      <id column="imgId" property="imgid"/>
+      
+    </collection>
+  </resultMap>
+  
+  <select id="listProductsByCid" resultMap="listProductsByCidMap" parameterType="int">
+    select a.*,b.categoryname,c.imgid,c.imgpath
+    from product a,category b,image c
+    where a.pid=c.pid and a.cid=b.cid and a.cid=#{cid}
+  </select>
 </mapper>

@@ -1,10 +1,8 @@
 package com.house.furniture;
 
-import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Base64;
 import java.util.List;
 import java.util.Random;
 import java.util.regex.Matcher;
@@ -14,11 +12,14 @@ import javax.annotation.Resource;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.house.furniture.bean.Product;
 import com.house.furniture.bean.User;
 import com.house.furniture.bean.UserExample;
+import com.house.furniture.dao.ProductMapper;
 import com.house.furniture.dao.UserMapper;
 
 @RunWith(SpringRunner.class)
@@ -27,6 +28,9 @@ public class FurnitureApplicationTests {
 	
 	@Resource
 	private UserMapper userMapper;
+	
+	@Autowired
+	private ProductMapper productMapper;
 
 	@Test
 	public void contextLoads() {
@@ -97,10 +101,13 @@ public class FurnitureApplicationTests {
 			System.out.println(new BigInteger(1,digest).toString(16));
 			
 		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		
+		}		
 	}
-		
+	
+	@Test
+	public void listProductsByCid() {
+		List<Product> list = productMapper.listProductsByCid(1);
+		System.out.println(list);
+	}
 }
