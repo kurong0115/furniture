@@ -316,12 +316,14 @@
 																	<!-- <span class="old">$70.00</span> -->
 																</div>
 																
-																	<div class="ht-product-list-ratting">
+																	<span class="ht-product-list-ratting">
 			                                                            <c:forEach begin="1" end="${product.score }">
 	                                                                        <i class="sli sli-star"></i>
 	                                                                    </c:forEach>    	                                                                     
-			                                                        </div>
-		                                                              <i class="sli sli-star"></i> 
+			                                                        </span>
+		                                                              <c:forEach begin="${product.score }" end="4">
+                                                                            &nbsp;<i class="sli sli-star"></i>
+                                                                      </c:forEach> 
 		                                                        
 															</div>
 															<div class="ht-product-list-action">

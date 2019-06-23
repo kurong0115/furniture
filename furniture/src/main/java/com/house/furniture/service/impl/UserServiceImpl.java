@@ -3,7 +3,6 @@ package com.house.furniture.service.impl;
 import java.util.List;
 import javax.annotation.Resource;
 
-import org.apache.jasper.TrimSpacesOption;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 
