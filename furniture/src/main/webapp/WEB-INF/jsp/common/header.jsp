@@ -5,6 +5,15 @@
 <header class="header-area sticky-bar">
 
 		<script type="text/javascript">
+		function checkOut() {
+			if($('#tbb').children("tr").children("td").find("span").text()=="暂无商品被加入购物车" 
+					|| $('#cartUl').children("li").text()=="暂无商品"){
+				getInfoMsg("购物车啥也没有");
+			}else{
+				location.href="checkout";
+			}
+		}
+		
 		function headerDelCart(del) { 			
 			$.post("cart/delCart",{
 				id:$(del).parent().next().val()
@@ -15,7 +24,7 @@
 					var price=str[1];
 					var sum=count*price;
 					var allSum=$('#sum').val();
-					var rows=$(del).parent().parent().parent().prevAll().length;
+					var rows=$(del).parent().parent().parent().prevAll().length-1;
 					var CartCount=$('.headerCartCount').text();
 					getSuccessMsg(data.message);				
 					
@@ -164,7 +173,7 @@
 	                                           <h4>总价 : <span>￥<span class="shop-total allSum">${allSum}</span></span></h4>
 	                                       </div>
 	                                       <div class="shopping-cart-btn btn-hover text-center">
-	                                           <a class="default-btn" href="checkout">结算</a>
+	                                           <a class="default-btn" href="javascript:void(0)" onclick="checkOut()">结算</a>
 	                                           <a class="default-btn" href="seeCart">查看购物车</a>
 	                                       </div>
 	                                   </div>
