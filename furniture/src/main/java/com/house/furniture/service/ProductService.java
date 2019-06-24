@@ -38,4 +38,14 @@ public interface ProductService {
 	 * @return
 	 */
 	Product getProductById(int pid);
+	
+	/**
+	 * 根据3个类名，查出该3类下最新的一些产品
+	 * @param name1
+	 * @param name2
+	 * @param name3
+	 * @param num
+	 * @return
+	 */
+	List<Product> listProductByCategoryName(int num, String name);
 }

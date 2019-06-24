@@ -59,4 +59,8 @@ public class ProductServiceImpl implements ProductService {
 		return product == null? null: product;
 	}
 
+	@Override
+	public List<Product> listProductByCategoryName(int num, String name) {
+		return productMapper.listProductByCategoryName(num, name);
+	}
 }

@@ -312,4 +312,20 @@
     from product a,category b,image c
     where a.pid=c.pid and a.cid=b.cid and a.cid=#{cid}
   </select>
+  
+  <!-- 自定义，查找产品及其分类 -->
+  <resultMap type="com.house.furniture.bean.Product" id="LPBCRM" autoMapping="true">
+    <id column="pid" property="pid"/>
+    <association property="category" autoMapping="true" javaType="com.house.furniture.bean.Category">
+        <id column="cid" property="cid"/>
+    </association>
+  </resultMap>
+  <select id="listProductByCategoryName" resultMap="LPBCRM">
+  	select a.categoryname,b.*,c.imgpath from category a
+  	join (select * from (select *,row_number() over(partition by cid order by createtime desc) as rownum from product) as tbl where #{num} > rownum) b
+  	on a.cid = b.cid
+  	join (select * from (select *,row_number() over(partition by pid) as rownum from image) as tbl where 2 > rownum) c
+	on b.pid = c.pid
+	where a.categoryname = #{name}
+  </select>
 </mapper>
