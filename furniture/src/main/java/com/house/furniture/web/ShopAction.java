@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.github.pagehelper.PageHelper;
 import com.house.furniture.bean.Cart;
@@ -24,6 +25,7 @@ import com.house.furniture.service.ProductService;
 import com.house.furniture.vo.Result;
 
 @Controller
+@SessionAttributes(names= {"cartProductList","allSum"})
 public class ShopAction {
 	
 	@Autowired
@@ -98,7 +100,15 @@ public class ShopAction {
 			Product product = productService.getProductById(cart.getPid());
 			cart.setProduct(product);
 		}
-		
+		List<Cart> cartProductList = cartservice.listCartProductByUser(user);
+		model.addAttribute("cartProductList", cartProductList);
+		long allSum=0;
+		if(cartProductList.size()>0) {
+			for (Cart c : cartProductList) {
+				allSum+=c.getCount()*c.getProduct().getPrice();
+			}
+		}
+		model.addAttribute("allSum", allSum);
 		return new Result(Result.EXECUTION_SUCCESS,"添加成功",cart);
 	}
 }

@@ -6,7 +6,7 @@
 
 		<script type="text/javascript">
 		function addCart(pid,price,imgpath) {
-			$.get("addCart",{
+			$.get("addCart.do",{
 				pid:pid,
 				count:1
 			},function(data){
@@ -59,7 +59,7 @@
 		}
 		
 		function headerDelCart(del) { 			
-			$.post("cart/delCart",{
+			$.post("cart/delCart.do",{
 				id:$(del).parent().next().val()
 			},function(data){
 				if(data.code==1){
@@ -225,7 +225,7 @@
 	                                       </div>
 	                                       <div class="shopping-cart-btn btn-hover text-center">
 	                                           <a class="default-btn" href="javascript:void(0)" onclick="checkOut()">结算</a>
-	                                           <a class="default-btn" href="seeCart">查看购物车</a>
+	                                           <a class="default-btn" href="seeCart.do">查看购物车</a>
 	                                       </div>
 	                                   </div>
 	                               </div>
