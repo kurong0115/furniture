@@ -59,7 +59,7 @@ public class ShopAction {
 	 * @param model
 	 * @return
 	 */
-	@GetMapping(value = "condition")
+	@GetMapping(value = "condition.do")
 	public String selectByCondition(@RequestParam(value = "condition", defaultValue = "") String condition, 
 			Model model) {
 		List<Product> productList = productService.listProductByCondition(condition);
@@ -67,7 +67,7 @@ public class ShopAction {
 		return "shop";
 	}
 	
-	@GetMapping(value = "item") 
+	@GetMapping(value = "item.do") 
 	@ResponseBody
 	public Result selectProductByItem(@RequestParam(value = "onSale", required = false) String onSale, 
 			@RequestParam(value = "newProduct", required = false) String newProduct,
@@ -78,7 +78,7 @@ public class ShopAction {
 		return new Result(Result.EXECUTION_SUCCESS, "", productList);
 	}
 	
-	@GetMapping(value = "quickView")
+	@GetMapping(value = "quickView.do")
 	@ResponseBody
 	public Result getProductById(int pid) {
 		Product product = productService.getProductById(pid);
@@ -89,7 +89,7 @@ public class ShopAction {
 		}
 	}
 	
-	@GetMapping("addCart")
+	@GetMapping("addCart.do")
 	@ResponseBody
 	public Result addCart(Cart cart,@SessionAttribute("user") User user,Model model) {
 		cart.setUid(user.getId());

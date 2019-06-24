@@ -17,8 +17,8 @@ public class WebConfigurer implements WebMvcConfigurer{
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {		
 		registry.addInterceptor(loginInterceptor).addPathPatterns("/**").
-			excludePathPatterns("/*.do","/createCode","/login-register", 
-				"/shop", "/product-details", "/js/**", "/images/**", "/assets/**", "/PIAimages/**");
+			excludePathPatterns("/*.do","/createCode","/shop", 
+				"/product-details", "/js/**", "/images/**", "/assets/**", "/PIAimages/**","/index","/login-register");
 	}
 
 	@Override
