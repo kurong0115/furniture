@@ -17,7 +17,7 @@
 		if($('#tbb').children("tr").children("td").find("span").text()=="暂无商品被加入购物车"){
 			getInfoMsg("购物车啥也没有");
 		}else{
-			$.post("cart/clearCart.do",function(data){
+			$.post("cart/clearCart",function(data){
 				if(data.code==1){
 					getSuccessMsg(data.message);
 					var allSum=0;
@@ -42,7 +42,7 @@
 	}
     
   	function cartDelCart(del) { 
-		$.post("cart/delCart.do",{
+		$.post("cart/delCart",{
 			id:$(del).parent().next().val()
 		},function(data){
 			if(data.code==1){
