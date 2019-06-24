@@ -96,7 +96,7 @@
 											<c:forEach items="${compareList }" var="product">
                                                 <td class="pro-remove">
 	                                                <button>
-	                                                    <i class="sli sli-trash" onclick="remove(${product.pid})"></i>
+	                                                    <i class="sli sli-trash" onclick="removeInfo(${product.pid})"></i>
 	                                                </button>
                                                 </td>
                                             </c:forEach>    																																
@@ -119,8 +119,45 @@
 	<%@include file="common/footer_link.jsp"%>
     
     <script type="text/javascript">
-        function remove(pid){
-        	
+	    function getSuccessMsg(msg) {
+	        $.message({
+	            message : msg,
+	            type : 'success',
+	            duration : '3000'
+	        });
+	    }
+	    function getInfoMsg(msg) {
+	        $.message({
+	            message : msg,
+	            type : 'info',
+	            duration : '3000'
+	        });
+	    }
+	    function getFailMsg(msg) {
+	        $.message({
+	            message : msg,
+	            type : 'error',
+	            duration : '3000'
+	        });
+	    }
+    
+        function removeInfo(pid){
+        	$.ajax({
+        		url:"removeInfo?pid=" + pid,
+        		method:"get",
+        		async:true,
+        		success:function(data){
+        			if (data.code == 1){
+        				getSuccessMsg(data.message);
+        			}else{
+        				getInfoMsg(data.message);
+        			}
+        		},
+        		error:function(data){
+        			getFailMsg("服务器繁忙");
+        		}
+        	})
+        	window.location.reload();
         }
     </script>
 </body>

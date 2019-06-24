@@ -2,14 +2,19 @@ package com.house.furniture.bean;
 
 import javax.validation.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(value = { "handler" })
 public class User {
     
     private Integer id;
 
     @NotEmpty(message="用户名不能为空")
     private String name;
+    
     @NotEmpty(message="密码不能为空")
     private String password;
+    
     @NotEmpty(message="邮箱不能为空")
     private String email;
 

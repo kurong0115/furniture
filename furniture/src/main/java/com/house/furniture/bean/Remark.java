@@ -2,6 +2,9 @@ package com.house.furniture.bean;
 
 import java.sql.Timestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(value = { "handler" })
 public class Remark {
     private Integer id;
 
@@ -14,7 +17,9 @@ public class Remark {
     private Integer pid;
 
     private String content;
-
+    
+    private User user;
+    
     public Integer getId() {
         return id;
     }
@@ -62,4 +67,14 @@ public class Remark {
     public void setContent(String content) {
         this.content = content == null ? null : content.trim();
     }
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+    
+    
 }
