@@ -36,7 +36,7 @@ public class CartPageAction {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping("seeCart")
+	@RequestMapping("seeCart.do")
 	public String seeCart(@SessionAttribute("user")User user,Model model) {
 		List<Cart> cartProductList = cartservice.listCartProductByUser(user);
 		model.addAttribute("cartProductList", cartProductList);
@@ -57,7 +57,7 @@ public class CartPageAction {
 	 * @param model
 	 * @return
 	 */
-	@PostMapping("cart/delCart")
+	@PostMapping("cart/delCart.do")
 	@ResponseBody
 	public Result delCart(Integer id,@SessionAttribute("user")User user,Model model) {
 		try {
@@ -85,7 +85,7 @@ public class CartPageAction {
 	 * @param model
 	 * @return
 	 */
-	@PostMapping("cart/clearCart")
+	@PostMapping("cart/clearCart.do")
 	@ResponseBody
 	public Result clearCart(@SessionAttribute("user")User user,Model model) {
 		long allSum=0;
@@ -101,7 +101,7 @@ public class CartPageAction {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping("checkout")
+	@RequestMapping("checkout.do")
 	public String checkout(@SessionAttribute("user")User user,Model model) {
 		List<Address> addrList=addressservice.getAddrByUser(user);
 		model.addAttribute("addrList", addrList);
@@ -115,7 +115,7 @@ public class CartPageAction {
 	 * @param model
 	 * @return
 	 */
-	@PostMapping("cart/updataCartCount")
+	@PostMapping("cart/updataCartCount.do")
 	@ResponseBody
 	public Result updataCartCount(Cart cart,@SessionAttribute("user")User user,Model model) {
 		cart.setUid(user.getId());

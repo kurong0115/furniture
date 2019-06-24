@@ -91,7 +91,7 @@ public class ShopAction {
 		}
 	}
 	
-	@GetMapping("addCart")
+	@GetMapping("addCart.do")
 	@ResponseBody
 	public Result addCart(Cart cart,@SessionAttribute("user") User user,Model model) {
 		cart.setUid(user.getId());

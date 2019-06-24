@@ -42,7 +42,7 @@ public class CheckoutAction {
 	 * @param orders
 	 * @return
 	 */
-	@RequestMapping("produceOrder")
+	@RequestMapping("produceOrder.do")
 	public String produceOrder(@SessionAttribute("cartProductList") List<Cart> cartProductList,@SessionAttribute("user")User user,Model model,Orders orders) {
 		orders.setUid(user.getId());
 		String orderNo = UUID.randomUUID().toString().replace("-", "").toUpperCase();
