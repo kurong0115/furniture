@@ -134,66 +134,26 @@
 								</div>
 								<div id="des-details2" class="tab-pane">
 									<div class="review-wrapper">
-										<div class="single-review">
-											<div class="review-img">
-												<img src="assets/img/product-details/client-1.jpg" alt="">
-											</div>
-											<div class="review-content">
-												<p>“In convallis nulla et magna congue convallis. Donec
-													eu nunc vel justo maximus posuere. Sed viverra nunc erat, a
-													efficitur nibh”</p>
-												<div class="review-top-wrap">
-													<div class="review-name">
-														<h4>Stella McGee</h4>
-													</div>
-													<div class="review-rating">
-														<i class="sli sli-star"></i> <i class="sli sli-star"></i>
-														<i class="sli sli-star"></i> <i class="sli sli-star"></i>
-														<i class="sli sli-star"></i>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="single-review">
-											<div class="review-img">
-												<img src="assets/img/product-details/client-2.jpg" alt="">
-											</div>
-											<div class="review-content">
-												<p>“In convallis nulla et magna congue convallis. Donec
-													eu nunc vel justo maximus posuere. Sed viverra nunc erat, a
-													efficitur nibh”</p>
-												<div class="review-top-wrap">
-													<div class="review-name">
-														<h4>Stella McGee</h4>
-													</div>
-													<div class="review-rating">
-														<i class="sli sli-star"></i> <i class="sli sli-star"></i>
-														<i class="sli sli-star"></i> <i class="sli sli-star"></i>
-														<i class="sli sli-star"></i>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="single-review">
-											<div class="review-img">
-												<img src="assets/img/product-details/client-3.jpg" alt="">
-											</div>
-											<div class="review-content">
-												<p>“In convallis nulla et magna congue convallis. Donec
-													eu nunc vel justo maximus posuere. Sed viverra nunc erat, a
-													efficitur nibh”</p>
-												<div class="review-top-wrap">
-													<div class="review-name">
-														<h4>Stella McGee</h4>
-													</div>
-													<div class="review-rating">
-														<i class="sli sli-star"></i> <i class="sli sli-star"></i>
-														<i class="sli sli-star"></i> <i class="sli sli-star"></i>
-														<i class="sli sli-star"></i>
-													</div>
-												</div>
-											</div>
-										</div>
+									   <c:forEach items="${remarks }" var="remark">
+									       <div class="single-review">
+                                            <div class="review-img">
+                                                <img src="assets/img/product-details/client-1.jpg" alt="">
+                                            </div>
+                                            <div class="review-content">
+                                                <p>${remark.content }</p>
+                                                <div class="review-top-wrap">
+                                                    <div class="review-name">
+                                                        <h4>${remark.user.name }</h4>
+                                                    </div>
+                                                    <div class="review-rating">
+                                                        <i class="sli sli-star"></i> <i class="sli sli-star"></i>
+                                                        <i class="sli sli-star"></i> <i class="sli sli-star"></i>
+                                                        <i class="sli sli-star"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+									   </c:forEach>																													
 									</div>
 									<div class="ratting-form-wrapper">
 										<span>Add a Review</span>

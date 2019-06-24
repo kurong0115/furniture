@@ -17,15 +17,15 @@ public class LoginInterceptor implements HandlerInterceptor{
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		
-//		HttpSession session = request.getSession();
-//		User user = (User)session.getAttribute("user");
-//		if (user == null) {
-//			response.sendRedirect(request.getContextPath() + "/login-register");
-//			return false;
-//		} else {
-//			return true;
-//		}		
-		return true;
+		HttpSession session = request.getSession();
+		User user = (User)session.getAttribute("user");
+		if (user == null) {
+			response.sendRedirect(request.getContextPath() + "/login-register");
+			return false;
+		} else {
+			return true;
+		}		
+//		return true;
 	}
 
 	@Override

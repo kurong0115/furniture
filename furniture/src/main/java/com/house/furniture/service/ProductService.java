@@ -45,4 +45,6 @@ public interface ProductService {
 	 * @return
 	 */
 	List<Product> listRelatedProduct(int cid);
+
+	
 }

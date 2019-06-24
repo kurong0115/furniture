@@ -1,4 +1,4 @@
-function getSuccessMsg(msg) {
+		function getSuccessMsg(msg) {
 			$.message({
 				message : msg,
 				type : 'success',
