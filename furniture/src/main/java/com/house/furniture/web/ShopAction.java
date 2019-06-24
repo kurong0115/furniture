@@ -2,6 +2,7 @@ package com.house.furniture.web;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -73,7 +74,7 @@ public class ShopAction {
 			@RequestParam(value = "min", defaultValue = "1") double min, 
 			@RequestParam(value = "max", defaultValue = "20000") double max, 
 			@RequestParam(value = "cid") int cid) {
-		List<Product> productList = productService.selectProductByItem(onSale, newProduct, min, max, cid);
+		List<Product> productList = productService.listProductByItem(onSale, newProduct, min, max, cid);
 		return new Result(Result.EXECUTION_SUCCESS, "", productList);
 	}
 	

@@ -197,9 +197,7 @@ public class LoginRegisterAction {
 	
 	@RequestMapping("loginOut")
 	public String loginOut(HttpSession session) {
-		session.setAttribute("user", null);
-		session.setAttribute("cartProductList", null);
-		session.setAttribute("allSum", null);
+		session.invalidate();
 		return "login-register";
 	}
 	

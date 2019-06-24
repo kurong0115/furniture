@@ -15,7 +15,7 @@ public interface ProductService {
 	
 	
 	/**
-	 * 根据商品名查询对应的产品
+	  * 根据商品名查询对应的产品
 	 * @param condition
 	 * @return
 	 */
@@ -30,7 +30,7 @@ public interface ProductService {
 	 * @param cid
 	 * @return
 	 */
-	List<Product> selectProductByItem(String onSale, String newProduct, double min, double max, int cid);
+	List<Product> listProductByItem(String onSale, String newProduct, double min, double max, int cid);
 	
 	/**
 	 * 根据产品id查询相应的产品信息
@@ -38,4 +38,11 @@ public interface ProductService {
 	 * @return
 	 */
 	Product getProductById(int pid);
+	
+	/**
+	 * 列出跟当前商品相关的商品
+	 * @param cid
+	 * @return
+	 */
+	List<Product> listRelatedProduct(int cid);
 }
