@@ -43,6 +43,7 @@
                                     <a href="#address-edit" data-toggle="tab"><i class="fa fa-map-marker"></i> 地址</a>    
                                     <a href="#account-info" data-toggle="tab"><i class="fa fa-user"></i> 帐户详细信息</a>    
                                     <a href="loginOut" onclick="return loginOut();"><i class="fa fa-sign-out"></i> 注销</a>
+                                    
                                 </div>
                             </div>
                             <!-- My Account Tab Menu End -->    
@@ -66,7 +67,7 @@
                                         <div class="myaccount-content">
                                             <h3>订单</h3>    
                                             <div class="myaccount-table table-responsive text-center">
-                                                <table class="table table-bordered">
+                                                <table class="table table-bordered" id="ordersTable">
                                                     <thead class="thead-light">
                                                         <tr>
                                                             <th>订单编号</th>
@@ -75,19 +76,96 @@
                                                             <th>订单详情</th>
                                                         </tr>
                                                     </thead>    
-                                                    <tbody>
-                                                    	<tr>
-                                                           <td>01</td>
-                                                           <td>2019-6-23</td>
-                                                           <td>666</td>
-                                                           <td><a href="#" class="check-btn sqr-btn "><i class="fa fa-cloud-download"></i> 详情</a></td>
-		                                                 </tr>
-	                                                    <c:if test="${myOrder != null }">
-		                                                    <c:forEach items="${myorder }"  var="m">
+                                                    <tbody >                  
+                                                    	<c:if test="${myOrder != null }">
+		                                                    <c:forEach items="${myOrder }"  var="m">
 		                                                       <tr>
-		                                                           <td>${m.orders.orderno}</td>
-		                                                           <td>${m.orders.createtime}</td>
-		                                                           <td>${m.orders.sum}</td>
+		                                                           <td>${m.orderno}</td>
+		                                                           <td>${m.createtime.toLocaleString()}</td>
+		                                                           <td>${m.sum}</td>
+		                                                           <td>
+		                                                           		<a href="#" title="Quick View" data-toggle="modal"
+																		data-target="#exampleModal" onclick="checkDetail(${m.id})">详情</a>
+		                                                           </td>
+		                                                       </tr>
+			                                                  </c:forEach>
+	                                                    </c:if>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<button type="button" class="close" data-dismiss="modal"
+														aria-label="Close">
+														<span aria-hidden="true">x</span>
+													</button>
+												</div>
+												<div class="modal-body">
+													<div class="row">
+														<table class="table table-bordered" id="ordersTable">
+		                                                    <thead class="thead-light">
+		                                                        <tr>
+		                                                            <th>图片</th>
+		                                                            <th>商品名</th>
+		                                                            <th>单价</th>
+		                                                            <th>数量</th>
+		                                                            <th>小计</th>
+		                                                        </tr>
+		                                                    </thead>    
+		                                                    <tbody >                  
+		                                                    	<c:if test="${myOrder != null }">
+				                                                    <c:forEach items="${myOrder }"  var="m">
+				                                                       <tr>
+				                                                           <td>${m.orderno}</td>
+				                                                           <td>${m.createtime.toLocaleString()}</td>
+				                                                           <td>${m.sum}</td>
+				                                                           <td></td>
+				                                                           <td></td>
+				                                                       </tr>
+					                                                  </c:forEach>
+			                                                    </c:if>
+		                                                    </tbody>
+		                                                </table>
+														
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+							                                    
+                                    <div class="tab-pane fade" id="ordersDetails" role="tabpanel">
+                                        <div class="myaccount-content">
+                                            <h3>订单详情</h3>    
+                                            <div class="myaccount-table table-responsive text-center">
+                                                <table class="table table-bordered">
+                                                    <thead class="thead-light">
+                                                        <tr>
+                                                            <th>单号</th>
+                                                            <th>用户</th>
+                                                            <th>产品</th>
+                                                            <th>数量</th>
+                                                            <th>总价</th>
+                                                        </tr>
+                                                    </thead>    
+                                                    <tbody>     
+	                                                     <tr>
+                                                           <td>01</td>
+                                                           <td>何浩</td>
+                                                           <td>书桌</td>
+                                                           <td>1</td>
+                                                           <td>399</td>
+			                                             </tr>             
+                                                    	<c:if test="${myOrder != null }">
+		                                                    <c:forEach items="${myOrder }"  var="m">
+		                                                       <tr>
+		                                                           <td>${m.orderno}</td>
+		                                                           <td>${m.createtime.toLocaleString()}</td>
+		                                                           <td>${m.sum}</td>
 		                                                           <td><a href="#" class="check-btn sqr-btn "><i class="fa fa-cloud-download"></i> 详情</a></td>
 		                                                       </tr>
 			                                                  </c:forEach>
