@@ -11,10 +11,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.github.pagehelper.PageHelper;
+import com.house.furniture.bean.Cart;
 import com.house.furniture.bean.Category;
 import com.house.furniture.bean.Product;
+import com.house.furniture.bean.User;
+import com.house.furniture.service.CartService;
 import com.house.furniture.service.CategoryService;
 import com.house.furniture.service.ProductService;
 import com.house.furniture.vo.Result;
@@ -28,7 +32,10 @@ public class ShopAction {
 	@Autowired
 	ProductService productService;
 	
-	@ModelAttribute
+	@Autowired
+	CartService cartservice;
+	
+	@ModelAttribute		//所有类别
 	public void initParam(Model model) {
 		List<Category> categoryList = categoryService.listAllCategory();
 		model.addAttribute("categoryList", categoryList);
@@ -42,6 +49,7 @@ public class ShopAction {
 		List<Product> productList = productService.listProductsByType(cid, page, size);
 		PageHelper.startPage(page, size);
 		model.addAttribute("productList", productList);
+		
 		return "shop";
 	}
 	
@@ -79,5 +87,18 @@ public class ShopAction {
 		} else {
 			return new Result(Result.EXECUTION_SUCCESS, "", product);
 		}
+	}
+	
+	@GetMapping("addCart")
+	@ResponseBody
+	public Result addCart(Cart cart,@SessionAttribute("user") User user,Model model) {
+		cart.setUid(user.getId());
+		cart = cartservice.addCart(cart);
+		if(cart.getProduct()==null) {
+			Product product = productService.getProductById(cart.getPid());
+			cart.setProduct(product);
+		}
+		
+		return new Result(Result.EXECUTION_SUCCESS,"添加成功",cart);
 	}
 }

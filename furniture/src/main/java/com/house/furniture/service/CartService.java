@@ -19,4 +19,7 @@ public interface CartService {
 	//修改购物车数量
 	void updataCartCountById(Cart cart);
 
+	//加入购物车
+	Cart addCart(Cart cart);
+
 }

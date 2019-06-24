@@ -53,4 +53,31 @@ public class CartServiceImpl implements CartService {
 		cartmapper.updateByPrimaryKeySelective(cart);	
 	}
 
+	@Override
+	public Cart addCart(Cart cart) {
+		Cart exitcart = isExitCart(cart);
+		if(exitcart==null) {
+			cartmapper.insertSelective(cart);
+			return cart;
+		}else {
+			exitcart.setCount(exitcart.getCount()+1);
+			cartmapper.updateByPrimaryKeySelective(exitcart);
+			return exitcart;
+		}
+		
+	}
+	
+	public Cart isExitCart(Cart cart) {
+		CartExample example = new CartExample();
+		
+		example.createCriteria().andPidEqualTo(cart.getPid());
+		List<Cart> list = cartmapper.selectByExample(example);
+		if(list.size()==0) {
+			return null;
+		}else {
+			return list.get(0);
+		}
+		
+	}
+
 }

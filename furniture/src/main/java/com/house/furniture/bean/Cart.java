@@ -1,5 +1,8 @@
 package com.house.furniture.bean;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(value = "handler")
 public class Cart {
     private Integer id;
 

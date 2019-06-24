@@ -20,6 +20,7 @@
 			$.post("cart/clearCart",function(data){
 				if(data.code==1){
 					getSuccessMsg(data.message);
+					var allSum=0;
 					$('#tbb').find("tr").remove();
 					$('#cartUl li').remove();
 					$('#tbb').append(
@@ -30,8 +31,11 @@
 					$('#cartUl').append(
 							'<li>暂无商品</li>'
 					);
-					$('.allSum').text(0);
-					$('.headerCartCount').text(0);					
+					$('.allSum').text(allSum);
+					$('.headerCartCount').text(0);	
+					$('#sum').val(allSum);
+				}else{
+					getFailMsg("清空失败，请稍再试");
 				}
 			});
 		}

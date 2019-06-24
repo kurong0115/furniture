@@ -82,12 +82,8 @@
 							</div>
 
 							<div class="pro-details-quality">
-								<div class="cart-plus-minus">
-									<input class="cart-plus-minus-box" type="text" name="qtybutton"
-										value="1">
-								</div>
 								<div class="pro-details-cart btn-hover">
-									<a href="#">添加到购物车</a>
+									<a href="javascript:void(0)" onclick="addCart('${product.pid}','${product.price}','${product.images[0].imgpath }')">添加到购物车</a>
 								</div>
 								<div class="pro-details-wishlist">
 									<a title="添加到愿望清单" href="#"><i
@@ -250,7 +246,7 @@
                                                     class="ht-product-action-tooltip">添加到愿望清单</span></a></li>
                                             <li><a href="#" onclick="compare(${product.pid})"><i class="sli sli-refresh"></i><span
                                                     class="ht-product-action-tooltip">对比</span></a></li>
-                                            <li><a href="#"><i class="sli sli-bag"></i><span
+                                            <li><a href="javascript:void(0)" onclick="addCart('${product.pid}','${product.price}','${product.images[0].imgpath }')"><i class="sli sli-bag"></i><span
                                                     class="ht-product-action-tooltip">添加到购物车</span></a></li>
                                         </ul>
                                     </div>
@@ -360,7 +356,7 @@
                                                 name="qtybutton" value="1">
                                         </div>
                                         <div class="pro-details-cart">
-                                            <a href="#">添加到购物车</a>
+                                            <a href="javascript:void(0)" onclick="addCart('${product.pid}','${product.price}','${product.images[0].imgpath }')">添加到购物车</a>
                                         </div>
                                         <div class="pro-details-wishlist">
                                             <a title="添加到愿望清单" href="#"><i
