@@ -215,7 +215,7 @@
 																			class="ht-product-action-tooltip">添加到愿望清单</span></a></li>
 																	<li><a href="#"><i class="sli sli-refresh"></i><span
 																			class="ht-product-action-tooltip">刷新</span></a></li>
-																	<li><a href="#"><i class="sli sli-bag"></i><span
+																	<li><a href="javascript:void(0)" onclick="addCart('${product.pid}','${product.price}','${product.images[0].imgpath }')"><i class="sli sli-bag"></i><span
 																			class="ht-product-action-tooltip">添加到购物车</span></a></li>
 																</ul>
 															</div>
@@ -258,7 +258,7 @@
                                                                             class="ht-product-action-tooltip">添加到愿望清单</span></a></li>
                                                                     <li><a href="#"><i class="sli sli-refresh"></i><span
                                                                             class="ht-product-action-tooltip">刷新</span></a></li>
-                                                                    <li><a href="#"><i class="sli sli-bag"></i><span
+                                                                    <li><a href="javascript:void(0)" onclick="addCart('${product.pid}','${product.price}','${product.images[0].imgpath }')"><i class="sli sli-bag"></i><span
                                                                             class="ht-product-action-tooltip">添加到购物车</span></a></li>
                                                                 </ul>
 															</div>
@@ -329,7 +329,7 @@
 															<div class="ht-product-list-action">
 																<a class="list-wishlist" title="添加到愿望清单" href="#"><i
 																	class="sli sli-heart"></i></a> <a class="list-cart"
-																	title="添加到购物车" href="#"><i
+																	title="添加到购物车" href="javascript:void(0)" onclick="addCart('${product.pid}','${product.price}','${product.images[0].imgpath }')"><i
 																	class="sli sli-basket-loaded"></i> 添加到购物车</a> <a
 																	class="list-refresh" title="对比" href="#"><i
 																	class="sli sli-refresh"></i></a>
@@ -445,8 +445,6 @@
 		<!-- 引入底部 -->
 		<%@include file="common/footer.jsp"%>
 
-
-		<!-- ??????????????????????? -->
 		<!-- Modal -->
 		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog">
 			<div class="modal-dialog" role="document">
@@ -492,12 +490,9 @@
 									</div>
 									<div class="pro-details-size-color"></div>
 									<div class="pro-details-quality">
-										<div class="cart-plus-minus">
-											<input class="cart-plus-minus-box" type="text"
-												name="qtybutton" value="1">
-										</div>
+										
 										<div class="pro-details-cart">
-											<a href="#">添加到购物车</a>
+											<a href="javascript:void(0)" id="addCartByPid" onclick="addCart()">添加到购物车</a>
 										</div>
 										<div class="pro-details-wishlist">
 											<a title="Add To Wishlist" href="#"><i
@@ -595,10 +590,57 @@
 						for (var i = data.data.score; i < 5; i++){
                             $("#quickView-score").append('<i class="sli sli-star"></i>');
                         }
+						
+						$("#addCartByPid").attr("onclick",'addCart("'+data.data.pid+'","'+data.data.price+'","'+data.data.images[0].imgpath+'")');
 					}
 				},
 				error:function(data){
 					getFailMsg(data.msg);
+				}
+			})
+		}
+		
+		function addCart(pid,price,imgpath) {
+			$.get("addCart",{
+				pid:pid,
+				count:1
+			},function(data){
+				if(data.code==1){
+					console.info(data);
+					getSuccessMsg(data.message);
+					var CartCount=$('.headerCartCount').text();
+					var allSum=$('#sum').val();									
+					var newAllSum=Number(price)+Number(allSum);
+					$('.allSum').text(newAllSum);
+					$('#sum').val(newAllSum);
+					var size=$('#cartUl li').length;
+					for(var i=0;i<size;i++){
+						var allCartPid=$('#cartUl li:eq('+i+')').find("div:eq(1)").find("input").val();
+						if(allCartPid==pid){
+							var CartPidCount=$('#cartUl li:eq('+i+')').find("div:eq(1)").find("span").find("font").text();
+							$('#cartUl li:eq('+i+')').find("div:eq(1)").find("span").find("font").text(++CartPidCount)
+							return;
+						}
+					}
+					$('#cartUl').append(
+						'<li class="single-shopping-cart">'+
+                           '<div class="shopping-cart-img">'+
+                               '<a href="#"><img alt="" src="'+imgpath+'"></a>'+       
+                           '</div>'+
+                           '<div class="shopping-cart-title" style="width: 100px;overflow: hidden;">'+
+                               '<h4><a href="#">'+data.data.product.productname+'</a></h4>'+
+                               '<input type="hidden" value="'+pid+'">'+
+                               '<span><font>'+data.data.count+'</font> x '+data.data.product.price+'</span>'+
+                           '</div>'+
+                           '<div class="item-close" style="margin-left: 20px">'+
+                               '<a href="#"><i class="sli sli-close" onclick="headerDelCart(this)"></i></a>'+
+                               '<input type="hidden" value="'+data.data.id+'">'+
+                           '</div>'+
+                       '</li>'
+					);
+					$('.headerCartCount').text(++CartCount);
+				}else{
+					getFialMsg("当前访问人数较多，请稍后再试");
 				}
 			})
 		}
@@ -716,7 +758,9 @@
 									+ '<li><a href="#"><i class="sli sli-magnifier"></i><span class="ht-product-action-tooltip">快速预览</span></a></li>'
 									+ '<li><a href="#"><i class="sli sli-heart"></i><span class="ht-product-action-tooltip">添加到愿望清单</span></a></li>'
 									+ '<li><a href="#"><i class="sli sli-refresh"></i><span class="ht-product-action-tooltip">刷新</span></a></li>'
-									+ '<li><a href="#"><i class="sli sli-bag"></i><span class="ht-product-action-tooltip">添加到购物车</span></a></li>'
+									+ '<li><a href="javascript:void(0)" onclick="addCart('
+									+ data.pid
+									+ ')"><i class="sli sli-bag"></i><span class="ht-product-action-tooltip">添加到购物车</span></a></li>'
 									+ '</ul>'
 									+ '</div>'
 									+ '<div class="ht-product-countdown-wrap">'
@@ -771,7 +815,9 @@
 									+ '</div>'
 									+ '<div class="ht-product-list-action">'
 									+ '<a class="list-wishlist" title="添加到愿望清单" href="#"><i class="sli sli-heart"></i></a>'
-									+ '<a class="list-cart" title="添加到购物车" href="#"><i class="sli sli-basket-loaded"></i> 添加到购物车</a>'
+									+ '<a class="list-cart" title="添加到购物车" a href="javascript:void(0)" onclick="addCart('
+									+ data.pid
+									+ ')"><i class="sli sli-basket-loaded"></i> 添加到购物车</a>'
 									+ '<a class="list-refresh" title="对比" href="#"><i class="sli sli-refresh"></i></a>'
 									+ '</div>'
 									+ '</div>'

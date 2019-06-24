@@ -38,6 +38,13 @@ public class CartPageAction {
 	 */
 	@RequestMapping("seeCart")
 	public String seeCart(@SessionAttribute("user")User user,Model model) {
+		List<Cart> cartProductList = cartservice.listCartProductByUser(user);
+		model.addAttribute("cartProductList", cartProductList);
+		long allSum=0;
+		for (Cart c : cartProductList) {
+			allSum+=c.getCount()*c.getProduct().getPrice();
+		}
+		model.addAttribute("allSum", allSum);
 		return "cart-page";
 	}
 	
@@ -56,8 +63,10 @@ public class CartPageAction {
 			List<Cart> cartProductList = cartservice.listCartProductByUser(user);
 			model.addAttribute("cartProductList", cartProductList);
 			long allSum=0;
-			for (Cart cart : cartProductList) {
-				allSum+=cart.getCount()*cart.getProduct().getPrice();
+			if(cartProductList.size()>0) {
+				for (Cart cart : cartProductList) {
+					allSum+=cart.getCount()*cart.getProduct().getPrice();
+				}
 			}
 			model.addAttribute("allSum", allSum);
 			
@@ -77,10 +86,10 @@ public class CartPageAction {
 	@PostMapping("cart/clearCart")
 	@ResponseBody
 	public Result clearCart(@SessionAttribute("user")User user,Model model) {
-		
+		long allSum=0;
 		cartservice.clearCart(user.getId());
 		model.addAttribute("cartProductList", "");
-		model.addAttribute("allSum", 0);
+		model.addAttribute("allSum", allSum);
 		return new Result(Result.EXECUTION_SUCCESS, "清空成功");
 	}
 	

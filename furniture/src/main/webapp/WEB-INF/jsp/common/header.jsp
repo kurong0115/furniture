@@ -5,6 +5,7 @@
 <header class="header-area sticky-bar">
 
 		<script type="text/javascript">
+		
 		function checkOut() {
 			if($('#tbb').children("tr").children("td").find("span").text()=="暂无商品被加入购物车" 
 					|| $('#cartUl').children("li").text()=="暂无商品"){
@@ -31,6 +32,7 @@
 					$(del).parent().parent().parent().remove();
 					if($('#cartUl li').length==0){
 						$('#cartUl').append(
+							'<input type="hidden" value="0" id="sum">'+
 							'<li>暂无商品</li>'
 						);
 					}
@@ -152,6 +154,7 @@
 	                                   <ul style="height: 250px;" id="cartUl">
 	                                   
 	                                   		<c:if test="${empty cartProductList}">
+	                                   			<input type="hidden" value="0" id="sum">
 	                                   			<li>暂无商品</li>
 	                                   		</c:if>
 	                                   		<c:if test="${!empty cartProductList}">
@@ -163,6 +166,7 @@
 			                                           </div>
 			                                           <div class="shopping-cart-title" style="width: 100px;overflow: hidden;">
 			                                               <h4><a href="#">${cartProduct.product.productname}</a></h4>
+			                                               <input type="hidden" value="${cartProduct.product.pid}">
 			                                               <span><font>${cartProduct.count}</font> x ${cartProduct.product.price}</span>
 			                                           </div>
 			                                           <div class="item-close" style="margin-left: 20px">
