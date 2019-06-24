@@ -143,7 +143,7 @@
     
         function removeInfo(pid){
         	$.ajax({
-        		url:"removeInfo?pid=" + pid,
+        		url:"removeInfo.do?pid=" + pid,
         		method:"get",
         		async:true,
         		success:function(data){
