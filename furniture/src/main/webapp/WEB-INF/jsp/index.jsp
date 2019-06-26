@@ -99,10 +99,20 @@
 		                                    <a href="product-details.html" class="ht-product-image"> <img src="${pro.imgPath }" alt="Universal Product Style"> </a>
 		                                    <div class="ht-product-action">
 		                                        <ul>
-		                                            <li><a href="#" data-toggle="modal" data-target="#exampleModal"><i class="sli sli-magnifier"></i><span class="ht-product-action-tooltip">快速预览</span></a></li>
-		                                            <li><a href="#"><i class="sli sli-heart"></i><span class="ht-product-action-tooltip">添加到愿望清单</span></a></li>
-		                                            <li><a href="#"><i class="sli sli-refresh"></i><span class="ht-product-action-tooltip">刷新</span></a></li>
-		                                            <li><a href="#"><i class="sli sli-bag"></i><span class="ht-product-action-tooltip">添加到购物车</span></a></li>
+		                                            <li><a href="#" data-toggle="modal" data-target="#exampleModal">
+		                                            	<i class="sli sli-magnifier"></i>
+		                                            	<span class="ht-product-action-tooltip">快速预览</span>
+		                                            </a></li>
+		                                            <li><a href="#"><i class="sli sli-heart"></i>
+		                                            	<span class="ht-product-action-tooltip">添加到愿望清单</span>
+		                                            </a></li>
+		                                            <li><a href="#"><i class="sli sli-bag"></i>
+		                                            	<span class="ht-product-action-tooltip">添加到购物车</span>
+		                                            </a></li>
+		                                            <li><a href="#" onclick="compare(${pro.pid})">
+		                                            	<i class="sli sli-refresh"></i>
+		                                            	<span class="ht-product-action-tooltip">对比</span>
+		                                            </a></li>
 		                                        </ul>
 		                                    </div>
 		                                </div>
@@ -460,6 +470,25 @@
 <!-- 引入底部链接 -->
 <%@include file="common/footer_link.jsp" %>
 
+<script type="text/javascript">
+	function compare(pid){
+		$.ajax({
+			url:"addCompareInfo.do?pid=" + pid,
+			method:"get",
+			async:true,
+			success:function(data){
+				if (data.code != 1){
+					getInfoMsg(data.message);
+				}else{
+					getSuccessMsg(data.message);
+				}					
+			},
+			error:function(data){
+				getFailMsg("服务器繁忙");
+			}
+		})
+	}
+</script>
 
 </body>
 

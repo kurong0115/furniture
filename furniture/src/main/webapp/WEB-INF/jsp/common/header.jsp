@@ -146,7 +146,7 @@
                                    <li><a href="contact-us"> 联系我们 </a></li>
                                    <li class="angle-shape"><a href="#">更多 </a>
                                        <ul class="submenu">
-                                           <li><a href="about-us">关于我们 </a></li>
+                                           <li><a href="about-us.do">关于我们 </a></li>
                                            <li><a href="cart-page">购物车 </a></li>
                                            <li><a href="checkout">结算 </a></li>
                                            <li><a href="compare-page">对比 </a></li>
@@ -160,9 +160,9 @@
                                            </c:if>                                          
                                        </ul>
                                    </li>
-                                   <li class="angle-shape"><a href="blog"> 博客 </a>
+                                   <li class="angle-shape"><a href="blog.do"> 博客 </a>
                                    		<ul class="submenu">
-                                            <li><a href="blog.html">standard style </a></li>
+                                            <li><a href="blog.do">standard style </a></li>
                                             <li><a href="blog-2-col.html">blog 2 column </a></li>
                                             <li><a href="blog-3-col.html">blog 3 column </a></li>
                                             <li><a href="blog-right-sidebar.html">blog right sidebar </a></li>

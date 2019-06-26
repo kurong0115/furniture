@@ -4,10 +4,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class AboutUs {
+public class BlogAction {
 	
-	@RequestMapping("about-us.do")
-	public String aboutUs() {
-		return "about-us";
+	@RequestMapping("blog.do")
+	public String blog() {
+		return "blog";
 	}
 }

@@ -47,7 +47,7 @@ public interface ProductService {
 	
 	/**
 	 * 根据类名，查出该类下最新的一些产品
-	 * @param num 展示num-1个产品
+	 * @param num 展示num个产品
 	 * @param name 类名
 	 * @return
 	 */
