@@ -45,7 +45,7 @@
 					);
 					$('.headerCartCount').text(++CartCount);
 				}else{
-					getFialMsg("当前访问人数较多，请稍后再试");
+					getFailMsg("当前访问人数较多，请稍后再试");
 				}
 			})
 		}

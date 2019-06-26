@@ -19,7 +19,7 @@ public class WebConfigurer implements WebMvcConfigurer{
 		registry.addInterceptor(loginInterceptor).addPathPatterns("/**").
 			excludePathPatterns("/*.do","/createCode","/shop", 
 				"/product-details", "/js/**", "/images/**", "/assets/**", 
-				"/PIAimages/**","/index","/login-register", "compare-page");
+				"/PIAimages/**","/index","/login-register", "/compare-page");
 	}
 
 	@Override
