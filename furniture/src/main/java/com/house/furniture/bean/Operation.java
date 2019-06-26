@@ -1,6 +1,18 @@
 package com.house.furniture.bean;
 
 public class Operation {
+	//保存每个商品被卖出的数量
+	private long total;
+	
+	//产品
+	private Product product;
+	
+	//产品图片
+	private String imgPath;
+	
+	//产品所属分类名
+	private String categoryName;
+	
     private Integer id;
 
     private Integer orderid;
@@ -14,6 +26,38 @@ public class Operation {
     private Integer sum;
 
     private Double price;
+    
+    public long getTotal() {
+		return total;
+	}
+    
+    public void setTotal(long total) {
+		this.total = total;
+	}
+    
+    public Product getProduct() {
+		return product;
+	}
+    
+    public void setProduct(Product product) {
+		this.product = product;
+	}
+    
+    public String getImgPath() {
+		return imgPath;
+	}
+    
+    public void setImgPath(String imgPath) {
+		this.imgPath = imgPath;
+	}
+    
+    public String getCategoryName() {
+		return categoryName;
+	}
+    
+    public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
 
     public Integer getId() {
         return id;

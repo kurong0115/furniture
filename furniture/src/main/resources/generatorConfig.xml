@@ -29,7 +29,7 @@
 		tableName：数据库中的表名，%表示所有表
 		generatedKey：指定自动生成主键的属性
 		columnOverride：用来修改表中某个列的属性 -->
-    <table tableName="user" >
+    <table tableName="admin" >
       <generatedKey column="id" sqlStatement="mysql" identity="true" />
     </table>
   </context>

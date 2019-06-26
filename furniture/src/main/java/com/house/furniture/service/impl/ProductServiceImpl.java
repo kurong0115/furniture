@@ -55,12 +55,15 @@ public class ProductServiceImpl implements ProductService {
 		Product product = productMapper.selectByPrimaryKey(pid);
 		return product == null? null: product;
 	}
-
-	@Override
+	
 	public List<Product> listRelatedProduct(int cid) {
 		List<Product> relatedProduct = productMapper.listProductsByCid(cid);
 		relatedProduct = relatedProduct.subList(0, 4);
 		return relatedProduct.isEmpty()? null: relatedProduct;
 	}
 
+	@Override
+	public List<Product> listProductByCategoryName(int num, String name) {
+		return productMapper.listProductByCategoryName(num, name);
+	}
 }

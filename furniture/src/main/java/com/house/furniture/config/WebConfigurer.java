@@ -17,15 +17,13 @@ public class WebConfigurer implements WebMvcConfigurer{
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {		
 		registry.addInterceptor(loginInterceptor).addPathPatterns("/**").
-			excludePathPatterns("/*.do","/createCode","/shop", 
-				"/product-details", "/js/**", "/images/**", "/assets/**", 
-				"/PIAimages/**","/index","/login-register", "/compare-page");
+			excludePathPatterns("/*.do","/createCode","/login-register",
+				"/shop", "/product-details", "/js/**", "/images/**", "/assets/**", "/PIAimages/**",
+				"/index","/","/head/**", "compare-page");
 	}
 
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 //		registry.addResourceHandler("/PIAimages/**").addResourceLocations("file:D:/PIAimages/");
-		
 	}
-	
 }
