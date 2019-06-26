@@ -1,7 +1,6 @@
 package com.house.furniture.service.impl;
 
 import java.util.List;
-
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -17,12 +16,17 @@ public class OperationServiceImpl implements OperationService {
 	OperationMapper om;
 
 	@Override
-	public List<Operation> selectHotProducts(int index, int size) {
-		return om.selectHotProducts(index, size);
+	public List<Operation> selectHotProducts(int num) {
+		return om.selectHotProducts(num);
 	}
 
 	@Override
 	public List<Operation> newAndHotProducts(int num) {
 		return om.newAndHotProducts(num);
+	}
+	
+	@Override
+	public void produceOperation(Operation operation) {
+		om.insertSelective(operation);
 	}
 }

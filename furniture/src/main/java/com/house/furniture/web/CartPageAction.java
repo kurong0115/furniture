@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.house.furniture.bean.Address;
@@ -29,34 +30,45 @@ public class CartPageAction {
 	@Resource
 	AddressService addressservice;
 	
-	//需要修改用户id，根据session
-	@RequestMapping("seeCart")
-	public String seeCart(User user,Model model) {
-		user.setId(1);
-		
+	/**
+	 * 查看购物车
+	 * @param user
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("seeCart.do")
+	public String seeCart(@SessionAttribute("user")User user,Model model) {
 		List<Cart> cartProductList = cartservice.listCartProductByUser(user);
 		model.addAttribute("cartProductList", cartProductList);
-		
 		long allSum=0;
-		for (Cart cart : cartProductList) {
-			allSum+=cart.getCount()*cart.getProduct().getPrice();
+		if(cartProductList.size()>0) {
+			for (Cart c : cartProductList) {
+				allSum+=c.getCount()*c.getProduct().getPrice();
+			}
 		}
 		model.addAttribute("allSum", allSum);
-
 		return "cart-page";
 	}
 	
-	@PostMapping("cart/delCart")
+	/**
+	 * 删除购物车中的商品
+	 * @param id
+	 * @param user
+	 * @param model
+	 * @return
+	 */
+	@PostMapping("cart/delCart.do")
 	@ResponseBody
-	public Result delCart(Integer id,User user,Model model) {
-		user.setId(1);
+	public Result delCart(Integer id,@SessionAttribute("user")User user,Model model) {
 		try {
 			cartservice.delCartById(id);
 			List<Cart> cartProductList = cartservice.listCartProductByUser(user);
 			model.addAttribute("cartProductList", cartProductList);
 			long allSum=0;
-			for (Cart cart : cartProductList) {
-				allSum+=cart.getCount()*cart.getProduct().getPrice();
+			if(cartProductList.size()>0) {
+				for (Cart cart : cartProductList) {
+					allSum+=cart.getCount()*cart.getProduct().getPrice();
+				}
 			}
 			model.addAttribute("allSum", allSum);
 			
@@ -67,40 +79,55 @@ public class CartPageAction {
 		}
 	}
 	
-	//需要修改用户id，根据session
-	@PostMapping("cart/clearCart")
+	/**
+	 * 清空购物车
+	 * @param user
+	 * @param model
+	 * @return
+	 */
+	@PostMapping("cart/clearCart.do")
 	@ResponseBody
-	public Result clearCart(User user,Model model) {
-		user.setId(1);
-		
+	public Result clearCart(@SessionAttribute("user")User user,Model model) {
+		long allSum=0;
 		cartservice.clearCart(user.getId());
 		model.addAttribute("cartProductList", "");
-		model.addAttribute("allSum", 0);
+		model.addAttribute("allSum", allSum);
 		return new Result(Result.EXECUTION_SUCCESS, "清空成功");
 	}
 	
-	//user要根据session获取
-	@RequestMapping("checkout")
-	public String checkout(User user,Model model) {
-		user.setId(1);
-		
+	/**
+	 * 跳转到结算页面
+	 * @param user
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("checkout.do")
+	public String checkout(@SessionAttribute("user")User user,Model model) {
 		List<Address> addrList=addressservice.getAddrByUser(user);
 		model.addAttribute("addrList", addrList);
 		return "checkout";
 	}
 	
-	@PostMapping("cart/updataCartCount")
+	/**
+	 * 修改购物车商品的数量
+	 * @param cart
+	 * @param user
+	 * @param model
+	 * @return
+	 */
+	@PostMapping("cart/updataCartCount.do")
 	@ResponseBody
-	public Result updataCartCount(Cart cart,User user,Model model) {
-		user.setId(1);
+	public Result updataCartCount(Cart cart,@SessionAttribute("user")User user,Model model) {
 		cart.setUid(user.getId());
 		cartservice.updataCartCountById(cart);
 
 		List<Cart> cartProductList = cartservice.listCartProductByUser(user);
 		model.addAttribute("cartProductList", cartProductList);
 		long allSum=0;
-		for (Cart c : cartProductList) {
-			allSum+=c.getCount()*c.getProduct().getPrice();
+		if(cartProductList.size()>0) {
+			for (Cart c : cartProductList) {
+				allSum+=c.getCount()*c.getProduct().getPrice();
+			}
 		}
 		model.addAttribute("allSum", allSum);
 		return new Result(Result.EXECUTION_SUCCESS, "修改成功");

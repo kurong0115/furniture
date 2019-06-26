@@ -62,68 +62,84 @@
                 <p> 我们在这里提供了最新的商品，全新设计，独一无二！</p>
             </div>
             <div class="product-tab-list nav pb-60 text-center">
-                <a class="active" onclick="getProducts('${categorys[0] }')" data-toggle="tab">
-                    <h4>${categorys[0] } </h4>
-                </a>
-                <a href="#product-2" data-toggle="tab">
-                    <h4>${categorys[1] } </h4>
-                </a>
-                <a href="#product-3" data-toggle="tab">
-                    <h4>${categorys[2] }</h4>
-                </a>
+            	<!-- 循环展示分类 -->
+            	<c:forEach items="${categorys }" var="c" varStatus="status">
+            		<c:if test="${status.first }">
+            			<a href="#product-1" class="active"  data-toggle="tab">
+		                    <h4>${c } </h4>
+		                </a>
+            		</c:if>
+            		<c:if test="${!status.first }">
+            			<a href="#product-${status.count }" data-toggle="tab">
+		                    <h4>${c } </h4>
+		                </a>
+            		</c:if>
+            	</c:forEach>
             </div>
-            
+            <!-- 点击不同分类，展示该类下相应产品的图片及信息 -->
             <div class="tab-content jump-2">
-                <div id="product-1" class="tab-pane active">
-                    <div id="prduct-img" class="ht-products product-slider-active owl-carousel">
-                        
-                       	<!-- 循环滑动图片 -->
-                        <!--Product Start-->
-						<div class="ht-product ht-product-action-on-hover ht-product-category-right-bottom mb-30">
-                            <div class="ht-product-inner">
-                                <div class="ht-product-image-wrap">
-                                    <a href="product-details.html" class="ht-product-image"> <img src="assets/img/product/product-1.jpg" alt="Universal Product Style"> </a>
-                                    <div class="ht-product-action">
-                                        <ul>
-                                            <li><a href="#" data-toggle="modal" data-target="#exampleModal"><i class="sli sli-magnifier"></i><span class="ht-product-action-tooltip">快速预览</span></a></li>
-                                            <li><a href="#"><i class="sli sli-heart"></i><span class="ht-product-action-tooltip">添加到购物车</span></a></li>
-                                            <li><a href="#"><i class="sli sli-refresh"></i><span class="ht-product-action-tooltip">Add to Compare</span></a></li>
-                                            <li><a href="#"><i class="sli sli-bag"></i><span class="ht-product-action-tooltip">Add to Cart</span></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="ht-product-content">
-                                    <div class="ht-product-content-inner">
-                                   		<div class="ht-product-categories"><a href="#">4444444</a></div>
-                                        <h4 class="ht-product-title"><a href="product-details.html">---产品名称---</a></h4>
-                                        <div class="ht-product-price">
-                                            <span class="new">￥60.00</span>
-                                            <span class="old">￥80.00</span>
-                                        </div>
-                                        <div class="ht-product-ratting-wrap">
-                                            <span class="ht-product-ratting">
-                                                <span class="ht-product-user-ratting" style="width: 100%;">
-                                                    <i class="sli sli-star"></i>
-                                                    <i class="sli sli-star"></i>
-                                                    <i class="sli sli-star"></i>
-                                                    <i class="sli sli-star"></i>
-                                                    <i class="sli sli-star"></i>
-                                                </span>
-                                            <i class="sli sli-star"></i>
-                                            <i class="sli sli-star"></i>
-                                            <i class="sli sli-star"></i>
-                                            <i class="sli sli-star"></i>
-                                            <i class="sli sli-star"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-						<!--Product End-->
-                        
-                    </div>
-                </div>
+            
+                <!-- 循环展示 -->
+                <c:forEach items="${products }" var="listPro" varStatus="status">
+                	<!-- 默认显示第一个类下的产品 -->
+                	<c:if test="${status.first }">
+                		<div id="product-${status.count }" class="tab-pane active">
+                	</c:if>
+                	<c:if test="${!status.first }">
+                		<div id="product-${status.count }" class="tab-pane">
+                	</c:if>
+	                    <div class="ht-products product-slider-active owl-carousel">
+	                        
+	                       	<!-- 循环滑动图片 -->
+	                        <c:forEach items="${listPro }" var="pro">
+	                        	<!--Product Start-->
+								<div class="ht-product ht-product-action-on-hover ht-product-category-right-bottom mb-30">
+		                            <div class="ht-product-inner">
+		                                <div class="ht-product-image-wrap">
+		                                    <a href="product-details.html" class="ht-product-image"> <img src="${pro.imgPath }" alt="Universal Product Style"> </a>
+		                                    <div class="ht-product-action">
+		                                        <ul>
+		                                            <li><a href="#" data-toggle="modal" data-target="#exampleModal"><i class="sli sli-magnifier"></i><span class="ht-product-action-tooltip">快速预览</span></a></li>
+		                                            <li><a href="#"><i class="sli sli-heart"></i><span class="ht-product-action-tooltip">添加到愿望清单</span></a></li>
+		                                            <li><a href="#"><i class="sli sli-refresh"></i><span class="ht-product-action-tooltip">刷新</span></a></li>
+		                                            <li><a href="#"><i class="sli sli-bag"></i><span class="ht-product-action-tooltip">添加到购物车</span></a></li>
+		                                        </ul>
+		                                    </div>
+		                                </div>
+		                                <div class="ht-product-content">
+		                                    <div class="ht-product-content-inner">
+		                                   		<div class="ht-product-categories"><a href="#">${pro.category.categoryname }</a></div>
+		                                        <h4 class="ht-product-title"><a href="product-details.html">${pro.productname }</a></h4>
+		                                        <div class="ht-product-price">
+		                                            <span class="new">￥${String.format("%.1f", pro.price*0.75)}</span>
+		                                            <span class="old">￥${pro.price }</span>
+		                                        </div>
+		                                        <div class="ht-product-ratting-wrap">
+		                                            <span class="ht-product-ratting">
+		                                                <span class="ht-product-user-ratting" style="width: 100%;">
+		                                                	<!-- 展示代表评分的星星数量 -->
+		                                                	<c:forEach begin="1" end="${pro.score }">
+						                                        <i class="sli sli-star"></i>
+						                                    </c:forEach>
+		                                                </span>
+		                                            <i class="sli sli-star"></i>
+		                                            <i class="sli sli-star"></i>
+		                                            <i class="sli sli-star"></i>
+		                                            <i class="sli sli-star"></i>
+		                                            <i class="sli sli-star"></i>
+		                                            </span>
+		                                        </div>
+		                                    </div>
+		                                </div>
+		                            </div>
+		                        </div>
+								<!--Product End-->
+	                        </c:forEach>
+	                        
+	                    </div>
+	                </div>
+                </c:forEach>
+                
             </div>
         </div>
     </div>
@@ -169,9 +185,9 @@
 	                                <div class="ht-product-action">
 	                                    <ul>
 	                                        <li><a href="#" data-toggle="modal" data-target="#exampleModal"><i class="sli sli-magnifier"></i><span class="ht-product-action-tooltip">快速预览</span></a></li>
-	                                        <li><a href="#"><i class="sli sli-heart"></i><span class="ht-product-action-tooltip">添加到购物车</span></a></li>
-	                                        <li><a href="#"><i class="sli sli-refresh"></i><span class="ht-product-action-tooltip">Add to Compare</span></a></li>
-	                                        <li><a href="#"><i class="sli sli-bag"></i><span class="ht-product-action-tooltip">Add to Cart</span></a></li>
+	                                        <li><a href="#"><i class="sli sli-heart"></i><span class="ht-product-action-tooltip">添加到愿望清单</span></a></li>
+	                                        <li><a href="#"><i class="sli sli-refresh"></i><span class="ht-product-action-tooltip">刷新</span></a></li>
+	                                        <li><a href="#"><i class="sli sli-bag"></i><span class="ht-product-action-tooltip">添加到购物车</span></a></li>
 	                                    </ul>
 	                                </div>
 	                            </div>
@@ -185,11 +201,10 @@
 	                                    <div class="ht-product-ratting-wrap">
 	                                        <span class="ht-product-ratting">
 	                                            <span class="ht-product-user-ratting" style="width: 100%;">
-	                                                <i class="sli sli-star"></i>
-	                                                <i class="sli sli-star"></i>
-	                                                <i class="sli sli-star"></i>
-	                                                <i class="sli sli-star"></i>
-	                                                <i class="sli sli-star"></i>
+	                                                <!-- 展示代表评分的星星数量 -->
+                                                	<c:forEach begin="1" end="${r.product.score }">
+				                                        <i class="sli sli-star"></i>
+				                                    </c:forEach>
 	                                            </span>
 	                                        <i class="sli sli-star"></i>
 	                                        <i class="sli sli-star"></i>
@@ -445,67 +460,7 @@
 <!-- 引入底部链接 -->
 <%@include file="common/footer_link.jsp" %>
 
-<script type="text/javascript">
- 
-	function getProducts(name) {
-		$.post("newProducts", {
-			categoryName : name
-		}, function(data) {
-			if (data != null) {
-				setProduct(data);
-			}
-		});
-	}
-	
-	function setProduct(data) {
-		for(var i = 0; i < data.length; i++){
-			$('#prduct-img').append(
-			'<div class="owl-item cloned active" style="width: 270px; margin-right: 30px;">'
-				+'<div class="ht-product ht-product-action-on-hover ht-product-category-right-bottom mb-30">'
-	            +'<div class="ht-product-inner">'
-	            +'<div class="ht-product-image-wrap">'
-	            +'<a href="product-details.html" class="ht-product-image"> <img src="assets/img/product/product-1.jpg" alt="Universal Product Style"> </a>'
-	            +'<div class="ht-product-action">'
-	            +'<ul>'
-	            +'<li><a href="#" data-toggle="modal" data-target="#exampleModal"><i class="sli sli-magnifier"></i><span class="ht-product-action-tooltip">快速预览</span></a></li>'
-	            +'<li><a href="#"><i class="sli sli-heart"></i><span class="ht-product-action-tooltip">添加到购物车</span></a></li>'
-	            +'<li><a href="#"><i class="sli sli-refresh"></i><span class="ht-product-action-tooltip">Add to Compare</span></a></li>'
-	            +'<li><a href="#"><i class="sli sli-bag"></i><span class="ht-product-action-tooltip">Add to Cart</span></a></li>'
-	            +'</ul>'
-	            +'</div>'
-	            +'</div>'
-	            +'<div class="ht-product-content">'
-	            +'<div class="ht-product-content-inner">'
-	            +'<div class="ht-product-categories"><a href="#">4444444</a></div>'
-	            +'<h4 class="ht-product-title"><a href="product-details.html">---产品名称---</a></h4>'
-	            +'<div class="ht-product-price">'
-	            +'<span class="new">￥60.00</span>'
-	            +'<span class="old">￥80.00</span>'
-	            +'</div>'
-	            +'<div class="ht-product-ratting-wrap">'
-	            +'<span class="ht-product-ratting">'
-	            +'<span class="ht-product-user-ratting" style="width: 100%;">'
-	            +'<i class="sli sli-star"></i>'
-	            +'<i class="sli sli-star"></i>'
-	            +'<i class="sli sli-star"></i>'
-	            +'<i class="sli sli-star"></i>'
-	            +'<i class="sli sli-star"></i>'
-	            +'</span>'
-	            +'<i class="sli sli-star"></i>'
-	            +'<i class="sli sli-star"></i>'
-	            +'<i class="sli sli-star"></i>'
-	            +'<i class="sli sli-star"></i>'
-	            +'<i class="sli sli-star"></i>'
-	            +'</span>'
-	            +'</div>'
-	            +'</div>'
-	            +'</div>'
-	            +'</div>'
-				+'</div>'
-			+'</div>');
-		}
-	}
-</script>
+
 </body>
 
 </html>

@@ -20,9 +20,6 @@ public class ProductServiceImpl implements ProductService {
 	
 	@Override
 	public List<Product> listProductsByType(int cid, int page, int size) {
-//		ProductExample example = new ProductExample();
-//		example.createCriteria().andCidEqualTo(cid);
-//		List<Product> productList = productMapper.selectByExample(example);
 		List<Product> productList = productMapper.listProductsByCid(cid);
 		return productList.isEmpty()? null: productList;
 	}
@@ -38,7 +35,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<Product> selectProductByItem(String onSale, String newProduct, double min, double max, int cid) {
+	public List<Product> listProductByItem(String onSale, String newProduct, double min, double max, int cid) {
 		ProductExample example = new ProductExample();
 		Criteria criteria = example.createCriteria();
 		if (onSale != null && "check".equals(onSale.trim())) {
@@ -57,6 +54,12 @@ public class ProductServiceImpl implements ProductService {
 	public Product getProductById(int pid) {
 		Product product = productMapper.selectByPrimaryKey(pid);
 		return product == null? null: product;
+	}
+	
+	public List<Product> listRelatedProduct(int cid) {
+		List<Product> relatedProduct = productMapper.listProductsByCid(cid);
+		relatedProduct = relatedProduct.subList(0, 4);
+		return relatedProduct.isEmpty()? null: relatedProduct;
 	}
 
 	@Override

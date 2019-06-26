@@ -14,9 +14,12 @@ public interface CartService {
 	void delCartById(Integer id) throws ServiceException;
 
 	//清空购物车
-	void clearCart(Integer id);
+	void clearCart(Integer uid);
 
 	//修改购物车数量
 	void updataCartCountById(Cart cart);
+
+	//加入购物车
+	Cart addCart(Cart cart);
 
 }

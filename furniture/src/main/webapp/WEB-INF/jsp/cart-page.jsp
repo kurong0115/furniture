@@ -12,13 +12,15 @@
     <!-- 引入首部链接 -->
     <%@include file="common/header_link.jsp" %>
     <script type="text/javascript">
+	
     function clearCart() {
 		if($('#tbb').children("tr").children("td").find("span").text()=="暂无商品被加入购物车"){
 			getInfoMsg("购物车啥也没有");
 		}else{
-			$.post("cart/clearCart",function(data){
+			$.post("cart/clearCart.do",function(data){
 				if(data.code==1){
 					getSuccessMsg(data.message);
+					var allSum=0;
 					$('#tbb').find("tr").remove();
 					$('#cartUl li').remove();
 					$('#tbb').append(
@@ -26,15 +28,21 @@
                         '<td colspan="6"><span>暂无商品被加入购物车</span></td>'+
                         '</tr>'	
 					);
-					$('.allSum').text(0);
-					$('.headerCartCount').text(0);					
+					$('#cartUl').append(
+							'<li>暂无商品</li>'
+					);
+					$('.allSum').text(allSum);
+					$('.headerCartCount').text(0);	
+					$('#sum').val(allSum);
+				}else{
+					getFailMsg("清空失败，请稍再试");
 				}
 			});
 		}
 	}
     
   	function cartDelCart(del) { 
-		$.post("cart/delCart",{
+		$.post("cart/delCart.do",{
 			id:$(del).parent().next().val()
 		},function(data){
 			if(data.code==1){
@@ -53,6 +61,12 @@
 					);
 				}
 				$('#cartUl li:eq('+rows+')').remove();
+				if($('#cartUl li').length==0){
+					$('#cartUl').append(
+						'<li>暂无商品</li>'
+					);
+				}
+				
 				$('.allSum').text(allSum-sum);
 				$('.headerCartCount').text(--CartCount);
 				$('#sum').val(allSum-sum);
@@ -62,33 +76,11 @@
 		});
 	}
                                 	
-  	 //信息提示框
-  	function getSuccessMsg(msg) {
-  		$.message({
-  	        message:msg,
-  	        type:'success',
-  	        duration:'3000'
-  	    });
-  	}
-  	function getInfoMsg(msg) {
-  		$.message({
-  	        message:msg,
-  	        type:'info',
-  	        duration:'3000'
-  	    });
-  	}
-  	function getFailMsg(msg) {
-  		$.message({
-  	        message:msg,
-  	        type:'error',
-  	        duration:'3000'
-  	    });
-  	}
   </script>
 </head>
 
 <body>
-<div class="wrapper">
+<div class="wrapper" >
     
     
     <!-- 引入首部 -->
@@ -176,7 +168,7 @@
                                 </div>
                                 <br/>
                                 <h4 class="grand-totall-title">总计  <span >￥<font class="allSum">${allSum}</font></span></h4>
-                                <a href="checkout">结账</a>
+                                <a href="javascript:void(0)" onclick="checkOut()">结账</a>
                             </div>
                         </div>
                     </div>

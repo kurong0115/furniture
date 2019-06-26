@@ -5,8 +5,61 @@
 <header class="header-area sticky-bar">
 
 		<script type="text/javascript">
+		function addCart(pid,price,imgpath) {
+			$.get("addCart.do",{
+				pid:pid,
+				count:1
+			},function(data){
+				if(data.code==1){
+					console.info(data);
+					getSuccessMsg(data.message);
+					var CartCount=$('.headerCartCount').text();
+					var allSum=$('#sum').val();									
+					var newAllSum=Number(price)+Number(allSum);
+					$('.allSum').text(newAllSum);
+					$('#sum').val(newAllSum);
+					var size=$('#cartUl li').length;
+					for(var i=0;i<size;i++){
+						var allCartPid=$('#cartUl li:eq('+i+')').find("div:eq(1)").find("input").val();
+						if(allCartPid==pid){
+							var CartPidCount=$('#cartUl li:eq('+i+')').find("div:eq(1)").find("span").find("font").text();
+							$('#cartUl li:eq('+i+')').find("div:eq(1)").find("span").find("font").text(++CartPidCount)
+							return;
+						}
+					}
+					$('#cartUl').append(
+						'<li class="single-shopping-cart">'+
+                           '<div class="shopping-cart-img">'+
+                               '<a href="#"><img alt="" src="'+imgpath+'"></a>'+       
+                           '</div>'+
+                           '<div class="shopping-cart-title" style="width: 100px;overflow: hidden;">'+
+                               '<h4><a href="#">'+data.data.product.productname+'</a></h4>'+
+                               '<input type="hidden" value="'+pid+'">'+
+                               '<span><font>'+data.data.count+'</font> x '+data.data.product.price+'</span>'+
+                           '</div>'+
+                           '<div class="item-close" style="margin-left: 20px">'+
+                               '<a href="#"><i class="sli sli-close" onclick="headerDelCart(this)"></i></a>'+
+                               '<input type="hidden" value="'+data.data.id+'">'+
+                           '</div>'+
+                       '</li>'
+					);
+					$('.headerCartCount').text(++CartCount);
+				}else{
+					getFialMsg("当前访问人数较多，请稍后再试");
+				}
+			})
+		}
+		function checkOut() {
+			if($('#tbb').children("tr").children("td").find("span").text()=="暂无商品被加入购物车" 
+					|| $('#cartUl').children("li").text()=="暂无商品"){
+				getInfoMsg("购物车啥也没有");
+			}else{
+				location.href="checkout";
+			}
+		}
+		
 		function headerDelCart(del) { 			
-			$.post("cart/delCart",{
+			$.post("cart/delCart.do",{
 				id:$(del).parent().next().val()
 			},function(data){
 				if(data.code==1){
@@ -15,13 +68,14 @@
 					var price=str[1];
 					var sum=count*price;
 					var allSum=$('#sum').val();
-					var rows=$(del).parent().parent().parent().prevAll().length;
+					var rows=$(del).parent().parent().parent().prevAll().length-1;
 					var CartCount=$('.headerCartCount').text();
 					getSuccessMsg(data.message);				
 					
 					$(del).parent().parent().parent().remove();
 					if($('#cartUl li').length==0){
 						$('#cartUl').append(
+							'<input type="hidden" value="0" id="sum">'+
 							'<li>暂无商品</li>'
 						);
 					}
@@ -87,14 +141,18 @@
                                    <li><a href="contact-us"> 联系我们 </a></li>
                                    <li class="angle-shape"><a href="#">更多 </a>
                                        <ul class="submenu">
-                                           <li><a href="about-us.html">关于我们 </a></li>
-                                           <li><a href="cart-page.html">购物车 </a></li>
+                                           <li><a href="about-us">关于我们 </a></li>
+                                           <li><a href="cart-page">购物车 </a></li>
                                            <li><a href="checkout">结算 </a></li>
-                                           <li><a href="compare-page.html">compare </a></li>
-                                           <li><a href="wishlist.html">wishlist </a></li>
-                                           <li><a href="my-account">我的账户 </a></li>
-                                           <li><a href="contact-us">contact us </a></li>
-                                           <li><a href="login-register">登录/注册 </a></li>
+                                           <li><a href="compare-page">对比 </a></li>
+                                           <li><a href="wishlist.html">愿望清单 </a></li>
+                                           <li><a href="contact-us">联系我们</a></li>    
+                                           <c:if test="${user  == null}">
+                                           		<li><a href="login-register">登录/注册 </a></li>
+                                           </c:if>
+                                           <c:if test="${user  != null}">
+                                           		<li><a href="my-account">我的账户 </a></li>
+                                           </c:if>                                          
                                        </ul>
                                    </li>
                                    <li class="angle-shape"><a href="blog"> 博客 </a>
@@ -116,12 +174,12 @@
                            <div class="header-search">
                                <a class="search-active" href="javascript:void(0)"><i class="sli sli-magnifier"></i></a>
                            </div>
-                           <c:if test="${user == null}">
+                           <c:if test="${empty user}">
                             	<div>
                                     <h6>您尚未登录&nbsp;&nbsp;&nbsp;<a  href="login-register">去登录</a></h6>
                                 </div>
                            </c:if>
-                           <c:if test="${user!=null}">
+                           <c:if test="${!empty user}">
 	                           <div class="cart-wrap">
 	                               <button class="icon-cart-active">
 	                                   <span class="icon-cart">
@@ -138,6 +196,7 @@
 	                                   <ul style="height: 250px;" id="cartUl">
 	                                   
 	                                   		<c:if test="${empty cartProductList}">
+	                                   			<input type="hidden" value="0" id="sum">
 	                                   			<li>暂无商品</li>
 	                                   		</c:if>
 	                                   		<c:if test="${!empty cartProductList}">
@@ -149,6 +208,7 @@
 			                                           </div>
 			                                           <div class="shopping-cart-title" style="width: 100px;overflow: hidden;">
 			                                               <h4><a href="#">${cartProduct.product.productname}</a></h4>
+			                                               <input type="hidden" value="${cartProduct.product.pid}">
 			                                               <span><font>${cartProduct.count}</font> x ${cartProduct.product.price}</span>
 			                                           </div>
 			                                           <div class="item-close" style="margin-left: 20px">
@@ -164,8 +224,8 @@
 	                                           <h4>总价 : <span>￥<span class="shop-total allSum">${allSum}</span></span></h4>
 	                                       </div>
 	                                       <div class="shopping-cart-btn btn-hover text-center">
-	                                           <a class="default-btn" href="checkout">结算</a>
-	                                           <a class="default-btn" href="seeCart">查看购物车</a>
+	                                           <a class="default-btn" href="javascript:void(0)" onclick="checkOut()">结算</a>
+	                                           <a class="default-btn" href="seeCart.do">查看购物车</a>
 	                                       </div>
 	                                   </div>
 	                               </div>

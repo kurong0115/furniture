@@ -18,135 +18,6 @@
 		<!-- 引入首部 -->
 		<%@include file="common/header.jsp"%>
 
-
-		<!-- ????????????????????? -->
-		<!-- <div class="mobile-off-canvas-active">
-        <a class="mobile-aside-close"><i class="sli sli-close"></i></a>
-        <div class="header-mobile-aside-wrap">
-            <div class="mobile-search">
-                <form class="search-form" action="#">
-                    <input type="text" placeholder="Search entire store…">
-                    <button class="button-search"><i class="sli sli-magnifier"></i></button>
-                </form>
-            </div>
-            <div class="mobile-menu-wrap">
-                mobile menu start
-                <div class="mobile-navigation">
-                    mobile menu navigation start
-                    <nav>
-                        <ul class="mobile-menu">
-                            <li class="menu-item-has-children"><a href="index">Home</a>
-                                <ul class="dropdown">
-                                    <li><a href="index">Home version 1 </a></li>
-                                    <li><a href="index-2.html">Home version 2 </a></li>
-                                    <li><a href="index-3.html">Home version 3 </a></li>
-                                </ul>
-                            </li>
-                            <li class="menu-item-has-children "><a href="shop.html">shop</a>
-                                <ul class="dropdown">
-                                    <li class="menu-item-has-children"><a href="#">Shop Layout</a>
-                                        <ul class="dropdown">
-                                            <li><a href="shop.html">standard style</a></li>
-                                            <li><a href="shop-grid-2-column.html">grid 2 column</a></li>
-                                            <li><a href="shop-grid-4-column.html">grid 4 column</a></li>
-                                            <li><a href="shop-grid-fullwide.html">grid full wide</a></li>
-                                            <li><a href="shop-right-sidebar.html">grid right sidebar </a></li>
-                                            <li><a href="shop-list-style1.html">list style 1</a></li>
-                                            <li><a href="shop-list-style2.html">list style 2</a></li>
-                                            <li><a href="shop-list-style3.html">list style 3</a></li>
-                                            <li><a href="shop-list-fullwide.html">list full wide</a></li>
-                                            <li><a href="shop-list-sidebar.html">list with sidebar </a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="menu-item-has-children"><a href="#">products details</a>
-                                        <ul class="dropdown">
-                                            <li><a href="product-details.html">tab style 1</a></li>
-                                            <li><a href="product-details-tab-2.html">tab style 2</a></li>
-                                            <li><a href="product-details-tab-3.html">tab style 3</a></li>
-                                            <li><a href="product-details-gallery.html">gallery style  </a></li>
-                                            <li><a href="product-details-gallery-right.html">gallery right</a></li>
-                                            <li><a href="product-details-sticky.html">sticky style</a></li>
-                                            <li><a href="product-details-sticky-right.html">sticky right</a></li>
-                                            <li><a href="product-details-slider-box.html">slider style</a></li>
-                                            <li><a href="product-details-affiliate.html">Affiliate style</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li><a href="shop.html">Accessories </a></li>
-                            <li class="menu-item-has-children"><a href="#">pages</a>
-                                <ul class="dropdown">
-                                    <li><a href="about-us.html">about us </a></li>
-                                    <li><a href="cart-page.html">cart page </a></li>
-                                    <li><a href="checkout.html">checkout </a></li>
-                                    <li><a href="compare-page.html">compare </a></li>
-                                    <li><a href="wishlist.html">wishlist </a></li>
-                                    <li><a href="my-account.html">my account </a></li>
-                                    <li><a href="contact-us.html">contact us </a></li>
-                                    <li><a href="login-register.html">login/register </a></li>
-                                </ul>
-                            </li>
-                            <li class="menu-item-has-children "><a href="blog.html">Blog</a>
-                                <ul class="dropdown">
-                                    <li><a href="blog.html">standard style </a></li>
-                                    <li><a href="blog-2-col.html">blog 2 column </a></li>
-                                    <li><a href="blog-3-col.html">blog 3 column </a></li>
-                                    <li><a href="blog-right-sidebar.html">blog right sidebar </a></li>
-                                    <li><a href="blog-details.html">blog details </a></li>
-                                    <li><a href="blog-details-right-sidebar.html">blog details right sidebar </a></li>
-                                </ul>
-                            </li>
-                            <li><a href="contact-us.html">Contact us</a></li>
-                        </ul>
-                    </nav>
-                    mobile menu navigation end
-                </div>
-                mobile menu end
-            </div>
-            <div class="mobile-curr-lang-wrap">
-                <div class="single-mobile-curr-lang">
-                    <a class="mobile-language-active" href="#">Language <i class="sli sli-arrow-down"></i></a>
-                    <div class="lang-curr-dropdown lang-dropdown-active">
-                        <ul>
-                            <li><a href="#">English (US)</a></li>
-                            <li><a href="#">English (UK)</a></li>
-                            <li><a href="#">Spanish</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="single-mobile-curr-lang">
-                    <a class="mobile-currency-active" href="#">Currency <i class="sli sli-arrow-down"></i></a>
-                    <div class="lang-curr-dropdown curr-dropdown-active">
-                        <ul>
-                            <li><a href="#">USD</a></li>
-                            <li><a href="#">EUR</a></li>
-                            <li><a href="#">Real</a></li>
-                            <li><a href="#">BDT</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="single-mobile-curr-lang">
-                    <a class="mobile-account-active" href="#">My Account <i class="sli sli-arrow-down"></i></a>
-                    <div class="lang-curr-dropdown account-dropdown-active">
-                        <ul>
-                            <li><a href="login-register.html">Login</a></li>
-                            <li><a href="login-register.html">Creat Account</a></li>
-                            <li><a href="my-account.html">My Account</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="mobile-social-wrap">
-                <a class="facebook" href="#"><i class="sli sli-social-facebook"></i></a>
-                <a class="twitter" href="#"><i class="sli sli-social-twitter"></i></a>
-                <a class="pinterest" href="#"><i class="sli sli-social-pinterest"></i></a>
-                <a class="instagram" href="#"><i class="sli sli-social-instagram"></i></a>
-                <a class="google" href="#"><i class="sli sli-social-google"></i></a>
-            </div>
-        </div>
-    </div> -->
-
-
 		<div class="breadcrumb-area pt-35 pb-35 bg-gray">
 			<div class="container">
 				<div class="breadcrumb-content text-center">
@@ -215,8 +86,10 @@
 																			class="ht-product-action-tooltip">添加到愿望清单</span></a></li>
 																	<li><a href="#"><i class="sli sli-refresh"></i><span
 																			class="ht-product-action-tooltip">刷新</span></a></li>
-																	<li><a href="#"><i class="sli sli-bag"></i><span
-																			class="ht-product-action-tooltip">添加到购物车</span></a></li>
+																	<li><a href="javascript:void(0)" onclick="addCart('${product.pid}','${product.price}','${product.images[0].imgpath }')">
+																	<i class="sli sli-bag"></i><span class="ht-product-action-tooltip">添加到购物车</span></a></li>
+																	<li><a href="#" onclick="compare(${product.pid})"><i class="sli sli-refresh"></i><span
+																			class="ht-product-action-tooltip">对比</span></a></li>
 																</ul>
 															</div>
 														</div>
@@ -226,7 +99,7 @@
 																	<a href="#">${product.category.categoryname }</a>
 																</div>
 																<h4 class="ht-product-title">
-																	<a href="product-details?pid=${product.pid }">${product.productname }</a>
+																	<a href="product-details?pid=${product.pid }">${product.model } ${product.productname }</a>
 																</h4>
 																<div class="ht-product-price">
 																	￥<span class="new">${product.price }</span>
@@ -258,8 +131,11 @@
                                                                             class="ht-product-action-tooltip">添加到愿望清单</span></a></li>
                                                                     <li><a href="#"><i class="sli sli-refresh"></i><span
                                                                             class="ht-product-action-tooltip">刷新</span></a></li>
-                                                                    <li><a href="#"><i class="sli sli-bag"></i><span
-                                                                            class="ht-product-action-tooltip">添加到购物车</span></a></li>
+                                                                    <li><a href="javascript:void(0)" onclick="addCart('${product.pid}','${product.price}','${product.images[0].imgpath }')">
+                                                                    <i class="sli sli-bag"></i><span class="ht-product-action-tooltip">添加到购物车</span></a></li>
+                                                                    <li><a href="#" onclick="compare(${product.pid})"><i class="sli sli-refresh"></i><span
+                                                                            class="ht-product-action-tooltip">对比</span></a></li>
+                                                                    
                                                                 </ul>
 															</div>
 															<div class="ht-product-countdown-wrap">
@@ -295,7 +171,7 @@
 														</a>
 														<div class="product-quickview">
 															<a href="#" title="Quick View" data-toggle="modal"
-																data-target="#exampleModal"><i
+																data-target="#exampleModal" onclick="quickView(${product.pid})"><i
 																class="sli sli-magnifier-add"></i></a>
 														</div>
 													</div>
@@ -303,7 +179,7 @@
 												<div class="col-lg-8 col-md-8 align-self-center">
 													<div class="shop-list-content">
 														<h3>
-															<a href="product-details?pid=${product.pid }">${product.productname }</a>
+															<a href="product-details?pid=${product.pid }">${product.model } ${product.productname }</a>
 														</h3>
 														<p>It has roots in a piece of classical Latin
 															literature from 45 BC, making it over 2000 years old.
@@ -329,9 +205,9 @@
 															<div class="ht-product-list-action">
 																<a class="list-wishlist" title="添加到愿望清单" href="#"><i
 																	class="sli sli-heart"></i></a> <a class="list-cart"
-																	title="添加到购物车" href="#"><i
+																	title="添加到购物车" href="javascript:void(0)" onclick="addCart('${product.pid}','${product.price}','${product.images[0].imgpath }')"><i
 																	class="sli sli-basket-loaded"></i> 添加到购物车</a> <a
-																	class="list-refresh" title="对比" href="#"><i
+																	class="list-refresh" title="对比" href="#" onclick="compare(${product.pid})"><i
 																	class="sli sli-refresh"></i></a>
 															</div>
 														</div>
@@ -390,13 +266,7 @@
 												<span class="checkmark"></span>
 											</div>
 										</li>
-										<!-- <li>
-                                        <div class="sidebar-widget-list-left">
-                                            <input type="checkbox" value=""> <a href="#">现货 <span>6</span> </a>
-                                            <span class="checkmark"></span>
-                                        </div>
-                                    </li> -->
-
+										
 									</ul>
 								</div>
 							</div>
@@ -445,8 +315,6 @@
 		<!-- 引入底部 -->
 		<%@include file="common/footer.jsp"%>
 
-
-		<!-- ??????????????????????? -->
 		<!-- Modal -->
 		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog">
 			<div class="modal-dialog" role="document">
@@ -492,19 +360,16 @@
 									</div>
 									<div class="pro-details-size-color"></div>
 									<div class="pro-details-quality">
-										<div class="cart-plus-minus">
-											<input class="cart-plus-minus-box" type="text"
-												name="qtybutton" value="1">
-										</div>
+										
 										<div class="pro-details-cart">
-											<a href="#">添加到购物车</a>
+											<a href="javascript:void(0)" id="addCartByPid" onclick="addCart()">添加到购物车</a>
 										</div>
 										<div class="pro-details-wishlist">
-											<a title="Add To Wishlist" href="#"><i
+											<a title="添加到愿望清单" href="#"><i
 												class="sli sli-heart"></i></a>
 										</div>
 										<div class="pro-details-compare">
-											<a title="Add To Compare" href="#"><i
+											<a title="对比" href="#"><i
 												class="sli sli-refresh"></i></a>
 										</div>
 									</div>																	
@@ -595,6 +460,8 @@
 						for (var i = data.data.score; i < 5; i++){
                             $("#quickView-score").append('<i class="sli sli-star"></i>');
                         }
+						
+						$("#addCartByPid").attr("onclick",'addCart("'+data.data.pid+'","'+data.data.price+'","'+data.data.images[0].imgpath+'")');
 					}
 				},
 				error:function(data){
@@ -602,6 +469,8 @@
 				}
 			})
 		}
+		
+		
 		
 		var onSale = $("#onSale");
 		var newProduct = $("#newProduct");
@@ -716,7 +585,9 @@
 									+ '<li><a href="#"><i class="sli sli-magnifier"></i><span class="ht-product-action-tooltip">快速预览</span></a></li>'
 									+ '<li><a href="#"><i class="sli sli-heart"></i><span class="ht-product-action-tooltip">添加到愿望清单</span></a></li>'
 									+ '<li><a href="#"><i class="sli sli-refresh"></i><span class="ht-product-action-tooltip">刷新</span></a></li>'
-									+ '<li><a href="#"><i class="sli sli-bag"></i><span class="ht-product-action-tooltip">添加到购物车</span></a></li>'
+									+ '<li><a href="javascript:void(0)" onclick="addCart('
+									+ data.pid
+									+ ')"><i class="sli sli-bag"></i><span class="ht-product-action-tooltip">添加到购物车</span></a></li>'
 									+ '</ul>'
 									+ '</div>'
 									+ '<div class="ht-product-countdown-wrap">'
@@ -771,7 +642,9 @@
 									+ '</div>'
 									+ '<div class="ht-product-list-action">'
 									+ '<a class="list-wishlist" title="添加到愿望清单" href="#"><i class="sli sli-heart"></i></a>'
-									+ '<a class="list-cart" title="添加到购物车" href="#"><i class="sli sli-basket-loaded"></i> 添加到购物车</a>'
+									+ '<a class="list-cart" title="添加到购物车" a href="javascript:void(0)" onclick="addCart('
+									+ data.pid
+									+ ')"><i class="sli sli-basket-loaded"></i> 添加到购物车</a>'
 									+ '<a class="list-refresh" title="对比" href="#"><i class="sli sli-refresh"></i></a>'
 									+ '</div>'
 									+ '</div>'

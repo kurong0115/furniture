@@ -260,7 +260,7 @@
 	    ON b.pid = c.pid
 	GROUP BY a.pid
 	ORDER BY COUNT DESC
-	LIMIT #{index},#{size}
+	LIMIT #{num}
   </select>
   
   <!-- 自定义，最近7天上架，且卖的最多的商品 -->

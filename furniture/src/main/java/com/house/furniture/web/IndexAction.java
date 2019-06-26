@@ -1,5 +1,6 @@
 package com.house.furniture.web;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -7,7 +8,6 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.house.furniture.bean.Admin;
 import com.house.furniture.bean.Operation;
@@ -30,17 +30,22 @@ public class IndexAction {
 	//新品展示	每类展示4种
 	private int num = 5;
 	
-	//需要根据是否登录将listCartProduct加入session
 	@RequestMapping(path={"index","/"})
 	public String index(Model model) {
-		//首页最热门商品		形式参数：limit查询的两个参数
-		List<Operation> HotProducts = os.selectHotProducts(0, 2);
+		//首页最热门商品
+		List<Operation> HotProducts = os.selectHotProducts(2);
 		model.addAttribute("HotProducts", HotProducts);
 		
-		String[] categorys = {"书房", "储物用品", "儿童房"};
-		//List<Product> newProducts = ps.listProductByCategoryName(num, categorys[0], categorys[1], categorys[2]);
+		//分类显示不同内容
+		String[] categorys = {"书房", "储物用品", "儿童房", "浴室"};
 		model.addAttribute("categorys", categorys);
-		//model.addAttribute("newProducts", newProducts);
+		//根据类名，查出该类下最新的一些产品
+		List<List<Product>> products = new ArrayList<>();
+		for(int i = 0; i < categorys.length; i++) {
+			List<Product> pro = ps.listProductByCategoryName(num, categorys[i]);
+			products.add(pro);
+		}
+		model.addAttribute("products", products);
 		
 		//获取所有管理员信息
 		List<Admin> adminInfo = as.queryAdmin();
@@ -50,12 +55,5 @@ public class IndexAction {
 		List<Operation> recomm = os.newAndHotProducts(7);
 		model.addAttribute("recomm", recomm);
 		return "index";
-	}
-	
-	@RequestMapping("newProducts")
-	@ResponseBody
-	public List<Product> newProducts(String categoryName) {
-		List<Product> newProducts = ps.listProductByCategoryName(num, categoryName);
-		return newProducts;
 	}
 }

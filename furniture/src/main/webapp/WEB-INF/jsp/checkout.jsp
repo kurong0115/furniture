@@ -17,7 +17,17 @@
 <div class="wrapper">
     <!-- 引入首部 -->
     <%@include file="common/header.jsp" %>
-    
+    <script type="text/javascript">
+    	function produceOrder() {
+			if($('input[name="addr"]:checked').val()==null){
+				getInfoMsg("请选择收货地址")
+			}else if($('input[name="payment_method"]:checked').val()==null){
+				getInfoMsg("请选择支付方式")
+			}else{
+				location.href="produceOrder?addressid="+$('input[name="addr"]:checked').val()+"&sum="+$('#sum').val()+"";
+			}
+		}
+    </script>
     
    
     <div class="breadcrumb-area pt-35 pb-35 bg-gray">
@@ -42,10 +52,12 @@
                 		<ul id="addrUl">
                 			<c:forEach items="${addrList }" var="addr">
 		                		<li>
-		                			<input value="${addr.address }" type="radio" name="addr" style="height: 15px;width: 15px;margin-top: 15px;margin-left: 50px;color: 1f2226">
-		                			<span style="font-size: 15px;margin-left: 10px;color: 1f2226">地址：${addr.address }</span>
-		                			<span style="font-size: 15px;margin-left: 10px;color: 1f2226">联系人：${addr.address }</span>
-		                			<span style="font-size: 15px;margin-left: 10px;color: 1f2226">联系电话：${addr.phone }</span>
+		                			<input id="${addr.id }" value="${addr.id }" type="radio" class="input-radio" name="addr" style="height: 15px;width: 15px;margin-top: 15px;margin-left: 50px;color: 1f2226">
+		                			<label for="${addr.id }">
+		                				<span style="font-size: 15px;margin-left: 10px;color: 1f2226">地址：${addr.address }</span>
+		                				<span style="font-size: 15px;margin-left: 10px;color: 1f2226">联系人：${addr.name }</span>
+		                				<span style="font-size: 15px;margin-left: 10px;color: 1f2226">联系电话：${addr.phone }</span>
+		                			</label>
 		                		<li>
 	                		</c:forEach>
                 		</ul>
@@ -83,13 +95,13 @@
                                         <input id="payment-method-3" class="input-radio" type="radio" value="cheque" name="payment_method">
                                         <label for="payment-method-3">货到付现 </label>
                                         <div class="payment-box payment_method_bacs">
-                                        <p>请将款项直接汇入我们的银行帐户。请使用您的订单号作为付款参考。当资金到达我们的账户后，我们将立即为您发货.</p>
+                                        <p>我们将立即为您发货，请耐心等待</p>
                                         </div>
                                     </div>                                    
                                 </div>
                             </div>
                             <div class="Place-order mt-40">
-                                <a href="#">订购</a>
+                                <a href="javascript:void(0)" onclick="produceOrder()">订购</a>
                             </div>
                         </div>
                     </div>
