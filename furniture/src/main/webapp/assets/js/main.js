@@ -300,9 +300,9 @@
             } else {
                 newVal = 1;
                 getInfoMsg("别再减了，再减就没了");
-                return ;
             }
         }
+        
         $.post("cart/updataCartCount",{
         	id:$button.parent().parent().next().next().find("input").val(),
         	count:newVal,
@@ -315,7 +315,6 @@
         		getFailMsg("修改失败");
         	}
         });
-       
        
         var newSum = parseFloat(price)*newVal;
         

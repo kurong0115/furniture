@@ -6,6 +6,7 @@ spring:
 #    static-path-pattern: /static/**
   #mybatis数据源
   datasource:
+
     url: jdbc:mysql://localhost:3306/furniture?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
     username: root
     password: a
