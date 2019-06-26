@@ -28,7 +28,6 @@ public class OperationServiceImpl implements OperationService {
 		OperationExample operationExample = new OperationExample();
 		operationExample.createCriteria().andOrderidEqualTo(orderid);
 		List <Operation> operation = operationmapper.selectByExample(operationExample);
-		System.out.println(operation);
 		return operation.size()==0 ? null : operation;
 	}
 

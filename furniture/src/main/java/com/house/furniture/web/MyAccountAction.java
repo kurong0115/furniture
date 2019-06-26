@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.house.furniture.bean.Operation;
 import com.house.furniture.bean.Orders;
@@ -34,18 +35,16 @@ public class MyAccountAction {
 		List<Orders> orders = orderService.selectByUid(user.getId());
 		//将用户的所有订单添加到会话中
 		model.addAttribute("myOrder", orders);
-		System.out.println(orders);
 		return "my-account";
 	}
 	
 	@GetMapping("orderDetails")
-	public void orderDetails(String orderid,Model model) {
+	@ResponseBody
+	public Result orderDetails(String orderid) {
 		System.out.println(orderid);
 		List<Operation> operation = operationService.selectByOrderid(Integer.parseInt(orderid));
-		model.addAttribute("operation", operation);
-		for( int i = 0;i<operation.size();i++ ) {
-			System.out.println(operation.get(i).getPid());
-		}
+		System.out.println(operation);
+		return new Result(Result.EXECUTION_SUCCESS, "1", operation);
 	}
 	
 }

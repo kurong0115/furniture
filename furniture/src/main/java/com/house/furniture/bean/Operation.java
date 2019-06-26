@@ -1,7 +1,20 @@
 package com.house.furniture.bean;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(value = { "handler" })
 public class Operation {
-    private Integer id;
+	
+
+	@Override
+	public String toString() {
+		return "Operation [id=" + id + ", orderid=" + orderid + ", uid=" + uid + ", pid=" + pid + ", count=" + count
+				+ ", sum=" + sum + ", price=" + price + ", productList=" + productList + "]";
+	}
+
+	private Integer id;
 
     private Integer orderid;
 
@@ -14,8 +27,20 @@ public class Operation {
     private Integer sum;
 
     private Double price;
+    
+    private List<Product> productList;
+    
+    
 
-    public Integer getId() {
+	public List<Product> getProductList() {
+		return productList;
+	}
+
+	public void setProductList(List<Product> productList) {
+		this.productList = productList;
+	}
+
+	public Integer getId() {
         return id;
     }
 

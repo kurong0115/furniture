@@ -100,11 +100,14 @@
 										<div class="modal-dialog" role="document">
 											<div class="modal-content">
 												<div class="modal-header">
+													<h4>订单详情</h4>
 													<button type="button" class="close" data-dismiss="modal"
 														aria-label="Close">
+														
 														<span aria-hidden="true">x</span>
 													</button>
 												</div>
+												
 												<div class="modal-body">
 													<div class="row">
 														<table class="table table-bordered" id="ordersTable">
@@ -117,18 +120,8 @@
 		                                                            <th>小计</th>
 		                                                        </tr>
 		                                                    </thead>    
-		                                                    <tbody >                  
-		                                                    	<c:if test="${myOrder != null }">
-				                                                    <c:forEach items="${myOrder }"  var="m">
-				                                                       <tr>
-				                                                           <td>${m.orderno}</td>
-				                                                           <td>${m.createtime.toLocaleString()}</td>
-				                                                           <td>${m.sum}</td>
-				                                                           <td></td>
-				                                                           <td></td>
-				                                                       </tr>
-					                                                  </c:forEach>
-			                                                    </c:if>
+		                                                    <tbody id="orderDetails">                  
+
 		                                                    </tbody>
 		                                                </table>
 														

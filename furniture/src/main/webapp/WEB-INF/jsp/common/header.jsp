@@ -181,7 +181,7 @@
                            </div>
                            <c:if test="${empty user}">
                             	<div>
-                                    <h6>您尚未登录&nbsp;&nbsp;&nbsp;<a  href="login-register">去登录</a></h6>
+                                    <h6>您尚未登录&nbsp;&nbsp;&nbsp;<a href="login-register">去登录</a></h6>
                                 </div>
                            </c:if>
                            <c:if test="${!empty user}">
