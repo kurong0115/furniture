@@ -1,9 +1,10 @@
 package com.house.furniture.web;
 
 import java.util.List;
-
+import java.util.Map;
 import java.util.Random;
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -42,7 +43,7 @@ public class LoginRegisterAction {
 
 	@PostMapping("login.do")
 	@ResponseBody
-	public Result login(String username, String password, String code,  HttpSession session,Model model) {
+	public Result login(String username, String password, String code,  HttpSession session, HttpServletRequest request,Model model) {
 		String msg = "";
 		// 根据用户名和密码查询
 		User user = userservice.login(username, password);
@@ -66,6 +67,26 @@ public class LoginRegisterAction {
 					allSum+=cart.getCount()*cart.getProduct().getPrice();
 				}
 				model.addAttribute("allSum", allSum);
+				
+				//判断是否有回调路径
+				if(session.getAttribute("callbackPath")!=null) {
+					String path = (String) session.getAttribute("callbackPath");
+					
+					@SuppressWarnings("unchecked")
+					Map<String, String[]> newmap = (Map<String, String[]>) session.getAttribute("callbackMap");
+					//拼接地址
+					path+="?";
+					for (Map.Entry<String, String[]> entry : newmap.entrySet()) {
+						String name=entry.getKey();
+						String value=entry.getValue()[0];
+						path+=name+"="+value+"&";
+						
+					}
+					//重定向回调页面
+					String cxtPath=request.getContextPath();
+					String newPath=cxtPath+path;
+					return new Result(Result.EXECUTION_SUCCESS, msg,newPath);
+				}
 				
 				return new Result(Result.EXECUTION_SUCCESS, msg);
 			}

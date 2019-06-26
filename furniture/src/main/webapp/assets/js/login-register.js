@@ -25,9 +25,13 @@ function login(){
 		},
 		dataType:"json",
 		success:function(data){
-			if( data.message == '登录成功!' ){
+			if( data.code ==1 ){
 				getSuccessMsg(data.message);
-				window.location.href='index';
+				if(data.data!=null){
+					location.href=data.data;
+				}else{
+					location.href='index';
+				}				
 			}else{
 				getInfoMsg(data.message);
 			}
