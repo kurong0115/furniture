@@ -28,7 +28,7 @@ public class ComparePageAction {
 		return "compare-page";
 	}
 	
-	@GetMapping("addCompareInfo")
+	@GetMapping("addCompareInfo.do")
 	@SuppressWarnings("unchecked")
 	@ResponseBody
 	public Result addCompareInfo(int pid, HttpServletRequest request) {
@@ -51,7 +51,7 @@ public class ComparePageAction {
 		return new Result(Result.EXECUTION_FAILED, "已满,请释放一些再添加");
 	}
 	
-	@GetMapping("removeInfo")
+	@GetMapping("removeInfo.do")
 	@SuppressWarnings("unchecked")
 	@ResponseBody
 	public Result removeInfo(int pid, HttpServletRequest request) {
