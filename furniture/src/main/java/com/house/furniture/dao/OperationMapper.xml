@@ -242,4 +242,49 @@
       price = #{price,jdbcType=DOUBLE}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  <!-- 自定义，查询卖得最多的商品 -->
+  <resultMap type="com.house.furniture.bean.Operation" id="selRM" autoMapping="true">
+  	<id column="id" property="id"/>
+  	<association property="product" javaType="com.house.furniture.bean.Product" autoMapping="true">
+  		<id column="pid" property="pid"/>
+  	</association>
+  </resultMap>
+  <select id="selectHotProducts" resultMap="selRM">
+    SELECT
+	  a.pid,
+	  SUM(a.count) AS COUNT,
+	  b.*,
+	  c.imgPath
+	FROM
+	  operation a
+	  JOIN product b
+	    ON a.pid = b.pid
+	  JOIN image c
+	    ON b.pid = c.pid
+	GROUP BY a.pid
+	ORDER BY COUNT DESC
+	LIMIT #{num}
+  </select>
+  
+  <!-- 自定义，最近7天上架，且卖的最多的商品 -->
+  <select id="newAndHotProducts" resultMap="selRM">
+  	select
+	  a.*,
+	  sum(b.count) as total,
+	  c.imgpath,
+	  d.categoryName
+	from
+	  product a
+	  join operation b
+	    on a.pid = b.pid
+	  join (select * from image group by pid) c
+	    on a.pid = c.pid
+	  join category d
+	    on a.cid = d.cid
+	where 7 >= timestampdiff(day, a.createtime, now())
+	group by b.pid
+	order by total desc
+	limit #{num}
+  </select>
 </mapper>

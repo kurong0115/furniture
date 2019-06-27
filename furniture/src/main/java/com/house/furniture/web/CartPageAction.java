@@ -41,8 +41,10 @@ public class CartPageAction {
 		List<Cart> cartProductList = cartservice.listCartProductByUser(user);
 		model.addAttribute("cartProductList", cartProductList);
 		long allSum=0;
-		for (Cart c : cartProductList) {
-			allSum+=c.getCount()*c.getProduct().getPrice();
+		if(cartProductList.size()>0) {
+			for (Cart c : cartProductList) {
+				allSum+=c.getCount()*c.getProduct().getPrice();
+			}
 		}
 		model.addAttribute("allSum", allSum);
 		return "cart-page";
@@ -122,8 +124,10 @@ public class CartPageAction {
 		List<Cart> cartProductList = cartservice.listCartProductByUser(user);
 		model.addAttribute("cartProductList", cartProductList);
 		long allSum=0;
-		for (Cart c : cartProductList) {
-			allSum+=c.getCount()*c.getProduct().getPrice();
+		if(cartProductList.size()>0) {
+			for (Cart c : cartProductList) {
+				allSum+=c.getCount()*c.getProduct().getPrice();
+			}
 		}
 		model.addAttribute("allSum", allSum);
 		return new Result(Result.EXECUTION_SUCCESS, "修改成功");

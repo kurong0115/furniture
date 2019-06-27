@@ -39,10 +39,17 @@ public interface ProductService {
 	 */
 	Product getProductById(int pid);
 	
-	/**
-	 * 列出跟当前商品相关的商品
+	/** 列出跟当前商品相关的商品
 	 * @param cid
 	 * @return
 	 */
 	List<Product> listRelatedProduct(int cid);
+	
+	/**
+	 * 根据类名，查出该类下最新的一些产品
+	 * @param num 展示num-1个产品
+	 * @param name 类名
+	 * @return
+	 */
+	List<Product> listProductByCategoryName(int num, String name);
 }

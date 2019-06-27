@@ -31,6 +31,16 @@ public class Product {
     private Category category;
     
     private List<Image> images;
+    
+    private String imgPath;
+    
+    public String getImgPath() {
+		return imgPath;
+	}
+    
+    public void setImgPath(String imgPath) {
+		this.imgPath = imgPath;
+	}
 
     public Integer getPid() {
         return pid;

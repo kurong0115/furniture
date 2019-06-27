@@ -1,4 +1,4 @@
-function getSuccessMsg(msg) {
+		function getSuccessMsg(msg) {
 			$.message({
 				message : msg,
 				type : 'success',
@@ -22,7 +22,7 @@ function getSuccessMsg(msg) {
 		
 		function quickView(pid){
 			$.ajax({
-				url:'quickView?pid=' + pid,
+				url:'quickView.do?pid=' + pid,
 				method:"get",
 				aysnc:true,
 				success:function(data){
@@ -108,7 +108,7 @@ function getSuccessMsg(msg) {
 			item = item + "cid=" + $("#categoryid").val();
 			
 			$.ajax({
-				url : 'item?' + item,
+				url : 'item.do?' + item,
 				method : "get",
 				async : true,
 				success : function(data) {					
@@ -132,7 +132,7 @@ function getSuccessMsg(msg) {
 	    
 		function compare(pid){
 			$.ajax({
-				url:"addCompareInfo?pid=" + pid,
+				url:"addCompareInfo.do?pid=" + pid,
 				method:"get",
 				async:true,
 				success:function(data){

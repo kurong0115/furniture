@@ -7,6 +7,11 @@
     <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
     <result column="level" jdbcType="INTEGER" property="level" />
     <result column="pid" jdbcType="INTEGER" property="pid" />
+    <association property="user" fetchType="lazy" column="uid" 
+        javaType="com.house.furniture.bean.User" autoMapping="true" 
+        select="com.house.furniture.dao.UserMapper.selectByPrimaryKey">
+      <id column="id" property="id"/>  
+    </association>
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.house.furniture.bean.Remark">
     <result column="content" jdbcType="LONGVARCHAR" property="content" />

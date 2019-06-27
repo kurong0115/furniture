@@ -13,22 +13,33 @@ import com.house.furniture.service.OperationService;
 
 @Service
 public class OperationServiceImpl implements OperationService {
-
+	
 	@Resource
-	OperationMapper operationmapper;
+	OperationMapper om;
+
+	@Override
+	public List<Operation> selectHotProducts(int num) {
+		return om.selectHotProducts(num);
+	}
+
+	@Override
+	public List<Operation> newAndHotProducts(int num) {
+		return om.newAndHotProducts(num);
+	}
 	
 	@Override
 	public void produceOperation(Operation operation) {
-		operationmapper.insertSelective(operation);
-		
+		om.insertSelective(operation);
 	}
+
 
 	@Override
 	public List<Operation> selectByOrderid(Integer orderid) {
 		OperationExample operationExample = new OperationExample();
 		operationExample.createCriteria().andOrderidEqualTo(orderid);
-		List <Operation> operation = operationmapper.selectByExample(operationExample);
+		List <Operation> operation = om.selectByExample(operationExample);
 		return operation.size()==0 ? null : operation;
 	}
+
 
 }

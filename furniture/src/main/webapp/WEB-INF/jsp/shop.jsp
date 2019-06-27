@@ -83,9 +83,7 @@
                                                                             <i class="sli sli-magnifier"></i><span
 																			class="ht-product-action-tooltip">快速预览</span></a></li>
 																	<li><a href="#"><i class="sli sli-heart"></i><span
-																			class="ht-product-action-tooltip">添加到愿望清单</span></a></li>
-																	<li><a href="#"><i class="sli sli-refresh"></i><span
-																			class="ht-product-action-tooltip">刷新</span></a></li>
+																			class="ht-product-action-tooltip">添加到愿望清单</span></a></li>										
 																	<li><a href="javascript:void(0)" onclick="addCart('${product.pid}','${product.price}','${product.images[0].imgpath }')">
 																	<i class="sli sli-bag"></i><span class="ht-product-action-tooltip">添加到购物车</span></a></li>
 																	<li><a href="#" onclick="compare(${product.pid})"><i class="sli sli-refresh"></i><span
@@ -129,8 +127,7 @@
                                                                             class="ht-product-action-tooltip">快速预览</span></a></li>
                                                                     <li><a href="#"><i class="sli sli-heart"></i><span
                                                                             class="ht-product-action-tooltip">添加到愿望清单</span></a></li>
-                                                                    <li><a href="#"><i class="sli sli-refresh"></i><span
-                                                                            class="ht-product-action-tooltip">刷新</span></a></li>
+                                                                    
                                                                     <li><a href="javascript:void(0)" onclick="addCart('${product.pid}','${product.price}','${product.images[0].imgpath }')">
                                                                     <i class="sli sli-bag"></i><span class="ht-product-action-tooltip">添加到购物车</span></a></li>
                                                                     <li><a href="#" onclick="compare(${product.pid})"><i class="sli sli-refresh"></i><span
@@ -413,7 +410,7 @@
 		
 		function quickView(pid){
 			$.ajax({
-				url:'quickView?pid=' + pid,
+				url:'quickView.do?pid=' + pid,
 				method:"get",
 				aysnc:true,
 				success:function(data){
@@ -503,7 +500,7 @@
 			item = item + "cid=" + $("#categoryid").val();
 			
 			$.ajax({
-				url : 'item?' + item,
+				url : 'item.do?' + item,
 				method : "get",
 				async : true,
 				success : function(data) {					

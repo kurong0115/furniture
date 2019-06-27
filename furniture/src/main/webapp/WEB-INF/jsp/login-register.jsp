@@ -27,7 +27,7 @@
             <div class="breadcrumb-content text-center">
                 <ul>
                     <li>
-                        <a href="index.html">首页</a>
+                        <a href="index">首页</a>
                     </li>
                     <li class="active">登录 / 注册 </li>
                 </ul>

@@ -1,7 +1,6 @@
 package com.house.furniture.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -14,23 +13,17 @@ public class WebConfigurer implements WebMvcConfigurer{
 	
 	@Autowired
 	private LoginInterceptor loginInterceptor;
-	
-	@Value("${spring.resources.staticLocations}")
-	private String a;
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {		
-		
-		System.out.println("-----------------"+a);
-		registry.addInterceptor(loginInterceptor).
-			excludePathPatterns("/login-register", "/shop", "/product-details", "*.js", "*.css").
-			addPathPatterns("/**");
+		registry.addInterceptor(loginInterceptor).addPathPatterns("/**").
+			excludePathPatterns("/*.do","/createCode","/login-register",
+				"/shop", "/product-details", "/js/**", "/images/**", "/assets/**", "/PIAimages/**",
+				"/index","/","/head/**", "compare-page");
 	}
 
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 //		registry.addResourceHandler("/PIAimages/**").addResourceLocations("file:D:/PIAimages/");
-		
 	}
-	
 }

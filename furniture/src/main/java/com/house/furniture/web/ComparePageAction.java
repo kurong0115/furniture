@@ -1,6 +1,7 @@
 package com.house.furniture.web;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,11 +28,12 @@ public class ComparePageAction {
 		return "compare-page";
 	}
 	
-	@GetMapping("addCompareInfo")
+	@GetMapping("addCompareInfo.do")
+	@SuppressWarnings("unchecked")
 	@ResponseBody
 	public Result addCompareInfo(int pid, HttpServletRequest request) {
 		HttpSession session = request.getSession();
-		@SuppressWarnings("unchecked")
+		
 		List<Product> compareList = (List<Product>) session.getAttribute("compareList");
 		if (compareList == null) {
 			compareList = new ArrayList<>();
@@ -47,5 +49,21 @@ public class ComparePageAction {
 			return new Result(Result.EXECUTION_SUCCESS, "添加成功");
 		}		
 		return new Result(Result.EXECUTION_FAILED, "已满,请释放一些再添加");
+	}
+	
+	@GetMapping("removeInfo.do")
+	@SuppressWarnings("unchecked")
+	@ResponseBody
+	public Result removeInfo(int pid, HttpServletRequest request) {
+		HttpSession session = request.getSession();		
+		List<Product> compareList = (List<Product>) session.getAttribute("compareList");
+		Iterator<Product> iterator = compareList.iterator();
+		while (iterator.hasNext()) {
+			if (iterator.next().getPid() == pid) {
+				iterator.remove();				
+				return new Result(Result.EXECUTION_SUCCESS, "移除成功");
+			}
+		}
+		return new Result(Result.EXECUTION_FAILED, "移除失败");
 	}
 }

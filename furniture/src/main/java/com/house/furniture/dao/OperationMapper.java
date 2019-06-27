@@ -27,4 +27,8 @@ public interface OperationMapper {
     int updateByPrimaryKeySelective(Operation record);
 
     int updateByPrimaryKey(Operation record);
+    
+    List<Operation> selectHotProducts(int num);
+    
+    List<Operation> newAndHotProducts(int num);
 }
