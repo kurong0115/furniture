@@ -237,7 +237,7 @@
 							<div class="sidebar-widget">
 								<h4 class="pro-sidebar-title">搜索</h4>
 								<div class="pro-sidebar-search mb-50 mt-25">
-									<form class="pro-sidebar-search-form" action="condition">
+									<form class="pro-sidebar-search-form" action="condition.do">
 										<input type="text" placeholder="在此处搜索..." name="condition">
 										<button>
 											<i class="sli sli-magnifier"></i>
@@ -538,7 +538,7 @@
 									+ '" class="ht-product-image"> <img src="' + data.images[0].imgpath +'" alt="Universal Product Style"> </a>'
 									+ ' <div class="ht-product-action">'
 									+ '<ul>'
-									+ '<li><a href="#" data-toggle="modal" data-target="#exampleModal"><i class="sli sli-magnifier"></i><span class="ht-product-action-tooltip">快速预览</span></a></li>'
+									+ '<li><a href="#" data-toggle="modal" data-target="#exampleModal" onclick="quickView('+data.pid+')"><i class="sli sli-magnifier"></i><span class="ht-product-action-tooltip">快速预览</span></a></li>'
 									+ '<li><a href="#"><i class="sli sli-heart"></i><span class="ht-product-action-tooltip">添加到愿望清单</span></a></li>'
 									+ '<li><a href="#"><i class="sli sli-refresh"></i><span class="ht-product-action-tooltip">刷新</span></a></li>'
 									+ '<li><a href="#"><i class="sli sli-bag"></i><span class="ht-product-action-tooltip">添加到购物车</span></a></li>'
@@ -579,7 +579,7 @@
 									+ '</div>'
 									+ '<div class="ht-product-action">'
 									+ '<ul>'
-									+ '<li><a href="#"><i class="sli sli-magnifier"></i><span class="ht-product-action-tooltip">快速预览</span></a></li>'
+									+ '<li><a href="#" onclick="quickView('+data.pid+')"><i class="sli sli-magnifier"></i><span class="ht-product-action-tooltip">快速预览</span></a></li>'
 									+ '<li><a href="#"><i class="sli sli-heart"></i><span class="ht-product-action-tooltip">添加到愿望清单</span></a></li>'
 									+ '<li><a href="#"><i class="sli sli-refresh"></i><span class="ht-product-action-tooltip">刷新</span></a></li>'
 									+ '<li><a href="javascript:void(0)" onclick="addCart('
@@ -609,7 +609,7 @@
 									+ '<img src="' + data.images[0].imgpath +'" alt="Universal Product Style">'
 									+ '</a>'
 									+ '<div class="product-quickview">'
-									+ '<a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModal"><i class="sli sli-magnifier-add"></i></a>'
+									+ '<a href="#" title="Quick View" onclick="quickView('+data.pid+')" data-toggle="modal" data-target="#exampleModal"><i class="sli sli-magnifier-add"></i></a>'
 									+ '</div>'
 									+ '</div>'
 									+ '</div>'

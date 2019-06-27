@@ -27,8 +27,8 @@ public class IndexAction {
 	@Resource
 	AdminService as;
 	
-	//新品展示	每类展示4种
-	private int num = 5;
+	//新品展示个数
+	private int num = 7;
 	
 	@RequestMapping(path={"index","/"})
 	public String index(Model model) {

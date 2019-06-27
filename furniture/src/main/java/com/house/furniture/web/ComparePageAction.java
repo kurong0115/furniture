@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.house.furniture.bean.Product;
 import com.house.furniture.service.ProductService;
@@ -52,11 +53,8 @@ public class ComparePageAction {
 	}
 	
 	@GetMapping("removeInfo.do")
-	@SuppressWarnings("unchecked")
 	@ResponseBody
-	public Result removeInfo(int pid, HttpServletRequest request) {
-		HttpSession session = request.getSession();		
-		List<Product> compareList = (List<Product>) session.getAttribute("compareList");
+	public Result removeInfo(int pid, @SessionAttribute("compareList") List<Product> compareList) {
 		Iterator<Product> iterator = compareList.iterator();
 		while (iterator.hasNext()) {
 			if (iterator.next().getPid() == pid) {
