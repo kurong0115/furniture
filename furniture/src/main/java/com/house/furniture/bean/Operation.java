@@ -1,6 +1,22 @@
 package com.house.furniture.bean;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(value = { "handler" })
 public class Operation {
+
+	
+
+	@Override
+	public String toString() {
+		return "Operation [id=" + id + ", orderid=" + orderid + ", uid=" + uid + ", pid=" + pid + ", count=" + count
+				+ ", sum=" + sum + ", price=" + price + ", productList=" + productList + "]";
+	}
+
+	
+
 	//保存每个商品被卖出的数量
 	private long total;
 	
@@ -15,6 +31,7 @@ public class Operation {
 	
     private Integer id;
 
+
     private Integer orderid;
 
     private Integer uid;
@@ -27,6 +44,11 @@ public class Operation {
 
     private Double price;
     
+
+    private List<Product> productList;
+    
+    
+
     public long getTotal() {
 		return total;
 	}
@@ -59,7 +81,16 @@ public class Operation {
 		this.categoryName = categoryName;
 	}
 
-    public Integer getId() {
+
+	public List<Product> getProductList() {
+		return productList;
+	}
+
+	public void setProductList(List<Product> productList) {
+		this.productList = productList;
+	}
+
+	public Integer getId() {
         return id;
     }
 

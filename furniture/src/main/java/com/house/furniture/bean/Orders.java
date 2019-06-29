@@ -15,13 +15,9 @@ public class Orders {
 
     private Integer addressid;
 
-    @Override
-	public String toString() {
-		return "Orders [id=" + id + ", orderno=" + orderno + ", uid=" + uid + ", createtime=" + createtime + ", sum="
-				+ sum + ", addressid=" + addressid + "]";
-	}
+    private Integer orderstatus;
 
-	public Integer getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -67,5 +63,13 @@ public class Orders {
 
     public void setAddressid(Integer addressid) {
         this.addressid = addressid;
+    }
+
+    public Integer getOrderstatus() {
+        return orderstatus;
+    }
+
+    public void setOrderstatus(Integer orderstatus) {
+        this.orderstatus = orderstatus;
     }
 }
