@@ -7,7 +7,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Parlo - eCommerce Bootstrap 4 Template</title>
+    <title>忘记密码</title>
     
     <!-- 引入首部链接 -->
     <%@include file="common/header_link.jsp" %>

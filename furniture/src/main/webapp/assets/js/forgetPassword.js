@@ -100,7 +100,7 @@ function sendCode(){
 			},
 			dataType:"json",
 			success:function(data){
-				if( data.message == '发送成功！' ){
+				if( data.code == 1){
 					getSuccessMsg(data.message);
 				}else{
 					getInfoMsg(data.message);
