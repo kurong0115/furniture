@@ -64,7 +64,7 @@
 		return '<a href=\'modify('+index+')\' >'+ value.substring(0, 4) +'...</a>'
 	}
 	
-	//日期格式
+	// 日期格式
 	function fmtTime(value,rowData,rowIndex){
 		var date = new Date(value);
 		var year = date.getYear()+1900;
