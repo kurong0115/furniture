@@ -1,17 +1,21 @@
 package com.house.furniture.web;
 
 import java.io.File;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
 
+import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.github.pagehelper.Page;
+import com.house.furniture.bean.Address;
 import com.house.furniture.bean.User;
 import com.house.furniture.service.UserService;
 import com.house.furniture.vo.EasyUIPage;
@@ -67,4 +71,6 @@ public class UserAction {
 		Page<User> p = us.queryAddress(uid, page, rows);
 		return new EasyUIPage(p.getTotal(), p.getResult());
 	}
+	
+	
 }

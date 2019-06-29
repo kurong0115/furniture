@@ -7,8 +7,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>忘记密码</title>
-    
+    <title>忘记账号/密码</title> 
     <!-- 引入首部链接 -->
     <%@include file="common/header_link.jsp" %>
    	<!-- 引入login-register.js文件 -->
@@ -56,8 +55,10 @@
 	                                        <input type="text" id="username" placeholder="用户名"> 	
                                             <input type="password" id="password1" placeholder="密码">
                                             <input type="password" id="password2" placeholder="重复密码">
-                                            <input type="email" id="email" placeholder="邮箱" style="width: 60%">
-                                            <button onclick="sendCode()">发送验证码</button>	
+                                            <div>
+                                            	<input id="email" placeholder="邮箱" type="email" style="width: 60%">
+                                           		<input type="button" value="获取验证码" onclick="sendCode()" id="getCodeByEmail" style="width: 38%">
+                                            </div>	
                                             <input type="text" id="code" placeholder="验 证 码"  style="width: 60%"/>	
                                             <div class="button-box">
                                                 <button type="button" onclick="resertPassword()">确认修改</button>
