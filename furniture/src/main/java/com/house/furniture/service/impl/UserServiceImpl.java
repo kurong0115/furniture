@@ -5,6 +5,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.house.furniture.bean.Address;
 import com.house.furniture.bean.User;
 import com.house.furniture.bean.UserExample;
 import com.house.furniture.bean.UserExample.Criteria;
@@ -121,4 +122,8 @@ public class UserServiceImpl implements UserService {
 		address.selectByUid(uid);
 		return p;
 	}
+
+	
+	
+	
 }

@@ -8,6 +8,13 @@
     <title>我的账户</title>  
     <!-- 引入首部链接 -->
     <%@include file="common/header_link.jsp" %>
+    <script type="text/javascript" src="convinces/js/jquery.js"></script>
+	<script type="text/javascript" src="convinces/js/area.js"></script>
+	<script type="text/javascript" src="convinces/js/location.js"></script>
+	<script type="text/javascript" src="convinces/js/select2.js"></script>
+	<script type="text/javascript" src="convinces/js/select2_locale_zh-CN.js"></script>
+	<link href="convinces/css/common.css" rel="stylesheet"/>
+	<link href="convinces/css/select2.css" rel="stylesheet"/>
 </head>
 <body>
 <div class="wrapper">
@@ -57,8 +64,7 @@
                                             <div class="welcome">
                                                 <p>您好, <strong>${user.name}</strong></p>
                                             </div>
-    
-                                            <p class="mb-0">从您的用户面板。您可以轻松地检查和查看您最近的订单，管理您的发货和账单地址，并编辑您的密码和帐户详细信息。</p>
+    											<p class="mb-0">从您的用户面板。您可以轻松地检查和查看您最近的订单，管理您的发货和账单地址，并编辑您的密码和帐户详细信息。</p>
                                         </div>
                                     </div>
                                     <!-- Single Tab Content End -->    
@@ -144,22 +150,53 @@
                                                             <th>操作</th> 
                                                         </tr>
                                                     </thead>    
-                                                    <tbody >                  
-                                                    	
-		                                                       <tr>
-		                                                           <td>何浩</td>
-		                                                           <td>15115380532</td>
-		                                                           <td>湖南省醴陵市船湾镇清水江乡</td>
-		                                                           <td>
-		                                                           		<a>修改地址</a>
-		                                                           </td>
-		                                                       </tr>
-			                                              
+                                                    <tbody >
+                                                    <c:if test="${addressList.size() != null }">
+                                                    	<c:forEach items="${addressList}" var="address">
+                                                    		<tr>
+	                                                           <td>${address.name }</td>
+	                                                           <td>${address.phone }</td>
+	                                                           <td>${address.address }</td>
+	                                                           <td>
+	                                                           		<a>修改地址</a>
+	                                                           </td>
+	                                                       </tr>
+                                                    	</c:forEach>
+                                                    </c:if>     
                                                     </tbody>
                                                 </table>
-                                            <a href="#" class="check-btn sqr-btn "><i class="fa fa-edit"></i> 新增地址</a>
+                                                <a href="#" title="Quick View" data-toggle="modal"
+																		data-target="#exampleModal2">还没有收货地址？新增一个！</a>
+                                            
                                         </div>
                                     </div>
+                                    
+                                    <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h4>新增地址</h4>
+													<button type="button" class="close" data-dismiss="modal"
+														aria-label="Close">
+														<span aria-hidden="true">x</span>
+													</button>
+												</div>
+												<div class="modal-body">
+													<div class="row">
+			                                        <form action="" method="post">
+			                                            <input id="addressName" placeholder="姓名" type="text">
+			                                             <input id="addressPhone" placeholder="电话" type="text">
+			                                              <input id="addressDetails" placeholder="详细地址" type="text">
+			                                            <div class="button-box">
+			                                                <button type="button" onclick="" style="margin-left: 410px">确认添加</button>
+			                                            </div>
+			                                        </form>
+			                                        
+							                      </div>
+												</div>
+											</div>
+										</div>
+									</div>
                                     <!-- Single Tab Content End -->    
                                     <!-- Single Tab Content Start -->
                                     <div class="tab-pane fade" id="account-info" role="tabpanel">

@@ -1,6 +1,9 @@
 package com.house.furniture.service;
 
+import java.util.List;
+
 import com.github.pagehelper.Page;
+import com.house.furniture.bean.Address;
 import com.house.furniture.bean.User;
 
 public interface UserService {
@@ -71,4 +74,5 @@ public interface UserService {
 	 * @return
 	 */
 	Page<User> queryAddress(int uid, int page, int rows);
+	
 }
