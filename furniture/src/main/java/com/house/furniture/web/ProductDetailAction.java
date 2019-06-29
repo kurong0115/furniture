@@ -6,9 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.house.furniture.bean.Product;
 import com.house.furniture.bean.Remark;
+import com.house.furniture.bean.User;
 import com.house.furniture.service.ProductService;
 import com.house.furniture.service.RemarkService;
 
@@ -30,5 +33,13 @@ public class ProductDetailAction {
 		List<Remark> remarks = remarkService.listRemarksByProduct(product.getPid());
 		model.addAttribute("remarks", remarks);
 		return "product-details";
+	}
+	
+	@PostMapping("addRemark")
+	public String addRemark(Remark remark, @SessionAttribute("user") User user) {
+		remark.setUid(user.getId());
+		remarkService.saveRemark(remark);
+		String url = "redirect:product-details?pid=" + remark.getPid();
+		return url;
 	}
 }

@@ -22,21 +22,20 @@ import com.house.furniture.vo.EasyUIPage;
 import com.house.furniture.vo.Result;
 
 @RestController
-@RequestMapping("user")
 public class UserAction {
 	
 	@Resource
 	UserService us;
 	
-	//获取用户信息
-	@RequestMapping("query")
+	// 获取用户信息
+	@RequestMapping("query.do")
 	public EasyUIPage query(User user, int page, int rows) {
 		Page<User> p = us.selectAllUser(user, page, rows);
 		return new EasyUIPage(p.getTotal(), p.getResult());
 	}
 	
 	// 文件上传（头像）
-	@RequestMapping("upload")
+	@RequestMapping("upload.do")
 	public Result upload(@RequestParam("file") MultipartFile file) {
 		try {
 			file.transferTo(new File("D:/PIAimages/head/" + file.getOriginalFilename()));
@@ -47,7 +46,7 @@ public class UserAction {
 	}
 	
 	// 保存新增用户信息
-	@RequestMapping("save")
+	@RequestMapping("save.do")
 	public Result save(@Valid User user, Errors errors) {
 		if(us.isExist("name", user.getName()) == 0) {
 			//用户名被占用
@@ -67,7 +66,7 @@ public class UserAction {
 	}
 	
 	// 获取用户购物信息
-	@RequestMapping("queryAddress")
+	@RequestMapping("queryAddress.do")
 	public EasyUIPage queryAddress(int uid, int page, int rows) {
 		Page<User> p = us.queryAddress(uid, page, rows);
 		return new EasyUIPage(p.getTotal(), p.getResult());

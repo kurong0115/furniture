@@ -46,7 +46,7 @@ public class ShopAction {
 	@RequestMapping(value = "shop")
 	public String shop(@RequestParam(value = "cid", defaultValue = "1") int cid, Model model,
 			@RequestParam(value = "page", defaultValue = "1") int page,
-			@RequestParam(value = "size", defaultValue = "30") int size) {
+			@RequestParam(value = "size", defaultValue = "50") int size) {
 		
 		List<Product> productList = productService.listProductsByType(cid, page, size);
 		PageHelper.startPage(page, size);
@@ -109,6 +109,6 @@ public class ShopAction {
 			}
 		}
 		model.addAttribute("allSum", allSum);
-		return new Result(Result.EXECUTION_SUCCESS,"添加成功",cart);
+		return new Result(Result.EXECUTION_SUCCESS,"加入购物车成功",cart);
 	}
 }

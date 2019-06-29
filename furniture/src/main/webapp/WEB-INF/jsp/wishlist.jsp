@@ -38,30 +38,28 @@
                                     <tr>
                                         <th>图片</th>
                                         <th>产品名</th>
-                                        <th>价格(元)</th>
-                                        <th>数量</th>
-                                        <th>总和</th>
+                                        <th>价格(元)</th>                                       
                                         <th>添加到购物车</th>
+                                        <th>操作</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td class="product-thumbnail">
-                                            <a href="#"><img src="assets/img/cart/cart-3.jpg" alt=""></a>
-                                        </td>
-                                        <td class="product-name"><a href="#">Product Name</a></td>
-                                        <td class="product-price-cart"><span class="amount">260.00</span></td>
-                                        <td class="product-quantity">
-                                            <div class="cart-plus-minus">
-                                                <input class="cart-plus-minus-box" type="text" name="qtybutton" value="2">
-                                            </div>
-                                        </td>
-                                        <td class="product-subtotal">110.00</td>
-                                        <td class="product-wishlist-cart">
-                                            <a href="#">添加到购物车</a>
-                                       </td>
-                                    </tr>
-                                    
+                                    <c:forEach items="${wishlist }" var="wishlist">
+                                        <tr>
+	                                        <td class="product-thumbnail">
+	                                            <a href="product-details?pid=${wishlist.product.pid }"><img src="${wishlist.product.images[0].imgpath }" alt="" style="width:100px;height:100px;"></a>
+	                                        </td>
+	                                        <td class="product-name"><a href="product-details?pid=${wishlist.product.pid }">${wishlist.product.model }&nbsp;&nbsp;&nbsp;&nbsp;${wishlist.product.productname }</a></td>
+	                                        <td class="product-price-cart"><span class="amount">${wishlist.product.price }</span></td>                                       
+	                                        <td class="product-wishlist-cart">
+	                                            <a href="#" onclick="addCart('${wishlist.product.pid}','${wishlist.product.price}','${wishlist.product.images[0].imgpath }')">添加到购物车</a>
+	                                       </td>	                                       
+	                                        <td class="product-remove">
+	                                             <a href="javascript:void(0)"><i class="sli sli-close" onclick="removeWishlist(${wishlist.wid})"></i></a>                                                  
+	                                        </td>                                      
+                                        </tr>  
+                                    </c:forEach>
+                                                                     
                                 </tbody>
                             </table>
                         </div>

@@ -133,7 +133,12 @@
 									   <c:forEach items="${remarks }" var="remark">
 									       <div class="single-review">
                                             <div class="review-img">
-                                                <img src="assets/img/product-details/client-1.jpg" alt="">
+                                                <c:if test="${remark.user.head == null || remark.user.head == '' }">
+                                                    <img src="assets/img/product-details/client-1.jpg" alt="">
+                                                </c:if>
+                                               <c:if test="${remark.user.head != '' }">
+                                                    <img src="${remark.user.head }" alt="">
+                                                </c:if>
                                             </div>
                                             <div class="review-content">
                                                 <p>${remark.content }</p>
@@ -152,58 +157,56 @@
 									   </c:forEach>																													
 									</div>
 									<div class="ratting-form-wrapper">
-										<span>Add a Review</span>
+										<span>评论</span>
 										<p>
 											Your email address will not be published. Required fields are
 											marked <span>*</span>
 										</p>
 										<div class="star-box-wrap">
-											<div class="single-ratting-star">
-												<i class="sli sli-star"></i>
-											</div>
-											<div class="single-ratting-star">
-												<i class="sli sli-star"></i> <i class="sli sli-star"></i>
-											</div>
-											<div class="single-ratting-star">
-												<i class="sli sli-star"></i> <i class="sli sli-star"></i> <i
-													class="sli sli-star"></i>
-											</div>
-											<div class="single-ratting-star">
-												<i class="sli sli-star"></i> <i class="sli sli-star"></i> <i
-													class="sli sli-star"></i> <i class="sli sli-star"></i>
-											</div>
-											<div class="single-ratting-star">
-												<i class="sli sli-star"></i> <i class="sli sli-star"></i> <i
-													class="sli sli-star"></i> <i class="sli sli-star"></i> <i
-													class="sli sli-star"></i>
-											</div>
-										</div>
+                                        <div class="single-ratting-star" onclick="changeLevel(1)">
+                                            <i class="sli sli-star"></i>
+                                        </div>
+                                        <div class="single-ratting-star">
+                                            <i class="sli sli-star"></i>
+                                            <i class="sli sli-star"></i>
+                                        </div>
+                                        <div class="single-ratting-star">
+                                            <i class="sli sli-star"></i>
+                                            <i class="sli sli-star"></i>
+                                            <i class="sli sli-star"></i>
+                                        </div>
+                                        <div class="single-ratting-star">
+                                            <i class="sli sli-star"></i>
+                                            <i class="sli sli-star"></i>
+                                            <i class="sli sli-star"></i>
+                                            <i class="sli sli-star"></i>
+                                        </div>
+                                        <div class="single-ratting-star">
+                                            <i class="sli sli-star"></i>
+                                            <i class="sli sli-star"></i>
+                                            <i class="sli sli-star"></i>
+                                            <i class="sli sli-star"></i>
+                                            <i class="sli sli-star"></i>
+                                        </div>
+                                    </div>
 										<div class="ratting-form">
-											<form action="#">
-												<div class="row">
-													<div class="col-md-12">
-														<div class="rating-form-style mb-20">
-															<label>Your review <span>*</span></label>
-															<textarea name="Your Review"></textarea>
-														</div>
-													</div>
-													<div class="col-md-12">
-														<div class="rating-form-style mb-20">
-															<label>Name <span>*</span></label> <input type="text">
-														</div>
-													</div>
-													<div class="col-md-12">
-														<div class="rating-form-style mb-20">
-															<label>Email <span>*</span></label> <input type="email">
-														</div>
-													</div>
-													<div class="col-lg-12">
-														<div class="form-submit">
-															<input type="submit" value="Submit">
-														</div>
-													</div>
-												</div>
-											</form>
+											<form action="addRemark" method="post">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="rating-form-style mb-20">
+                                                        <label>评论<span>*</span></label>
+                                                        <textarea name="content"></textarea>
+                                                    </div>
+                                                </div>
+                                                <input type="hidden" name="pid" value="${product.pid }">
+                                                <input type="hidden" name="level" value="3" id="productLevel">                                               
+                                                <div class="col-lg-12">
+                                                    <div class="form-submit">
+                                                        <input type="submit" value="Submit">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
 										</div>
 									</div>
 								</div>
@@ -212,7 +215,7 @@
 					</div>
 					<div class="col-lg-4 col-md-4">
 						<div class="pro-dec-banner">
-							<a href="#"><img src="assets/img/banner/banner-15.png" alt=""></a>
+							<a href="#"><img src="PIAimages/0163922_PE305985_S5.JPG" alt=""></a>
 						</div>
 					</div>
 				</div>
@@ -363,7 +366,7 @@
                                                 class="sli sli-heart"></i></a>
                                         </div>
                                         <div class="pro-details-compare">
-                                            <a title="对比" href="#" onclick="compare(${product.pid})"><i
+                                           <a title="对比" href="#" onclick="compare(${product.pid})"><i
                                                 class="sli sli-refresh"></i></a>
                                         </div>
                                     </div>                                                                  
@@ -382,7 +385,18 @@
 
 	<!-- 引入底部链接 -->
 	<%@include file="common/footer_link.jsp"%>
+    <script type="text/javascript">
     
+    
+        function changeLevel(level){
+        	$("#productLevel").val(level);
+        	$(this).children("i").css("color","#f5b223");
+        }
+        
+        function changeColor(){
+        	
+        }
+    </script>
 </body>
 
 </html>

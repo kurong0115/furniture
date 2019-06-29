@@ -6,14 +6,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller()
 public class Manager {
 
-	@RequestMapping("manager")
+	@RequestMapping("manager.do")
 	public String manager() {
 		return "manager";
 	}
 	
-	@RequestMapping("userMgr")
-	public String userMgr() {
-		return "user-mgr";
+	@RequestMapping("manage-user.do")
+	public String manageUser() {
+		return "manage-user";
+	}
+	
+	@RequestMapping("manage-noReply.do")
+	public String noReply() {
+		return "manage-noReply";
 	}
 	
 }
