@@ -31,8 +31,7 @@ public class LoginInterceptor implements HandlerInterceptor{
 			//创建新的map保存参数
 			Map<String, String[]> newmap= new HashMap<String, String[]>();
 			newmap.putAll(map);
-			
-			//保存请求地址和参数
+
 			session.setAttribute("callbackPath", callbackPath);
 			session.setAttribute("callbackMap", newmap);
 

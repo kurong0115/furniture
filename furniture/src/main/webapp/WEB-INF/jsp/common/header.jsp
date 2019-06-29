@@ -27,6 +27,9 @@
 							return;
 						}
 					}
+					if($('#cartUl li:first').text()=="暂无商品"){
+						$('#cartUl li:first').remove();
+					}
 					$('#cartUl').append(
 						'<li class="single-shopping-cart">'+
                            '<div class="shopping-cart-img">'+

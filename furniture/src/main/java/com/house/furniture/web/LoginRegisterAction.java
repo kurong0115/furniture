@@ -63,14 +63,24 @@ public class LoginRegisterAction {
 				model.addAttribute("cartProductList", cartProductList);
 				
 				long allSum=0;
-				for (Cart cart : cartProductList) {
-					allSum+=cart.getCount()*cart.getProduct().getPrice();
+				if(cartProductList.size()>0) {
+					for (Cart cart : cartProductList) {
+						allSum+=cart.getCount()*cart.getProduct().getPrice();
+					}
 				}
 				model.addAttribute("allSum", allSum);
 				
 				//判断是否有回调路径
 				if(session.getAttribute("callbackPath")!=null) {
+					
 					String path = (String) session.getAttribute("callbackPath");
+					
+					if(path.equals("/error")) {
+						return new Result(Result.EXECUTION_SUCCESS, msg,null);
+					}
+					if(path.equals("/addCart")) {
+						return new Result(Result.EXECUTION_SUCCESS, msg,"shop");
+					}
 					
 					@SuppressWarnings("unchecked")
 					Map<String, String[]> newmap = (Map<String, String[]>) session.getAttribute("callbackMap");
@@ -88,7 +98,7 @@ public class LoginRegisterAction {
 					return new Result(Result.EXECUTION_SUCCESS, msg,newPath);
 				}
 				
-				return new Result(Result.EXECUTION_SUCCESS, msg);
+				return new Result(Result.EXECUTION_SUCCESS, msg,null);
 			}
 		} else {
 			msg = "验证码输入错误！";
