@@ -20,12 +20,22 @@ public class LoginInterceptor implements HandlerInterceptor{
 		HttpSession session = request.getSession();
 		User user = (User)session.getAttribute("user");
 		if (user == null) {
-			response.sendRedirect(request.getContextPath() + "/login-register");
+			//获取当前请求的路径
+//	        String basePath = request.getScheme() + "://" + request.getServerName() + ":"  + request.getServerPort()+request.getContextPath();
+	        //如果request.getHeader("X-Requested-With") 返回的是"XMLHttpRequest"说明就是ajax请求，需要特殊处理 否则直接重定向就可以了
+	        if("XMLHttpRequest".equalsIgnoreCase(request.getHeader("X-Requested-With"))){
+	            //告诉ajax我是重定向
+	            response.setHeader("REDIRECT", "REDIRECT");
+	            System.err.println(111);
+	            //告诉ajax我重定向的路径
+	            response.setHeader("CONTENTPATH", request.getContextPath() + "/login-register");
+	            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+	        }else{
+	            response.sendRedirect(request.getContextPath() + "/login-register");
+	        }
 			return false;
-		} else {
-			return true;
-		}		
-//		return true;
+		} 
+		return true;
 	}
 
 	@Override

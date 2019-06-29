@@ -1,5 +1,6 @@
 package com.house.furniture.service.impl;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,4 +26,9 @@ public class RemarkServiceImpl implements RemarkService {
 		return remarks.isEmpty()? null: remarks;
 	}
 
+	@Override
+	public int saveRemark(Remark remark) {		
+		remark.setCreatetime(new Timestamp(System.currentTimeMillis()));
+		return remarkMapper.insertSelective(remark);
+	}
 }

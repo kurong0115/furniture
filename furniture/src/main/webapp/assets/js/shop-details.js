@@ -20,6 +20,25 @@
 			});
 		}
 		
+		function removeWishlist(wid){
+        	$.ajax({
+        		url:"removeWishlist?wid=" + wid,
+        		async:true,
+        		method:"get",
+        		success:function(data){
+        			if (data.code == 1){
+        				getSuccessMsg(data.message);
+        			}else{
+        				getInfoMsg(data.message);
+        			}
+        			location.reload();
+        		},
+        		error:function(data){
+        			getFailMsg("服务器繁忙");
+        		}
+        	})
+        }
+		
 		function quickView(pid){
 			$.ajax({
 				url:'quickView.do?pid=' + pid,
@@ -129,7 +148,45 @@
 			})
 
 		}
-	    
+		//这里给所有ajax请求添加一个complete函数
+		$.ajaxSetup({
+            complete : function(xhr, status) {
+                //拦截器实现超时跳转到登录页面
+                // 通过xhr取得响应头
+                var REDIRECT = xhr.getResponseHeader("REDIRECT");
+                //如果响应头中包含 REDIRECT 则说明是拦截器返回的
+                if (REDIRECT == "REDIRECT")
+                {
+                    var win = window;
+                    while (win != win.top)
+                    {
+                        win = win.top;
+                    }
+                    window.location.href = xhr.getResponseHeader("CONTEXTPATH");
+                }
+            }
+        });
+		
+		function addWishlist(pid){
+			$.ajax({
+				url:"addWishlist?pid=" + pid,
+				method:"get",
+				async:true,
+				success:function(data){
+					if (data != null){
+						if (data.code == 1){
+							getSuccessMsg(data.message);
+						} else{
+							getInfoMsg(data.message);
+						}
+					}
+				},
+				error:function(data){
+					getFailMsg("服务器繁忙");
+				}
+			})
+		}
+		
 		function compare(pid){
 			$.ajax({
 				url:"addCompareInfo.do?pid=" + pid,
@@ -174,7 +231,7 @@
 									+ ' <div class="ht-product-action">'
 									+ '<ul>'
 									+ '<li><a href="#" onclick="quickView('+data.pid+')" data-toggle="modal" data-target="#exampleModal"><i class="sli sli-magnifier"></i><span class="ht-product-action-tooltip">快速预览</span></a></li>'
-									+ '<li><a href="#"><i class="sli sli-heart"></i><span class="ht-product-action-tooltip">添加到愿望清单</span></a></li>'
+									+ '<li><a href="#" onclick="addWishlist('+data.pid+')"><i class="sli sli-heart"></i><span class="ht-product-action-tooltip">添加到愿望清单</span></a></li>'
 									+ '<li><a href="#" onclick="compare('+data.pid+')"><i class="sli sli-refresh"></i><span class="ht-product-action-tooltip">对比</span></a></li>'
 									+ '<li><a href="#"><i class="sli sli-bag"></i><span class="ht-product-action-tooltip">添加到购物车</span></a></li>'
 									+ '</ul>'
@@ -215,7 +272,7 @@
 									+ '<div class="ht-product-action">'
 									+ '<ul>'
 									+ '<li><a href="#"><i class="sli sli-magnifier"></i><span class="ht-product-action-tooltip">快速预览</span></a></li>'
-									+ '<li><a href="#"><i class="sli sli-heart"></i><span class="ht-product-action-tooltip">添加到愿望清单</span></a></li>'
+									+ '<li><a href="#" onclick="addWishlist('+data.pid+')"><i class="sli sli-heart"></i><span class="ht-product-action-tooltip">添加到愿望清单</span></a></li>'
 									+ '<li><a href="#" onclick="compare('+data.pid+')"><i class="sli sli-refresh"></i><span class="ht-product-action-tooltip">对比</span></a></li>'
 									+ '<li><a href="#"><i class="sli sli-bag"></i><span class="ht-product-action-tooltip">添加到购物车</span></a></li>'
 									+ '</ul>'
@@ -271,7 +328,7 @@
 									+ '</div>'
 									+ '</div>'
 									+ '<div class="ht-product-list-action">'
-									+ '<a class="list-wishlist" title="添加到愿望清单" href="#"><i class="sli sli-heart"></i></a>'
+									+ '<a class="list-wishlist" title="添加到愿望清单" href="#" onclick="addWishlist('+data.pid+')"><i class="sli sli-heart"></i></a>'
 									+ '<a class="list-cart" title="添加到购物车" href="#"><i class="sli sli-basket-loaded"></i> 添加到购物车</a>'
 									+ '<a class="list-refresh" title="对比" href="#" onclick="compare('+data.pid+')"><i class="sli sli-refresh"></i></a>'
 									+ '</div>'

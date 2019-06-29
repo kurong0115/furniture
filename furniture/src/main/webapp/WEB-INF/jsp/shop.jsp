@@ -82,7 +82,7 @@
                                                                             data-target="#exampleModal">
                                                                             <i class="sli sli-magnifier"></i><span
 																			class="ht-product-action-tooltip">快速预览</span></a></li>
-																	<li><a href="#"><i class="sli sli-heart"></i><span
+																	<li><a href="#" onclick="addWishlist(${product.pid})"><i class="sli sli-heart"></i><span
 																			class="ht-product-action-tooltip">添加到愿望清单</span></a></li>										
 																	<li><a href="javascript:void(0)" onclick="addCart('${product.pid}','${product.price}','${product.images[0].imgpath }')">
 																	<i class="sli sli-bag"></i><span class="ht-product-action-tooltip">添加到购物车</span></a></li>
@@ -125,7 +125,7 @@
                                                                             data-target="#exampleModal">
                                                                             <i class="sli sli-magnifier"></i><span
                                                                             class="ht-product-action-tooltip">快速预览</span></a></li>
-                                                                    <li><a href="#"><i class="sli sli-heart"></i><span
+                                                                    <li><a href="#" onclick="addWishlist(${product.pid})"><i class="sli sli-heart"></i><span
                                                                             class="ht-product-action-tooltip">添加到愿望清单</span></a></li>
                                                                     
                                                                     <li><a href="javascript:void(0)" onclick="addCart('${product.pid}','${product.price}','${product.images[0].imgpath }')">
@@ -200,7 +200,7 @@
 		                                                        
 															</div>
 															<div class="ht-product-list-action">
-																<a class="list-wishlist" title="添加到愿望清单" href="#"><i
+																<a class="list-wishlist" title="添加到愿望清单" href="#" onclick="addWishlist(${product.pid})"><i
 																	class="sli sli-heart"></i></a> <a class="list-cart"
 																	title="添加到购物车" href="javascript:void(0)" onclick="addCart('${product.pid}','${product.price}','${product.images[0].imgpath }')"><i
 																	class="sli sli-basket-loaded"></i> 添加到购物车</a> <a
