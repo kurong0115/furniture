@@ -41,8 +41,9 @@
                                     	<i class="fa fa-dashboard"></i>操作</a>   
                                     <a href="#orders" data-toggle="tab"><i class="fa fa-cart-arrow-down"></i> 订单</a> 
                                     <a href="#address-edit" data-toggle="tab"><i class="fa fa-map-marker"></i> 地址</a>    
-                                    <a href="#account-info" data-toggle="tab"><i class="fa fa-user"></i> 帐户详细信息</a>    
+                                    <a href="#account-info" data-toggle="tab"><i class="fa fa-user" onclick="myAddress()"></i> 帐户详细信息</a>    
                                     <a href="loginOut" onclick="return loginOut();"><i class="fa fa-sign-out"></i> 注销</a>
+                                    
                                 </div>
                             </div>
                             <!-- My Account Tab Menu End -->    
@@ -66,7 +67,7 @@
                                         <div class="myaccount-content">
                                             <h3>订单</h3>    
                                             <div class="myaccount-table table-responsive text-center">
-                                                <table class="table table-bordered">
+                                                <table class="table table-bordered" id="ordersTable">
                                                     <thead class="thead-light">
                                                         <tr>
                                                             <th>订单编号</th>
@@ -75,20 +76,17 @@
                                                             <th>订单详情</th>
                                                         </tr>
                                                     </thead>    
-                                                    <tbody>
-                                                    	<tr>
-                                                           <td>01</td>
-                                                           <td>2019-6-23</td>
-                                                           <td>666</td>
-                                                           <td><a href="#" class="check-btn sqr-btn "><i class="fa fa-cloud-download"></i> 详情</a></td>
-		                                                 </tr>
-	                                                    <c:if test="${myorder != null }">
-		                                                    <c:forEach items="${myorder }"  var="m">
+                                                    <tbody >                  
+                                                    	<c:if test="${myOrder != null }">
+		                                                    <c:forEach items="${myOrder }"  var="m">
 		                                                       <tr>
-		                                                           <td>${m.orders.orderno}</td>
-		                                                           <td>${m.orders.createtime}</td>
-		                                                           <td>${m.orders.sum}</td>
-		                                                           <td><a href="#" class="check-btn sqr-btn "><i class="fa fa-cloud-download"></i> 详情</a></td>
+		                                                           <td>${m.orderno}</td>
+		                                                           <td>${m.createtime.toLocaleString()}</td>
+		                                                           <td>${m.sum}</td>
+		                                                           <td>
+		                                                           		<a href="#" title="Quick View" data-toggle="modal"
+																		data-target="#exampleModal" onclick="checkDetail(${m.id})">详情</a>
+		                                                           </td>
 		                                                       </tr>
 			                                                  </c:forEach>
 	                                                    </c:if>
@@ -97,27 +95,69 @@
                                             </div>
                                         </div>
                                     </div>
-                                   
                                     
+                                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h4>订单详情</h4>
+													<button type="button" class="close" data-dismiss="modal"
+														aria-label="Close">
+														
+														<span aria-hidden="true">x</span>
+													</button>
+												</div>
+												
+												<div class="modal-body">
+													<div class="row">
+														<table class="table table-bordered" id="ordersTable">
+		                                                    <thead class="thead-light">
+		                                                        <tr>
+		                                                            <th>图片</th>
+		                                                            <th>商品名</th>
+		                                                            <th>单价</th>
+		                                                            <th>数量</th>
+		                                                            <th>小计</th>
+		                                                        </tr>
+		                                                    </thead>    
+		                                                    <tbody id="orderDetails">                  
+
+		                                                    </tbody>
+		                                                </table>
+														
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+							      
                                     <!-- Single Tab Content End -->    
                                     <!-- Single Tab Content Start -->
                                     <div class="tab-pane fade" id="address-edit" role="tabpanel">
                                         <div class="myaccount-content">
-                                            <h3>帐单地址</h3>    
-                                            <address>
-                                                <p><strong>Alex Tuntuni</strong></p>
-                                                <p>  市场街1355号，900室<br>
-                                                <p>   旧金山，CA 94103</p>
-                                                <p>手机:(123)456 - 7890</p>
-                                              
-
-
-
-
-
-
-                                            </address>    
-                                            <a href="#" class="check-btn sqr-btn "><i class="fa fa-edit"></i> Edit Address</a>
+                                             <table class="table table-bordered" id="ordersTable">
+                                                    <thead class="thead-light">
+                                                        <tr>
+                                                            <th>收货人</th>
+                                                            <th>手机号</th>
+                                                            <th>详细地址</th> 
+                                                            <th>操作</th> 
+                                                        </tr>
+                                                    </thead>    
+                                                    <tbody >                  
+                                                    	
+		                                                       <tr>
+		                                                           <td>何浩</td>
+		                                                           <td>15115380532</td>
+		                                                           <td>湖南省醴陵市船湾镇清水江乡</td>
+		                                                           <td>
+		                                                           		<a>修改地址</a>
+		                                                           </td>
+		                                                       </tr>
+			                                              
+                                                    </tbody>
+                                                </table>
+                                            <a href="#" class="check-btn sqr-btn "><i class="fa fa-edit"></i> 新增地址</a>
                                         </div>
                                     </div>
                                     <!-- Single Tab Content End -->    

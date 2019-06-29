@@ -8,6 +8,7 @@
     <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
     <result column="sum" jdbcType="INTEGER" property="sum" />
     <result column="addressid" jdbcType="INTEGER" property="addressid" />
+    <result column="orderStatus" jdbcType="INTEGER" property="orderstatus" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -68,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, orderNo, uid, createTime, sum, addressid
+    id, orderNo, uid, createTime, sum, addressid, orderStatus
   </sql>
   <select id="selectByExample" parameterType="com.house.furniture.bean.OrdersExample" resultMap="BaseResultMap">
     select
@@ -105,11 +106,13 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into orders (orderNo, uid, createTime, 
-      sum, addressid)
+      sum, addressid, orderStatus
+      )
     values (#{orderno,jdbcType=VARCHAR}, #{uid,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, 
-      #{sum,jdbcType=INTEGER}, #{addressid,jdbcType=INTEGER})
+      #{sum,jdbcType=INTEGER}, #{addressid,jdbcType=INTEGER}, #{orderstatus,jdbcType=INTEGER}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.house.furniture.bean.Orders" useGeneratedKeys="true">
+  <insert id="insertSelective" parameterType="com.house.furniture.bean.Orders">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -130,6 +133,9 @@
       <if test="addressid != null">
         addressid,
       </if>
+      <if test="orderstatus != null">
+        orderStatus,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="orderno != null">
@@ -146,6 +152,9 @@
       </if>
       <if test="addressid != null">
         #{addressid,jdbcType=INTEGER},
+      </if>
+      <if test="orderstatus != null">
+        #{orderstatus,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -176,6 +185,9 @@
       <if test="record.addressid != null">
         addressid = #{record.addressid,jdbcType=INTEGER},
       </if>
+      <if test="record.orderstatus != null">
+        orderStatus = #{record.orderstatus,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -188,7 +200,8 @@
       uid = #{record.uid,jdbcType=INTEGER},
       createTime = #{record.createtime,jdbcType=TIMESTAMP},
       sum = #{record.sum,jdbcType=INTEGER},
-      addressid = #{record.addressid,jdbcType=INTEGER}
+      addressid = #{record.addressid,jdbcType=INTEGER},
+      orderStatus = #{record.orderstatus,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -211,6 +224,9 @@
       <if test="addressid != null">
         addressid = #{addressid,jdbcType=INTEGER},
       </if>
+      <if test="orderstatus != null">
+        orderStatus = #{orderstatus,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -220,7 +236,8 @@
       uid = #{uid,jdbcType=INTEGER},
       createTime = #{createtime,jdbcType=TIMESTAMP},
       sum = #{sum,jdbcType=INTEGER},
-      addressid = #{addressid,jdbcType=INTEGER}
+      addressid = #{addressid,jdbcType=INTEGER},
+      orderStatus = #{orderstatus,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

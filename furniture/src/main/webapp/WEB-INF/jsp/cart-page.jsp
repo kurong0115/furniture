@@ -35,7 +35,8 @@
 					$('.headerCartCount').text(0);	
 					$('#sum').val(allSum);
 				}else{
-					getFailMsg("清空失败，请稍再试");
+					getFailMsg("您尚未登录，请先登录");
+					location.href="login-register";
 				}
 			});
 		}
@@ -70,8 +71,11 @@
 				$('.allSum').text(allSum-sum);
 				$('.headerCartCount').text(--CartCount);
 				$('#sum').val(allSum-sum);
-			}else{
+			}else if(data.code==0){
 				getFailMsg(data.msg);
+			}else{
+				getFailMsg("您尚未登录，请先登录");
+				location.href="login-register";
 			}
 		});
 	}

@@ -27,6 +27,9 @@
 							return;
 						}
 					}
+					if($('#cartUl li:first').text()=="暂无商品"){
+						$('#cartUl li:first').remove();
+					}
 					$('#cartUl').append(
 						'<li class="single-shopping-cart">'+
                            '<div class="shopping-cart-img">'+
@@ -45,7 +48,9 @@
 					);
 					$('.headerCartCount').text(++CartCount);
 				}else{
-					getFialMsg("当前访问人数较多，请稍后再试");
+					getFailMsg("您尚未登录，请先登录");
+					location.href="login-register";
+					getFailMsg("当前访问人数较多，请稍后再试");
 				}
 			})
 		}
@@ -83,8 +88,11 @@
 					$('.allSum').text(allSum-sum);
 					$('.headerCartCount').text(--CartCount);
 					$('#sum').val(allSum-sum);
-				}else{
+				}else if(data.code==0){
 					getFailMsg(data.msg);
+				}else{
+					getFailMsg("您尚未登录，请先登录");
+					location.href="login-register";
 				}
 			});
 		}
@@ -142,8 +150,7 @@
                                    <li class="angle-shape"><a href="#">更多 </a>
                                        <ul class="submenu">
                                            <li><a href="about-us.do">关于我们 </a></li>
-                                           <li><a href="cart-page">购物车 </a></li>
-                                           <li><a href="checkout">结算 </a></li>
+                                           <li><a href="seeCart">购物车 </a></li>
                                            <li><a href="compare-page">对比 </a></li>
                                            <li><a href="wishlist.html">愿望清单 </a></li>
                                            <c:if test="${user  == null}">
@@ -175,7 +182,7 @@
                            </div>
                            <c:if test="${empty user}">
                             	<div>
-                                    <h6>您尚未登录&nbsp;&nbsp;&nbsp;<a  href="login-register">去登录</a></h6>
+                                    <h6>您尚未登录&nbsp;&nbsp;&nbsp;<a href="login-register">去登录</a></h6>
                                 </div>
                            </c:if>
                            <c:if test="${!empty user}">

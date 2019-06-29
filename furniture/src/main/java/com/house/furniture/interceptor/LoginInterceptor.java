@@ -1,5 +1,8 @@
 package com.house.furniture.interceptor;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -20,6 +23,18 @@ public class LoginInterceptor implements HandlerInterceptor{
 		HttpSession session = request.getSession();
 		User user = (User)session.getAttribute("user");
 		if (user == null) {
+			//获取
+			String callbackPath = request.getServletPath();
+			if(!callbackPath.equals("/error")) {
+				Map<String, String[]> map = request.getParameterMap();				
+				//创建新的map保存参数
+				Map<String, String[]> newmap= new HashMap<String, String[]>();
+				newmap.putAll(map);
+
+				session.setAttribute("callbackPath", callbackPath);
+				session.setAttribute("callbackMap", newmap);
+			}			
+
 			response.sendRedirect(request.getContextPath() + "/login-register");
 			return false;
 		} else {

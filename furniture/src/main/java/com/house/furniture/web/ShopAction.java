@@ -109,6 +109,6 @@ public class ShopAction {
 			}
 		}
 		model.addAttribute("allSum", allSum);
-		return new Result(Result.EXECUTION_SUCCESS,"添加成功",cart);
+		return new Result(Result.EXECUTION_SUCCESS,"加入购物车成功",cart);
 	}
 }

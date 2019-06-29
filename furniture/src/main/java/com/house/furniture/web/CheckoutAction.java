@@ -8,6 +8,7 @@ import java.util.UUID;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
@@ -43,6 +44,7 @@ public class CheckoutAction {
 	 * @return
 	 */
 	@RequestMapping("produceOrder")
+	@Transactional
 	public String produceOrder(@SessionAttribute("cartProductList") List<Cart> cartProductList,@SessionAttribute("user")User user,Model model,Orders orders) {
 		orders.setUid(user.getId());
 		String orderNo = UUID.randomUUID().toString().replace("-", "").toUpperCase();
