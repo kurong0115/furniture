@@ -44,6 +44,8 @@ public class ContactUs {
 		//保存该消息
 		Result result = contactUsService.sendInfo(message);
 		return result;
+		
+		
 	}
 	
 	// 查找还未回复的用户留言
