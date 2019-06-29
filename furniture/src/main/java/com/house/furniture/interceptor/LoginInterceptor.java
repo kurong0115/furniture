@@ -23,17 +23,17 @@ public class LoginInterceptor implements HandlerInterceptor{
 		HttpSession session = request.getSession();
 		User user = (User)session.getAttribute("user");
 		if (user == null) {
-			
 			//获取
 			String callbackPath = request.getServletPath();
-			Map<String, String[]> map = request.getParameterMap();
+			if(!callbackPath.equals("/error")) {
+				Map<String, String[]> map = request.getParameterMap();				
+				//创建新的map保存参数
+				Map<String, String[]> newmap= new HashMap<String, String[]>();
+				newmap.putAll(map);
 
-			//创建新的map保存参数
-			Map<String, String[]> newmap= new HashMap<String, String[]>();
-			newmap.putAll(map);
-
-			session.setAttribute("callbackPath", callbackPath);
-			session.setAttribute("callbackMap", newmap);
+				session.setAttribute("callbackPath", callbackPath);
+				session.setAttribute("callbackMap", newmap);
+			}			
 
 			response.sendRedirect(request.getContextPath() + "/login-register");
 			return false;

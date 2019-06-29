@@ -74,7 +74,6 @@ public class LoginRegisterAction {
 				if(session.getAttribute("callbackPath")!=null) {
 					
 					String path = (String) session.getAttribute("callbackPath");
-					
 					if(path.equals("/error")) {
 						return new Result(Result.EXECUTION_SUCCESS, msg,null);
 					}
@@ -96,6 +95,7 @@ public class LoginRegisterAction {
 					String cxtPath=request.getContextPath();
 					String newPath=cxtPath+path;
 					return new Result(Result.EXECUTION_SUCCESS, msg,newPath);
+					
 				}
 				
 				return new Result(Result.EXECUTION_SUCCESS, msg,null);

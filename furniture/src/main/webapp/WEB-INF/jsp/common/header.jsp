@@ -50,7 +50,7 @@
 				}else{
 					getFailMsg("您尚未登录，请先登录");
 					location.href="login-register";
-					
+					getFailMsg("当前访问人数较多，请稍后再试");
 				}
 			})
 		}
@@ -150,10 +150,9 @@
                                    <li class="angle-shape"><a href="#">更多 </a>
                                        <ul class="submenu">
                                            <li><a href="about-us.do">关于我们 </a></li>
-                                           <li><a href="cart-page">购物车 </a></li>
-                                           <li><a href="checkout">结算 </a></li>
+                                           <li><a href="seeCart">购物车 </a></li>
                                            <li><a href="compare-page">对比 </a></li>
-                                           <li><a href="wishlist.html">愿望清单 </a></li>
+                                           <li><a href="wishlist">愿望清单 </a></li>
                                            <li><a href="contact-us">联系我们</a></li>    
                                            <c:if test="${user  == null}">
                                            		<li><a href="login-register">登录/注册 </a></li>
