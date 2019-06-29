@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.PageHelper;
 import com.house.furniture.bean.Product;
 import com.house.furniture.bean.ProductExample;
 import com.house.furniture.bean.ProductExample.Criteria;
@@ -19,7 +20,8 @@ public class ProductServiceImpl implements ProductService {
 	ProductMapper productMapper;
 	
 	@Override
-	public List<Product> listProductsByType(int cid, int page, int size) {
+	public List<Product> listProductsByType(int cid, int page, int size) {		
+		PageHelper.startPage(page, size);
 		List<Product> productList = productMapper.listProductsByCid(cid);
 		return productList.isEmpty()? null: productList;
 	}

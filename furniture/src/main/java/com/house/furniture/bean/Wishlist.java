@@ -6,7 +6,9 @@ public class Wishlist {
     private Integer pid;
 
     private Integer uid;
-
+    
+    private Product product;
+    
     public Integer getWid() {
         return wid;
     }
@@ -30,4 +32,13 @@ public class Wishlist {
     public void setUid(Integer uid) {
         this.uid = uid;
     }
+
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+       
 }

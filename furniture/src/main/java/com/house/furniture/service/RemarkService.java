@@ -12,5 +12,12 @@ public interface RemarkService {
 	 * @return
 	 */
 	List<Remark> listRemarksByProduct(Integer pid);
+	
+	/**
+	 * 保存评论
+	 * @param remark
+	 * @return
+	 */
+	int saveRemark(Remark remark);
 
 }
