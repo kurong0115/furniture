@@ -9,6 +9,10 @@
     <result column="count" jdbcType="INTEGER" property="count" />
     <result column="sum" jdbcType="INTEGER" property="sum" />
     <result column="price" jdbcType="DOUBLE" property="price" />
+    <collection property="productList" fetchType="lazy" column="pid" 
+      select="com.house.furniture.dao.ProductMapper.selectByPrimaryKey" ofType="com.house.furniture.bean.Product">
+      <id column="pid" property="pid"/>
+    </collection>
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
