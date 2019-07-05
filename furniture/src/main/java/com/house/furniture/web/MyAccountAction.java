@@ -1,5 +1,6 @@
 package com.house.furniture.web;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -47,9 +48,14 @@ public class MyAccountAction {
 	@ResponseBody
 	public Result orderDetails(String orderid) {
 		System.out.println(orderid);
+		Orders order = orderService.selectById(Integer.parseInt(orderid));
+		System.out.println(order);
 		List<Operation> operation = operationService.selectByOrderid(Integer.parseInt(orderid));
 		System.out.println(operation);
-		return new Result(Result.EXECUTION_SUCCESS, "1", operation);
+		List<Object> orderState = new ArrayList<Object>();
+		orderState.add(order);
+		orderState.add(operation);
+		return new Result(Result.EXECUTION_SUCCESS, "1", orderState);
 	}
 	
 	

@@ -113,7 +113,40 @@
 														<span aria-hidden="true">x</span>
 													</button>
 												</div>
+												<c:if test="${ orderState!=null }">
+													<c:if test="${ orderState.ispay == 1}">
+														<script type="text/javascript">
+															$(".ystep4").setStep(3);
+															console.info(${ orderState});
+														</script>
+													</c:if>
+												</c:if>
 												
+												<input type="text" value="${orderState.sum}">
+												
+												<div class="ystep4" style="text-align: center;"></div>
+												<script type="text/javascript" src="assets/js/ystep.js"></script>
+												<script type="text/javascript">
+													//根据jQuery选择器找到需要加载ystep的容器
+													//loadStep 方法可以初始化ystep
+													$(".ystep4").loadStep({
+													  size: "large",
+													  color: "blue",
+													  steps: [{
+														title: "提交订单",
+													  },{
+														title: "等待付款",
+													  },{
+														title: "等待发货",
+														
+													  },{
+														title: "等待收货",
+														
+													  },{
+														title: "订单完成",
+													  }]
+													});
+												</script>
 												<div class="modal-body">
 													<div class="row">
 														<table class="table table-bordered" id="ordersTable">
@@ -130,7 +163,6 @@
 
 		                                                    </tbody>
 		                                                </table>
-														
 													</div>
 												</div>
 											</div>

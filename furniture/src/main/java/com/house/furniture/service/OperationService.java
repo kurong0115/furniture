@@ -3,6 +3,7 @@ package com.house.furniture.service;
 import java.util.List;
 
 import com.house.furniture.bean.Operation;
+import com.house.furniture.bean.Orders;
 
 public interface OperationService {
 	
@@ -25,6 +26,7 @@ public interface OperationService {
 
 	//根据订单号查询订单明细
 	List<Operation> selectByOrderid(Integer orderid);
+
 
 
 
