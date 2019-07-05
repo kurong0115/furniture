@@ -11,7 +11,6 @@
 				count:1
 			},function(data){
 				if(data.code==1){
-					console.info(data);
 					getSuccessMsg(data.message);
 					var CartCount=$('.headerCartCount').text();
 					var allSum=$('#sum').val();									

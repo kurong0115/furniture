@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
@@ -15,7 +14,6 @@ import com.house.furniture.dao.AddressMapper;
 import com.house.furniture.dao.OrdersMapper;
 import com.house.furniture.service.OrdersService;
 @Service
-@ComponentScan(basePackages = {"com.house.furniture.dao","com.house.furniture.bean"})
 public class OrdersServiceImpl implements OrdersService {
 	@Resource
 	private OrdersMapper orderMapper;
@@ -43,6 +41,22 @@ public class OrdersServiceImpl implements OrdersService {
 	public List<Address> selectAddress(int uid) {
 		List<Address> address = addressMapper.selectByUid(uid);
 		return address;
+	}
+
+
+	@Override
+	public Orders findOrderByOrderNo(String out_trade_no) {
+		OrdersExample orderExample = new OrdersExample();
+		orderExample.createCriteria().andOrdernoEqualTo(out_trade_no);
+		List<Orders> list = orderMapper.selectByExample(orderExample);
+		return list.size()==0?null:list.get(0);
+	}
+
+
+	@Override
+	public void updateOrders(Orders order) {
+		orderMapper.updateByPrimaryKeySelective(order);
+		
 	}
 
 }

@@ -21,6 +21,12 @@ public interface OrdersService {
 	 */
 	List<Address> selectAddress(int uid);
 
+	//根据订单编号查找订单
+	Orders findOrderByOrderNo(String out_trade_no);
+
+	//更新订单
+	void updateOrders(Orders order);
+
 	
 
 }

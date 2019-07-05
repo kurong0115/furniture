@@ -7,8 +7,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>忘记账号/密码</title>
-    
+    <title>忘记账号/密码</title> 
     <!-- 引入首部链接 -->
     <%@include file="common/header_link.jsp" %>
    	<!-- 引入login-register.js文件 -->
