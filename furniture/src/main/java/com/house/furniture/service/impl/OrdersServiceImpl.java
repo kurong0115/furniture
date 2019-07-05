@@ -58,4 +58,12 @@ public class OrdersServiceImpl implements OrdersService {
 		
 	}
 
+
+	@Override
+	public Orders selectById(Integer id) {
+		Orders order = orderMapper.selectByPrimaryKey(id);
+		
+		return order;
+	}
+
 }

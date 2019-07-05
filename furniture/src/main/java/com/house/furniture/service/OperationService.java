@@ -3,7 +3,11 @@ package com.house.furniture.service;
 import java.util.List;
 
 import com.house.furniture.bean.Operation;
+
+
+
 import com.house.furniture.bean.User;
+
 
 public interface OperationService {
 	
@@ -41,5 +45,6 @@ public interface OperationService {
 	 * @return
 	 */
 	List<Operation> listOperationByUidAndPid(User user, int pid);
+
 
 }

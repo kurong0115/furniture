@@ -18,7 +18,7 @@
 	<script type="text/javascript"  charset="utf-8"
 	    src="http://connect.qq.com/qc_jssdk.js"
 	    data-appid="101701345"
-	    data-redirecturi="http://47.95.241.173:8080/furniture/index"
+	    data-redirecturi="http://127.0.0.1:8080/QQLogin"
 	></script>
 
 </head>
