@@ -60,7 +60,7 @@ public class CheckoutAction {
 	 */
 	@RequestMapping("produceOrder")
 	@Transactional
-	public void produceOrder(@SessionAttribute("cartProductList") List<Cart> cartProductList,@SessionAttribute("user")User user,Model model,Orders orders,
+	public String produceOrder(@SessionAttribute("cartProductList") List<Cart> cartProductList,@SessionAttribute("user")User user,Model model,Orders orders,
 			HttpServletResponse rep) throws AlipayApiException, IOException {
 		orders.setUid(user.getId());
 		String orderNo = UUID.randomUUID().toString().replace("-", "").toUpperCase();
@@ -69,40 +69,64 @@ public class CheckoutAction {
 		orders.setIsdeal(0);
 		orders.setIspay(0);
 		orders.setIsfinish(0);
-		System.out.println(orders);
+
 		ordersservice.produceOrder(orders);		
 		cartservice.clearCart(user.getId());
 
-		//获得初始化的AlipayClient
-        AlipayClient alipayClient = new DefaultAlipayClient(AlipayConfig.gatewayUrl, AlipayConfig.app_id, AlipayConfig.merchant_private_key, "json", AlipayConfig.charset, AlipayConfig.alipay_public_key, AlipayConfig.sign_type);
- 
-        //设置请求参数
-        AlipayTradePagePayRequest alipayRequest = new AlipayTradePagePayRequest();
-        alipayRequest.setReturnUrl(AlipayConfig.return_url);
-        alipayRequest.setNotifyUrl(AlipayConfig.notify_url);
- 
-        //商户订单号，商户网站订单系统中唯一订单号，必填
-        String out_trade_no = orders.getOrderno();
-        //付款金额，必填
-        String total_amount = orders.getSum().toString();
-        //订单名称，必填
-        String subject = user.getName()+"的OurHouse订单";
-        //商品描述，可空
-        String body = null;
- 
-        alipayRequest.setBizContent("{\"out_trade_no\":\""+ out_trade_no +"\"," 
-                + "\"total_amount\":\""+ total_amount +"\"," 
-                + "\"subject\":\""+ subject +"\"," 
-                + "\"body\":\""+ body +"\"," 
-                + "\"product_code\":\"FAST_INSTANT_TRADE_PAY\"}");
- 
-        //请求
-        String result = alipayClient.pageExecute(alipayRequest).getBody();
- 
-        rep.setContentType("text/html;charset=" + AlipayConfig.charset);
-        rep.getWriter().write(result);//直接将完整的表单html输出到页面
-        rep.getWriter().flush();
-        rep.getWriter().close();
+		if(orders.getPaymethod().equals("货到付现")) {
+			
+			orders.setIspay(1);//修改订单状态为已支付
+            ordersservice.updateOrders(orders);
+            Operation operation = new Operation();
+     		for (Cart cart : cartProductList) {
+     			operation.setOrderid(orders.getId());
+     			operation.setUid(cart.getUid());
+     			operation.setCount(cart.getCount());
+     			operation.setPid(cart.getPid());
+     			operation.setPrice(cart.getProduct().getPrice());		
+     			operation.setSum((int)(cart.getCount()*cart.getProduct().getPrice()));
+     			operationservice.produceOperation(operation);
+     		}
+     		model.addAttribute("cartProductList", "");
+     		model.addAttribute("allSum", 0);
+			model.addAttribute("orderNo", orders.getOrderno());
+			return "produceOrder";
+			
+		}else {
+			//获得初始化的AlipayClient
+	        AlipayClient alipayClient = new DefaultAlipayClient(AlipayConfig.gatewayUrl, AlipayConfig.app_id, AlipayConfig.merchant_private_key, "json", AlipayConfig.charset, AlipayConfig.alipay_public_key, AlipayConfig.sign_type);
+	 
+	        //设置请求参数
+	        AlipayTradePagePayRequest alipayRequest = new AlipayTradePagePayRequest();
+	        alipayRequest.setReturnUrl(AlipayConfig.return_url);
+	        alipayRequest.setNotifyUrl(AlipayConfig.notify_url);
+	 
+	        //商户订单号，商户网站订单系统中唯一订单号，必填
+	        String out_trade_no = orders.getOrderno();
+	        //付款金额，必填
+	        String total_amount = orders.getSum().toString();
+	        //订单名称，必填
+	        String subject = user.getName()+"的OurHouse订单";
+	        //商品描述，可空
+	        String body = null;
+	 
+	        alipayRequest.setBizContent("{\"out_trade_no\":\""+ out_trade_no +"\"," 
+	                + "\"total_amount\":\""+ total_amount +"\"," 
+	                + "\"subject\":\""+ subject +"\"," 
+	                + "\"body\":\""+ body +"\"," 
+	                + "\"product_code\":\"FAST_INSTANT_TRADE_PAY\"}");
+	 
+	        //请求
+	        String result = alipayClient.pageExecute(alipayRequest).getBody();
+	 
+	        rep.setContentType("text/html;charset=" + AlipayConfig.charset);
+	        rep.getWriter().write(result);//直接将完整的表单html输出到页面
+	        rep.getWriter().flush();
+	        rep.getWriter().close();
+	        return null;
+		}
+		
+		
 
 	}
 	
@@ -114,6 +138,7 @@ public class CheckoutAction {
      * @throws UnsupportedEncodingException 
      */
     @RequestMapping("return_url")
+    @Transactional
     public String returnUrl(@SessionAttribute("cartProductList") List<Cart> cartProductList,Model model,
     		HttpServletResponse response,HttpServletRequest request) throws AlipayApiException, UnsupportedEncodingException{
         //获取支付宝POST过来反馈信息
@@ -135,9 +160,7 @@ public class CheckoutAction {
         //切记alipaypublickey是支付宝的公钥，请去open.alipay.com对应应用下查看。
         //boolean AlipaySignature.rsaCheckV1(Map<String, String> params, String publicKey, String charset, String sign_type)
         boolean signVerified = AlipaySignature.rsaCheckV1(params, AlipayConfig.alipay_public_key, AlipayConfig.charset,AlipayConfig.sign_type);
-        	
-        System.out.println(signVerified);
-        
+
         
         if(signVerified) {
             //商户订单号
@@ -166,6 +189,7 @@ public class CheckoutAction {
                 request.setAttribute("signVerified", signVerified); 
                 request.setAttribute("reason", "商户订单号不存在");
                 System.out.println("系统订单："+ out_trade_no + "不存在。");
+                return "produceOrder";
             }else{
                 if(order.getSum()!=Double.valueOf(total_amount).intValue() ){
                     signVerified = false;
@@ -174,15 +198,14 @@ public class CheckoutAction {
                     return "produceOrder";
                 }
  
-                System.out.println(order.getIsdeal());
                 if(order.getIsdeal() == 1){//判断当前订单是否已处理，避免重复处理
                 	System.out.println("44");
                 	System.out.println("系统订单："+ out_trade_no + "无需重复处理。");
                 }else{
                     order.setIspay(1);//修改订单状态为已支付
                     ordersservice.updateOrders(order);
-                    request.setAttribute("reason", null);
                     System.out.println("系统订单："+ out_trade_no + "成功支付。");
+                    request.setAttribute("orderNo", out_trade_no);
                     Operation operation = new Operation();
             		for (Cart cart : cartProductList) {
             			operation.setOrderid(order.getId());
@@ -200,12 +223,14 @@ public class CheckoutAction {
             }
         }else{
             request.setAttribute("reason", "验签失败");
+            return "produceOrder";
         }
         request.setAttribute("signVerified", signVerified);
         return "produceOrder";
     }
 
     @RequestMapping("notify_url")
+    @Transactional
     public String notifyUrl(@SessionAttribute("cartProductList") List<Cart> cartProductList,Model model,
     		HttpServletResponse response,HttpServletRequest request) throws AlipayApiException, UnsupportedEncodingException{
         //获取支付宝POST过来反馈信息
