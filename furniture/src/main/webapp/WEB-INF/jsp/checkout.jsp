@@ -24,7 +24,7 @@
 			}else if($('input[name="payment_method"]:checked').val()==null){
 				getInfoMsg("请选择支付方式")
 			}else{
-				location.href="produceOrder?addressid="+$('input[name="addr"]:checked').val()+"&sum="+$('#sum').val()+"";
+				location.href="produceOrder?addressid="+$('input[name="addr"]:checked').val()+"&sum="+$('#sum').val()+"&paymethod="+$('input[name="payment_method"]:checked').val()+"";
 			}
 		}
     </script>
@@ -92,12 +92,19 @@
                                 </div>
                                 <div class="payment-method">                                    
                                     <div class="pay-top sin-payment">
-                                        <input id="payment-method-3" class="input-radio" type="radio" value="cheque" name="payment_method">
+                                        <input id="payment-method-3" class="input-radio" type="radio" value="货到付现" name="payment_method">
                                         <label for="payment-method-3">货到付现 </label>
                                         <div class="payment-box payment_method_bacs">
                                         <p>我们将立即为您发货，请耐心等待</p>
                                         </div>
-                                    </div>                                    
+                                    </div> 
+                                    <div class="pay-top sin-payment">
+                                        <input id="payment-method-1" class="input-radio" type="radio" value="支付宝付款" name="payment_method">
+                                        <label for="payment-method-1">支付宝付款 </label>
+                                        <div class="payment-box payment_method_bacs">
+                                        <p>我们将立即为您发货，请耐心等待</p>
+                                        </div>
+                                    </div>                                   
                                 </div>
                             </div>
                             <div class="Place-order mt-40">

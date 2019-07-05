@@ -475,63 +475,253 @@ public class OrdersExample {
             return (Criteria) this;
         }
 
-        public Criteria andOrderstatusIsNull() {
-            addCriterion("orderStatus is null");
+        public Criteria andIsdealIsNull() {
+            addCriterion("isDeal is null");
             return (Criteria) this;
         }
 
-        public Criteria andOrderstatusIsNotNull() {
-            addCriterion("orderStatus is not null");
+        public Criteria andIsdealIsNotNull() {
+            addCriterion("isDeal is not null");
             return (Criteria) this;
         }
 
-        public Criteria andOrderstatusEqualTo(Integer value) {
-            addCriterion("orderStatus =", value, "orderstatus");
+        public Criteria andIsdealEqualTo(Integer value) {
+            addCriterion("isDeal =", value, "isdeal");
             return (Criteria) this;
         }
 
-        public Criteria andOrderstatusNotEqualTo(Integer value) {
-            addCriterion("orderStatus <>", value, "orderstatus");
+        public Criteria andIsdealNotEqualTo(Integer value) {
+            addCriterion("isDeal <>", value, "isdeal");
             return (Criteria) this;
         }
 
-        public Criteria andOrderstatusGreaterThan(Integer value) {
-            addCriterion("orderStatus >", value, "orderstatus");
+        public Criteria andIsdealGreaterThan(Integer value) {
+            addCriterion("isDeal >", value, "isdeal");
             return (Criteria) this;
         }
 
-        public Criteria andOrderstatusGreaterThanOrEqualTo(Integer value) {
-            addCriterion("orderStatus >=", value, "orderstatus");
+        public Criteria andIsdealGreaterThanOrEqualTo(Integer value) {
+            addCriterion("isDeal >=", value, "isdeal");
             return (Criteria) this;
         }
 
-        public Criteria andOrderstatusLessThan(Integer value) {
-            addCriterion("orderStatus <", value, "orderstatus");
+        public Criteria andIsdealLessThan(Integer value) {
+            addCriterion("isDeal <", value, "isdeal");
             return (Criteria) this;
         }
 
-        public Criteria andOrderstatusLessThanOrEqualTo(Integer value) {
-            addCriterion("orderStatus <=", value, "orderstatus");
+        public Criteria andIsdealLessThanOrEqualTo(Integer value) {
+            addCriterion("isDeal <=", value, "isdeal");
             return (Criteria) this;
         }
 
-        public Criteria andOrderstatusIn(List<Integer> values) {
-            addCriterion("orderStatus in", values, "orderstatus");
+        public Criteria andIsdealIn(List<Integer> values) {
+            addCriterion("isDeal in", values, "isdeal");
             return (Criteria) this;
         }
 
-        public Criteria andOrderstatusNotIn(List<Integer> values) {
-            addCriterion("orderStatus not in", values, "orderstatus");
+        public Criteria andIsdealNotIn(List<Integer> values) {
+            addCriterion("isDeal not in", values, "isdeal");
             return (Criteria) this;
         }
 
-        public Criteria andOrderstatusBetween(Integer value1, Integer value2) {
-            addCriterion("orderStatus between", value1, value2, "orderstatus");
+        public Criteria andIsdealBetween(Integer value1, Integer value2) {
+            addCriterion("isDeal between", value1, value2, "isdeal");
             return (Criteria) this;
         }
 
-        public Criteria andOrderstatusNotBetween(Integer value1, Integer value2) {
-            addCriterion("orderStatus not between", value1, value2, "orderstatus");
+        public Criteria andIsdealNotBetween(Integer value1, Integer value2) {
+            addCriterion("isDeal not between", value1, value2, "isdeal");
+            return (Criteria) this;
+        }
+
+        public Criteria andIspayIsNull() {
+            addCriterion("isPay is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIspayIsNotNull() {
+            addCriterion("isPay is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIspayEqualTo(Integer value) {
+            addCriterion("isPay =", value, "ispay");
+            return (Criteria) this;
+        }
+
+        public Criteria andIspayNotEqualTo(Integer value) {
+            addCriterion("isPay <>", value, "ispay");
+            return (Criteria) this;
+        }
+
+        public Criteria andIspayGreaterThan(Integer value) {
+            addCriterion("isPay >", value, "ispay");
+            return (Criteria) this;
+        }
+
+        public Criteria andIspayGreaterThanOrEqualTo(Integer value) {
+            addCriterion("isPay >=", value, "ispay");
+            return (Criteria) this;
+        }
+
+        public Criteria andIspayLessThan(Integer value) {
+            addCriterion("isPay <", value, "ispay");
+            return (Criteria) this;
+        }
+
+        public Criteria andIspayLessThanOrEqualTo(Integer value) {
+            addCriterion("isPay <=", value, "ispay");
+            return (Criteria) this;
+        }
+
+        public Criteria andIspayIn(List<Integer> values) {
+            addCriterion("isPay in", values, "ispay");
+            return (Criteria) this;
+        }
+
+        public Criteria andIspayNotIn(List<Integer> values) {
+            addCriterion("isPay not in", values, "ispay");
+            return (Criteria) this;
+        }
+
+        public Criteria andIspayBetween(Integer value1, Integer value2) {
+            addCriterion("isPay between", value1, value2, "ispay");
+            return (Criteria) this;
+        }
+
+        public Criteria andIspayNotBetween(Integer value1, Integer value2) {
+            addCriterion("isPay not between", value1, value2, "ispay");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaymethodIsNull() {
+            addCriterion("payMethod is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaymethodIsNotNull() {
+            addCriterion("payMethod is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaymethodEqualTo(String value) {
+            addCriterion("payMethod =", value, "paymethod");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaymethodNotEqualTo(String value) {
+            addCriterion("payMethod <>", value, "paymethod");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaymethodGreaterThan(String value) {
+            addCriterion("payMethod >", value, "paymethod");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaymethodGreaterThanOrEqualTo(String value) {
+            addCriterion("payMethod >=", value, "paymethod");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaymethodLessThan(String value) {
+            addCriterion("payMethod <", value, "paymethod");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaymethodLessThanOrEqualTo(String value) {
+            addCriterion("payMethod <=", value, "paymethod");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaymethodLike(String value) {
+            addCriterion("payMethod like", value, "paymethod");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaymethodNotLike(String value) {
+            addCriterion("payMethod not like", value, "paymethod");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaymethodIn(List<String> values) {
+            addCriterion("payMethod in", values, "paymethod");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaymethodNotIn(List<String> values) {
+            addCriterion("payMethod not in", values, "paymethod");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaymethodBetween(String value1, String value2) {
+            addCriterion("payMethod between", value1, value2, "paymethod");
+            return (Criteria) this;
+        }
+
+        public Criteria andPaymethodNotBetween(String value1, String value2) {
+            addCriterion("payMethod not between", value1, value2, "paymethod");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsfinishIsNull() {
+            addCriterion("isFinish is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsfinishIsNotNull() {
+            addCriterion("isFinish is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsfinishEqualTo(Integer value) {
+            addCriterion("isFinish =", value, "isfinish");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsfinishNotEqualTo(Integer value) {
+            addCriterion("isFinish <>", value, "isfinish");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsfinishGreaterThan(Integer value) {
+            addCriterion("isFinish >", value, "isfinish");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsfinishGreaterThanOrEqualTo(Integer value) {
+            addCriterion("isFinish >=", value, "isfinish");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsfinishLessThan(Integer value) {
+            addCriterion("isFinish <", value, "isfinish");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsfinishLessThanOrEqualTo(Integer value) {
+            addCriterion("isFinish <=", value, "isfinish");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsfinishIn(List<Integer> values) {
+            addCriterion("isFinish in", values, "isfinish");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsfinishNotIn(List<Integer> values) {
+            addCriterion("isFinish not in", values, "isfinish");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsfinishBetween(Integer value1, Integer value2) {
+            addCriterion("isFinish between", value1, value2, "isfinish");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsfinishNotBetween(Integer value1, Integer value2) {
+            addCriterion("isFinish not between", value1, value2, "isfinish");
             return (Criteria) this;
         }
     }

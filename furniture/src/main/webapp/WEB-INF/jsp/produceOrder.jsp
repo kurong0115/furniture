@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html class="no-js" lang="zxx">
 
 <head>
@@ -24,7 +25,7 @@
                     <li>
                         <a href="index">首页</a>
                     </li>
-                    <li class="active">订购成功</li>
+                    <li class="active">订购信息</li>
                 </ul>
             </div>
         </div>
@@ -37,12 +38,18 @@
                     
                     <div class="col-lg-12">
                         <div class="your-order-area">
-                            <div class="your-order-wrap gray-bg-4" style="text-align: center;">
-								<img alt="" src="assets/img/produceOrderSucceed.jpg">
-								<p style="font-size: 20px;color:b0b0b0;">订购成功，订单编号为[${orderNo }]</p>
-								<p>您可以在 [<a href="my-account">我的账户</a>] 中查看订单</p>
-                            </div>
-
+                        	<c:if test="${reason==null }">
+	                            <div class="your-order-wrap gray-bg-4" style="text-align: center;">
+									<img alt="" src="assets/img/produceOrderSucceed.jpg">
+									<p style="font-size: 20px;color:b0b0b0;">订购成功，订单编号为[${param.out_trade_no }]</p>
+									<p>您可以在 [<a href="my-account">我的账户</a>] 中查看订单</p>
+	                            </div>
+							</c:if>
+							<c:if test="${reason!=null }">
+								<div class="your-order-wrap gray-bg-4" style="text-align: center;">
+									<p style="font-size: 20px;color:b0b0b0;">订购失败，失败原因[${reason }]</p>
+	                            </div>
+							</c:if>
                         </div>
                     </div>
                 </div>

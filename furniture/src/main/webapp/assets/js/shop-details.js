@@ -49,7 +49,9 @@
 								$("#smallImage").append('<a data-toggle="tab" href="#pro-'+(i+1)+'">'+
 									'<img src="' +data.data.images[i].imgpath+'" alt="" style="width:80px;height:80px"></a>');								
 							}
+							
 						}
+						$('#addCartByPid').attr("onclick","addCart('"+data.data.pid+"','"+data.data.price+"','"+data.data.images[0].imgpath+"')");
 						$("#stock").text(data.data.stock); 
 						var size=data.data.description;
 						if (size != ""){
