@@ -8,7 +8,11 @@ import org.springframework.stereotype.Service;
 
 import com.house.furniture.bean.Operation;
 import com.house.furniture.bean.OperationExample;
-import com.house.furniture.bean.Orders;
+
+
+
+import com.house.furniture.bean.User;
+
 import com.house.furniture.dao.OperationMapper;
 import com.house.furniture.service.OperationService;
 
@@ -41,5 +45,17 @@ public class OperationServiceImpl implements OperationService {
 		List <Operation> operation = om.selectByExample(operationExample);
 		return operation.size()==0 ? null : operation;
 	}
-	
+
+
+	@Override
+	public List<Operation> listOperationByUidAndPid(User user, int pid) {
+		if (user == null) {
+			return null;
+		}
+		OperationExample example = new OperationExample();
+		example.createCriteria().andUidEqualTo(user.getId()).andPidEqualTo(pid);
+		List<Operation> list = om.selectByExample(example);
+		return list.isEmpty()? null: list;
+	}
+
 }

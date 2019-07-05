@@ -1,3 +1,4 @@
+		
 		function getSuccessMsg(msg) {
 			$.message({
 				message : msg,
@@ -38,6 +39,8 @@
         		}
         	})
         }
+		
+		
 		
 		function quickView(pid){
 			$.ajax({
@@ -184,7 +187,7 @@
 					}
 				},
 				error:function(data){
-					getFailMsg("服务器繁忙");
+//					getFailMsg("服务器繁忙");
 				}
 			})
 		}
