@@ -71,4 +71,5 @@ public interface UserService {
 	 * @return
 	 */
 	Page<User> queryAddress(int uid, int page, int rows);
+	
 }

@@ -101,6 +101,7 @@
 				</div>
 			</div>
 		</div>
+		
 		<div class="description-review-area pb-95">
 			<div class="container">
 				<div class="row">
@@ -128,6 +129,7 @@
 										</div>
 									</div>
 								</div>
+								
 								<div id="des-details2" class="tab-pane">
 									<div class="review-wrapper">
 									   <c:forEach items="${remarks }" var="remark">
@@ -147,41 +149,42 @@
                                                         <h4>${remark.user.name }</h4>
                                                     </div>
                                                     <div class="review-rating">
-                                                        <i class="sli sli-star"></i> <i class="sli sli-star"></i>
-                                                        <i class="sli sli-star"></i> <i class="sli sli-star"></i>
-                                                        <i class="sli sli-star"></i>
-                                                    </div>
+                                                        <c:forEach begin="1" end="${remark.level }">
+                                                            <i class="sli sli-star"></i>
+                                                        </c:forEach>                                                       
+                                                    </div>                                                   
                                                 </div>
                                             </div>
                                         </div>
 									   </c:forEach>																													
 									</div>
-									<div class="ratting-form-wrapper">
-										<span>评论</span>
-										<p>
-											Your email address will not be published. Required fields are
-											marked <span>*</span>
-										</p>
-										<div class="star-box-wrap">
-                                        <div class="single-ratting-star" onclick="changeLevel(1)">
+									<c:if test="${operationList!=null }">
+                                        <div class="ratting-form-wrapper">
+                                        <span>评论</span>
+                                        <p>
+                                            Your email address will not be published. Required fields are
+                                            marked <span>*</span>
+                                        </p>
+                                        <div class="star-box-wrap">
+                                        <div class="single-ratting-star" onclick="changeLevel(1,this)">
                                             <i class="sli sli-star"></i>
                                         </div>
-                                        <div class="single-ratting-star">
-                                            <i class="sli sli-star"></i>
-                                            <i class="sli sli-star"></i>
-                                        </div>
-                                        <div class="single-ratting-star">
-                                            <i class="sli sli-star"></i>
+                                        <div class="single-ratting-star" onclick="changeLevel(2,this)">
                                             <i class="sli sli-star"></i>
                                             <i class="sli sli-star"></i>
                                         </div>
-                                        <div class="single-ratting-star">
-                                            <i class="sli sli-star"></i>
+                                        <div class="single-ratting-star" onclick="changeLevel(3,this)">
                                             <i class="sli sli-star"></i>
                                             <i class="sli sli-star"></i>
                                             <i class="sli sli-star"></i>
                                         </div>
-                                        <div class="single-ratting-star">
+                                        <div class="single-ratting-star" onclick="changeLevel(4,this)">
+                                            <i class="sli sli-star"></i>
+                                            <i class="sli sli-star"></i>
+                                            <i class="sli sli-star"></i>
+                                            <i class="sli sli-star"></i>
+                                        </div>
+                                        <div class="single-ratting-star" onclick="changeLevel(5,this)">
                                             <i class="sli sli-star"></i>
                                             <i class="sli sli-star"></i>
                                             <i class="sli sli-star"></i>
@@ -189,26 +192,29 @@
                                             <i class="sli sli-star"></i>
                                         </div>
                                     </div>
-										<div class="ratting-form">
-											<form action="addRemark" method="post">
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <div class="rating-form-style mb-20">
-                                                        <label>评论<span>*</span></label>
-                                                        <textarea name="content"></textarea>
-                                                    </div>
+                                        <div class="ratting-form">
+                                            <input type="hidden" value="${msg }" id="remarkMessage"/>  
+                                            <form action="addRemark" method="get" onsubmit="return check();">
+	                                            <div class="row">
+	                                                <div class="col-md-12">
+	                                                    <div class="rating-form-style mb-20">
+	                                                        <label>评论<span>*</span></label>
+	                                                        <textarea name="content" id="remark-content">${remark.content }</textarea>
+	                                                    </div>
+	                                                </div>
+	                                                <input type="hidden" name="pid" value="${product.pid }">
+	                                                <input type="hidden" name="level" value="3" id="productLevel" value="${remark.level }">                                               
+	                                                <div class="col-lg-12">
+	                                                    <div class="form-submit">
+	                                                        <input type="submit" value="Submit">
+	                                                    </div>
+	                                                </div>
                                                 </div>
-                                                <input type="hidden" name="pid" value="${product.pid }">
-                                                <input type="hidden" name="level" value="3" id="productLevel">                                               
-                                                <div class="col-lg-12">
-                                                    <div class="form-submit">
-                                                        <input type="submit" value="Submit">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </form>
-										</div>
-									</div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    </c:if>
+									
 								</div>
 							</div>
 						</div>
@@ -386,16 +392,35 @@
 	<!-- 引入底部链接 -->
 	<%@include file="common/footer_link.jsp"%>
     <script type="text/javascript">
-    
-    
-        function changeLevel(level){
+       
+	    function getInfoMsg(msg) {
+	        $.message({
+	            message : msg,
+	            type : 'info',
+	            duration : '3000'
+	        });
+	    }
+	    
+	    function check(){
+	    	var content = $("#remark-content").text();    
+	    	if (content == "" || contentlength < 10){
+	    		getInfoMsg("内容过短");
+	    		return false;
+	    	}
+	    	return true;
+	    }
+	    
+        function changeLevel(level,input){
         	$("#productLevel").val(level);
-        	$(this).children("i").css("color","#f5b223");
+        	$(".single-ratting-star").children("i").css({"color":"#8a8a8a"});
+        	$(input).children("i").css({"color":"#f5b223"});
         }
         
-        function changeColor(){
-        	
-        }
+        $(function(){
+            if ($("#remarkMessage").val() != ""){
+                getInfoMsg($("#remarkMessage").val());
+            }
+        })
     </script>
 </body>
 

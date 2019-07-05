@@ -8,7 +8,10 @@
     <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
     <result column="sum" jdbcType="INTEGER" property="sum" />
     <result column="addressid" jdbcType="INTEGER" property="addressid" />
-    <result column="orderStatus" jdbcType="INTEGER" property="orderstatus" />
+    <result column="isDeal" jdbcType="INTEGER" property="isdeal" />
+    <result column="isPay" jdbcType="INTEGER" property="ispay" />
+    <result column="payMethod" jdbcType="VARCHAR" property="paymethod" />
+    <result column="isFinish" jdbcType="INTEGER" property="isfinish" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -69,7 +72,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, orderNo, uid, createTime, sum, addressid, orderStatus
+    id, orderNo, uid, createTime, sum, addressid, isDeal, isPay, payMethod, isFinish
   </sql>
   <select id="selectByExample" parameterType="com.house.furniture.bean.OrdersExample" resultMap="BaseResultMap">
     select
@@ -106,10 +109,12 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into orders (orderNo, uid, createTime, 
-      sum, addressid, orderStatus
+      sum, addressid, isDeal, 
+      isPay, payMethod, isFinish
       )
     values (#{orderno,jdbcType=VARCHAR}, #{uid,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, 
-      #{sum,jdbcType=INTEGER}, #{addressid,jdbcType=INTEGER}, #{orderstatus,jdbcType=INTEGER}
+      #{sum,jdbcType=INTEGER}, #{addressid,jdbcType=INTEGER}, #{isdeal,jdbcType=INTEGER}, 
+      #{ispay,jdbcType=INTEGER}, #{paymethod,jdbcType=VARCHAR}, #{isfinish,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.house.furniture.bean.Orders">
@@ -133,8 +138,17 @@
       <if test="addressid != null">
         addressid,
       </if>
-      <if test="orderstatus != null">
-        orderStatus,
+      <if test="isdeal != null">
+        isDeal,
+      </if>
+      <if test="ispay != null">
+        isPay,
+      </if>
+      <if test="paymethod != null">
+        payMethod,
+      </if>
+      <if test="isfinish != null">
+        isFinish,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -153,8 +167,17 @@
       <if test="addressid != null">
         #{addressid,jdbcType=INTEGER},
       </if>
-      <if test="orderstatus != null">
-        #{orderstatus,jdbcType=INTEGER},
+      <if test="isdeal != null">
+        #{isdeal,jdbcType=INTEGER},
+      </if>
+      <if test="ispay != null">
+        #{ispay,jdbcType=INTEGER},
+      </if>
+      <if test="paymethod != null">
+        #{paymethod,jdbcType=VARCHAR},
+      </if>
+      <if test="isfinish != null">
+        #{isfinish,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -185,8 +208,17 @@
       <if test="record.addressid != null">
         addressid = #{record.addressid,jdbcType=INTEGER},
       </if>
-      <if test="record.orderstatus != null">
-        orderStatus = #{record.orderstatus,jdbcType=INTEGER},
+      <if test="record.isdeal != null">
+        isDeal = #{record.isdeal,jdbcType=INTEGER},
+      </if>
+      <if test="record.ispay != null">
+        isPay = #{record.ispay,jdbcType=INTEGER},
+      </if>
+      <if test="record.paymethod != null">
+        payMethod = #{record.paymethod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isfinish != null">
+        isFinish = #{record.isfinish,jdbcType=INTEGER},
       </if>
     </set>
     <if test="_parameter != null">
@@ -201,7 +233,10 @@
       createTime = #{record.createtime,jdbcType=TIMESTAMP},
       sum = #{record.sum,jdbcType=INTEGER},
       addressid = #{record.addressid,jdbcType=INTEGER},
-      orderStatus = #{record.orderstatus,jdbcType=INTEGER}
+      isDeal = #{record.isdeal,jdbcType=INTEGER},
+      isPay = #{record.ispay,jdbcType=INTEGER},
+      payMethod = #{record.paymethod,jdbcType=VARCHAR},
+      isFinish = #{record.isfinish,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -224,8 +259,17 @@
       <if test="addressid != null">
         addressid = #{addressid,jdbcType=INTEGER},
       </if>
-      <if test="orderstatus != null">
-        orderStatus = #{orderstatus,jdbcType=INTEGER},
+      <if test="isdeal != null">
+        isDeal = #{isdeal,jdbcType=INTEGER},
+      </if>
+      <if test="ispay != null">
+        isPay = #{ispay,jdbcType=INTEGER},
+      </if>
+      <if test="paymethod != null">
+        payMethod = #{paymethod,jdbcType=VARCHAR},
+      </if>
+      <if test="isfinish != null">
+        isFinish = #{isfinish,jdbcType=INTEGER},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -237,7 +281,10 @@
       createTime = #{createtime,jdbcType=TIMESTAMP},
       sum = #{sum,jdbcType=INTEGER},
       addressid = #{addressid,jdbcType=INTEGER},
-      orderStatus = #{orderstatus,jdbcType=INTEGER}
+      isDeal = #{isdeal,jdbcType=INTEGER},
+      isPay = #{ispay,jdbcType=INTEGER},
+      payMethod = #{paymethod,jdbcType=VARCHAR},
+      isFinish = #{isfinish,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

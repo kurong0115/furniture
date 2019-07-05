@@ -50,11 +50,11 @@ public class ContactUs {
 		
 	}
 	
-	// 查找还未回复的用户留言
-	@RequestMapping("noReplyMessages.do")
+	// 根据flag值分别查已回复和未回复的信息
+	@RequestMapping("messages.do")
 	@ResponseBody
-	public EasyUIPage noReplyMessages(Message message, int page, int rows) {
-		Page<Message> p = contactUsService.noReplyMessages(message, page, rows);
+	public EasyUIPage messages(Message message, int page, int rows, int flag) {
+		Page<Message> p = contactUsService.getMessages(message, page, rows, flag);
 		return new EasyUIPage(p.getTotal(), p.getResult());
 	}
 	

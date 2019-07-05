@@ -11,7 +11,6 @@
 				count:1
 			},function(data){
 				if(data.code==1){
-					console.info(data);
 					getSuccessMsg(data.message);
 					var CartCount=$('.headerCartCount').text();
 					var allSum=$('#sum').val();									
@@ -152,7 +151,7 @@
                                            <li><a href="about-us.do">关于我们 </a></li>
                                            <li><a href="seeCart">购物车 </a></li>
                                            <li><a href="compare-page">对比 </a></li>
-                                           <li><a href="wishlist.html">愿望清单 </a></li>
+                                           <li><a href="wishlist">愿望清单 </a></li>
                                            <c:if test="${user  == null}">
                                            		<li><a href="login-register">登录/注册 </a></li>
                                            </c:if>

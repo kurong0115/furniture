@@ -90,7 +90,7 @@
 		pagination: true,
 		pageSize: 5,
 		pageList: [5,10,20],
-		url: 'noReplyMessages.do',
+		url: 'messages.do?flag=0',
 		rownumbers: true,
 		toolbar:'#tb'">
 	    <thead>
@@ -145,18 +145,5 @@
 			</script>
 		</form>
 	</div>
-	
-	<script type="text/javascript">
-		$('#dd').tooltip({
-		    position: 'right',
-		    content: '<span style="color:#fff">This is the tooltip message.</span>',
-		    onShow: function(){
-				$(this).tooltip('tip').css({
-					backgroundColor: '#666',
-					borderColor: '#666'
-				});
-		    }
-		});
-	</script>
 </body>
 </html>

@@ -12,8 +12,8 @@ function checkDetail(orderid) {
 			dataType:"json",
 			success:function(data){
 				if(data.code==1){
+					$('#orderDetails').html('');
 					for(var i=0;i<data.data.length;i++){
-						console.info(data)
 						$('#orderDetails').append(
 								'<tr>'+
 		                        '<td><img width="82px" height="82px" alt="" src="'+data.data[i].productList[0].images[0].imgpath+'"></td>'+
