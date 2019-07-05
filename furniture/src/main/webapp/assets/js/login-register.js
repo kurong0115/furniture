@@ -144,6 +144,8 @@ function login(){
     }
 	
 	
+
+	
 	function updateCode() {
 		var img=document.getElementById("code");
 		// 相同的url请求，浏览器会在缓存里加载数据并不会往服务器重新发送，所以后面加一个随机数
