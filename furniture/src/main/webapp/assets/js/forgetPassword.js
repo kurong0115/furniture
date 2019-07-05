@@ -33,8 +33,7 @@ function resertPassword(){
 		type:'POST',
 		data:{
 			username:$("#username").val(),
-			password1:$("#password1").val(),
-			password2:$("#password2").val(),
+			password:$("#password1").val(),
 			email:$("#email").val(),
 			code:$("#code").val()
 		},
@@ -100,8 +99,9 @@ function sendCode(){
 			},
 			dataType:"json",
 			success:function(data){
-				if( data.message == '发送成功！' ){
+				if( data.code == 1){
 					getSuccessMsg(data.message);
+					getTime(this);
 				}else{
 					getInfoMsg(data.message);
 				}		
@@ -109,7 +109,7 @@ function sendCode(){
 				getFailMsg('出现异常了，刷新试试！');
 			}
 	  	});
-	getTime(this);
+	
 }
 
 function getSuccessMsg(msg) {

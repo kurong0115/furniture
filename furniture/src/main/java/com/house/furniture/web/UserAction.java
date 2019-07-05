@@ -1,38 +1,41 @@
 package com.house.furniture.web;
 
 import java.io.File;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
 
+import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.github.pagehelper.Page;
+import com.house.furniture.bean.Address;
 import com.house.furniture.bean.User;
 import com.house.furniture.service.UserService;
 import com.house.furniture.vo.EasyUIPage;
 import com.house.furniture.vo.Result;
 
 @RestController
-@RequestMapping("user")
 public class UserAction {
 	
 	@Resource
 	UserService us;
 	
-	//获取用户信息
-	@RequestMapping("query")
+	// 获取用户信息
+	@RequestMapping("query.do")
 	public EasyUIPage query(User user, int page, int rows) {
 		Page<User> p = us.selectAllUser(user, page, rows);
 		return new EasyUIPage(p.getTotal(), p.getResult());
 	}
 	
 	// 文件上传（头像）
-	@RequestMapping("upload")
+	@RequestMapping("upload.do")
 	public Result upload(@RequestParam("file") MultipartFile file) {
 		try {
 			file.transferTo(new File("D:/PIAimages/head/" + file.getOriginalFilename()));
@@ -43,7 +46,7 @@ public class UserAction {
 	}
 	
 	// 保存新增用户信息
-	@RequestMapping("save")
+	@RequestMapping("save.do")
 	public Result save(@Valid User user, Errors errors) {
 		if(us.isExist("name", user.getName()) == 0) {
 			//用户名被占用
@@ -63,9 +66,11 @@ public class UserAction {
 	}
 	
 	// 获取用户购物信息
-	@RequestMapping("queryAddress")
+	@RequestMapping("queryAddress.do")
 	public EasyUIPage queryAddress(int uid, int page, int rows) {
 		Page<User> p = us.queryAddress(uid, page, rows);
 		return new EasyUIPage(p.getTotal(), p.getResult());
 	}
+	
+	
 }

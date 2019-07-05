@@ -33,23 +33,10 @@
 		$('#dlg').dialog('open');
 	}
 	
-	//新增时，ajax判断用户名和邮箱是否被占用
-	/* $(function() {
-		//用户名判断
-		$('#exist').next('span').children().first().blur(function(){
-			$.post("user/save",{
-				name : $('#exist').val()
-			},function(data){
-				data = JSON.parse(data);
-				if(data)
-			});
-		});
-	}); */
-	
 	// 保存编辑信息
 	function save(){
 		$('#ff').form('submit',{
-			url: "user/save",
+			url: "save.do",
 			onSubmit: function(){
 				//扩展参数
 			},
@@ -72,7 +59,6 @@
 		});
 	}
 	
-	
 	// 头像格式化
 	function fmtimgs(value, row, index){
 		return '<img src="'+value+'" height="50px"/>';
@@ -86,7 +72,7 @@
 		
 		//将用户的uid传给控制器，利用uid查出其地址信息
 		$('#fff').datagrid({
-			url:'/user/queryAddress',
+			url:'queryAddress.do',
 		    queryParams:{
 		        uid : row.id,
 		        state:'ok'
@@ -100,7 +86,7 @@
 	// 文件上传
 	function upload(){
 		$.ajax({
-	        url: "/user/upload",
+	        url: "upload.do",
 	        type: 'POST',
 	        cache: false,
 	        data: new FormData($('#ff')[0]),
@@ -126,7 +112,7 @@
 </script>
 </head>
 <body>
-	<!-- 数据表格，展示博文基础信息 -->
+	<!-- 数据表格 -->
 	<table class="easyui-datagrid" id="dg" data-options="
 		fitColumns: true,
 		singleSelect: true,
@@ -134,7 +120,7 @@
 		pagination: true,
 		pageSize: 5,
 		pageList: [5,10,20],
-		url: 'user/query',
+		url: 'query.do',
 		rownumbers: true,
 		toolbar:'#tb'">
 	    <thead>

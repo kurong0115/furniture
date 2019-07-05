@@ -5,6 +5,11 @@
     <id column="wid" jdbcType="INTEGER" property="wid" />
     <result column="pid" jdbcType="INTEGER" property="pid" />
     <result column="uid" jdbcType="INTEGER" property="uid" />
+    <association property="product" column="pid" fetchType="lazy" 
+        javaType="com.house.furniture.bean.Product" 
+        select="com.house.furniture.dao.ProductMapper.selectByPrimaryKey" autoMapping="true">
+        <id column="pid" property="pid"/>    
+    </association>
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>

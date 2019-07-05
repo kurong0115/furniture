@@ -46,7 +46,7 @@ public class LoginRegisterAction {
 	public Result login(String username, String password, String code,  HttpSession session, HttpServletRequest request,Model model) {
 		String msg = "";
 		// 根据用户名和密码查询
-		User user = userservice.login(username, password);
+		User user = userservice.login(username, MyUtils.getMD5String(password));
 		// 获取正确的验证码
 		String valCode = (String) session.getAttribute("code");
 		if (code.trim().equals(valCode.trim())) {// 判断验证码是否输入正确
@@ -136,7 +136,7 @@ public class LoginRegisterAction {
 			User user2 = new User();
 				user2 = userservice.selectByEmail(email);
 			if( user2 == null ) {
-				Integer result =  userservice.reg(username, password, email);
+				Integer result =  userservice.reg(username, MyUtils.getMD5String(password), email);
 				if( result == 1 ) {
 					msg = "注册成功!";
 					return new Result(Result.EXECUTION_SUCCESS, msg);
@@ -169,7 +169,7 @@ public class LoginRegisterAction {
 			return new Result(Result.EXECUTION_FAILED, msg);
 		}
 		//将新的密码设置到用户里面
-		user.setPassword(password);
+		user.setPassword(MyUtils.getMD5String(password));
 		Integer result = userservice.resertPassword(user);
 		if( result == 1 ) {
 			msg = "修改成功!";

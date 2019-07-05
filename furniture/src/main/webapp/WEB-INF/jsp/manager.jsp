@@ -31,9 +31,22 @@ var dt = [{
 	children: [{
 	    text: '用户管理',
 	    iconCls: 'icon-search',
-	    url:"userMgr"
+	    url:"manage-user.do"
 	},{
 	    text: '货品管理',
+	    iconCls: 'icon-search',
+	    url:"???"
+	}]
+},{
+	text: '用户留言',
+	iconCls: 'icon-sum',
+	state: 'close',
+	children: [{
+	    text: '未回复',
+	    iconCls: 'icon-search',
+	    url:"manage-noReply.do"
+	},{
+	    text: '已回复',
 	    iconCls: 'icon-search',
 	    url:"???"
 	}]

@@ -145,14 +145,13 @@
                                    
                                    </li>
                                    <li><a href="shop">配饰  <span>hot</span> </a></li>
-                                   <li><a href="contact-us"> 联系我们 </a></li>
+                                   <li><a href="contact-us.do"> 联系我们 </a></li>
                                    <li class="angle-shape"><a href="#">更多 </a>
                                        <ul class="submenu">
                                            <li><a href="about-us.do">关于我们 </a></li>
                                            <li><a href="seeCart">购物车 </a></li>
                                            <li><a href="compare-page">对比 </a></li>
-                                           <li><a href="wishlist">愿望清单 </a></li>
-                                           <li><a href="contact-us">联系我们</a></li>    
+                                           <li><a href="wishlist.html">愿望清单 </a></li>
                                            <c:if test="${user  == null}">
                                            		<li><a href="login-register">登录/注册 </a></li>
                                            </c:if>
