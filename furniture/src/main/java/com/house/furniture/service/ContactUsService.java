@@ -26,4 +26,10 @@ public interface ContactUsService {
 	 * @return
 	 */
 	public Page<Message> noReplyMessages(Message message, int page, int size);
+	
+	/**
+	 * 回复用户的消息
+	 * @param message
+	 */
+	public void replyMessage(Message message);
 }

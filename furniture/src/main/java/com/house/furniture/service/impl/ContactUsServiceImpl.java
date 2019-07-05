@@ -67,4 +67,10 @@ public class ContactUsServiceImpl implements ContactUsService {
 		messageMapper.selectByExample(me);
 		return p;
 	}
+
+	@Override
+	public void replyMessage(Message message) {
+		message.setReplytime(new Timestamp(System.currentTimeMillis()));
+		messageMapper.updateByPrimaryKeySelective(message);
+	}
 }

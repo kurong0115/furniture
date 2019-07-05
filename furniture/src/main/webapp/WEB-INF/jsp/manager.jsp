@@ -30,11 +30,11 @@ var dt = [{
 	state: 'open',
 	children: [{
 	    text: '用户管理',
-	    iconCls: 'icon-search',
+	    iconCls: 'icon-reload',
 	    url:"manage-user.do"
 	},{
 	    text: '货品管理',
-	    iconCls: 'icon-search',
+	    iconCls: 'icon-reload',
 	    url:"???"
 	}]
 },{
@@ -43,12 +43,12 @@ var dt = [{
 	state: 'close',
 	children: [{
 	    text: '未回复',
-	    iconCls: 'icon-search',
+	    iconCls: 'icon-reload',
 	    url:"manage-noReply.do"
 	},{
 	    text: '已回复',
-	    iconCls: 'icon-search',
-	    url:"???"
+	    iconCls: 'icon-reload',
+	    url:"manage-reply.do"
 	}]
 }];
 </script>
