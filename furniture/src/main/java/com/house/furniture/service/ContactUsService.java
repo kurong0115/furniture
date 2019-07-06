@@ -22,8 +22,14 @@ public interface ContactUsService {
 	public Result sendInfo(Message message);
 	
 	/**
-	 * 所有未回复的用户留言
+	 * 根据flag值分别查已回复和未回复的信息
 	 * @return
 	 */
-	public Page<Message> noReplyMessages(Message message, int page, int size);
+	public Page<Message> getMessages(Message message, int page, int size, int flag);
+	
+	/**
+	 * 回复用户的消息
+	 * @param message
+	 */
+	public void replyMessage(Message message);
 }

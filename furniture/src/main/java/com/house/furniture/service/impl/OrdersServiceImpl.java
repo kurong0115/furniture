@@ -6,7 +6,6 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.github.pagehelper.PageHelper;
 import com.house.furniture.bean.Address;
 import com.house.furniture.bean.Orders;
 import com.house.furniture.bean.OrdersExample;

@@ -51,10 +51,14 @@ public class ContactUsServiceImpl implements ContactUsService {
 	}
 
 	@Override
-	public Page<Message> noReplyMessages(Message message, int page, int size) {
+	public Page<Message> getMessages(Message message, int page, int size, int flag) {
 		MessageExample me = new MessageExample();
 		Criteria c = me.createCriteria();
-		c.andReplyIsNull();
+		if(flag == 0) {	//查找未回复信息
+			c.andReplyIsNull();
+		}else {	//已回复信息
+			c.andReplyIsNotNull();
+		}
 		
 		if(message.getName() != null && !message.getName().isEmpty()) {
 			c.andNameLike("%" + message.getName() + "%");
@@ -66,5 +70,11 @@ public class ContactUsServiceImpl implements ContactUsService {
 		Page<Message> p = PageHelper.startPage(page, size);
 		messageMapper.selectByExample(me);
 		return p;
+	}
+
+	@Override
+	public void replyMessage(Message message) {
+		message.setReplytime(new Timestamp(System.currentTimeMillis()));
+		messageMapper.updateByPrimaryKeySelective(message);
 	}
 }
