@@ -244,6 +244,7 @@ public class LoginRegisterAction {
 	
 	@GetMapping("QQLogin")
 	public String QQLogin() {
+		
 		return "QQLogin";
 	}
 }

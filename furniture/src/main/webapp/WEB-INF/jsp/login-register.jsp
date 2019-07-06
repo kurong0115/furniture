@@ -14,6 +14,7 @@
    	<!-- 引入login-register.js文件 -->
 	<script src="assets/js/login-register.js"></script>
 	<script src="assets/js/forgetPassword.js"></script>
+	
 	<!-- 引入QQ登录js文件 -->
 	<script type="text/javascript"  charset="utf-8"
 	    src="http://connect.qq.com/qc_jssdk.js"
