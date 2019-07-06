@@ -14,6 +14,12 @@
    	<!-- 引入login-register.js文件 -->
 	<script src="assets/js/login-register.js"></script>
 	<script src="assets/js/forgetPassword.js"></script>
+	<!-- 引入QQ登录js文件 -->
+	<script type="text/javascript"  charset="utf-8"
+	    src="http://connect.qq.com/qc_jssdk.js"
+	    data-appid="101701345"
+	    data-redirecturi="http://127.0.0.1:8080/QQLogin"
+	></script>
 
 </head>
 
@@ -61,9 +67,16 @@
                                                 <div class="login-toggle-btn">
                                                     <a href="forgetPassword">忘记密码/账号?</a>
                                                 </div>
-                                                <button type="button" onclick="login()">登录</button>
+                                                <button type="button" onclick="login()">登录</button>      					
                                             </div>
                                         </form>
+                                        <br><br><br>
+                                        <span id="qqLoginBtn"></span>
+											<script type="text/javascript">
+											    QC.Login({
+											       btnId:"qqLoginBtn"	//插入按钮的节点id
+											});
+											    </script>
                                     </div>
                                 </div>
                             </div>  

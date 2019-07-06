@@ -245,4 +245,9 @@ public class LoginRegisterAction {
 	public String createCode() {
 		return "common/createCode";
 	}
+	
+	@GetMapping("QQLogin")
+	public String QQLogin() {
+		return "QQLogin";
+	}
 }

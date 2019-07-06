@@ -340,4 +340,8 @@
 	order by createtime desc
 	limit #{num}
   </select>
+  
+  <update id="updateScore" parameterType="int" >
+    update product set score = (select ceil(AVG(LEVEL)) from remark where pid = #{pid}) where pid = #{pid};
+  </update>
 </mapper>

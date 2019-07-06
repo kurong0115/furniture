@@ -17,7 +17,8 @@ public interface RemarkService {
 	 * 保存评论
 	 * @param remark
 	 * @return
+	 * @throws ServiceException 
 	 */
-	int saveRemark(Remark remark);
+	int saveRemark(Remark remark) throws ServiceException;
 
 }
