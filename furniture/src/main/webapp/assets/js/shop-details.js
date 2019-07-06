@@ -130,7 +130,7 @@
 			item = item + "max=" + max + "&";
 
 			item = item + "cid=" + $("#categoryid").val();
-			
+			item = item + "&" + "page=" + $("#pageNum").val();
 			$.ajax({
 				url : 'item.do?' + item,
 				method : "get",
@@ -145,6 +145,9 @@
 							setShop1(data.data[i]);
 							setShop2(data.data[i]);
 						}
+						setPage(data);
+						$("#pageNum").val(data.page);
+						$("#totalPage").val(data.totalPage);
 					}
 				},
 				error : function(data) {
@@ -210,8 +213,59 @@
 			})
 		}
 		
+		function prevPage(){
+			var currentPage = parseInt($("#pageNum").val());
+			if (currentPage > 1){
+				$("#pageNum").val(parseInt(currentPage - 1));
+			} else{
+				$("#pageNum").val(1);
+			}
+			getAllSelect();
+		}
+		
+		function nextPage(){
+			var currentPage = parseInt($("#pageNum").val());
+			var totalPage = parseInt($("#totalPage").val());
+			if (currentPage < totalPage){
+				$("#pageNum").val(parseInt(currentPage) + 1);
+			} else{
+				$("#pageNum").val(totalPage);
+			}
+			getAllSelect();
+		}
+		
+		function firstPage(){
+			$("#pageNum").val(1);
+			getAllSelect();
+		}
+		
+		function lastPage(){
+			$("#pageNum").val($("#totalPage").val());
+			getAllSelect();
+		}
+		
+		function gotoPage(pageNum){
+			$("#pageNum").val(pageNum);
+			getAllSelect();
+		}
+		
+		function setPage(data){
+			$("#page-field").empty();
+			$("#page-field").append('<li><a href="javascript:firstPage()">首页</a></li>');
+			$("#page-field").append('<li><a class="prev" href="javascript:prevPage()"><i class="sli sli-arrow-left"></i></a></li>');
+			if (data.page>1){
+				$("#page-field").append('<li><a href="javascript:gotoPage('+ parseInt(data.page - 1) + ')">' + parseInt(data.page - 1) + '</a></li>');
+			}
+			$("#page-field").append('<li><a class="active" href="#">'+data.page+'</a></li>');
+			if (data.page < data.totalPage){
+				$("#page-field").append('<li><a href="javascript:gotoPage(' + parseInt(data.page + 1) + ')">' + parseInt(data.page + 1) + '</a></li>');
+			}
+			$("#page-field").append('<li><a class="next"  href="javascript:nextPage()"><i class="sli sli-arrow-right"></i></a></li>');
+			$("#page-field").append('<li><a href="javascript:lastPage()">末页</a></li>');
+		}
+		
 		function setShop1(data) {
-			var grid;
+			var grid = '';
 			grid=grid+'<span class="ht-product-user-ratting" style="width: 100%;">';
 			
 			for(var i = 0; i < data.score; i++){
@@ -221,7 +275,7 @@
 			for(var i = 0; i < data.score; i++){
 				grid = grid+'<i class="sli sli-star"></i>';
 			}
-			for(var i = data.score; i < 4; i++){
+			for(var i = data.score; i < 5; i++){
 				grid = grid+'<i class="sli sli-star"></i>';
 			}
 			$("#gridList")
@@ -259,19 +313,7 @@
 									+ '</div>'
 									+ '<div class="ht-product-ratting-wrap">'
 									+ '<span class="ht-product-ratting">'
-									+ '<span class="ht-product-user-ratting" style="width: 100%;">'
-									+ '<i class="sli sli-star"></i>'
-									+ '<i class="sli sli-star"></i>'
-									+ '<i class="sli sli-star"></i>'
-									+ '<i class="sli sli-star"></i>'
-									+ '<i class="sli sli-star"></i>'
-									+ '</span>'
-									+ '<i class="sli sli-star"></i>'
-									+ '<i class="sli sli-star"></i>'
-									+ '<i class="sli sli-star"></i>'
-									+ '<i class="sli sli-star"></i>'
-									+ '<i class="sli sli-star"></i>'
-									+ '</span>'
+									+ grid
 									+ '</div>'
 									+ '</div>'
 									+ '<div class="ht-product-action">'
@@ -292,6 +334,17 @@
 		}
 
 		function setShop2(data) {
+			var grid = '';
+			grid = grid + '<span class="ht-product-list-ratting">';
+			for(var i = 0; i < data.score; i++){
+				grid = grid+'<i class="sli sli-star"></i>';
+			}              	                                                                     
+			grid = grid + '</span>';
+			for(var i = data.score; i < 5; i++){
+				grid = grid + '&nbsp;&nbsp;<i class="sli sli-star"></i>';
+			}
+                
+           
 			$("#shop-2")
 					.append(
 							'<div class="shop-list-wrap shop-list-mrg2 shop-list-mrg-none mb-30">'
@@ -324,13 +377,7 @@
 									+ data.price
 									+ '</span>'
 									+ '</div>'
-									+ '<div class="ht-product-list-ratting">'
-									+ '<i class="sli sli-star"></i>'
-									+ '<i class="sli sli-star"></i>'
-									+ '<i class="sli sli-star"></i>'
-									+ '<i class="sli sli-star"></i>'
-									+ '<i class="sli sli-star"></i>'
-									+ '</div>'
+									+ grid
 									+ '</div>'
 									+ '<div class="ht-product-list-action">'
 									+ '<a class="list-wishlist" title="添加到愿望清单" href="#" onclick="addWishlist('+data.pid+')"><i class="sli sli-heart"></i></a>'

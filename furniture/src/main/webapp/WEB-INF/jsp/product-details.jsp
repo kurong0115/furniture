@@ -132,31 +132,34 @@
 								
 								<div id="des-details2" class="tab-pane">
 									<div class="review-wrapper">
-									   <c:forEach items="${remarks }" var="remark">
+									
+                                            
+									    <c:forEach items="${remarks }" var="remark">
 									       <div class="single-review">
-                                            <div class="review-img">
-                                                <c:if test="${remark.user.head == null || remark.user.head == '' }">
-                                                    <img src="assets/img/product-details/client-1.jpg" alt="">
-                                                </c:if>
-                                               <c:if test="${remark.user.head != '' }">
-                                                    <img src="${remark.user.head }" alt="">
-                                                </c:if>
-                                            </div>
-                                            <div class="review-content">
-                                                <p>${remark.content }</p>
-                                                <div class="review-top-wrap">
-                                                    <div class="review-name">
-                                                        <h4>${remark.user.name }</h4>
+                                                <div class="review-img">
+                                                    <c:if test="${remark.user.head == null || remark.user.head == '' }">
+                                                        <img src="assets/img/product-details/client-1.jpg" alt="">
+                                                    </c:if>
+                                                   <c:if test="${remark.user.head != '' }">
+                                                        <img src="${remark.user.head }" alt="">
+                                                    </c:if>
+                                                    <input type="hidden" value="${msg }" id="remarkMessage"/>  
+                                                </div>
+                                                <div class="review-content">
+                                                    <p>${remark.content }</p>
+                                                    <div class="review-top-wrap">
+                                                        <div class="review-name">
+                                                            <h4>何浩</h4>
+                                                        </div>
+                                                        <div class="review-rating" style="float: right;">
+                                                            <c:forEach begin="1" end="${remark.level }">
+                                                                <i class="sli sli-star"></i>
+                                                            </c:forEach>                                                       
+                                                        </div>                                                   
                                                     </div>
-                                                    <div class="review-rating">
-                                                        <c:forEach begin="1" end="${remark.level }">
-                                                            <i class="sli sli-star"></i>
-                                                        </c:forEach>                                                       
-                                                    </div>                                                   
                                                 </div>
                                             </div>
-                                        </div>
-									   </c:forEach>																													
+									   </c:forEach>	 																											
 									</div>
 									<c:if test="${operationList!=null }">
                                         <div class="ratting-form-wrapper">
@@ -193,7 +196,7 @@
                                         </div>
                                     </div>
                                         <div class="ratting-form">
-                                            <input type="hidden" value="${msg }" id="remarkMessage"/>  
+                                            
                                             <form action="addRemark" method="get" onsubmit="return check();">
 	                                            <div class="row">
 	                                                <div class="col-md-12">
@@ -402,8 +405,9 @@
 	    }
 	    
 	    function check(){
-	    	var content = $("#remark-content").text();    
-	    	if (content == "" || contentlength < 10){
+	    	var content = $("#remark-content").val();    
+	    	alert(content);
+	    	if (content == "" || content.length < 10){
 	    		getInfoMsg("内容过短");
 	    		return false;
 	    	}

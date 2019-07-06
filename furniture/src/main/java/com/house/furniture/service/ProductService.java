@@ -52,4 +52,22 @@ public interface ProductService {
 	 * @return
 	 */
 	List<Product> listProductByCategoryName(int num, String name);
+	
+	/**
+	 * 获取当前类别下的所有的产品数量
+	 * @param cid
+	 * @return
+	 */
+	Long getProductSize(int cid);
+	
+	/**
+	 * 获取当前条件下的所有记录数
+	 * @param onSale
+	 * @param newProduct
+	 * @param min
+	 * @param max
+	 * @param cid
+	 * @return
+	 */
+	Long getItemSize(String onSale, String newProduct, double min, double max, int cid);
 }
