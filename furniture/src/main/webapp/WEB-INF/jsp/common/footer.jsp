@@ -6,12 +6,12 @@
 		<div class="footer-top text-center pt-45 pb-45">
 			<nav>
 				<ul>
-					<li><a href="#">首页 </a></li>
-					<li><a href="#">商城 </a></li>
-					<li><a href="#">配饰 </a></li>
-					<li><a href="#">联系我们 </a></li>
-					<li><a href="#">更多 </a></li>
-					<li><a href="#">博客 </a></li>
+					<li><a href="index">首页 </a></li>
+					<li><a href="shop">商城 </a></li>
+					<li><a href="shop">配饰 </a></li>
+					<li><a href="contact-us.do">联系我们 </a></li>
+					<li><a href="about-us.do">更多 </a></li>
+					<li><a href="blog.do">博客 </a></li>
 				</ul>
 			</nav>
 		</div>

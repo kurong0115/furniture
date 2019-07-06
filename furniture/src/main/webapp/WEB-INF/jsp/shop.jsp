@@ -6,7 +6,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
-<title>OURHOUSE-商品</title>
+<title>Our House-商城</title>
 
 <!-- 引入首部链接 -->
 <%@include file="common/header_link.jsp"%>

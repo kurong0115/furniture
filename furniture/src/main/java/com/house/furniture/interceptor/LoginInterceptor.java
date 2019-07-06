@@ -19,7 +19,7 @@ public class LoginInterceptor implements HandlerInterceptor{
 		
 		HttpSession session = request.getSession();
 		User user = (User)session.getAttribute("user");
-		if (user == null) {			
+		if (user == null) {
 	        if("XMLHttpRequest".equalsIgnoreCase(request.getHeader("X-Requested-With"))){
 	            response.setHeader("REDIRECT", "REDIRECT");
 	            response.setHeader("CONTENTPATH", request.getContextPath() + "/login-register");
@@ -36,10 +36,10 @@ public class LoginInterceptor implements HandlerInterceptor{
 //					session.setAttribute("callbackPath", callbackPath);
 //					session.setAttribute("callbackMap", newmap);
 //				}
-	            response.sendRedirect(request.getContextPath() + "/login-register");
+	    		response.sendRedirect(request.getContextPath() + "/login-register");
 	        }					
 			return false;
-		} 
+		}
 		return true;
 	}
 
@@ -54,6 +54,4 @@ public class LoginInterceptor implements HandlerInterceptor{
 			throws Exception {
 		HandlerInterceptor.super.afterCompletion(request, response, handler, ex);
 	}
-	
-
 }

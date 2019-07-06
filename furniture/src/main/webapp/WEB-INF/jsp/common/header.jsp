@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <header class="header-area sticky-bar">
 
 		<script type="text/javascript">
@@ -98,7 +98,7 @@
 		
 		/* 用户注销 */
 		function loginOut(){
-			var flag = confirm("您确认注销当前账号吗？");
+			var flag = confirm("您确认注销当前账号？");
 			return flag;
 		}
 		
@@ -138,15 +138,16 @@
                        <div class="main-menu">
                            <nav>
                                <ul>
+                               		<li></li>
+                               		<li></li>
                                    <li class="angle-shape"><a href="index">首页 </a>
                                    
                                    </li>
-                                   <li class="angle-shape"><a href="shop"> 商城 <span>new</span> </a>
+                                   <li class="angle-shape"><a href="shop"> 商城 <span>hot</span> </a>
                                    
                                    </li>
-                                   <li><a href="shop">配饰  <span>hot</span> </a></li>
                                    <li><a href="contact-us.do"> 联系我们 </a></li>
-                                   <li class="angle-shape"><a href="#">更多 </a>
+                                   <li class="angle-shape"><a href="javascript:void(0)">更多 </a>
                                        <ul class="submenu">
                                            <li><a href="about-us.do">关于我们 </a></li>
                                            <li><a href="seeCart">购物车 </a></li>
