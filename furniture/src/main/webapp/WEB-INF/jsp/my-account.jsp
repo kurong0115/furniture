@@ -8,13 +8,7 @@
     <title>我的账户</title>  
     <!-- 引入首部链接 -->
     <%@include file="common/header_link.jsp" %>
-    <script type="text/javascript" src="convinces/js/jquery.js"></script>
-	<script type="text/javascript" src="convinces/js/area.js"></script>
-	<script type="text/javascript" src="convinces/js/location.js"></script>
-	<script type="text/javascript" src="convinces/js/select2.js"></script>
-	<script type="text/javascript" src="convinces/js/select2_locale_zh-CN.js"></script>
-	<link href="convinces/css/common.css" rel="stylesheet"/>
-	<link href="convinces/css/select2.css" rel="stylesheet"/>
+
 </head>
 <body>
 <div class="wrapper">
@@ -114,6 +108,10 @@
 													</button>
 												</div>
 												
+												<font id="orderNo" style="width: 100%;background: #eceff8;line-height: 50px;text-align: center;font-weight: 900"></font>
+												
+												<div class="ystep4" style="text-align: center;"></div>
+												
 												<div class="modal-body">
 													<div class="row">
 														<table class="table table-bordered" id="ordersTable">
@@ -130,7 +128,6 @@
 
 		                                                    </tbody>
 		                                                </table>
-														
 													</div>
 												</div>
 											</div>
@@ -183,15 +180,22 @@
 												</div>
 												<div class="modal-body">
 													<div class="row">
-			                                        <form action="" method="post">
-			                                            <input id="addressName" placeholder="姓名" type="text">
-			                                             <input id="addressPhone" placeholder="电话" type="text">
-			                                              <input id="addressDetails" placeholder="详细地址" type="text">
-			                                            <div class="button-box">
-			                                                <button type="button" onclick="" style="margin-left: 410px">确认添加</button>
-			                                            </div>
+			                                        <form action="" method="post" style="width: 100%;text-align: center;">
+			                                            <input id="addressName" placeholder="姓名" type="text" style="width: 50%;background: white;border-radius: 25px;">
+			                                            <input id="addressPhone" placeholder="电话" type="text" style="width: 50%;background: white;margin-top: 20px;margin-bottom:20px;border-radius: 25px;">
+			                                            <br/>
+			                                            <select id="loc_province" style="width:120px;">
+													    </select>
+													    <select id="loc_city" style="width:120px; margin-left: 10px">
+													    </select>
+													    <select id="loc_town" style="width:120px;margin-left: 10px">
+													    </select>
+													    <br/>
+			                                            <input id="addressDetails" placeholder="详细地址" type="text" style="width: 50%;background: white;margin-top: 20px;border-radius: 25px;">
+			                                            <br/>
+			                                            <button type="button" onclick="addAddress()" id="addAddr">确认添加</button>
 			                                        </form>
-			                                        
+
 							                      </div>
 												</div>
 											</div>

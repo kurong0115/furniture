@@ -41,7 +41,7 @@
                         	<c:if test="${reason==null }">
 	                            <div class="your-order-wrap gray-bg-4" style="text-align: center;">
 									<img alt="" src="assets/img/produceOrderSucceed.jpg">
-									<p style="font-size: 20px;color:b0b0b0;">订购成功，订单编号为[${param.out_trade_no }]</p>
+									<p style="font-size: 20px;color:b0b0b0;">订购成功，订单编号为[${orderNo }]</p>
 									<p>您可以在 [<a href="my-account">我的账户</a>] 中查看订单</p>
 	                            </div>
 							</c:if>

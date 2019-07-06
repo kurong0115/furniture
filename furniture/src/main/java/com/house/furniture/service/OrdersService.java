@@ -26,6 +26,9 @@ public interface OrdersService {
 
 	//更新订单
 	void updateOrders(Orders order);
+	
+	//根据订单id查询订单状态
+	Orders selectById(Integer id);
 
 	
 

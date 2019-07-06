@@ -6,7 +6,6 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.github.pagehelper.PageHelper;
 import com.house.furniture.bean.Address;
 import com.house.furniture.bean.Orders;
 import com.house.furniture.bean.OrdersExample;
@@ -57,6 +56,14 @@ public class OrdersServiceImpl implements OrdersService {
 	public void updateOrders(Orders order) {
 		orderMapper.updateByPrimaryKeySelective(order);
 		
+	}
+
+
+	@Override
+	public Orders selectById(Integer id) {
+		Orders order = orderMapper.selectByPrimaryKey(id);
+		
+		return order;
 	}
 
 }

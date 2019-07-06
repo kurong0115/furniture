@@ -21,4 +21,9 @@ public class Manager {
 		return "manage-noReply";
 	}
 	
+	@RequestMapping("manage-reply.do")
+	public String reply() {
+		return "manage-reply";
+	}
+	
 }
