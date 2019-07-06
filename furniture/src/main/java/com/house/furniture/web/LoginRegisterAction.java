@@ -50,6 +50,7 @@ public class LoginRegisterAction {
 		// 获取正确的验证码
 		String valCode = (String) session.getAttribute("code");
 		if (code.trim().equals(valCode.trim())) {// 判断验证码是否输入正确
+			
 			if (user == null) {// 登录失败
 				msg = "用户名或者密码输入错误！";
 				return new Result(Result.EXECUTION_FAILED, msg);
@@ -75,6 +76,9 @@ public class LoginRegisterAction {
 					
 					String path = (String) session.getAttribute("callbackPath");
 					if(path.equals("/error")) {
+						return new Result(Result.EXECUTION_SUCCESS, msg,null);
+					}
+					if(path.equals("/null")) {
 						return new Result(Result.EXECUTION_SUCCESS, msg,null);
 					}
 					if(path.equals("/addCart")) {

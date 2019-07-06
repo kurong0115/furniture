@@ -68,4 +68,26 @@ public class ProductServiceImpl implements ProductService {
 	public List<Product> listProductByCategoryName(int num, String name) {
 		return productMapper.listProductByCategoryName(num, name);
 	}
+
+	@Override
+	public Long getProductSize(int cid) {
+		ProductExample example = new ProductExample();
+		example.createCriteria().andCidEqualTo(cid);		
+		return productMapper.countByExample(example);
+	}
+
+	@Override
+	public Long getItemSize(String onSale, String newProduct, double min, double max, int cid) {
+		ProductExample example = new ProductExample();
+		Criteria criteria = example.createCriteria();
+		if (onSale != null && "check".equals(onSale.trim())) {
+			criteria.andStockGreaterThan(0);
+		}
+		if (newProduct != null && "check".equals(newProduct.trim())) {
+			criteria.andCreatetimeGreaterThan(new Timestamp(System.currentTimeMillis() - 7 * 24 * 60 * 60 * 1000));
+		}
+		criteria.andPriceBetween(min, max);
+		criteria.andCidEqualTo(cid);
+		return productMapper.countByExample(example);
+	}
 }

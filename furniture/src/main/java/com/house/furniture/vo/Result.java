@@ -1,6 +1,5 @@
 package com.house.furniture.vo;
 
-
 /**
  * 
  * 类描述: 用户返回结果的展示
@@ -15,6 +14,10 @@ public class Result {
 	private Integer code;
 	private String message;
 	private Object data;
+	private Integer page;
+	private Integer size;
+	private Long totalSize;
+	private Integer totalPage;
 	
 	public Result() {
 		super();			
@@ -32,7 +35,27 @@ public class Result {
 		this.message = message;
 		this.data = data;
 	}
-
+	
+	public Result(Integer code, String message, Integer page, Integer size, Object data, Long totalSize) {
+		super();
+		this.code = code;
+		this.message = message;
+		this.page = page;
+		this.size = size;
+		this.data = data;
+		this.totalSize = totalSize;
+		this.totalPage = (int) (totalSize % size == 0? totalSize / size:totalSize / size + 1);
+	}
+	
+	public Result(Integer page, Integer size, Object data, Long totalSize) {
+		super();
+		this.page = page;
+		this.size = size;
+		this.data = data;
+		this.totalSize = totalSize;
+		this.totalPage = (int) (totalSize % size == 0? totalSize / size:totalSize / size + 1);
+	}
+	
 	public Integer getCode() {
 		return code;
 	}
@@ -55,6 +78,38 @@ public class Result {
 
 	public void setData(Object data) {
 		this.data = data;
+	}
+
+	public Integer getPage() {
+		return page;
+	}
+
+	public void setPage(Integer page) {
+		this.page = page;
+	}
+
+	public Integer getSize() {
+		return size;
+	}
+
+	public void setSize(Integer size) {
+		this.size = size;
+	}
+
+	public Long getTotalSize() {
+		return totalSize;
+	}
+
+	public void setTotalSize(Long totalSize) {
+		this.totalSize = totalSize;
+	}
+
+	public Integer getTotalPage() {
+		return totalPage;
+	}
+
+	public void setTotalPage(Integer totalPage) {
+		this.totalPage = totalPage;
 	}
 	
 	

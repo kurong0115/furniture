@@ -8,7 +8,6 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Our House-博客</title>
-    
 	<!-- 引入首部链接 -->
     <%@include file="common/header_link.jsp" %>
 </head>

@@ -46,12 +46,10 @@ public class ShopAction {
 	@RequestMapping(value = "shop")
 	public String shop(@RequestParam(value = "cid", defaultValue = "1") int cid, Model model,
 			@RequestParam(value = "page", defaultValue = "1") int page,
-			@RequestParam(value = "size", defaultValue = "50") int size) {
-		
-		List<Product> productList = productService.listProductsByType(cid, page, size);
+			@RequestParam(value = "size", defaultValue = "15") int size) {
 		PageHelper.startPage(page, size);
-		model.addAttribute("productList", productList);
-		
+		List<Product> productList = productService.listProductsByType(cid, page, size);		
+		model.addAttribute("result", new Result(page, size, productList, productService.getProductSize(cid)));
 		return "shop";
 	}
 	
@@ -63,8 +61,10 @@ public class ShopAction {
 	 */
 	@GetMapping(value = "condition.do")
 	public String selectByCondition(@RequestParam(value = "condition", defaultValue = "") String condition, 
-			Model model) {
-		List<Product> productList = productService.listProductByCondition(condition);
+			Model model,@RequestParam(value = "page", defaultValue = "1") int page,
+			@RequestParam(value = "size", defaultValue = "15") int size) {
+		PageHelper.startPage(page, size);
+		List<Product> productList = productService.listProductByCondition(condition);		
 		model.addAttribute("productList", productList);
 		return "shop";
 	}
@@ -75,9 +75,14 @@ public class ShopAction {
 			@RequestParam(value = "newProduct", required = false) String newProduct,
 			@RequestParam(value = "min", defaultValue = "1") double min, 
 			@RequestParam(value = "max", defaultValue = "20000") double max, 
-			@RequestParam(value = "cid") int cid) {
-		List<Product> productList = productService.listProductByItem(onSale, newProduct, min, max, cid);
-		return new Result(Result.EXECUTION_SUCCESS, "", productList);
+			@RequestParam(value = "cid") int cid,
+			@RequestParam(value = "page", defaultValue = "1") int page,
+			@RequestParam(value = "size", defaultValue = "15") int size) {
+		PageHelper.startPage(page, size);
+		List<Product> productList = productService.listProductByItem(onSale, newProduct, min, max, cid);		
+//		return new Result(Result.EXECUTION_SUCCESS, "", productList);
+		return new Result(Result.EXECUTION_SUCCESS, 
+			"", page, size, productList, productService.getItemSize(onSale, newProduct, min, max, cid));
 	}
 	
 	@GetMapping(value = "quickView.do")

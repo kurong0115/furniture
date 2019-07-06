@@ -307,10 +307,16 @@
     </collection>
   </resultMap>
   
-  <select id="listProductsByCid" resultMap="listProductsByCidMap" parameterType="int">
-    select a.*,b.categoryname,c.imgid,c.imgpath
-    from product a,category b,image c
-    where a.pid=c.pid and a.cid=b.cid and a.cid=#{cid} order by score desc
+  <select id="listProductsByCid" resultMap="listProductsByCidMap" parameterType="int">      
+    select a.*,b.categoryname,c.imgpath
+    from
+      product a
+      join category b
+        on a.cid = b.cid
+      join
+        (select * from image group by pid) c
+        on a.pid = c.pid
+    where b.cid = #{cid} order by score desc
   </select>
   
   <!-- 自定义，根据类名查找相关产品信息 -->

@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
@@ -46,19 +47,13 @@ public class MyAccountAction {
 	@GetMapping("orderDetails")
 	@ResponseBody
 	public Result orderDetails(String orderid) {
-		System.out.println(orderid);
 		Orders order = orderService.selectById(Integer.parseInt(orderid));
-		System.out.println(order);
 		List<Operation> operation = operationService.selectByOrderid(Integer.parseInt(orderid));
-		System.out.println(operation);
 		List<Object> orderState = new ArrayList<Object>();
 		orderState.add(order);
 		orderState.add(operation);
 		return new Result(Result.EXECUTION_SUCCESS, "1", orderState);
 	}
-	
-	
-	
-	
+
 	
 }

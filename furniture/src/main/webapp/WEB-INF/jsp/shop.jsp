@@ -37,14 +37,14 @@
 						<div class="shop-top-bar">
 							<div class="select-shoing-wrap">
 								<div class="shop-select">
-									<select>
+									<!-- <select>
 										<option value="">按新品排序</option>
 										<option value="">s</option>
 										<option value="">Z to A</option>
 										<option value="">有货</option>
-									</select>
+									</select> -->
 								</div>
-								<p>Showing 1–12 of 20 result</p>
+								<p>总记录数：${result.totalSize }</p>
 							</div>
 							<div class="shop-tab nav">
 								<a class="active" href="#shop-1" data-toggle="tab"> <i
@@ -65,7 +65,7 @@
 
 										<!-- 货品循环显示 -->
 										<!--Product Start-->
-										<c:forEach items="${productList }" var="product">
+										<c:forEach items="${result.data }" var="product">
 											<div class="col-xl-4 col-md-6 col-lg-6 col-sm-6">
 												<div
 													class="ht-product ht-product-action-on-hover ht-product-category-right-bottom mb-30">
@@ -149,14 +149,14 @@
 									</div>
 								</div>
 
-								<input type="hidden" value="${productList.get(0).category.cid }"
+								<input type="hidden" value="${result.data.get(0).category.cid }"
 									id="categoryid">
 
 								<!-- 列表展示货品 -->
 								<div id="shop-2" class="tab-pane">
 
 									<!-- 货品循环显示 -->
-									<c:forEach items="${productList }" var="product">
+									<c:forEach items="${result.data }" var="product">
 										<div
 											class="shop-list-wrap shop-list-mrg2 shop-list-mrg-none mb-30">
 											<div class="row">
@@ -195,7 +195,7 @@
 	                                                                    </c:forEach>    	                                                                     
 			                                                        </span>
 		                                                              <c:forEach begin="${product.score }" end="4">
-                                                                            &nbsp;<i class="sli sli-star"></i>
+                                                                            &nbsp;&nbsp;<i class="sli sli-star"></i>
                                                                       </c:forEach> 
 		                                                        
 															</div>
@@ -218,14 +218,23 @@
 							</div>
 
 							<!-- 分页 -->
-							<div class="pro-pagination-style text-center mt-30">
-								<ul>
-									<li><a class="prev" href="#"><i
+							<div class="pro-pagination-style text-center mt-30" >
+							    <input type="hidden" value="1" id="pageNum">
+							    <input type="hidden" value="1" id="totalPage">
+								<ul id="page-field">
+								    <li><a href="shop?cid=${result.data.get(0).category.cid }&page=1">首页</a></li>
+									<li><a class="prev" href="shop?cid=${result.data.get(0).category.cid }&page=${result.page-1>0?result.page-1:1 }"><i
 											class="sli sli-arrow-left"></i></a></li>
-									<li><a class="active" href="#">1</a></li>
-									<li><a href="#">2</a></li>
-									<li><a class="next" href="#"><i
+									<c:if test="${result.page-1>0 }">
+									   <li><a href="shop?cid=${result.data.get(0).category.cid }&page=${result.page-1>0?result.page-1:1 }">${result.page-1>0?result.page-1:1 }</a></li>
+									</c:if>								
+									<li><a class="active" href="#">${result.page }</a></li>									
+									<c:if test="${result.page<result.totalPage }">
+									   <li><a href="shop?cid=${result.data.get(0).category.cid }&page=${result.page+1 }">${result.page+1 }</a></li>
+									</c:if>
+									<li><a class="next" href="shop?cid=${result.data.get(0).category.cid }&page=${result.page+1<result.totalPage?result.page+1:result.totalPage }"><i
 											class="sli sli-arrow-right"></i></a></li>
+									<li><a href="shop?cid=${result.data.get(0).category.cid }&page=${result.totalPage }">末页</a></li>
 								</ul>
 							</div>
 						</div>
