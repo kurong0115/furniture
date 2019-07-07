@@ -20,7 +20,7 @@ public class WebConfigurer implements WebMvcConfigurer{
 			excludePathPatterns("/*.do","/createCode","/login-register",
 				"/shop", "/product-details", "/js/**", "/images/**", "/assets/**", "/PIAimages/**",
 				"/ckeditor/**","/index","/","/head/**", "/compare-page","/forgetPassword","/send",
-				"/QQLogin");
+				"/QQLogin", "/manage/**");
 	}
 
 	@Override
