@@ -26,4 +26,13 @@ public class Manager {
 		return "manage-reply";
 	}
 	
+	@RequestMapping("manage-category.do")
+	public String categoryManage() {
+		return "category-manage";
+	}
+	
+	@RequestMapping("manage-product.do")
+	public String productManage() {
+		return "product-manage";
+	}
 }
