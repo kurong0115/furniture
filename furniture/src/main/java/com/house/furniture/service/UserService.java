@@ -1,5 +1,7 @@
 package com.house.furniture.service;
 
+import java.util.List;
+
 import com.github.pagehelper.Page;
 import com.house.furniture.bean.User;
 
@@ -70,6 +72,16 @@ public interface UserService {
 	 * @param rows
 	 * @return
 	 */
+
 	Page<User> queryAddress(int uid, int page, int rows);
+	
+	/**
+	 * 根据用户名模糊查询
+	 * @param uid
+	 * @param page
+	 * @param rows
+	 * @return
+	 */
+	List<User> findUserLikeName(String uname);
 	
 }

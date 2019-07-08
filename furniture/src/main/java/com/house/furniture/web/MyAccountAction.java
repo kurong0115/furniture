@@ -38,6 +38,8 @@ public class MyAccountAction {
 		List<Orders> orders = orderService.selectByUid(user.getId());
 		//将用户的所有订单添加到会话中
 		model.addAttribute("myOrder", orders);
+		long count = orderService.getOrdersCount(user.getId());
+		model.addAttribute("count", count);
 		
 		List<Address> address = addressService.getAddrByUser(user);
 		model.addAttribute("addressList", address);
@@ -55,5 +57,11 @@ public class MyAccountAction {
 		return new Result(Result.EXECUTION_SUCCESS, "1", orderState);
 	}
 
-	
+	@PostMapping("seeOrderMore")
+	@ResponseBody
+	public Result seeOrderMore(@SessionAttribute("user")User user) {
+		long count = orderService.getOrdersCount(user.getId());
+		List<Orders> list = orderService.seeOrderMore(user.getId(),count);
+		return new Result(Result.EXECUTION_SUCCESS,"1",list);
+	}
 }

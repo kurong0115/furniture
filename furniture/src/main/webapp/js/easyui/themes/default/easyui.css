@@ -1741,7 +1741,7 @@
 }
 .datagrid-header-row,
 .datagrid-row {
-  height: 32px;
+  height: 40px;
 }
 .datagrid-header td,
 .datagrid-body td,

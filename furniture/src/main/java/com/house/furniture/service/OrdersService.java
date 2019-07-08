@@ -2,6 +2,7 @@ package com.house.furniture.service;
 
 import java.util.List;
 
+import com.github.pagehelper.Page;
 import com.house.furniture.bean.Address;
 import com.house.furniture.bean.Orders;
 
@@ -30,6 +31,16 @@ public interface OrdersService {
 	//根据订单id查询订单状态
 	Orders selectById(Integer id);
 
-	
+	//查询所有订单
+	Page<Orders> findOrdersByPage(Integer page, Integer rows,Orders order, List<Integer> uid, String createTime1, String createTime2);
+
+	//查询未处理的订单个数
+	int findOrderByisdeal();
+
+	//查看更多订单
+	List<Orders> seeOrderMore(Integer integer, long count);
+
+	//根据查询查询订单总数
+	long getOrdersCount(Integer id);	
 
 }

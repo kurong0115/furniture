@@ -7474,4 +7474,16 @@ h3.cart-page-title {
 	background-color: red;
 	color: white;
 }
+.comment{
+	width: 30%;
+	border-radius: 25px;
+	background: white;
+	line-height: 40px;
+	border: 2px solid #eceff8;
+}
+.comment:hover{
+	background-color: red;
+	color: white;
+}
+
 /*-------- Start My Account Page Wrapper --------*/

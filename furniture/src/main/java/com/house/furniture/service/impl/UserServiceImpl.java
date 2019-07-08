@@ -1,7 +1,6 @@
 package com.house.furniture.service.impl;
 
 import javax.annotation.Resource;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -14,7 +13,6 @@ import com.house.furniture.dao.UserMapper;
 import com.house.furniture.service.UserService;
 
 @Service
-@ComponentScan(basePackages = {"com.house.furniture.dao","com.house.furniture.bean"})
 public class UserServiceImpl implements UserService {
 
 	@Resource
@@ -120,6 +118,14 @@ public class UserServiceImpl implements UserService {
 		Page<User> p = PageHelper.startPage(page, rows);
 		address.selectByUid(uid);
 		return p;
+	}
+
+	@Override
+	public List<User> findUserLikeName(String uname) {
+		UserExample example = new UserExample();
+		example.createCriteria().andNameLike("%"+uname+"%");
+		List<User> list = userMapper.selectByExample(example);
+		return list;
 	}
 
 	

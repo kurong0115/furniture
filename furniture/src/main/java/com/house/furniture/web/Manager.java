@@ -26,4 +26,9 @@ public class Manager {
 		return "manage-reply";
 	}
 	
+	@RequestMapping("manage-orders.do")
+	public String orders() {
+		return "manage-orders";
+	}
+	
 }
