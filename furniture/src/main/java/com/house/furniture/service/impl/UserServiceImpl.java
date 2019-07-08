@@ -5,7 +5,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.house.furniture.bean.Address;
 import com.house.furniture.bean.User;
 import com.house.furniture.bean.UserExample;
 import com.house.furniture.bean.UserExample.Criteria;
@@ -13,6 +12,7 @@ import com.house.furniture.dao.AddressMapper;
 import java.util.List;
 import com.house.furniture.dao.UserMapper;
 import com.house.furniture.service.UserService;
+import com.house.furniture.util.MyUtils;
 
 @Service
 @ComponentScan(basePackages = {"com.house.furniture.dao","com.house.furniture.bean"})
@@ -121,6 +121,20 @@ public class UserServiceImpl implements UserService {
 		Page<User> p = PageHelper.startPage(page, rows);
 		address.selectByUid(uid);
 		return p;
+	}
+
+	@Override
+	public User selectByOpenID(String openId) {
+		UserExample userExample = new UserExample();
+		userExample.createCriteria().andOpenidEqualTo(openId);
+		List<User> user = userMapper.selectByExample(userExample);
+		return user.size() == 0 ? null : user.get(0);
+	}
+
+	@Override
+	public Integer regByUser(User user) {
+		Integer result = userMapper.insert(user);
+		return result;
 	}
 
 	

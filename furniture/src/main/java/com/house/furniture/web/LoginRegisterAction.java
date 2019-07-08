@@ -1,11 +1,17 @@
 package com.house.furniture.web;
 
+
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
@@ -15,19 +21,29 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.alibaba.fastjson.JSONObject;
 import com.house.furniture.bean.Cart;
 import com.house.furniture.bean.User;
 import com.house.furniture.service.CartService;
+import com.house.furniture.service.QQAuthService;
 import com.house.furniture.service.UserService;
 import com.house.furniture.util.MyUtils;
 import com.house.furniture.vo.Result;
+import com.qq.connect.QQConnectException;
+import com.qq.connect.api.OpenID;
+import com.qq.connect.api.qzone.UserInfo;
+import com.qq.connect.javabeans.AccessToken;
+import com.qq.connect.javabeans.qzone.UserInfoBean;
+import com.qq.connect.oauth.Oauth;
 
 @Controller
 @SessionAttributes(names= {"cartProductList","allSum"})
 public class LoginRegisterAction {
+	private Logger logger = LoggerFactory.getLogger(LoginRegisterAction.class);
 
 	@Resource
 	CartService cartservice;
@@ -50,6 +66,7 @@ public class LoginRegisterAction {
 		// 获取正确的验证码
 		String valCode = (String) session.getAttribute("code");
 		if (code.trim().equals(valCode.trim())) {// 判断验证码是否输入正确
+			
 			if (user == null) {// 登录失败
 				msg = "用户名或者密码输入错误！";
 				return new Result(Result.EXECUTION_FAILED, msg);
@@ -75,6 +92,9 @@ public class LoginRegisterAction {
 					
 					String path = (String) session.getAttribute("callbackPath");
 					if(path.equals("/error")) {
+						return new Result(Result.EXECUTION_SUCCESS, msg,null);
+					}
+					if(path.equals("/null")) {
 						return new Result(Result.EXECUTION_SUCCESS, msg,null);
 					}
 					if(path.equals("/addCart")) {
@@ -242,9 +262,42 @@ public class LoginRegisterAction {
 		return "common/createCode";
 	}
 	
+	
 	@GetMapping("QQLogin")
-	public String QQLogin() {
-		
+	public String QQLoginResult(HttpSession session) {	
 		return "QQLogin";
 	}
+
+	//qq授权后会回调此方法，并将code传过来
+	@PostMapping("QQLoginCallBack")
+	@ResponseBody
+    public Result getQQCode(String openId,HttpSession session){
+		String str="0123456789";
+		StringBuilder sb=new StringBuilder(4);
+		for(int i=0;i<4;i++){
+		char ch=str.charAt(new Random().nextInt(str.length()));
+			sb.append(ch);
+		}
+		String code = sb.toString();
+		User user = userservice.selectByOpenID(MyUtils.getMD5String(openId));
+		if( user == null ) {
+			User QQUser = new User();
+			QQUser.setOpenid(MyUtils.getMD5String(openId));
+			QQUser.setEmail("869872053@qq.com");
+			QQUser.setName("QQ用户"+code);
+			QQUser.setPassword(MyUtils.getMD5String("123"));
+			Integer regResult = userservice.regByUser(QQUser);
+			if( regResult>0 ) {
+				session.setAttribute("user", QQUser);
+				sendMail("869872053@qq.com", "OurHouse邮件", "自动注册成功！您的用户名为：QQ用户"+code+",密码：123,请及时修改！");
+				return new Result(Result.EXECUTION_SUCCESS,"注册成功！您的用户名为：QQ用户"+code+",密码：123,请及时修改！");
+			}
+		}else {
+			session.setAttribute("user", user);
+			return new Result(Result.EXECUTION_SUCCESS,"");
+		}
+		return new Result(Result.EXECUTION_FAILED,"登录失败！刷新试试");
+    }
+
+	
 }

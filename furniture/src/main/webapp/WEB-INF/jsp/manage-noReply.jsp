@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset=UTF-8>
-<title>用户消息管理</title>
+<title>未回复消息管理</title>
 <link rel="stylesheet" type="text/css" href="js/easyui/themes/default/easyui.css">
 <link rel="stylesheet" type="text/css" href="js/easyui/themes/icon.css">
 <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
@@ -25,18 +25,10 @@
 		});
 	}
 	
-	// 打开编辑弹窗
-	/* function openEdit(){
-		$('#ff').form('clear');
-		
-		$("#ti").attr("src", "/images/uploadimg.jpg");
-		$('#dlg').dialog('open');
-	} */
-	
-	// 保存编辑信息
-	/* function save(){
+	// 保存回复信息
+	function save(){
 		$('#ff').form('submit',{
-			url: "save.do",
+			url: "replyMessage.do",
 			onSubmit: function(){
 				//扩展参数
 			},
@@ -57,14 +49,15 @@
 				}
 			}
 		});
-	} */
-	
-	// 查看内容
-	function fmtContent(value, row, index){
-		return '<a href=\'modify('+index+')\' >'+ value.substring(0, 4) +'...</a>'
 	}
 	
-	// 日期格式
+	// 查看内容（提示框显示）
+	function fmtContent(value, row, index){
+		//return '<a href="#" class="easyui-tooltip" title='+ value +'>'+ value +'</a>';
+		//$("input").val();
+	}
+	
+	// 日期格式化
 	function fmtTime(value,rowData,rowIndex){
 		var date = new Date(value);
 		var year = date.getYear()+1900;
@@ -83,15 +76,13 @@
 	function modify(index){
 		var row = $('#dg').datagrid('getRows')[index];
 		
-		
 		$('#ff').form('load', row);
-		$('#ddd').dialog('open');
+		$('#dlg').dialog('open');
 	}
-	
 </script>
 </head>
 <body>
-	<!-- 数据表格，展示博文基础信息 -->
+	<!-- 数据表格 -->
 	<table class="easyui-datagrid" id="dg" data-options="
 		fitColumns: true,
 		singleSelect: true,
@@ -99,7 +90,7 @@
 		pagination: true,
 		pageSize: 5,
 		pageList: [5,10,20],
-		url: 'noReplyMessages.do',
+		url: 'messages.do?flag=0',
 		rownumbers: true,
 		toolbar:'#tb'">
 	    <thead>
@@ -107,8 +98,8 @@
 				<th data-options="field:'name',width:50">用户名</th>
 				<th data-options="field:'title',width:80">主题</th>
 				<th data-options="field:'content',width:150,formatter:fmtContent">内容</th>
-				<th data-options="field:'createtime',width:150,formatter:fmtTime">留言时间</th>
-				<th data-options="field:'id',width:30,formatter:fmtReply">操作</th>
+				<th data-options="field:'createtime',width:80,formatter:fmtTime">留言时间</th>
+				<th data-options="field:'id',align:'center',width:50,formatter:fmtReply">操作</th>
 			</tr>
 	    </thead>
 	</table>
@@ -117,24 +108,24 @@
 	<div id="tb" style="padding:5px;height:auto">
 		<div>
 			用户名: <input class="easyui-textbox" style="width:80px" id="name">
-			标题: <input class="easyui-textbox" style="width:80px" id="title">
+			主题: <input class="easyui-textbox" style="width:80px" id="title">
 			<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="query()">查询</a>
 		</div>
 	</div>
 	
-	<!-- 弹窗添加新用户 -->
-	<!-- <div id="dlg" class="easyui-dialog" title="添加用户" style="width:600px;height:400px;padding:10px"
+	<!-- 回复用户留言的表单 -->
+	<div id="dlg" class="easyui-dialog" title="回复" style="width:900px;height:500px;padding: 10px;"
 		data-options="
-			iconCls: 'icon-save',
+			iconCls: 'icon-edit',
 			buttons: [{
-				text:'保存',
-				iconCls:'icon-ok',
+				text:'回复',
+				iconCls:'icon-save',
 				handler:function(){
 					save();
 				}
 			},{
 				text:'取消',
-				iconCls:'icon-no',
+				iconCls:'icon-cancel',
 				handler:function(){
 					$('#dlg').dialog('close');
 				}
@@ -142,10 +133,17 @@
 			closed: true,
 			modal: true
 		">
-		<form id="ff" method="post" style="text-align:center">
-			<input type="hidden" name="id" id="id">
-			<textarea rows="5" cols="20" name="content"></textarea>
+		<form id="ff" method="post" style="text-align:center;">
+			<!-- 保存id操作该条数据 -->
+			<input type="hidden" name="mid" id="mid">
+			<textarea rows="5" cols="20" name="reply" id="reply"></textarea>
+			<script>
+				CKEDITOR.replace('reply', {
+					height : 360,
+					width : 850
+				});
+			</script>
 		</form>
-	</div> -->
+	</div>
 </body>
 </html>

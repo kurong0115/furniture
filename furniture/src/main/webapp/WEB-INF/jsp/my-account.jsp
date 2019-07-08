@@ -8,15 +8,9 @@
     <title>我的账户</title>  
     <!-- 引入首部链接 -->
     <%@include file="common/header_link.jsp" %>
-    <script type="text/javascript" src="convinces/js/jquery.js"></script>
-	<script type="text/javascript" src="convinces/js/area.js"></script>
-	<script type="text/javascript" src="convinces/js/location.js"></script>
-	<script type="text/javascript" src="convinces/js/select2.js"></script>
-	<script type="text/javascript" src="convinces/js/select2_locale_zh-CN.js"></script>
-	<link href="convinces/css/common.css" rel="stylesheet"/>
-	<link href="convinces/css/select2.css" rel="stylesheet"/>
+
 </head>
-<body>
+<body onload="getFlag();">
 <div class="wrapper">
     <!-- 引入首部 -->
     <%@include file="common/header.jsp" %>
@@ -46,9 +40,9 @@
                                 <div class="myaccount-tab-menu nav" role="tablist">
                                     <a href="#dashboad" class="active" data-toggle="tab">
                                     	<i class="fa fa-dashboard"></i>操作</a>   
-                                    <a href="#orders" data-toggle="tab"><i class="fa fa-cart-arrow-down"></i> 订单</a> 
-                                    <a href="#address-edit" data-toggle="tab"><i class="fa fa-map-marker"></i> 地址</a>    
-                                    <a href="#account-info" data-toggle="tab"><i class="fa fa-user" onclick="myAddress()"></i> 帐户详细信息</a>    
+                                    <a href="#orders" data-toggle="tab" ><i class="fa fa-cart-arrow-down"></i> <span>订单</span></a> 
+                                    <a href="#address-edit" data-toggle="tab"  id="aaaa"><i class="fa fa-map-marker"></i><span>地址</span></a>    
+                                    <a href="#account-info" data-toggle="tab"><i class="fa fa-user" onclick="myAddress()" id="bbbb"></i><span> 帐户详细信息</span></a>    
                                     <a href="loginOut" onclick="return loginOut();"><i class="fa fa-sign-out"></i> 注销</a>
                                     
                                 </div>
@@ -113,40 +107,11 @@
 														<span aria-hidden="true">x</span>
 													</button>
 												</div>
-												<c:if test="${ orderState!=null }">
-													<c:if test="${ orderState.ispay == 1}">
-														<script type="text/javascript">
-															$(".ystep4").setStep(3);
-															console.info(${ orderState});
-														</script>
-													</c:if>
-												</c:if>
 												
-												<input type="text" value="${orderState.sum}">
+												<font id="orderNo" style="width: 100%;background: #eceff8;line-height: 50px;text-align: center;font-weight: 900"></font>
 												
 												<div class="ystep4" style="text-align: center;"></div>
-												<script type="text/javascript" src="assets/js/ystep.js"></script>
-												<script type="text/javascript">
-													//根据jQuery选择器找到需要加载ystep的容器
-													//loadStep 方法可以初始化ystep
-													$(".ystep4").loadStep({
-													  size: "large",
-													  color: "blue",
-													  steps: [{
-														title: "提交订单",
-													  },{
-														title: "等待付款",
-													  },{
-														title: "等待发货",
-														
-													  },{
-														title: "等待收货",
-														
-													  },{
-														title: "订单完成",
-													  }]
-													});
-												</script>
+												
 												<div class="modal-body">
 													<div class="row">
 														<table class="table table-bordered" id="ordersTable">
@@ -190,7 +155,8 @@
 	                                                           <td>${address.phone }</td>
 	                                                           <td>${address.address }</td>
 	                                                           <td>
-	                                                           		<a>修改地址</a>
+	                                                           		<a onclick="QueryAddress(${address.id})" title="Quick View" data-toggle="modal" data-target="#exampleModal3">修改</a>/
+	                                                           		<a onclick="deleteAddress(${address.id})">删除</a>
 	                                                           </td>
 	                                                       </tr>
                                                     	</c:forEach>
@@ -208,50 +174,92 @@
 											<div class="modal-content">
 												<div class="modal-header">
 													<h4>新增地址</h4>
-													<button type="button" class="close" data-dismiss="modal"
+													<button id="closeModel" type="button" class="close" data-dismiss="modal"
 														aria-label="Close">
 														<span aria-hidden="true">x</span>
 													</button>
 												</div>
 												<div class="modal-body">
 													<div class="row">
-			                                        <form action="" method="post">
-			                                            <input id="addressName" placeholder="姓名" type="text">
-			                                             <input id="addressPhone" placeholder="电话" type="text">
-			                                              <input id="addressDetails" placeholder="详细地址" type="text">
-			                                            <div class="button-box">
-			                                                <button type="button" onclick="" style="margin-left: 410px">确认添加</button>
-			                                            </div>
+			                                        <form action="" method="post" style="width: 100%;text-align: center;">
+			                                            <input id="addressName" placeholder="姓名" type="text" style="width: 50%;background: white;border-radius: 25px;">
+			                                            <input id="addressPhone" placeholder="电话" type="text" style="width: 50%;background: white;margin-top: 20px;margin-bottom:20px;border-radius: 25px;">
+			                                            <br/>
+			                                            <select id="loc_province" style="width:120px;">
+													    </select>
+													    <select id="loc_city" style="width:120px; margin-left: 10px">
+													    </select>
+													    <select id="loc_town" style="width:120px;margin-left: 10px">
+													    </select>
+													    <br/>
+			                                            <input id="addressDetails" placeholder="详细地址" type="text" style="width: 50%;background: white;margin-top: 20px;border-radius: 25px;">
+			                                            <br/>
+			                                            <button type="button" onclick="addAddress()" id="addAddr">确认新增</button>
 			                                        </form>
-			                                        
+
 							                      </div>
 												</div>
 											</div>
 										</div>
 									</div>
+									
+									<div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h4>修改地址</h4>
+													<button id="closeModel2" type="button" class="close" data-dismiss="modal"
+														aria-label="Close">
+														<span aria-hidden="true">x</span>
+													</button>
+												</div>
+												<div class="modal-body">
+													<div class="row">
+			                                        <form action="" method="post" style="width: 100%;text-align: center;">
+			                                            <input id="addressName2" placeholder="姓名" type="text" style="width: 50%;background: white;border-radius: 25px;">
+			                                            <input id="addressPhone2" placeholder="电话" type="text" style="width: 50%;background: white;margin-top: 20px;margin-bottom:20px;border-radius: 25px;">
+			                                            <br/>
+			                                            <select id="loc_province2" style="width:120px;">
+													    </select>
+													    <select id="loc_city2" style="width:120px; margin-left: 10px">
+													    </select>
+													    <select id="loc_town2" style="width:120px;margin-left: 10px">
+													    </select>
+													    <br/>
+			                                            <input id="addressDetails2" placeholder="详细地址" type="text" style="width: 50%;background: white;margin-top: 20px;border-radius: 25px;">
+			                                            <br/>
+			                                            <button type="button" onclick="ModefyAddress()" id="modefyAddr">确认修改</button>
+			                                        </form>
+
+							                      </div>
+												</div>
+											</div>
+										</div>
+									</div>
+									 
                                     <!-- Single Tab Content End -->    
                                     <!-- Single Tab Content Start -->
                                     <div class="tab-pane fade" id="account-info" role="tabpanel">
                                         <div class="myaccount-content">
                                             <h3>账户详细信息</h3>    
                                             <div class="account-details-form">
-                                                <form action="#">
+                                                <form>
                                                     <div class="row">
                                                         <div class="col-lg-6">
                                                             <div class="single-input-item">
                                                                 <label for="first-name" class="required">名字</label>
-                                                                <input type="text" id="first-name" value="${user.name }"/>
+                                                                <font id="first-name">${user.name }</font>
                                                             </div>
                                                         </div> 
                                                     </div>
                                                     <div class="single-input-item">
                                                         <label for="email" class="required">邮箱地址</label>
-                                                        <input type="email" id="email" value="${user.email }"/>
+                                                        <font  id="email" >${user.email }</font>
                                                     </div>    
                                                     <fieldset>
                                                         <legend>更改密码</legend>
                                                         <div class="single-input-item">
-                                                            <label for="current-pwd" class="required">当前密码</label>
+                                                            <label for="current-pwd" class="required">当前密码</label> 
                                                             <input type="password" id="current-pwd" value=""/>
                                                         </div>   
                                                         <div class="row">
@@ -270,7 +278,7 @@
                                                         </div>
                                                     </fieldset>
                                                     <div class="single-input-item">
-                                                        <button class="check-btn sqr-btn ">保存更改</button>
+                                                        <button type="button" onclick="modefyPassword()">保存更改</button>
                                                     </div>
                                                 </form>
                                             </div>

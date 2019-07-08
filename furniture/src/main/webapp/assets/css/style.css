@@ -7462,4 +7462,16 @@ h3.cart-page-title {
 #getCodeByEmail[disabled]:hover{
     cursor:not-allowed;
 }
+#addAddr{
+	width: 50%;
+	border-radius: 25px;
+	margin-top: 50px;
+	background: white;
+	line-height: 50px;
+	border: 2px solid #eceff8;
+}
+#addAddr:hover{
+	background-color: red;
+	color: white;
+}
 /*-------- Start My Account Page Wrapper --------*/

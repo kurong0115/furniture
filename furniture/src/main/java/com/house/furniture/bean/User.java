@@ -1,35 +1,23 @@
 package com.house.furniture.bean;
 
-import javax.validation.constraints.NotEmpty;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-@JsonIgnoreProperties(value = { "handler" })
 public class User {
-    
     private Integer id;
 
-    @NotEmpty(message="用户名不能为空")
     private String name;
-    
-    @NotEmpty(message="密码不能为空")
+
     private String password;
-    
-    @NotEmpty(message="邮箱不能为空")
+
     private String email;
 
     private String head;
+
+    private String openid;
 
     public Integer getId() {
         return id;
     }
 
-    @Override
-	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", password=" + password + ", email=" + email + "]";
-	}
-
-	public void setId(Integer id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -63,5 +51,13 @@ public class User {
 
     public void setHead(String head) {
         this.head = head == null ? null : head.trim();
+    }
+
+    public String getOpenid() {
+        return openid;
+    }
+
+    public void setOpenid(String openid) {
+        this.openid = openid == null ? null : openid.trim();
     }
 }

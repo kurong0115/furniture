@@ -19,7 +19,7 @@ public class WebConfigurer implements WebMvcConfigurer{
 		registry.addInterceptor(loginInterceptor).addPathPatterns("/**").
 			excludePathPatterns("/*.do","/createCode","/login-register",
 				"/shop", "/product-details", "/js/**", "/images/**", "/assets/**", "/PIAimages/**",
-				"/index","/","/head/**", "/compare-page","/forgetPassword","/send","/QQLogin","/Connect2.1/**");			
+				"/index","/","/head/**", "/compare-page","/forgetPassword","/send","/QQLogin","/QQLoginCallBack","/ckeditor/**");	
 	}
 
 	@Override

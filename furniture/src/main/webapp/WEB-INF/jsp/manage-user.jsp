@@ -149,13 +149,13 @@
 			iconCls: 'icon-save',
 			buttons: [{
 				text:'保存',
-				iconCls:'icon-ok',
+				iconCls:'icon-save',
 				handler:function(){
 					save();
 				}
 			},{
 				text:'取消',
-				iconCls:'icon-no',
+				iconCls:'icon-cancel',
 				handler:function(){
 					$('#dlg').dialog('close');
 				}

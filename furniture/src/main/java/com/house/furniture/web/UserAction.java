@@ -56,8 +56,13 @@ public class UserAction {
 		if(errors.hasErrors()) {
 			return new Result(Result.EXECUTION_FAILED, "用户新增失败", errors.getAllErrors());
 		}else {
-			us.save(user);
-			return new Result(Result.EXECUTION_SUCCESS, "用户新增成功");
+			try {
+				us.save(user);
+				return new Result(Result.EXECUTION_SUCCESS, "用户新增成功");
+			} catch (Exception e) {
+				e.printStackTrace();
+				return new Result(Result.EXECUTION_CANCEL, "系统繁忙，请稍后再试");
+			}
 		}
 	}
 	

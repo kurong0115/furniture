@@ -50,4 +50,11 @@ public class Address {
     public void setPhone(String phone) {
         this.phone = phone == null ? null : phone.trim();
     }
+
+	@Override
+	public String toString() {
+		return "Address [id=" + id + ", uid=" + uid + ", address=" + address + ", name=" + name + ", phone=" + phone
+				+ "]";
+	}
+    
 }
