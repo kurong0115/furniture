@@ -33,7 +33,7 @@
                                 <h1 class="animated">${t.product.model }</h1>
                                 <p class="animated">${t.product.content }.</p>
                                 <div class="slider-btn btn-hover">
-                                    <a class="animated" href="product-details">Shop Now <i class="sli sli-basket-loaded"></i></a>
+                                    <a class="animated" href="shop">Shop Now <i class="sli sli-basket-loaded"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -96,23 +96,23 @@
 								<div class="ht-product ht-product-action-on-hover ht-product-category-right-bottom mb-30">
 		                            <div class="ht-product-inner">
 		                                <div class="ht-product-image-wrap">
-		                                    <a href="product-details.html" class="ht-product-image"> <img src="${pro.imgPath }" alt="Universal Product Style"> </a>
+		                                    <a href="product-details?pid=${pro.pid }" class="ht-product-image"> <img src="${pro.imgPath }" alt="Universal Product Style"> </a>
 		                                    <div class="ht-product-action">
 		                                        <ul>
-		                                            <li><a href="#" onclick="quickView(${pro.pid})" data-toggle="modal" 
+		                                            <li><a href="javascript:void(0)" onclick="quickView(${pro.pid})" data-toggle="modal" 
 		                                            	data-target="#exampleModal">
 		                                            	<i class="sli sli-magnifier"></i>
 		                                            	<span class="ht-product-action-tooltip">快速预览</span>
 		                                            </a></li>
-		                                            <li><a href="#" onclick="addWishlist(${pro.pid})">
+		                                            <li><a href="javascript:void(0)" onclick="addWishlist(${pro.pid})">
 		                                            	<i class="sli sli-heart"></i>
 		                                            	<span class="ht-product-action-tooltip">添加到愿望清单</span>
 		                                            </a></li>
-		                                            <li><a href="#" onclick="addCart('${pro.pid}','${pro.price}','${pro.imgPath }')">
+		                                            <li><a href="javascript:void(0)" onclick="addCart('${pro.pid}','${pro.price}','${pro.imgPath }')">
 		                                            	<i class="sli sli-bag"></i>
 		                                            	<span class="ht-product-action-tooltip">添加到购物车</span>
 		                                            </a></li>
-		                                            <li><a href="#" onclick="compare(${pro.pid})">
+		                                            <li><a href="javascript:void(0)" onclick="compare(${pro.pid})">
 		                                            	<i class="sli sli-refresh"></i>
 		                                            	<span class="ht-product-action-tooltip">对比</span>
 		                                            </a></li>
@@ -164,16 +164,34 @@
                 <div class="col-lg-10 ml-auto mr-auto">
                     <div class="testimonial-active owl-carousel nav-style-1">
                     
-                    	<c:forEach items="${adminInfo }" var="a">
 	                        <div class="single-testimonial text-center">
-	                            <img src="${a.head }" alt="" style="width:90px;height:90px;">
-	                            <p>${a.content }</p>
+	                            <img src="assets/img/hh.jpg" alt="" style="width:150px;height:150px;border-radius: 50%">
+	                            <p>孙正义跟我有同一个观点，一个方案是一流的Idea加三流的实施；另外一个方案，一流的实施，三流的Idea，哪个好？我们俩同时选择一流的实施，三流的Idea</p>
 	                            <div class="client-info">
-	                                <img src="assets/img/icon-img/testi.png" alt="">
-	                                <h5>${a.name }</h5>
+	                                <h5>HH</h5>
 	                            </div>
 	                        </div>
-                    	</c:forEach>
+	                        <div class="single-testimonial text-center">
+	                            <img src="assets/img/cx.jpg" alt="" style="width:150px;height:150px;border-radius: 50%">
+	                            <p>这个世界并不在乎你的自尊，只在乎你做出来的成绩，然后再去强调你的感受。</p>
+	                            <div class="client-info">
+	                                <h5>CX</h5>
+	                            </div>
+	                        </div>
+	                        <div class="single-testimonial text-center">
+	                            <img src="assets/img/lyw.jpg" alt="" style="width:150px;height:150px;border-radius: 50%">
+	                            <p>不要太在乎金钱与利益得失 切记有所得就有所失，而有所失就有所得的古训，钱没有了还可以再赚，天下自有赚不完的钱和商业机会，所以何妨在金钱与利益面前大度一些？更何况，更大的商业机会正在等着你去把握呢。</p>
+	                            <div class="client-info">
+	                                <h5>LYW</h5>
+	                            </div>
+	                        </div>
+	                        <div class="single-testimonial text-center">
+	                            <img src="assets/img/yc.jpg" alt="" style="width:150px;height:150px;border-radius: 50%">
+	                            <p>善于总结别人的成败得失 不要羡慕别人的成功，更不要鄙夷别人的失败，你首先应该做的是学会分析和总结现象背后的本质，找出别人失败或者成功的全部原因，取其长补其短，做你自己该做的事情。</p>
+	                            <div class="client-info">
+	                                <h5>YC</h5>
+	                            </div>
+	                        </div>
                     </div>
                 </div>
             </div>
@@ -194,14 +212,14 @@
                     	<div class="ht-product ht-product-action-on-hover ht-product-category-right-bottom mb-30">
 	                        <div class="ht-product-inner">
 	                            <div class="ht-product-image-wrap">
-	                                <a href="product-details.html" class="ht-product-image"> <img src="${r.imgPath }" alt="Universal Product Style"> </a>
+	                                <a href="product-details?pid=${r.pid }" class="ht-product-image"> <img src="${r.imgPath }" alt="Universal Product Style"> </a>
 	                                <div class="ht-product-action">
 	                                    <ul>
-	                                        <li><a href="#" onclick="quickView(${r.product.pid})" data-toggle="modal" data-target="#exampleModal">
+	                                        <li><a href="javascript:void(0)" onclick="quickView(${r.product.pid})" data-toggle="modal" data-target="#exampleModal">
 	                                        	<i class="sli sli-magnifier"></i>
 	                                        	<span class="ht-product-action-tooltip">快速预览</span>
 	                                        </a></li>
-	                                        <li><a href="#" onclick="addWishlist(${r.product.pid})">
+	                                        <li><a href="javascript:void(0)" onclick="addWishlist(${r.product.pid})">
 	                                        	<i class="sli sli-heart"></i>
 	                                        	<span class="ht-product-action-tooltip">添加到愿望清单</span>
 	                                        </a></li>
@@ -209,7 +227,7 @@
 	                                        	<i class="sli sli-bag"></i>
 	                                        	<span class="ht-product-action-tooltip">添加到购物车</span>
 	                                        </a></li>
-	                                        <li><a href="#" onclick="compare(${r.product.pid})">
+	                                        <li><a href="javascript:void(0)" onclick="compare(${r.product.pid})">
 	                                        	<i class="sli sli-refresh"></i>
 	                                        	<span class="ht-product-action-tooltip">对比</span>
 	                                        </a></li>
@@ -402,11 +420,11 @@
                                         <a href="javascript:void(0)" id="addCartByPid" onclick="addCart()">添加到购物车</a>
                                     </div>
                                     <div class="pro-details-wishlist">
-                                        <a title="添加到愿望清单" href="#">
+                                        <a title="添加到愿望清单" href="javascript:void(0)">
                                         <i class="sli sli-heart"></i></a>
                                     </div>
                                     <div class="pro-details-compare">
-                                        <a title="对比" href="#">
+                                        <a title="对比" href="javascript:void(0)">
                                         <i class="sli sli-refresh"></i></a>
                                     </div>
                                 </div>
