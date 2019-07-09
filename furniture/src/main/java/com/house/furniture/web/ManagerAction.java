@@ -26,4 +26,18 @@ public class ManagerAction {
 		return "manage-reply";
 	}
 	
+	@RequestMapping("manage-orders.do")
+	public String orders() {
+		return "manage-orders";
+	}
+	
+	@RequestMapping("manage-category.do")
+	public String categoryManage() {
+		return "category-manage";
+	}
+	
+	@RequestMapping("manage-product.do")
+	public String productManage() {
+		return "product-manage";
+	}
 }
