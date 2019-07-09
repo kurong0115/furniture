@@ -63,7 +63,6 @@ public class MyUtils {
 			byte[] digest = md5.digest();
 			return new BigInteger(1,digest).toString(16);
 		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return "";
