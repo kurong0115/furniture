@@ -43,6 +43,8 @@ public class MyAccountAction {
 		List<Orders> orders = orderService.selectByUid(user.getId());
 		//将用户的所有订单添加到会话中
 		model.addAttribute("myOrder", orders);
+		long count = orderService.getOrdersCount(user.getId());
+		model.addAttribute("count", count);
 		
 		List<Address> address = addressService.getAddrByUser(user);
 		model.addAttribute("addressList", address);
@@ -58,6 +60,14 @@ public class MyAccountAction {
 		orderState.add(order);
 		orderState.add(operation);
 		return new Result(Result.EXECUTION_SUCCESS, "1", orderState);
+	}
+
+	@PostMapping("seeOrderMore")
+	@ResponseBody
+	public Result seeOrderMore(@SessionAttribute("user")User user) {
+		long count = orderService.getOrdersCount(user.getId());
+		List<Orders> list = orderService.seeOrderMore(user.getId(),count);
+		return new Result(Result.EXECUTION_SUCCESS,"1",list);
 	}
 	
 	@PostMapping("addAddress")
@@ -167,5 +177,15 @@ public class MyAccountAction {
 				return new Result(Result.EXECUTION_FAILED,"修改失败，刷新试试！");
 			}
 		}
+	}
+	
+	@PostMapping("orderFinish")
+	@ResponseBody
+	public Result orderFinish(Integer orderid) {
+		Orders order=new Orders();
+		order.setId(orderid);
+		order.setIsfinish(1);
+		orderService.finishOrder(order);
+		return new Result(Result.EXECUTION_SUCCESS,"收货成功，快去评论一下吧");
 	}
 }

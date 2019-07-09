@@ -26,6 +26,11 @@ public class Manager {
 		return "manage-reply";
 	}
 	
+	@RequestMapping("manage-orders.do")
+	public String orders() {
+		return "manage-orders";
+	}
+	
 	@RequestMapping("manage-category.do")
 	public String categoryManage() {
 		return "category-manage";

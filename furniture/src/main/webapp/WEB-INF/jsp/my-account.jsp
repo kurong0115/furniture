@@ -67,30 +67,56 @@
                                         <div class="myaccount-content">
                                             <h3>订单</h3>    
                                             <div class="myaccount-table table-responsive text-center">
-                                                <table class="table table-bordered" id="ordersTable">
+                                                <table class="table table-bordered">
                                                     <thead class="thead-light">
                                                         <tr>
                                                             <th>订单编号</th>
                                                             <th>下单日期</th>
                                                             <th>订单金额</th>
-                                                            <th>订单详情</th>
+                                                            <th>订单状态</th>
+                                                            <th>操作</th>
                                                         </tr>
                                                     </thead>    
-                                                    <tbody >                  
+                                                    <tbody id="orderList">                  
                                                     	<c:if test="${myOrder != null }">
 		                                                    <c:forEach items="${myOrder }"  var="m">
 		                                                       <tr>
 		                                                           <td>${m.orderno}</td>
 		                                                           <td>${m.createtime.toLocaleString()}</td>
 		                                                           <td>${m.sum}</td>
-		                                                           <td>
-		                                                           		<a href="#" title="Quick View" data-toggle="modal"
-																		data-target="#exampleModal" onclick="checkDetail(${m.id})">详情</a>
+		                                                           <c:if test="${m.ispay==1 && m.isdeal==0 && m.isfinish==0}">
+		                                                           		<td>订单已付款</td>
+		                                                           </c:if>
+		                                                           <c:if test="${m.ispay==1 && m.isdeal==1 && m.isfinish==0}">
+		                                                           		<td>订单已发货</td>
+		                                                           </c:if>
+		                                                           <c:if test="${m.ispay==1 && m.isdeal==1 && m.isfinish==1}">
+		                                                           		<td>订单已完成</td>
+		                                                           </c:if>
+		                                                           <td style="width: 180px;">
+																		<button  data-toggle="modal" data-target="#exampleModal" 
+																		onclick="checkDetail(${m.id},this)" class="comment" style="width:50%">详情</button>
+																		<c:if test="${m.isdeal==1 && m.isfinish==0}">
+																			<button  onclick="orderFinish(${m.id},this)" class="comment" style="width:50%">确认收货</button>
+																		</c:if>
+		                                                           		
 		                                                           </td>
 		                                                       </tr>
 			                                                  </c:forEach>
+			                                                 
 	                                                    </c:if>
+	                                                    
                                                     </tbody>
+                                                    <c:if test="${count>10 }">
+                                                    	<tfoot id="orderTfoot">
+	                                                    	<tr>
+	                                                    		<td colspan="5">
+	                                                    			<button onclick="seeOrderMore()" class="comment" style="width:50%">查看更多</button>
+	                                                    		</td>
+	                                                    	</tr>
+	                                                    </tfoot>
+                                                    </c:if>
+                                                    
                                                 </table>
                                             </div>
                                         </div>
@@ -101,7 +127,7 @@
 											<div class="modal-content">
 												<div class="modal-header">
 													<h4>订单详情</h4>
-													<button type="button" class="close" data-dismiss="modal"
+													<button type="button" class="close" data-dismiss="modal" id="closeBnt"
 														aria-label="Close">
 														
 														<span aria-hidden="true">x</span>
@@ -111,11 +137,11 @@
 												<font id="orderNo" style="width: 100%;background: #eceff8;line-height: 50px;text-align: center;font-weight: 900"></font>
 												
 												<div class="ystep4" style="text-align: center;"></div>
-												
+												<div style="text-align: center;" id="finishBnt"></div>
 												<div class="modal-body">
 													<div class="row">
 														<table class="table table-bordered" id="ordersTable">
-		                                                    <thead class="thead-light">
+		                                                    <thead class="thead-light" style="text-align: center;">
 		                                                        <tr>
 		                                                            <th>图片</th>
 		                                                            <th>商品名</th>
@@ -124,7 +150,7 @@
 		                                                            <th>小计</th>
 		                                                        </tr>
 		                                                    </thead>    
-		                                                    <tbody id="orderDetails">                  
+		                                                    <tbody id="orderDetails" style="text-align: center;">                  
 
 		                                                    </tbody>
 		                                                </table>
@@ -138,7 +164,7 @@
                                     <!-- Single Tab Content Start -->
                                     <div class="tab-pane fade" id="address-edit" role="tabpanel">
                                         <div class="myaccount-content">
-                                             <table class="table table-bordered" id="ordersTable">
+                                             <table class="table table-bordered">
                                                     <thead class="thead-light">
                                                         <tr>
                                                             <th>收货人</th>
