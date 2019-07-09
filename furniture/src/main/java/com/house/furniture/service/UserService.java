@@ -83,5 +83,14 @@ public interface UserService {
 	 * @return
 	 */
 	List<User> findUserLikeName(String uname);
+
+	/**
+	 * 根据openid查找用户，看是否绑定用户
+	 * @param openId
+	 * @return
+	 */
+	User selectByOpenID(String openId);
+	
+	Integer regByUser(User user);
 	
 }

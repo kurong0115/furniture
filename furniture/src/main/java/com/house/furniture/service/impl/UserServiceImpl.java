@@ -127,6 +127,19 @@ public class UserServiceImpl implements UserService {
 		List<User> list = userMapper.selectByExample(example);
 		return list;
 	}
+	
+	public User selectByOpenID(String openId) {
+		UserExample userExample = new UserExample();
+		userExample.createCriteria().andOpenidEqualTo(openId);
+		List<User> user = userMapper.selectByExample(userExample);
+		return user.size() == 0 ? null : user.get(0);
+	}
+
+	@Override
+	public Integer regByUser(User user) {
+		Integer result = userMapper.insert(user);
+		return result;
+	}
 
 	
 	

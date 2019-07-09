@@ -41,6 +41,9 @@ public interface OrdersService {
 	List<Orders> seeOrderMore(Integer integer, long count);
 
 	//根据查询查询订单总数
-	long getOrdersCount(Integer id);	
+	long getOrdersCount(Integer id);
+
+	//完成订单
+	void finishOrder(Orders order);	
 
 }

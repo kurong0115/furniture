@@ -49,7 +49,6 @@ function getNewOrder(){
 			});
 			$('#tt').datagrid('reload');
 		}
-		
 	})
 }
 
@@ -219,19 +218,19 @@ function doSearch(){
 		toolbar:'#tb'">
 		<thead>
 			<tr>
-				<th data-options="field:'orderno',width:50,align:'center'">订单编号</th>
-				<th data-options="field:'uname',width:30,align:'center',formatter:function(val,row){
+				<th data-options="field:'orderno',align:'center'">订单编号</th>
+				<th data-options="field:'uname',align:'center',formatter:function(val,row){
 					if(row.user==null){
 						return '空';
 					}else{
 						return row.user.name;
 					}
 				}">下单用户</th>
-				<th data-options="field:'createtime',width:50,align:'center',formatter:function(value,row,index){  
+				<th data-options="field:'createtime',align:'center',formatter:function(value,row,index){  
 			            var createtime = new Date(value);  
 			            return createtime.toLocaleString();  
 			    }">下单时间</th>
-			    <th data-options="field:'addressid',width:100,align:'center',formatter:function(val,row){
+			    <th data-options="field:'addressid',align:'center',formatter:function(val,row){
 					if(row.address==null){
 						return '空';
 					}else{
@@ -239,8 +238,8 @@ function doSearch(){
 						return addr;
 					}
 				}">收货地址</th>
-			    <th data-options="field:'sum',width:30,align:'center'">总金额</th>			
-				<th data-options="field:'isdeal',width:50,align:'center',formatter:function(value,row,index){  
+			    <th data-options="field:'sum',align:'center'">总金额</th>			
+				<th data-options="field:'isdeal',align:'center',formatter:function(value,row,index){  
 			           if(value==1){
 			           		return '订单已处理';	
 			           }else{
@@ -248,7 +247,7 @@ function doSearch(){
 			           } 
 			            
 			    }">处理情况</th>
-				<th data-options="field:'orderStatus',width:50,align:'center',formatter:function(value,row,index){  
+				<th data-options="field:'orderStatus',align:'center',formatter:function(value,row,index){  
 			           if(row.isfinish==1){
 			           		return '订单已完成';	
 			           }else if(row.isdeal==1){
@@ -258,7 +257,7 @@ function doSearch(){
 			           }
 			            
 			    }">订单状态</th>
-				<th data-options="field:'id',width:100,align:'center',formatter:fmtbnt" >操作</th>
+				<th data-options="field:'id',width:50,align:'center',formatter:fmtbnt" >操作</th>
 			</tr>
 		</thead>
 	</table>

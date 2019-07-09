@@ -119,4 +119,11 @@ public class OrdersServiceImpl implements OrdersService {
 		return count;
 	}
 
+
+	@Override
+	public void finishOrder(Orders order) {
+		orderMapper.updateByPrimaryKeySelective(order);		
+	}
+
+
 }

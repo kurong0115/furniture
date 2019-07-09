@@ -1,18 +1,21 @@
 package com.house.furniture.web;
 
+import java.io.File;
 import java.util.List;
-
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.github.pagehelper.PageHelper;
 import com.house.furniture.bean.Cart;
@@ -46,12 +49,10 @@ public class ShopAction {
 	@RequestMapping(value = "shop")
 	public String shop(@RequestParam(value = "cid", defaultValue = "1") int cid, Model model,
 			@RequestParam(value = "page", defaultValue = "1") int page,
-			@RequestParam(value = "size", defaultValue = "50") int size) {
-		
-		List<Product> productList = productService.listProductsByType(cid, page, size);
+			@RequestParam(value = "size", defaultValue = "15") int size) {
 		PageHelper.startPage(page, size);
-		model.addAttribute("productList", productList);
-		
+		List<Product> productList = productService.listProductsByType(cid, page, size);		
+		model.addAttribute("result", new Result(page, size, productList, productService.getProductSize(cid)));
 		return "shop";
 	}
 	
@@ -63,8 +64,10 @@ public class ShopAction {
 	 */
 	@GetMapping(value = "condition.do")
 	public String selectByCondition(@RequestParam(value = "condition", defaultValue = "") String condition, 
-			Model model) {
-		List<Product> productList = productService.listProductByCondition(condition);
+			Model model,@RequestParam(value = "page", defaultValue = "1") int page,
+			@RequestParam(value = "size", defaultValue = "15") int size) {
+		PageHelper.startPage(page, size);
+		List<Product> productList = productService.listProductByCondition(condition);		
 		model.addAttribute("productList", productList);
 		return "shop";
 	}
@@ -75,9 +78,14 @@ public class ShopAction {
 			@RequestParam(value = "newProduct", required = false) String newProduct,
 			@RequestParam(value = "min", defaultValue = "1") double min, 
 			@RequestParam(value = "max", defaultValue = "20000") double max, 
-			@RequestParam(value = "cid") int cid) {
-		List<Product> productList = productService.listProductByItem(onSale, newProduct, min, max, cid);
-		return new Result(Result.EXECUTION_SUCCESS, "", productList);
+			@RequestParam(value = "cid") int cid,
+			@RequestParam(value = "page", defaultValue = "1") int page,
+			@RequestParam(value = "size", defaultValue = "15") int size) {
+		PageHelper.startPage(page, size);
+		List<Product> productList = productService.listProductByItem(onSale, newProduct, min, max, cid);		
+//		return new Result(Result.EXECUTION_SUCCESS, "", productList);
+		return new Result(Result.EXECUTION_SUCCESS, 
+			"", page, size, productList, productService.getItemSize(onSale, newProduct, min, max, cid));
 	}
 	
 	@GetMapping(value = "quickView.do")
@@ -110,5 +118,21 @@ public class ShopAction {
 		}
 		model.addAttribute("allSum", allSum);
 		return new Result(Result.EXECUTION_SUCCESS,"加入购物车成功",cart);
+	}
+	
+	@PostMapping("uploadImages.do")
+	@ResponseBody
+	public Result uploadImage(@RequestParam("file") MultipartFile file) {
+		System.err.println(1111);
+		if (file.getSize()  == 0) {
+			return new Result(Result.EXECUTION_CANCEL, "取消上传");
+		}
+		String filename = UUID.randomUUID().toString() + file.getOriginalFilename();		
+		try {
+			file.transferTo(new File("D:/PIAimages/PIAimages/" + filename));
+			return new Result(Result.EXECUTION_SUCCESS, "文件上传成功", "/PIAimages/" + filename);
+		} catch(Exception e) {
+			return new Result(Result.EXECUTION_FAILED, "文件上传失败");
+		}
 	}
 }

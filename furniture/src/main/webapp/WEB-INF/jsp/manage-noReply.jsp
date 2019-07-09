@@ -53,7 +53,7 @@
 	
 	// 查看内容（提示框显示）
 	function fmtContent(value, row, index){
-		//return '<a href="#" class="easyui-tooltip" title='+ value +'>'+ value +'</a>';
+		//return '<a href="#" data-toggle="tooltip" data-placement="bottom" title="顶部的 Tooltip">顶部的 Tooltip</a>.';
 		//$("input").val();
 	}
 	

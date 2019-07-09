@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Parlo - eCommerce Bootstrap 4 Template</title>
+    <title>Our House-联系我们</title>
     
     <script type="text/javascript" src="assets/js/vendor/jquery-1.12.4.min.js"></script>
     

@@ -7,6 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>QQ登录成功</h1>
+<script type="text/javascript"
+	src="//connect.qq.com/qc_jssdk.js" charset="utf-8" data-callback="true"></script>
+	<h1>QQ登录成功,即将自动跳转！</h1>
+	<a href="127.0.0.1:8080/index">一直不跳转？请点击这里</a>
 </body>
 </html>
