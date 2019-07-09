@@ -16,7 +16,7 @@ import com.house.furniture.vo.Result;
 
 @Controller()
 @SessionAttributes("admin")
-public class Manager {
+public class ManagerAction {
 
 	@Resource
 	private AdminService adminservice;

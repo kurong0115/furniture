@@ -79,5 +79,4 @@ public class MyUtils {
 	    Matcher m = p.matcher(email);
 	    return m.matches();
 	}
-		
 }

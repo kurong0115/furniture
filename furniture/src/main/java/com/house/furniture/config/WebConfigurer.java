@@ -21,7 +21,6 @@ public class WebConfigurer implements WebMvcConfigurer{
 				"/shop", "/product-details", "/js/**", "/images/**", "/assets/**", "/PIAimages/**",
 				"/ckeditor/**","/index","/","/head/**", "/compare-page","/forgetPassword","/send","/QQLogin","/QQLoginCallBack"
 				,"/manage/**","/admin","/adminLogin");
-
 	}
 
 	@Override
