@@ -65,180 +65,60 @@
 </style>
 <header class="header-area sticky-bar">
 	<script type="text/javascript">
-		window.onload = function(){
-			$(".tip").hide();
-			var uid = ${user.id};
-			if(uid != null){
-				// 加载页面自动执行，获取未读消息数及类型
-				$.get("prompt.do",{
-					uid: uid
-				},function(data){
-					if(data.code != null){
-						// 显示消息数
-						$("#badge").text(data.code);
-						// 显示消息类型下的提醒小圆点
-						if(data.message.match("type1")){
-							$("#type1").show();
-						}else if(data.message.match("type2")){
-							$("#type2").show();
-						}else if(data.message.match("type3")){
-							$("#type3").show();
-						}
-					}
-				});
-				
-				// 点击未读消息图标，显示和隐藏消息div
-				/* $("#prompt").click(function(){
-					if($("#info").is(":hidden")){
-						$(this).children("div").show();
-					}else {
-						$(this).children("div").hide();
-					}
-				}); */
-				// 点击图标外的区域，隐藏消息div
-				/* $(document).click(function (e) {
-			        var con = $("#prompt");   // 设置目标区域
-			        if (!con.is(e.target) && con.has(e.target).length === 0) {
-			            $("#info").hide();
-			        }
-			    }); */
-			}
-	    }
-		
-		// 点击清楚提示圆点，改变状态为已读
-		function clearTip(input){
-			var type = $(input).find("i").attr("id");
-			var uid = ${user.id};
-			if(type == "type1"){
-				$.get("updateStatus.do",{
-					uid: uid
-				},function(data){
-					if(data == "success"){
-						/* $("#type1").hide(); */
-					}
-				});
-			}
-		}
-		
-		
-		function addCart(pid,price,imgpath) {
-			$.get("addCart",{
-				pid:pid,
-				count:1
+	window.onload = function(){
+		$(".tip").hide();
+		var uid = ${user.id};
+		if(uid != null){
+			// 加载页面自动执行，获取未读消息数及类型
+			$.get("prompt.do",{
+				uid: uid
 			},function(data){
-				if(data.code==1){
-					getSuccessMsg(data.message);
-					var CartCount=$('.headerCartCount').text();
-					var allSum=$('#sum').val();									
-					var newAllSum=Number(price)+Number(allSum);
-					$('.allSum').text(newAllSum);
-					$('#sum').val(newAllSum);
-					var size=$('#cartUl li').length;
-					for(var i=0;i<size;i++){
-						var allCartPid=$('#cartUl li:eq('+i+')').find("div:eq(1)").find("input").val();
-						if(allCartPid==pid){
-							var CartPidCount=$('#cartUl li:eq('+i+')').find("div:eq(1)").find("span").find("font").text();
-							$('#cartUl li:eq('+i+')').find("div:eq(1)").find("span").find("font").text(++CartPidCount)
-							return;
-						}
+				if(data.code != null){
+					// 显示消息数
+					$("#badge").text(data.code);
+					// 显示消息类型下的提醒小圆点
+					if(data.message.match("type1")){
+						$("#type1").show();
+					}else if(data.message.match("type2")){
+						$("#type2").show();
+					}else if(data.message.match("type3")){
+						$("#type3").show();
 					}
-					if($('#cartUl li:first').text()=="暂无商品"){
-						$('#cartUl li:first').remove();
-					}
-					$('#cartUl').append(
-						'<li class="single-shopping-cart">'+
-                           '<div class="shopping-cart-img">'+
-                               '<a href="#"><img alt="" src="'+imgpath+'"></a>'+       
-                           '</div>'+
-                           '<div class="shopping-cart-title" style="width: 100px;overflow: hidden;">'+
-                               '<h4><a href="#">'+data.data.product.productname+'</a></h4>'+
-                               '<input type="hidden" value="'+pid+'">'+
-                               '<span><font>'+data.data.count+'</font> x '+data.data.product.price+'</span>'+
-                           '</div>'+
-                           '<div class="item-close" style="margin-left: 20px">'+
-                               '<a href="#"><i class="sli sli-close" onclick="headerDelCart(this)"></i></a>'+
-                               '<input type="hidden" value="'+data.data.id+'">'+
-                           '</div>'+
-                       '</li>'
-					);
-					$('.headerCartCount').text(++CartCount);
-				}else{
-					getFailMsg("您尚未登录，请先登录");
-					location.href="login-register";
-					getFailMsg("当前访问人数较多，请稍后再试");
 				}
-			})
+			});
+			
+			// 点击未读消息图标，显示和隐藏消息div
+			/* $("#prompt").click(function(){
+				if($("#info").is(":hidden")){
+					$(this).children("div").show();
+				}else {
+					$(this).children("div").hide();
+				}
+			}); */
+			// 点击图标外的区域，隐藏消息div
+			/* $(document).click(function (e) {
+		        var con = $("#prompt");   // 设置目标区域
+		        if (!con.is(e.target) && con.has(e.target).length === 0) {
+		            $("#info").hide();
+		        }
+		    }); */
 		}
-		function checkOut() {
-			if($('#tbb').children("tr").children("td").find("span").text()=="暂无商品被加入购物车" 
-					|| $('#cartUl').children("li").text()=="暂无商品"){
-				getInfoMsg("购物车啥也没有");
-			}else{
-				location.href="checkout";
-			}
-		}
-		
-		function headerDelCart(del) { 			
-			$.post("cart/delCart",{
-				id:$(del).parent().next().val()
+    }
+	
+	// 点击清楚提示圆点，改变状态为已读
+	function clearTip(input){
+		var type = $(input).find("i").attr("id");
+		var uid = ${user.id};
+		if(type == "type1"){
+			$.get("updateStatus.do",{
+				uid: uid
 			},function(data){
-				if(data.code==1){
-					var str=$(del).parent().parent().prev().find("span").text().split("x");
-					var count=str[0];
-					var price=str[1];
-					var sum=count*price;
-					var allSum=$('#sum').val();
-					var rows=$(del).parent().parent().parent().prevAll().length-1;
-					var CartCount=$('.headerCartCount').text();
-					getSuccessMsg(data.message);				
-					
-					$(del).parent().parent().parent().remove();
-					if($('#cartUl li').length==0){
-						$('#cartUl').append(
-							'<input type="hidden" value="0" id="sum">'+
-							'<li>暂无商品</li>'
-						);
-					}
-					$('#tbb tr:eq('+rows+')').remove();
-					$('.allSum').text(allSum-sum);
-					$('.headerCartCount').text(--CartCount);
-					$('#sum').val(allSum-sum);
-				}else if(data.code==0){
-					getFailMsg(data.msg);
-				}else{
-					getFailMsg("您尚未登录，请先登录");
-					location.href="login-register";
+				if(data == "success"){
+					/* $("#type1").hide(); */
 				}
 			});
 		}
-		
-		/* 用户注销 */
-		function loginOut(){
-			var flag = confirm("您确认注销当前账号？");
-			return flag;
-		}
-		
-		function getSuccessMsg(msg) {
-	  		$.message({
-	  	        message:msg,
-	  	        type:'success',
-	  	        duration:'3000'
-	  	    });
-	  	}
-	  	function getInfoMsg(msg) {
-	  		$.message({
-	  	        message:msg,
-	  	        type:'info',
-	  	        duration:'3000'
-	  	    });
-	  	}
-	  	function getFailMsg(msg) {
-	  		$.message({
-	  	        message:msg,
-	  	        type:'error',
-	  	        duration:'3000'
-	  	    });
-	  	}
+	}
 		</script>
        <div class="main-header-wrap">
            <div class="container">
@@ -315,7 +195,7 @@
 	                               <div class="shopping-cart-content">
 	                                   <div class="shopping-cart-top">
 	                                       <h4>购物车</h4>
-	                                       <a class="cart-close" href="#"><i class="sli sli-close"></i></a>
+	                                       <a class="cart-close" href="javascript:void(0)"><i class="sli sli-close"></i></a>
 	                                   </div>
 	                                   <ul style="height: 250px;" id="cartUl">
 	                                   
@@ -328,15 +208,15 @@
 		                                   		<c:forEach items="${cartProductList}" var="cartProduct">
 													<li class="single-shopping-cart">
 			                                           <div class="shopping-cart-img">
-			                                               <a href="#"><img alt="" src="${cartProduct.product.images[0].imgpath }"></a>       
+			                                               <a href="javascript:void(0)"><img alt="" src="${cartProduct.product.images[0].imgpath }"></a>       
 			                                           </div>
 			                                           <div class="shopping-cart-title" style="width: 100px;overflow: hidden;">
-			                                               <h4><a href="#">${cartProduct.product.productname}</a></h4>
+			                                               <h4><a href="javascript:void(0)">${cartProduct.product.productname}</a></h4>
 			                                               <input type="hidden" value="${cartProduct.product.pid}">
 			                                               <span><font>${cartProduct.count}</font> x ${cartProduct.product.price}</span>
 			                                           </div>
 			                                           <div class="item-close" style="margin-left: 20px">
-		                                                   <a href="#"><i class="sli sli-close" onclick="headerDelCart(this)"></i></a>
+		                                                   <a href="javascript:void(0)"><i class="sli sli-close" onclick="headerDelCart(this)"></i></a>
 		                                                   <input type="hidden" value="${cartProduct.id}">
 		                                               </div>
 			                                       </li>
@@ -371,10 +251,10 @@
 			                                           	<i class="tip" id="type1"></i></a>         
 			                                       </li>
 			                                       <li>
-			                                       		<a href="#" onclick="clearTip(this)">系统通知
+			                                       		<a href="javascript:void(0)" onclick="clearTip(this)">系统通知
 			                                           	<i class="tip" id="type2"></i></a></li>
 			                                       <li>
-			                                       		<a href="#" onclick="clearTip(this)">我的消息
+			                                       		<a href="javascript:void(0)" onclick="clearTip(this)">我的消息
 			                                           	<i class="tip" id="type3"></i></a>
 			                                       </li>
 			                                   </ul>
