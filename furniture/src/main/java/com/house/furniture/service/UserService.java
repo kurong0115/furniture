@@ -72,4 +72,10 @@ public interface UserService {
 	 */
 	Page<User> queryAddress(int uid, int page, int rows);
 	
+	/**
+	 * 根据id获取该用户信息
+	 * @param id
+	 * @return
+	 */
+	User getUserById(int id);
 }

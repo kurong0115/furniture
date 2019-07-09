@@ -72,6 +72,4 @@ public class UserAction {
 		Page<User> p = us.queryAddress(uid, page, rows);
 		return new EasyUIPage(p.getTotal(), p.getResult());
 	}
-	
-	
 }
