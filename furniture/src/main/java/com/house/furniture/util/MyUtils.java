@@ -79,4 +79,27 @@ public class MyUtils {
 	    Matcher m = p.matcher(email);
 	    return m.matches();
 	}
+	
+	/**
+	 * 获取文件夹信息及文件名
+	 * @param path
+	 * @return
+	 */
+	public static String parseFileName(String path) {
+		path = path.split("//")[1];
+		int index = path.indexOf("/"); 
+		String fileName = path.substring(index + 1);
+		return fileName;
+	}
+	
+	/**
+	 * 获取静态资源路径
+	 * @param staticLocation
+	 * @return
+	 */
+	public static String parseDirect(String staticLocation) {
+		int index = staticLocation.indexOf(":");
+		return staticLocation.substring(index + 1);
+	}
+
 }
