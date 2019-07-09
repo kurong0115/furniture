@@ -1,11 +1,16 @@
 package com.house.furniture.web;
 
+
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
@@ -15,15 +20,19 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+
 
 import com.house.furniture.bean.Cart;
 import com.house.furniture.bean.User;
 import com.house.furniture.service.CartService;
+
 import com.house.furniture.service.UserService;
 import com.house.furniture.util.MyUtils;
 import com.house.furniture.vo.Result;
+
 
 @Controller
 @SessionAttributes(names= {"cartProductList","allSum"})
@@ -43,71 +52,86 @@ public class LoginRegisterAction {
 
 	@PostMapping("login.do")
 	@ResponseBody
-	public Result login(String username, String password, String code,  HttpSession session, HttpServletRequest request,Model model) {
-		String msg = "";
-		// 根据用户名和密码查询
-		User user = userservice.login(username, MyUtils.getMD5String(password));
-		// 获取正确的验证码
-		String valCode = (String) session.getAttribute("code");
-		if (code.trim().equals(valCode.trim())) {// 判断验证码是否输入正确
-			
-			if (user == null) {// 登录失败
-				msg = "用户名或者密码输入错误！";
-				return new Result(Result.EXECUTION_FAILED, msg);
-			} else {
-				// 登陆成功，将用户添加到会话当中
-				session.setAttribute("user", user);
-				msg = "登录成功!";
-				
-				//成功之后把该用户的购物车查出来
-				List<Cart> cartProductList = cartservice.listCartProductByUser(user);
-				model.addAttribute("cartProductList", cartProductList);
-				
-				long allSum=0;
-				if(cartProductList.size()>0) {
-					for (Cart cart : cartProductList) {
-						allSum+=cart.getCount()*cart.getProduct().getPrice();
-					}
+	public Result login(String username, String password, String code,  HttpSession session, HttpServletRequest request,Model model,HttpServletResponse response) {
+		Cookie[] cookies = request.getCookies();
+		if (cookies!=null) {
+			for (Cookie cookie : cookies) {
+				 if (cookie.getValue().equals(username)) {
+					  
+				       return new Result(Result.EXECUTION_FAILED,"您的账号已登录,请勿重复登录！");       
+				     }
 				}
-				model.addAttribute("allSum", allSum);
-				
-				//判断是否有回调路径
-				if(session.getAttribute("callbackPath")!=null) {
-					
-					String path = (String) session.getAttribute("callbackPath");
-					if(path.equals("/error")) {
-						return new Result(Result.EXECUTION_SUCCESS, msg,null);
-					}
-					if(path.equals("/null")) {
-						return new Result(Result.EXECUTION_SUCCESS, msg,null);
-					}
-					if(path.equals("/addCart")) {
-						return new Result(Result.EXECUTION_SUCCESS, msg,"shop");
-					}
-					
-					@SuppressWarnings("unchecked")
-					Map<String, String[]> newmap = (Map<String, String[]>) session.getAttribute("callbackMap");
-					//拼接地址
-					path+="?";
-					for (Map.Entry<String, String[]> entry : newmap.entrySet()) {
-						String name=entry.getKey();
-						String value=entry.getValue()[0];
-						path+=name+"="+value+"&";
-						
-					}
-					//重定向回调页面
-					String cxtPath=request.getContextPath();
-					String newPath=cxtPath+path;
-					return new Result(Result.EXECUTION_SUCCESS, msg,newPath);
-					
-				}
-				
-				return new Result(Result.EXECUTION_SUCCESS, msg,null);
 			}
-		} else {
-			msg = "验证码输入错误！";
-			return new Result(Result.EXECUTION_FAILED, msg);
-		}
+		 String msg = "";
+	 		// 根据用户名和密码查询
+	 		User user = userservice.login(username, MyUtils.getMD5String(password));
+	 		// 获取正确的验证码
+	 		String valCode = (String) session.getAttribute("code");
+	 		if (code.trim().equals(valCode.trim())) {// 判断验证码是否输入正确
+	 			
+	 			if (user == null) {// 登录失败
+	 				msg = "用户名或者密码输入错误！";
+	 				return new Result(Result.EXECUTION_FAILED, msg);
+	 			} else {
+	 				// 登陆成功，将用户添加到会话当中
+	 				session.setAttribute("user", user);
+	 				msg = "登录成功!";
+	 				Cookie newcookie = new Cookie("UserName", user.getName());
+	 				newcookie.setPath(request.getContextPath());
+	 				newcookie.setDomain(request.getServerName());
+	 				response.addCookie(newcookie);
+	 				
+	 				//成功之后把该用户的购物车查出来
+	 				List<Cart> cartProductList = cartservice.listCartProductByUser(user);
+	 				model.addAttribute("cartProductList", cartProductList);
+	 				
+	 				long allSum=0;
+	 				if(cartProductList.size()>0) {
+	 					for (Cart cart : cartProductList) {
+	 						allSum+=cart.getCount()*cart.getProduct().getPrice();
+	 					}
+	 				}
+	 				model.addAttribute("allSum", allSum);
+	 				
+	 				//判断是否有回调路径
+	 				if(session.getAttribute("callbackPath")!=null) {
+	 					
+	 					String path = (String) session.getAttribute("callbackPath");
+	 					if(path.equals("/error")) {
+	 						return new Result(Result.EXECUTION_SUCCESS, msg,null);
+	 					}
+	 					if(path.equals("/null")) {
+	 						return new Result(Result.EXECUTION_SUCCESS, msg,null);
+	 					}
+	 					if(path.equals("/addCart")) {
+	 						return new Result(Result.EXECUTION_SUCCESS, msg,"shop");
+	 					}
+	 					
+	 					@SuppressWarnings("unchecked")
+	 					Map<String, String[]> newmap = (Map<String, String[]>) session.getAttribute("callbackMap");
+	 					//拼接地址
+	 					path+="?";
+	 					for (Map.Entry<String, String[]> entry : newmap.entrySet()) {
+	 						String name=entry.getKey();
+	 						String value=entry.getValue()[0];
+	 						path+=name+"="+value+"&";
+	 						
+	 					}
+	 					//重定向回调页面
+	 					String cxtPath=request.getContextPath();
+	 					String newPath=cxtPath+path;
+	 					return new Result(Result.EXECUTION_SUCCESS, msg,newPath);
+	 					
+	 				}
+	 				
+	 				return new Result(Result.EXECUTION_SUCCESS, msg,null);
+	 			}
+	 		} else {
+	 			msg = "验证码输入错误！";
+	 			return new Result(Result.EXECUTION_FAILED, msg);
+	 		}
+		
+		
 	}
 	
 	@PostMapping("reg.do")
@@ -231,7 +255,20 @@ public class LoginRegisterAction {
 	}
 	
 	@RequestMapping("loginOut")
-	public String loginOut(HttpSession session) {
+	public String loginOut(HttpSession session,HttpServletRequest request,HttpServletResponse response) {
+		User user = (User)session.getAttribute("user");
+		Cookie[] cookies = request.getCookies();
+		if (cookies!=null) {
+			for (int i = 0; i < cookies.length; i++) {
+			   Cookie cookie = cookies[i];
+			   if (cookie.getValue().equals(user.getName())) {
+			       cookie.setMaxAge(0); 
+			       cookie.setPath(request.getContextPath());
+					cookie.setDomain(request.getServerName());
+					response.addCookie(cookie);
+			     }
+			  }
+			}
 		session.invalidate();
 		return "login-register";
 	}
@@ -246,8 +283,42 @@ public class LoginRegisterAction {
 		return "common/createCode";
 	}
 	
+	
 	@GetMapping("QQLogin")
-	public String QQLogin() {
+	public String QQLoginResult(HttpSession session) {	
 		return "QQLogin";
 	}
+
+	//qq授权后会回调此方法，并将code传过来
+	@PostMapping("QQLoginCallBack")
+	@ResponseBody
+    public Result getQQCode(String openId,HttpSession session){
+		String str="0123456789";
+		StringBuilder sb=new StringBuilder(4);
+		for(int i=0;i<4;i++){
+		char ch=str.charAt(new Random().nextInt(str.length()));
+			sb.append(ch);
+		}
+		String code = sb.toString();
+		User user = userservice.selectByOpenID(MyUtils.getMD5String(openId));
+		if( user == null ) {
+			User QQUser = new User();
+			QQUser.setOpenid(MyUtils.getMD5String(openId));
+			QQUser.setEmail("869872053@qq.com");
+			QQUser.setName("QQ用户"+code);
+			QQUser.setPassword(MyUtils.getMD5String("123"));
+			Integer regResult = userservice.regByUser(QQUser);
+			if( regResult>0 ) {
+				session.setAttribute("user", QQUser);
+				sendMail("869872053@qq.com", "OurHouse邮件", "自动注册成功！您的用户名为：QQ用户"+code+",密码：123,请及时修改！");
+				return new Result(Result.EXECUTION_SUCCESS,"注册成功！您的用户名为：QQ用户"+code+",密码：123,请及时修改！");
+			}
+		}else {
+			session.setAttribute("user", user);
+			return new Result(Result.EXECUTION_SUCCESS,"");
+		}
+		return new Result(Result.EXECUTION_FAILED,"登录失败！刷新试试");
+    }
+
+	
 }

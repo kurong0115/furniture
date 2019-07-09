@@ -26,5 +26,27 @@ public class AddressServiceImpl implements AddressService {
 		List<Address> list = addressmapper.selectByExample(example);
 		return list;
 	}
+	//添加地址
+	@Override
+	public Integer addAddress(Address address) {
+		Integer result = addressmapper.insert(address);
+		return result;
+	}
+	//根据id查询地址
+	@Override
+	public Address queryAddressByID(Integer id) {
+		Address address = addressmapper.selectByPrimaryKey(id);
+		return address;
+	}
+	@Override
+	public Integer updateAddress(Address address) {
+		Integer result = addressmapper.updateByPrimaryKey(address);
+		return result;
+	}
+	@Override
+	public Integer deleteAddressById(Integer id) {
+		Integer result =addressmapper.deleteByPrimaryKey(id);
+		return result;
+	}
 
 }

@@ -48,7 +48,31 @@
         });
     }
     
-    
+    /*--
+    message active
+    -----------------------------------*/
+    if ($('.message-wrap').length) {
+        var $body3 = $('body'),
+            $messagewrap = $('.message-wrap'),
+            $messagecontent = $messagewrap.find('.message-content');
+        $messagewrap.on('click', '.message-active', function(e) {
+            e.preventDefault();
+            var $this = $(this);
+            if (!$this.parent().hasClass('show')) {
+                $this.siblings('.message-content').addClass('show').slideDown().parent().addClass('show');
+            } else {
+                $this.siblings('.message-content').removeClass('show').slideUp().parent().removeClass('show');
+            }
+        });
+        /*Close When Click Outside*/
+        $body3.on('click', function(e) {
+            var $target = e.target;
+            if (!$($target).is('.message-wrap') && !$($target).parents().is('.message-wrap') && $messagewrap.hasClass('show')) {
+            	$messagewrap.removeClass('show');
+            	$messagecontent.removeClass('show').slideUp();
+            }
+        });
+    }
     /*--
     Setting active
     -----------------------------------*/

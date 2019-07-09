@@ -1311,12 +1311,21 @@ textarea:focus {
       font-size: 20px; }
   .header-right-wrap .setting-wrap {
     margin-left: 26px; }
+  .header-right-wrap .message-wrap {
+    margin-left: 26px; }
     .header-right-wrap .setting-wrap button {
       background-color: transparent;
       border: none;
       font-size: 20px;
       padding: 0; }
+    .header-right-wrap .message-wrap button {
+      background-color: transparent;
+      border: none;
+      font-size: 20px;
+      padding: 0; }
       .header-right-wrap .setting-wrap button:hover {
+        color: #ff3535; }
+	  .header-right-wrap .message-wrap button:hover {
         color: #ff3535; }
     .header-right-wrap .setting-wrap .setting-content {
       background: #fff none repeat scroll 0 0;
@@ -1325,6 +1334,19 @@ textarea:focus {
       right: 0;
       top: 100%;
       width: 300px;
+      z-index: 9999;
+      -webkit-box-shadow: 0 0 20px 0.4px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 0 20px 0.4px rgba(0, 0, 0, 0.1);
+      max-height: 636px;
+      overflow-y: auto;
+      display: none; }
+    .header-right-wrap .message-wrap .message-content {
+      background: #fff none repeat scroll 0 0;
+      padding: 26px 30px 32px;
+      position: absolute;
+      right: 20px;
+      top: 100%;
+      width: 250px;
       z-index: 9999;
       -webkit-box-shadow: 0 0 20px 0.4px rgba(0, 0, 0, 0.1);
       box-shadow: 0 0 20px 0.4px rgba(0, 0, 0, 0.1);
@@ -1366,6 +1388,43 @@ textarea:focus {
               .header-right-wrap .setting-wrap .setting-content ul li ul li a:hover {
                 color: #ff3535; }
     .header-right-wrap .setting-wrap:hover {
+      color: #ff3535; }
+      
+      @media only screen and (min-width: 1366px) and (max-width: 1600px) {
+        .header-right-wrap .message-wrap .message-content {
+          max-height: 510px; } }
+      @media only screen and (min-width: 1200px) and (max-width: 1365px) {
+        .header-right-wrap .message-wrap .message-content {
+          max-height: 400px; } }
+      @media only screen and (min-width: 992px) and (max-width: 1199px) {
+        .header-right-wrap .message-wrap .message-content {
+          max-height: 400px; } }
+      .header-right-wrap .message-wrap .message-content ul li {
+        padding-bottom: 25px; }
+        .header-right-wrap .message-wrap .message-content ul li:last-child {
+          padding-bottom: 0px; }
+        .header-right-wrap .message-wrap .message-content ul li h4 {
+          font-size: 16px;
+          margin: 0;
+          color: #000000;
+          padding-bottom: 19px;
+          border-bottom: 1px solid #cccccc;
+          letter-spacing: .2px; }
+        .header-right-wrap .message-wrap .message-content ul li ul {
+          padding-top: 18px; }
+          .header-right-wrap .message-wrap .message-content ul li ul li {
+            padding-bottom: 31px; }
+            .header-right-wrap .message-wrap .message-content ul li ul li:last-child {
+              padding-bottom: 0px; }
+            .header-right-wrap .message-wrap .message-content ul li ul li a {
+              letter-spacing: .2px;
+              color: #000000;
+              font-weight: 300;
+              display: block;
+              line-height: 1; }
+              .header-right-wrap .message-wrap .message-content ul li ul li a:hover {
+                color: #ff3535; }
+    .header-right-wrap .message-wrap:hover {
       color: #ff3535; }
 
 .cart-wrap {
@@ -7474,4 +7533,17 @@ h3.cart-page-title {
 	background-color: red;
 	color: white;
 }
+.comment{
+	width: 30%;
+	border-radius: 25px;
+	background: white;
+	line-height: 40px;
+	border: 2px solid #eceff8;
+}
+.comment:hover{
+	background-color: red;
+	color: white;
+}
+
+
 /*-------- Start My Account Page Wrapper --------*/

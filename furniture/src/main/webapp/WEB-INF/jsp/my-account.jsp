@@ -10,7 +10,7 @@
     <%@include file="common/header_link.jsp" %>
 
 </head>
-<body>
+<body onload="getFlag();">
 <div class="wrapper">
     <!-- 引入首部 -->
     <%@include file="common/header.jsp" %>
@@ -40,9 +40,9 @@
                                 <div class="myaccount-tab-menu nav" role="tablist">
                                     <a href="#dashboad" class="active" data-toggle="tab">
                                     	<i class="fa fa-dashboard"></i>操作</a>   
-                                    <a href="#orders" data-toggle="tab"><i class="fa fa-cart-arrow-down"></i> 订单</a> 
-                                    <a href="#address-edit" data-toggle="tab"><i class="fa fa-map-marker"></i> 地址</a>    
-                                    <a href="#account-info" data-toggle="tab"><i class="fa fa-user" onclick="myAddress()"></i> 帐户详细信息</a>    
+                                    <a href="#orders" data-toggle="tab" ><i class="fa fa-cart-arrow-down"></i> <span>订单</span></a> 
+                                    <a href="#address-edit" data-toggle="tab"  id="aaaa"><i class="fa fa-map-marker"></i><span>地址</span></a>    
+                                    <a href="#account-info" data-toggle="tab"><i class="fa fa-user" onclick="myAddress()" id="bbbb"></i><span> 帐户详细信息</span></a>    
                                     <a href="loginOut" onclick="return loginOut();"><i class="fa fa-sign-out"></i> 注销</a>
                                     
                                 </div>
@@ -67,30 +67,56 @@
                                         <div class="myaccount-content">
                                             <h3>订单</h3>    
                                             <div class="myaccount-table table-responsive text-center">
-                                                <table class="table table-bordered" id="ordersTable">
+                                                <table class="table table-bordered">
                                                     <thead class="thead-light">
                                                         <tr>
                                                             <th>订单编号</th>
                                                             <th>下单日期</th>
                                                             <th>订单金额</th>
-                                                            <th>订单详情</th>
+                                                            <th>订单状态</th>
+                                                            <th>操作</th>
                                                         </tr>
                                                     </thead>    
-                                                    <tbody >                  
+                                                    <tbody id="orderList">                  
                                                     	<c:if test="${myOrder != null }">
 		                                                    <c:forEach items="${myOrder }"  var="m">
 		                                                       <tr>
 		                                                           <td>${m.orderno}</td>
 		                                                           <td>${m.createtime.toLocaleString()}</td>
 		                                                           <td>${m.sum}</td>
-		                                                           <td>
-		                                                           		<a href="#" title="Quick View" data-toggle="modal"
-																		data-target="#exampleModal" onclick="checkDetail(${m.id})">详情</a>
+		                                                           <c:if test="${m.ispay==1 && m.isdeal==0 && m.isfinish==0}">
+		                                                           		<td>订单已付款</td>
+		                                                           </c:if>
+		                                                           <c:if test="${m.ispay==1 && m.isdeal==1 && m.isfinish==0}">
+		                                                           		<td>订单已发货</td>
+		                                                           </c:if>
+		                                                           <c:if test="${m.ispay==1 && m.isdeal==1 && m.isfinish==1}">
+		                                                           		<td>订单已完成</td>
+		                                                           </c:if>
+		                                                           <td style="width: 180px;">
+																		<button  data-toggle="modal" data-target="#exampleModal" 
+																		onclick="checkDetail(${m.id},this)" class="comment" style="width:50%">详情</button>
+																		<c:if test="${m.isdeal==1 && m.isfinish==0}">
+																			<button  onclick="orderFinish(${m.id},this)" class="comment" style="width:50%">确认收货</button>
+																		</c:if>
+		                                                           		
 		                                                           </td>
 		                                                       </tr>
 			                                                  </c:forEach>
+			                                                 
 	                                                    </c:if>
+	                                                    
                                                     </tbody>
+                                                    <c:if test="${count>10 }">
+                                                    	<tfoot id="orderTfoot">
+	                                                    	<tr>
+	                                                    		<td colspan="5">
+	                                                    			<button onclick="seeOrderMore()" class="comment" style="width:50%">查看更多</button>
+	                                                    		</td>
+	                                                    	</tr>
+	                                                    </tfoot>
+                                                    </c:if>
+                                                    
                                                 </table>
                                             </div>
                                         </div>
@@ -101,7 +127,7 @@
 											<div class="modal-content">
 												<div class="modal-header">
 													<h4>订单详情</h4>
-													<button type="button" class="close" data-dismiss="modal"
+													<button type="button" class="close" data-dismiss="modal" id="closeBnt"
 														aria-label="Close">
 														
 														<span aria-hidden="true">x</span>
@@ -111,11 +137,11 @@
 												<font id="orderNo" style="width: 100%;background: #eceff8;line-height: 50px;text-align: center;font-weight: 900"></font>
 												
 												<div class="ystep4" style="text-align: center;"></div>
-												
+												<div style="text-align: center;" id="finishBnt"></div>
 												<div class="modal-body">
 													<div class="row">
 														<table class="table table-bordered" id="ordersTable">
-		                                                    <thead class="thead-light">
+		                                                    <thead class="thead-light" style="text-align: center;">
 		                                                        <tr>
 		                                                            <th>图片</th>
 		                                                            <th>商品名</th>
@@ -124,7 +150,7 @@
 		                                                            <th>小计</th>
 		                                                        </tr>
 		                                                    </thead>    
-		                                                    <tbody id="orderDetails">                  
+		                                                    <tbody id="orderDetails" style="text-align: center;">                  
 
 		                                                    </tbody>
 		                                                </table>
@@ -138,7 +164,7 @@
                                     <!-- Single Tab Content Start -->
                                     <div class="tab-pane fade" id="address-edit" role="tabpanel">
                                         <div class="myaccount-content">
-                                             <table class="table table-bordered" id="ordersTable">
+                                             <table class="table table-bordered">
                                                     <thead class="thead-light">
                                                         <tr>
                                                             <th>收货人</th>
@@ -155,7 +181,8 @@
 	                                                           <td>${address.phone }</td>
 	                                                           <td>${address.address }</td>
 	                                                           <td>
-	                                                           		<a>修改地址</a>
+	                                                           		<a onclick="QueryAddress(${address.id})" title="Quick View" data-toggle="modal" data-target="#exampleModal3">修改</a>/
+	                                                           		<a onclick="deleteAddress(${address.id})">删除</a>
 	                                                           </td>
 	                                                       </tr>
                                                     	</c:forEach>
@@ -173,7 +200,7 @@
 											<div class="modal-content">
 												<div class="modal-header">
 													<h4>新增地址</h4>
-													<button type="button" class="close" data-dismiss="modal"
+													<button id="closeModel" type="button" class="close" data-dismiss="modal"
 														aria-label="Close">
 														<span aria-hidden="true">x</span>
 													</button>
@@ -193,7 +220,7 @@
 													    <br/>
 			                                            <input id="addressDetails" placeholder="详细地址" type="text" style="width: 50%;background: white;margin-top: 20px;border-radius: 25px;">
 			                                            <br/>
-			                                            <button type="button" onclick="addAddress()" id="addAddr">确认添加</button>
+			                                            <button type="button" onclick="addAddress()" id="addAddr">确认新增</button>
 			                                        </form>
 
 							                      </div>
@@ -201,29 +228,64 @@
 											</div>
 										</div>
 									</div>
+									
+									<div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h4>修改地址</h4>
+													<button id="closeModel2" type="button" class="close" data-dismiss="modal"
+														aria-label="Close">
+														<span aria-hidden="true">x</span>
+													</button>
+												</div>
+												<div class="modal-body">
+													<div class="row">
+			                                        <form action="" method="post" style="width: 100%;text-align: center;">
+			                                            <input id="addressName2" placeholder="姓名" type="text" style="width: 50%;background: white;border-radius: 25px;">
+			                                            <input id="addressPhone2" placeholder="电话" type="text" style="width: 50%;background: white;margin-top: 20px;margin-bottom:20px;border-radius: 25px;">
+			                                            <br/>
+			                                            <select id="loc_province2" style="width:120px;">
+													    </select>
+													    <select id="loc_city2" style="width:120px; margin-left: 10px">
+													    </select>
+													    <select id="loc_town2" style="width:120px;margin-left: 10px">
+													    </select>
+													    <br/>
+			                                            <input id="addressDetails2" placeholder="详细地址" type="text" style="width: 50%;background: white;margin-top: 20px;border-radius: 25px;">
+			                                            <br/>
+			                                            <button type="button" onclick="ModefyAddress()" id="modefyAddr">确认修改</button>
+			                                        </form>
+
+							                      </div>
+												</div>
+											</div>
+										</div>
+									</div>
+									 
                                     <!-- Single Tab Content End -->    
                                     <!-- Single Tab Content Start -->
                                     <div class="tab-pane fade" id="account-info" role="tabpanel">
                                         <div class="myaccount-content">
                                             <h3>账户详细信息</h3>    
                                             <div class="account-details-form">
-                                                <form action="#">
+                                                <form>
                                                     <div class="row">
                                                         <div class="col-lg-6">
                                                             <div class="single-input-item">
                                                                 <label for="first-name" class="required">名字</label>
-                                                                <input type="text" id="first-name" value="${user.name }"/>
+                                                                <font id="first-name">${user.name }</font>
                                                             </div>
                                                         </div> 
                                                     </div>
                                                     <div class="single-input-item">
                                                         <label for="email" class="required">邮箱地址</label>
-                                                        <input type="email" id="email" value="${user.email }"/>
+                                                        <font  id="email" >${user.email }</font>
                                                     </div>    
                                                     <fieldset>
                                                         <legend>更改密码</legend>
                                                         <div class="single-input-item">
-                                                            <label for="current-pwd" class="required">当前密码</label>
+                                                            <label for="current-pwd" class="required">当前密码</label> 
                                                             <input type="password" id="current-pwd" value=""/>
                                                         </div>   
                                                         <div class="row">
@@ -242,7 +304,7 @@
                                                         </div>
                                                     </fieldset>
                                                     <div class="single-input-item">
-                                                        <button class="check-btn sqr-btn ">保存更改</button>
+                                                        <button type="button" onclick="modefyPassword()">保存更改</button>
                                                     </div>
                                                 </form>
                                             </div>

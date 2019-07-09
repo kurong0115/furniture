@@ -39,6 +39,17 @@ public class ContactUsServiceImpl implements ContactUsService {
 			return -1;
 		}
 	}
+	
+	@Override
+	public String whetherReply(int uid) {
+		MessageExample me = new MessageExample();
+		me.createCriteria().andUidEqualTo(uid).andReplyIsNull();
+		List<Message> list = messageMapper.selectByExample(me);
+		if(list.size() > 0) {	// 还有未曾回复的信息
+			return "no";
+		}
+		return "yes";
+	}
 
 	@Override
 	public Result sendInfo(Message message) {
@@ -76,5 +87,34 @@ public class ContactUsServiceImpl implements ContactUsService {
 	public void replyMessage(Message message) {
 		message.setReplytime(new Timestamp(System.currentTimeMillis()));
 		messageMapper.updateByPrimaryKeySelective(message);
+	}
+
+	@Override
+	public int getSystemReply(int uid) {
+		MessageExample message = new MessageExample();
+		message.createCriteria().andUidEqualTo(uid).andStatueEqualTo(0).andReplyIsNotNull();
+		
+		List<Message> list = messageMapper.selectByExample(message);
+		if(list.size() > 0) {
+			return list.size();
+		} else {
+			return 0;
+		}
+	}
+
+	@Override
+	public List<Message> getSendAndReply(int uid) {
+		List<Message> messages = messageMapper.getSendAndReply(uid);
+		return messages;
+	}
+
+	@Override
+	public int updateStatus(int uid) {
+		MessageExample me = new MessageExample();
+		me.createCriteria().andUidEqualTo(uid).andReplyIsNotNull();
+		
+		Message message = new Message();
+		message.setStatue(1);
+		return messageMapper.updateByExampleSelective(message, me);
 	}
 }

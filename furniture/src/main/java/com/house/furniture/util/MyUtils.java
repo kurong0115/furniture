@@ -101,4 +101,5 @@ public class MyUtils {
 		int index = staticLocation.indexOf(":");
 		return staticLocation.substring(index + 1);
 	}
+
 }

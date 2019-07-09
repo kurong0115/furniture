@@ -39,7 +39,7 @@ var dt = [{
 	},{
 	    text: '订单管理',
 	    iconCls: 'icon-reload',
-	    url:"???"
+	    url:"manage-orders.do"
 	},{
 	    text: '分类管理',
 	    iconCls: 'icon-reload',
