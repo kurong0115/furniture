@@ -2,14 +2,16 @@ package com.house.furniture.bean;
 
 import java.sql.Timestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+@JsonIgnoreProperties(value = { "handler" })
 public class Orders {
-	
-	
-    @Override
+
+
+	@Override
 	public String toString() {
 		return "Orders [id=" + id + ", orderno=" + orderno + ", uid=" + uid + ", createtime=" + createtime + ", sum="
 				+ sum + ", addressid=" + addressid + ", isdeal=" + isdeal + ", ispay=" + ispay + ", paymethod="
-				+ paymethod + ", isfinish=" + isfinish + "]";
+				+ paymethod + ", isfinish=" + isfinish + ", user=" + user + ", address=" + address + "]";
 	}
 
 	private Integer id;
@@ -31,8 +33,30 @@ public class Orders {
     private String paymethod;
 
     private Integer isfinish;
+    
+    private User user;
+    
+    private Address address;
+    
+    
 
-    public Integer getId() {
+    public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
+	public Integer getId() {
         return id;
     }
 

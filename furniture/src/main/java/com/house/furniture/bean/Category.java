@@ -8,7 +8,9 @@ public class Category {
     private Integer cid;
 
     private String categoryname;
-
+    
+    private Integer count;
+    
     public Integer getCid() {
         return cid;
     }
@@ -25,4 +27,12 @@ public class Category {
         this.categoryname = categoryname == null ? null : categoryname.trim();
     }
 
+	public Integer getCount() {
+		return count;
+	}
+
+	public void setCount(Integer count) {
+		this.count = count;
+	}
+           
 }

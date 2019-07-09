@@ -1,18 +1,21 @@
 package com.house.furniture.web;
 
+import java.io.File;
 import java.util.List;
-
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.github.pagehelper.PageHelper;
 import com.house.furniture.bean.Cart;
@@ -115,5 +118,21 @@ public class ShopAction {
 		}
 		model.addAttribute("allSum", allSum);
 		return new Result(Result.EXECUTION_SUCCESS,"加入购物车成功",cart);
+	}
+	
+	@PostMapping("uploadImages.do")
+	@ResponseBody
+	public Result uploadImage(@RequestParam("file") MultipartFile file) {
+		System.err.println(1111);
+		if (file.getSize()  == 0) {
+			return new Result(Result.EXECUTION_CANCEL, "取消上传");
+		}
+		String filename = UUID.randomUUID().toString() + file.getOriginalFilename();		
+		try {
+			file.transferTo(new File("D:/PIAimages/PIAimages/" + filename));
+			return new Result(Result.EXECUTION_SUCCESS, "文件上传成功", "/PIAimages/" + filename);
+		} catch(Exception e) {
+			return new Result(Result.EXECUTION_FAILED, "文件上传失败");
+		}
 	}
 }

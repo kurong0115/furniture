@@ -143,12 +143,19 @@ function login(){
     	getTime();
     }
 	
+	function toQQLogin(){
+			//以下为按钮点击事件的逻辑。注意这里要重新打开窗口
+		   //否则后面跳转到QQ登录，授权页面时会直接缩小当前浏览器的窗口，而不是打开新窗口
+		   var A=window.open("Connect2.1/index.php","TencentLogin",
+		   "width=450,height=320,menubar=0,scrollbars=1,resizable=1,status=1,titlebar=0,toolbar=0,location=1");
+	}
+	
 	
 
 	
 	function updateCode() {
 		var img=document.getElementById("code");
-		// 相同的url请求，浏览器会在缓存里加载数据并不会往服务器重新发送，所以后面加一个随机数
+		// 相同的url请求，浏览器会在缓存里加载数据并不会往服务器重新发送，     
 		img.src="createCode?"+Math.random();
 	}
 	

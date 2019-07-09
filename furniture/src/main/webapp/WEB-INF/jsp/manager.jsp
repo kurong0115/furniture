@@ -35,15 +35,15 @@ var dt = [{
 	},{
 	    text: '货品管理',
 	    iconCls: 'icon-reload',
-	    url:"???"
+	    url:"manage-product.do"
 	},{
 	    text: '订单管理',
 	    iconCls: 'icon-reload',
-	    url:"???"
+	    url:"manage-orders.do"
 	},{
 	    text: '分类管理',
 	    iconCls: 'icon-reload',
-	    url:"???"
+	    url:"manage-category.do"
 	}]
 },{
 	text: '用户留言',

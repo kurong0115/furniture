@@ -34,4 +34,6 @@ public interface ProductMapper {
     
     // update product set score = (select ceil(AVG(LEVEL)) from remark where pid = 1) where pid = 1;
     int updateScore(int pid);
+    
+    int getCountByCategory(int cid);
 }

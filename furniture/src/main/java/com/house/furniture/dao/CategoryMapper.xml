@@ -4,6 +4,9 @@
   <resultMap id="BaseResultMap" type="com.house.furniture.bean.Category">
     <id column="cid" jdbcType="INTEGER" property="cid" />
     <result column="categoryName" jdbcType="VARCHAR" property="categoryname" />
+    <!-- <result column="count" property="count" jdbcType="INTEGER" /> -->
+    <association property="count" column="cid" fetchType="lazy" 
+        select="com.house.furniture.dao.ProductMapper.getCountByCategory" autoMapping="true" ></association>
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -161,4 +164,19 @@
     set categoryName = #{categoryname,jdbcType=VARCHAR}
     where cid = #{cid,jdbcType=INTEGER}
   </update>
+  <select id="listCategoryByPage" resultMap="BaseResultMap">
+    SELECT
+	    a.cid,a.categoryname, count
+	FROM
+	    category a
+	JOIN (
+	    SELECT
+	        cid,
+	        COUNT(*) AS count
+	    FROM
+	        product
+	    GROUP BY
+	        cid
+	) b ON a.cid = b.cid
+  </select>
 </mapper>
