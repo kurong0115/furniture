@@ -2,6 +2,7 @@ package com.house.furniture.service;
 
 import java.util.List;
 
+import com.github.pagehelper.Page;
 import com.house.furniture.bean.Product;
 
 public interface ProductService {
@@ -70,4 +71,42 @@ public interface ProductService {
 	 * @return
 	 */
 	Long getItemSize(String onSale, String newProduct, double min, double max, int cid);
+	
+	/**
+	  * 获取符合条件产品数量
+	 * @param condition
+	 * @return
+	 */
+	Long getConditionSize(String condition);
+	
+	/**
+	  * 保存产品信息及图片信息
+	 * @param product
+	 * @param image
+	 * @return
+	 */
+	int saveProduct(Product product, String[] image);
+	
+	/**
+	  * 管理界面查询所有产品信息
+	 * @param page
+	 * @param rows
+	 * @return
+	 */
+	Page<Product> listAllProductByPage(int page, int rows);
+
+	/**
+	 * 修改产品信息
+	 * @param product
+	 * @return
+	 */
+	int updateProduct(Product product, String[] images);
+
+	
+	/**
+	  * 下架产品
+	 * @param pid
+	 * @return
+	 */
+	int removeProduct(int pid);
 }
