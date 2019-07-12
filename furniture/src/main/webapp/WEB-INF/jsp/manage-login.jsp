@@ -130,8 +130,10 @@ function adminLogin() {
 		if(data.code==1){
 			getSuccessMsg(data.message);
 			location.href=data.data;
-		}else{
+		}else if(data.code==0){
 			getFailMsg(data.message);
+		}else{
+			getFailMsg("登陆失败");
 		}
 	})
 }

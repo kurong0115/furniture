@@ -24,11 +24,11 @@ public class WebConfigurer implements WebMvcConfigurer{
 			excludePathPatterns("/*.do","/createCode","/login-register",
 				"/shop", "/product-details", "/js/**", "/images/**", "/assets/**", "/PIAimages/**",
 				"/ckeditor/**","/index","/","/head/**", "/compare-page","/forgetPassword","/send","/QQLogin","/QQLoginCallBack"
-				,"/manager.do","/admin","/manage/**","/manage/**","manage-user.do","manage-noReply.do",
-				"manage-reply.do","manage-orders.do","manage-category.do","manage-product.do");
+				,"/manager.do","/admin","/adminLogin","/manage/**","/manage-user.do","/manage-noReply.do",
+				"/manage-reply.do","/manage-orders.do","/manage-category.do","/manage-product.do","/adminOut");
 		
-		registry.addInterceptor(admininterceptor).addPathPatterns("/manager.do","/manage/**","manage-user.do","manage-noReply.do",
-				"manage-reply.do","manage-orders.do","manage-category.do","manage-product.do");
+		registry.addInterceptor(admininterceptor).addPathPatterns("/manager.do","/manage/**","/manage-user.do","/manage-noReply.do",
+				"/manage-reply.do","/manage-orders.do","/manage-category.do","/manage-product.do");
 	}
 
 	@Override

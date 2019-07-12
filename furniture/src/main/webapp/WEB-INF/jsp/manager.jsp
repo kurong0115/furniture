@@ -59,16 +59,58 @@ var dt = [{
 	    url:"manage-reply.do"
 	}]
 }];
+
+function adminOut() {
+	$.messager.confirm("提示","确认退出吗？",function(flag){
+		if(flag){
+			$.get('adminOut',function(data){
+				if(data.code==1){
+					location.href="admin";
+				}else{
+					getFailMsg("操作失败，请稍后再试")
+				}
+			});
+		}
+	});
+	
+}
+function getSuccessMsg(msg) {
+	$.message({
+        message:msg,
+        type:'success',
+        duration:'3000'
+    });
+}
+function getFailMsg(msg) {
+	$.message({
+        message:msg,
+        type:'error',
+        duration:'3000'
+    });
+}
 </script>
 </head>
 
 <body class="easyui-layout" style="">
-    <div data-options="region:'north'" style="height:50px;"></div>
-    <div data-options="region:'south',split:true" style="height:50px;"></div>
+    <div data-options="region:'north'" style="height:80px;">
+    	
+    	<div style="display: inline-block;height:75px;width: 60%">
+    		<img src="assets/img/manageLogo.png" alt="" style="margin-left: 10%;"> 		
+    	</div>
+    	
+    	<div style="display: inline-block;float: right;margin-right: 10%;height:65px;margin-top: 10px;">
+    		<font style="font-size: 25px">欢迎您：${admin.name}</font>&nbsp;&nbsp;&nbsp;
+    		<a href="javascript:void(0)" onclick="adminOut()" style="font-size: 25px">注销</a>&nbsp;&nbsp;&nbsp;
+    		<img alt="" src="${admin.head }" width="50px" height="50px" style="vertical-align: middle;border-radius: 50%;">
+    		
+    	</div>
+    	
+    </div>
     <div class="easyui-sidemenu" data-options="region:'west',split:true,data:dt,
     	onSelect:onMenuSelect" title="菜单栏" style="width:200px;"></div>
     <div class="easyui-tabs" data-options="region:'center'" id="tt">
     	<div title="首页"></div>
     </div>
+    <script src="/assets/js/message.js"></script>   
 </body>
 </html>
