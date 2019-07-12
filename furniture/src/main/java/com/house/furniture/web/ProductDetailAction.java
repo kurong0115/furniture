@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.context.annotation.RequestScope;
 
 import com.house.furniture.bean.Operation;
 import com.house.furniture.bean.Product;
@@ -61,8 +62,9 @@ public class ProductDetailAction {
 	
 	@GetMapping("removeRemark")
 	@ResponseBody
-	public Result removeRemark(@RequestParam(value = "id", required = true) int id) {
-		int code = remarkService.removeRemark(id);
+	public Result removeRemark(@RequestParam(value = "id", required = true) int id, 
+			@RequestParam(value = "pid", required = true) int pid) {
+		int code = remarkService.removeRemark(id, pid);
 		if (code == 1) {
 			return new Result(Result.EXECUTION_SUCCESS, "删除成功");
 		}

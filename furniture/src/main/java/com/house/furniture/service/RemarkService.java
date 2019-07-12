@@ -21,6 +21,11 @@ public interface RemarkService {
 	 */
 	int saveRemark(Remark remark) throws ServiceException;
 	
-	
-	int removeRemark(int id);
+	/**
+	 * 
+	 * 删除评论
+	 * @param id
+	 * @return
+	 */
+	int removeRemark(int id, int pid);
 }

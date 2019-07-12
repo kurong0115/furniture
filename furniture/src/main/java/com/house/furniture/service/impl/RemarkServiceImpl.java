@@ -57,7 +57,9 @@ public class RemarkServiceImpl implements RemarkService {
 	}
 
 	@Override
-	public int removeRemark(int id) {		
-		return remarkMapper.deleteByPrimaryKey(id);
+	public int removeRemark(int id, int pid) {		
+		int code= remarkMapper.deleteByPrimaryKey(id);
+		code = productMapper.updateScore(pid);
+		return code;
 	}
 }
