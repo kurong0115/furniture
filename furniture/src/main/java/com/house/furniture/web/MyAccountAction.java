@@ -43,12 +43,15 @@ public class MyAccountAction {
 	UserService userService;
 	
 	@RequestMapping("my-account")
-	public String MyAccount(@SessionAttribute("user")User user ,Model model) {
-		List<Orders> orders = orderService.selectByUid(user.getId());
+	public String MyAccount(@SessionAttribute("user")User user ,Model model,
+			@RequestParam(defaultValue="0") Integer page,@RequestParam(defaultValue="10") Integer size) {
+		List<Orders> orders = orderService.selectByUid(user.getId(),page,size);
 		//将用户的所有订单添加到会话中
 		model.addAttribute("myOrder", orders);
 		long count = orderService.getOrdersCount(user.getId());
-		model.addAttribute("count", count);
+		
+		int totalPage=(int) (count%10==0?count/10:count/10+1);
+		model.addAttribute("totalPage", totalPage);
 		
 		List<Address> address = addressService.getAddrByUser(user);
 		model.addAttribute("addressList", address);
@@ -64,14 +67,6 @@ public class MyAccountAction {
 		orderState.add(order);
 		orderState.add(operation);
 		return new Result(Result.EXECUTION_SUCCESS, "1", orderState);
-	}
-
-	@PostMapping("seeOrderMore")
-	@ResponseBody
-	public Result seeOrderMore(@SessionAttribute("user")User user) {
-		long count = orderService.getOrdersCount(user.getId());
-		List<Orders> list = orderService.seeOrderMore(user.getId(),count);
-		return new Result(Result.EXECUTION_SUCCESS,"1",list);
 	}
 	
 	@PostMapping("addAddress")
@@ -215,4 +210,32 @@ public class MyAccountAction {
 				return new Result(Result.EXECUTION_FAILED, "文件上传失败");
 			}
 		}
+		
+	@GetMapping("orderFirstPage")
+	@ResponseBody
+	public Result orderFirstPage(@SessionAttribute("user")User user,Integer page,@RequestParam(defaultValue="10") Integer size) {
+		List<Orders> list = orderService.selectByUid(user.getId(), page, size);
+		return new Result(Result.EXECUTION_SUCCESS,"",list);
+	}
+	
+	@GetMapping("orderNextPage")
+	@ResponseBody
+	public Result orderNextPage(@SessionAttribute("user")User user,Integer page,@RequestParam(defaultValue="10") Integer size) {
+		List<Orders> list = orderService.selectByUid(user.getId(), page, size);
+		return new Result(Result.EXECUTION_SUCCESS,"",list);
+	}
+	
+	@GetMapping("orderLastPage")
+	@ResponseBody
+	public Result orderLastPage(@SessionAttribute("user")User user,Integer page,@RequestParam(defaultValue="10") Integer size) {
+		List<Orders> list = orderService.selectByUid(user.getId(), page, size);
+		return new Result(Result.EXECUTION_SUCCESS,"",list);
+	}
+	
+	@GetMapping("orderFinalPage")
+	@ResponseBody
+	public Result orderFinalPage(@SessionAttribute("user")User user,Integer page,@RequestParam(defaultValue="10") Integer size) {
+		List<Orders> list = orderService.selectByUid(user.getId(), page, size);
+		return new Result(Result.EXECUTION_SUCCESS,"",list);
+	}
 }
