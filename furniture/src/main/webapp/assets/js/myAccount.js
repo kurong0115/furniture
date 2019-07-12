@@ -55,7 +55,7 @@ function checkDetail(orderid,bnt) {
 			                        '<td>'+(data.data[1])[i].price+'</td>'+
 			                        '<td>'+(data.data[1])[i].count+'</td>'+
 			                        '<td>'+(data.data[1])[i].sum+'</td>'+
-			                        '<td><button type="button" onclick="login()" class="comment"  style="width:100%;">去评论</button> </td>'+
+			                        '<td><button type="button" onclick="gotoComment('+(data.data[1])[i].productList[0].pid+')" class="comment"  style="width:100%;">去评论</button> </td>'+
 			                        '</tr>'
 									);
 							
@@ -116,6 +116,10 @@ function checkPhone(phone){
     if(!(/^1[3456789]\d{9}$/.test(phone))){ 
         return false; 
     } 
+}
+
+function gotoComment(pid){
+	window.location.href="product-details?pid="+pid+"&flag=comment";
 }
 
 function addAddress() {
