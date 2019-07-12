@@ -20,5 +20,7 @@ public interface RemarkService {
 	 * @throws ServiceException 
 	 */
 	int saveRemark(Remark remark) throws ServiceException;
-
+	
+	
+	int removeRemark(int id);
 }

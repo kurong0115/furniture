@@ -104,4 +104,6 @@ public interface ProductMapper {
     List<Product> listProductsByCid(int cid);
     
     int removeProduct(int pid);
+    
+    int uploadProduct(int pid);
 }

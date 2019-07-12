@@ -1,9 +1,15 @@
 function getFlag(){
 	var flag = GetQueryString("flag");
+	
+	if( flag == 'userinfo' ){
+		$("#hehao").click();
+		return;
+	}
 	if( flag == 'address' ){
 		$("#aaaa").click();
 		return;
 	}
+	
 }
 
 function GetQueryString(name)
@@ -210,10 +216,13 @@ function QueryAddress(id){
 			id:id
 		},function(data){
 			if( data.code==1 ){
-				$('#addressName2').val(data.data.name);
-				$('#addressPhone2').val(data.data.phone);
-				var str = data.data.address.split('-');
-				$('#addressDetails2').val(str[3]);
+				console.info(data);
+				if( data.data.status == 1 ){
+					$('#addressName2').val(data.data.name);
+					$('#addressPhone2').val(data.data.phone);
+					var str = data.data.address.split('-');
+					$('#addressDetails2').val(str[3]);	
+				}
 			}
 		}	
 	)
@@ -340,3 +349,40 @@ function modefyPassword(){
 		}
 	});
 }
+
+function getFileName(){
+	$("#headPic").attr("src");
+	upload();
+}
+
+
+//文件上传
+function upload(){
+	$.ajax({
+        url: "uploadHead.do",
+        type: 'POST',
+        cache: false,
+        data: new FormData($('#ff')[0]),
+        processData: false,
+        contentType: false,
+        dataType:"json",
+        success : function(data) {
+            if (data.code == 1) {
+                $("#ti").attr("src", data.data);
+                $("#head").val(data.data);
+                getSuccessMsg(data.message);
+                setTimeout(
+                		function(){
+                			window.location.href="my-account?flag=userinfo";
+                		}
+    			,1000);  
+            } else {
+            	getFailMsg(data.message);
+            }
+        },error :function(data){
+        	getFailMsg(data.message);
+        }
+    });
+}
+
+

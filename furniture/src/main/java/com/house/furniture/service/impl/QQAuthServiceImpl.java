@@ -67,7 +67,7 @@ public class QQAuthServiceImpl extends DefaultAuthServiceImpl implements QQAuthS
     }
     //由于QQ的几个接口返回类型不一样，此处是获取key-value类型的参数
     private Map<String,String> getParam(String string){
-        Map<String,String> map = new HashMap();
+        Map<String,String> map = new HashMap<>();
         String[] kvArray = string.split("&");
         for(int i = 0;i<kvArray.length;i++){
             String[] kv = kvArray[i].split("=");

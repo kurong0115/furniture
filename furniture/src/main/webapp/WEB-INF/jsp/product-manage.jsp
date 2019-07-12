@@ -25,10 +25,10 @@
             url: 'listAllProductByPage.do',
             toolbar:'#toolbar'" >
         <thead>
-            <tr>
-                <th data-options="field:'pid',width:15">产品ID</th>
+            <tr>               
                 <th field="model" width="35">产品品牌</th>
                 <th field="productname" width="20">产品名称</th>
+                <th data-options="field:'categoryname',width:15,formatter:fmtCategoryname">产品类别</th>
                 <th field="price" width="20">产品价格</th>
                 <th field="description" width="90">产品尺寸</th>
                 <th field="score" width="20">产品评分</th>
@@ -42,9 +42,10 @@
     <div id="toolbar">
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newProduct()">添加产品</a>
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editProduct()">修改产品</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="uploadProduct()">上架产品</a>
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyProduct()">下架产品</a>
-        <select class="easyui-combobox" style="width:8%;">
-            <option value="0">全部</option>
+        <select class="easyui-combobox" style="width:8%;" onclick="getAllCategory()" id="productType">
+            
         </select>        
                 商品名: <input class="easyui-textbox" style="width:12%" id="productname">
         <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="query()">查询</a>
@@ -63,7 +64,7 @@
                 <input name="pid" class="easyui-textbox" type="hidden"><br>
                 <input name="model" class="easyui-textbox" required="true" label="产品品牌:" style="width:40%"><br><br>
                 <input name="productname" class="easyui-textbox" required="true" label="产品名称:" style="width:40%"><br><br>
-                <select name="cid" style="width:40%;" label="产品分类：" id="options" ></select><br><br>
+                <select name="cid" style="width:40%;" label="产品分类：" id="options"></select><br><br>
                 <input name="price" class="easyui-textbox" required="true" label="产品价格:" style="width:40%" id="price"><br><br>
                 <input name="stock" class="easyui-textbox" required="true" label="产品数量:" style="width:40%" id="stock" ><br><br>
                 <input name="description" class="easyui-textbox" required="true" label="产品尺寸:" style="width:80%"><br><br>
@@ -155,7 +156,12 @@
         
         // 图片预览标签
         function fmtImages(value, row, index){       	
-        	return '<a href="javascript:view()" style="text-decoration:none;">点击查看</a>';
+        	return '<a class="easyui-linkbutton" href="javascript:view()" style="text-decoration:none;">点击查看</a>';
+        }
+        
+        // 产品类别填充
+        function fmtCategoryname(value, row, index){
+        	return row.category.categoryname;
         }
         
         // 表格时间填充
@@ -197,6 +203,7 @@
             $('#stock').textbox('textbox').bind('blur', function () {
             	isDigit();
             });
+            getAllCategory();
         })
         
         
@@ -206,6 +213,8 @@
         // 将所有分类信息填充到下拉框
         function getAllCategory(){
         	$("#options").empty();
+        	$("#productType").empty();
+        	$("#productType").append("<option value='0'>全部</option>");        	
         	$.ajax({
         		url:'selectAllCategory.do',
         		method:'get',
@@ -213,11 +222,13 @@
         		success:function(data){
         			if (data != null){
        				    for(var i = 0; i < data.data.length; i++){
-       				        $("#options").append('<option  value="'+data.data[i].cid+'">'+data.data[i].categoryname+'</option>');   
+       				        $("#options").append('<option  value="'+data.data[i].cid+'">'+data.data[i].categoryname+'</option>');
+       				        $("#productType").append('<option  value="'+data.data[i].cid+'">'+data.data[i].categoryname+'</option>');
        				    }
         			}   
        				$("#options").combobox({});
-//       				$("#options").combobox('select', data.data[10].cid);       			
+       				$("#productType").combobox({});       		      
+//       				$("#productType").combobox('select', 0);       			
         		},
         		error:function(){
         			showInformation("服务器繁忙");
@@ -239,16 +250,21 @@
         
         // 修改产品
         function editProduct(){
-            var row = $('#dg').datagrid('getSelected');
-            getAllCategory();                                                                           
-            if (row){
-                $('#dlg').dialog('open').dialog('center').dialog('setTitle','修改商品');
-//                $("#options").combobox('select', row.category.cid);  
-                editSetImages(row.images); 
-                $('#fm').form('load',row);                    
+        	$('#fm').form('clear');
+        	getAllCategory();          
+            var row = $('#dg').datagrid('getSelected');                                                                            
+            if (row){           	
+                $('#dlg').dialog('open').dialog('center').dialog('setTitle','修改商品');               
+                editSetImages(row.images);     
+                $("#options").combobox({
+                	onLoadSuccess:function(){
+                		$("#options").combobox('select',row.category.cid);
+                	}
+                });
+                $('#fm').form('load',row);                          
                 url = 'updateProduct.do';
             }          
-            
+                   
         }
         
         // 填充修改信息时的图片信息
@@ -301,6 +317,25 @@
             }           
         }
         
+        // 重新上架产品
+        function uploadProduct(){
+        	var row = $('#dg').datagrid('getSelected');
+            if (row){
+                $.messager.confirm('确认','您确定上架此产品吗?',function(r){
+                    if (r){
+                        $.post('uploadProduct.do',{pid:row.pid},function(result){
+                            if (result.code == 1){
+                                showInformation(result.message);  
+                                $('#dg').datagrid('reload');    // reload the user data
+                            } else {
+                                showInformation(result.message);  
+                            }
+                        },'json');
+                    }
+                });
+            }
+        }
+        
         // 将产品下架
         function destroyProduct(){
             var row = $('#dg').datagrid('getSelected');
@@ -337,6 +372,17 @@
                 }
             })
         }
-    </script>
+        
+        // 条件查询产品信息
+        function query(){
+        	if ($("#productname").val() != ''){
+        		$('#dg').datagrid('load',{
+                    cid: $("#productType").val(),
+                    productname: $("#productname").val()
+                });
+        	}    
+        	
+        }    
+      </script>
 </body>
 </html>

@@ -247,8 +247,7 @@ public class LoginRegisterAction {
 	}
 	
 	@RequestMapping("loginOut")
-	public String loginOut(HttpSession session,HttpServletRequest request,HttpServletResponse response) {
-		
+	public String loginOut(HttpSession session) {
 		session.invalidate();
 		return "login-register";
 	}
@@ -272,7 +271,7 @@ public class LoginRegisterAction {
 	//qq授权后会回调此方法，并将code传过来
 	@PostMapping("QQLoginCallBack")
 	@ResponseBody
-    public Result getQQCode(String openId,HttpSession session){
+    public Result getQQCode(String openId,HttpSession session,Model model){
 		String str="0123456789";
 		StringBuilder sb=new StringBuilder(4);
 		for(int i=0;i<4;i++){
@@ -290,6 +289,17 @@ public class LoginRegisterAction {
 			Integer regResult = userservice.regByUser(QQUser);
 			if( regResult>0 ) {
 				session.setAttribute("user", QQUser);
+				//成功之后把该用户的购物车查出来
+ 				List<Cart> cartProductList = cartservice.listCartProductByUser(user);
+ 				model.addAttribute("cartProductList", cartProductList);
+ 				
+ 				long allSum=0;
+ 				if(cartProductList.size()>0) {
+ 					for (Cart cart : cartProductList) {
+ 						allSum+=cart.getCount()*cart.getProduct().getPrice();
+ 					}
+ 				}
+ 				model.addAttribute("allSum", allSum);
 				sendMail("869872053@qq.com", "OurHouse邮件", "自动注册成功！您的用户名为：QQ用户"+code+",密码：123,请及时修改！");
 				return new Result(Result.EXECUTION_SUCCESS,"注册成功！您的用户名为：QQ用户"+code+",密码：123,请及时修改！");
 			}
@@ -300,5 +310,5 @@ public class LoginRegisterAction {
 		return new Result(Result.EXECUTION_FAILED,"登录失败！刷新试试");
     }
 
-	
+
 }

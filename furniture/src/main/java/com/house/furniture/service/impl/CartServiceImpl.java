@@ -70,7 +70,7 @@ public class CartServiceImpl implements CartService {
 	public Cart isExitCart(Cart cart) {
 		CartExample example = new CartExample();
 		
-		example.createCriteria().andPidEqualTo(cart.getPid());
+		example.createCriteria().andUidEqualTo(cart.getUid()).andPidEqualTo(cart.getPid());
 		List<Cart> list = cartmapper.selectByExample(example);
 		if(list.size()==0) {
 			return null;
