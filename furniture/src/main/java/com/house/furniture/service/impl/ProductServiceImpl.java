@@ -160,10 +160,4 @@ public class ProductServiceImpl implements ProductService {
 	public int uploadProduct(int pid) {		
 		return productMapper.uploadProduct(pid);
 	}
-
-	@Override
-	public void updateProduct(Product product) {
-		productMapper.updateByPrimaryKeySelective(product);
-		
-	}
 }
