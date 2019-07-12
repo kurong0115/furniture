@@ -78,7 +78,7 @@ public class ShopAction {
 	public String selectByCondition(@RequestParam(value = "condition", defaultValue = "") String condition, 
 			Model model,@RequestParam(value = "page", defaultValue = "1") int page,
 			@RequestParam(value = "size", defaultValue = "15") int size) {
-		PageHelper.startPage(page, size);
+//		PageHelper.startPage(page, size);
 		List<Product> productList = productService.listProductByCondition(condition);		
 		model.addAttribute("result", new Result(page, size, productList, productService.getConditionSize(condition)));
 		return "shop";
@@ -160,8 +160,8 @@ public class ShopAction {
 	
 	@PostMapping("listAllProductByPage.do")
 	@ResponseBody
-	public EasyUIPage listAllProductByPage(int page, int rows) {
-		Page<Product> pageList = productService.listAllProductByPage(page, rows);
+	public EasyUIPage listAllProductByPage(int page, int rows, Product product) {
+		Page<Product> pageList = productService.listAllProductByPage(page, rows, product);
 		return new EasyUIPage(pageList.getTotal(), pageList.getResult());
 	}
 	
@@ -188,6 +188,16 @@ public class ShopAction {
 		}		
 	}
 	
+	@PostMapping("uploadProduct.do")
+	@ResponseBody
+	public Result uploadProduct(int pid) {
+		try {
+			productService.uploadProduct(pid);
+			return new Result(Result.EXECUTION_SUCCESS, "上架成功");
+		} catch(Exception e) {
+			return new Result(Result.EXECUTION_FAILED, "上架失败");
+		}		
+	}
 	@GetMapping("delateImage.do")
 	@ResponseBody
 	public Result delateImage(String filename) {

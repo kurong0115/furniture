@@ -110,7 +110,7 @@
 							<div class="description-review-topbar nav">
 								<a class="active" data-toggle="tab" href="#des-details1">描述</a>
 								<a data-toggle="tab" href="#des-details3">附加信息</a> <a
-									data-toggle="tab" href="#des-details2">评论</a>
+									data-toggle="tab" href="#des-details2" id="userComments">评论</a>
 							</div>
 							<div class="tab-content description-review-bottom">
 								<div id="des-details1" class="tab-pane active">
@@ -147,15 +147,23 @@
                                                 </div>
                                                 <div class="review-content">
                                                     <p>${remark.content }</p>
-                                                    <div class="review-top-wrap">
-                                                        <div class="review-name">
-                                                            <h4>何浩</h4>
+                                                    <div class="review-top-wrap" style="float:left;">
+                                                        <div class="review-name" style="float:left;">
+                                                            <h4>${remark.user.name }</h4>
                                                         </div>
-                                                        <div class="review-rating" style="float: right;">
+                                                        <div class="review-rating" style="float: left;margin-left: 30px;">
                                                             <c:forEach begin="1" end="${remark.level }">
                                                                 <i class="sli sli-star"></i>
                                                             </c:forEach>                                                       
-                                                        </div>                                                   
+                                                        </div>
+                                                        <c:if test="${sessionScope.user.id == remark.user.id }">
+	                                                        <div style="float:left;"> 	                                                           
+                                                                <button style="position:absolute;left:500px;margin-top: -5px;">
+                                                                    <i class="sli sli-trash" onclick="removeRemark(${remark.id })"></i>
+                                                                </button>                                                                                                                         	                                                            
+	                                                        </div> 
+                                                        </c:if>
+                                                                                                          
                                                     </div>
                                                 </div>
                                             </div>
@@ -404,9 +412,24 @@
 	        });
 	    }
 	    
+	    function getSuccessMsg(msg) {
+            $.message({
+                message : msg,
+                type : 'success',
+                duration : '3000'
+            });
+        }
+	    
+	    function getFailMsg(msg) {
+            $.message({
+                message : msg,
+                type : 'error',
+                duration : '3000'
+            });
+        }
+	    
 	    function check(){
 	    	var content = $("#remark-content").val();    
-	    	alert(content);
 	    	if (content == "" || content.length < 10){
 	    		getInfoMsg("内容过短");
 	    		return false;
@@ -421,10 +444,45 @@
         }
         
         $(function(){
-            if ($("#remarkMessage").val() != ""){
+            if ($("#remarkMessage").val() != null && $("#remarkMessage").val() != ""){
                 getInfoMsg($("#remarkMessage").val());
             }
+            getFlag();
+            function getFlag(){
+                var flag = GetQueryString("flag");
+                if( flag == 'comment' ){
+                    $("#userComments").click();
+                    return;
+                }
+            }
+            
+            function GetQueryString(name)
+            {
+                 var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+                 var r = window.location.search.substr(1).match(reg);//search,查询？后面的参数，并匹配正则
+                 if(r!=null)return  unescape(r[2]); return null;
+            }
         })
+        
+        function removeRemark(id){
+        	$.ajax({
+        		url:'removeRemark?id=' + id,
+        		method:"get",
+        		async:true,
+        		success:function(data){
+        			if (data.code == 1){
+        				getSuccessMsg(data.message);
+        				var url = window.location.href + "&flag=comment";
+        				window.location.href = url;
+        			} else{
+        				getFailMsg(data.message);
+        			}
+        		},
+        		error:function(){
+        			getFailMsg("服务器繁忙");
+        		}
+        	})
+        }
     </script>
 </body>
 

@@ -77,7 +77,7 @@
 											<td class="first-column">添加到购物车</td>
 											<c:forEach items="${compareList }" var="product">
                                                 <td>
-                                                <a href="addcart?pid=${product.pid }"
+                                                <a href="#" onclick="addCart('${product.pid}','${product.price}','${product.images[0].imgpath }')"
                                                     class="check-btn">添加到购物车</a></td>
                                             </c:forEach>																					
 										</tr>

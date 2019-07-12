@@ -450,4 +450,8 @@
   <update id="removeProduct" parameterType="int">
     update product set is_ground = 0 where pid=#{pid}
   </update>
+  
+  <update id="uploadProduct" parameterType="int">
+    update product set is_ground = 1 where pid=#{pid}
+  </update>
 </mapper>
