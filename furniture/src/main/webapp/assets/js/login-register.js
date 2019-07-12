@@ -2,6 +2,7 @@
  * 登录
  * @returns
  */
+
 function login(){
 	if( $("#LoginUsername").val()=='' ){
 		getInfoMsg("请输入用户名！");

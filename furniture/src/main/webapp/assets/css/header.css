@@ -1,0 +1,58 @@
+/* #prompt {
+	background:white;
+	margin-left: 15px;
+	margin-right: -25px;
+	position: relative;
+} */
+#picture {
+    width: 40px;
+    height: 40px;
+    margin-top: -10px;
+    cursor: pointer;
+    float: left;
+}
+#badge {
+	float: right;
+    width: 16px;
+    height: 16px;
+    line-height: 20px;		/* 数值与height相同，使数字垂直居中 */
+    text-align: center;		/* 使数字水平居中 */
+    background-color: white;
+    color: red;
+    font-size: 12px;
+    font-weight: 800;
+    border-radius: 50%;		/* 使正方形变圆形，矩形变椭圆形 */
+    position: relative;
+    bottom: 12px;
+    right: 20px;
+    border: aliceblue;
+}
+/* #info {
+	display:none;
+	background:#ccc;
+	color:red;
+	width:160px;
+	height:180px;
+	border:1px solid #E8E8E8;
+	padding-top: 20px;
+	padding-left: 40px;
+	position:absolute;
+	top:68px;
+	
+	display: none;
+	background: white;
+}
+#info a {
+	font-size: 16px;
+    line-height: 2;
+   	display: block;
+    -webkit-margin-after: 1.33em;
+} */
+.tip {
+	display: inline-block;
+	background: red;
+	width:5px;
+	height:5px;
+	border-radius: 50%;
+	position: relative;
+}

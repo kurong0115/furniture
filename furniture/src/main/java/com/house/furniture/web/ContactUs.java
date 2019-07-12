@@ -40,6 +40,7 @@ public class ContactUs {
 		// 判断该用户是否存在
 		int uid = contactUsService.isExist(name, password);
 		if(uid == -1) {
+			
 			return new Result(Result.EXECUTION_FAILED, "用户名或密码错误");
 		}
 		// 判断是否发送过消息还未回

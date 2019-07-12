@@ -53,8 +53,19 @@
 	
 	// 查看内容（提示框显示）
 	function fmtContent(value, row, index){
-		//return '<a href="#" data-toggle="tooltip" data-placement="bottom" title="顶部的 Tooltip">顶部的 Tooltip</a>.';
-		//$("input").val();
+		value = value.replace(/<[^>]+>/g,"");	//消除html标签
+		content = value.length > 10 ? value.substring(0, 10) : value;
+		return '<a href="#" onMouseOver="showText(this)" onMouseOut="hideText(this)"'
+			+'style="text-decoration:none;">'+content+'</a>'
+			+'<textarea hidden style="background-color: #f8f9fa;position: absolute;'
+			+'border-radius: 10px;overflow-x:hidden;overflow-y: auto;width:300px;height:200px;">'+value+'</textarea>.';
+	}
+	function showText(input){
+		$(input).next().removeAttr("hidden");
+		//$(input).next().html($(input).text());
+	}
+	function hideText(input){
+		$(input).next().attr("hidden","true");
 	}
 	
 	// 日期格式化
@@ -70,7 +81,7 @@
 	
 	// 回复留言
 	function fmtReply(value, row, index){
-		return '<input type="button" value="回复" onclick=\'modify('+index+')\'>';
+		return '<input type="button" value="回复" style="background:#f8f9fa;border-radius: 25px;" onclick=\'modify('+index+')\'>';
 	}
 	// 打开表单编辑
 	function modify(index){
@@ -105,7 +116,7 @@
 	</table>
 	
 	<!-- 页头搜索框、添加和查询按钮，在数据表格中添加toolbar属性 -->
-	<div id="tb" style="padding:5px;height:auto">
+	<div id="tb" style="padding:5px;height:auto;">
 		<div>
 			用户名: <input class="easyui-textbox" style="width:80px" id="name">
 			主题: <input class="easyui-textbox" style="width:80px" id="title">
@@ -114,7 +125,7 @@
 	</div>
 	
 	<!-- 回复用户留言的表单 -->
-	<div id="dlg" class="easyui-dialog" title="回复" style="width:900px;height:500px;padding: 10px;"
+	<div id="dlg" class="easyui-dialog" title="回复" style="width:900px;height:450px;padding: 10px;"
 		data-options="
 			iconCls: 'icon-edit',
 			buttons: [{

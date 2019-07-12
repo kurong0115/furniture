@@ -21,7 +21,7 @@
 	    data-appid="101701345"
 	    data-redirecturi="http://127.0.0.1:8080/QQLogin"
 	></script>
-
+	
 </head>
 
 <body>
@@ -116,6 +116,7 @@
 											   });
 											   
 									       });
+										
 										</script>
                                     </div>
                                 </div>
@@ -150,5 +151,12 @@
 </div>
 <!-- 引入底部链接 -->
 <%@include file="common/footer_link.jsp" %>
+<script type="text/javascript">
+$('#LoginCode,#LoginUsername,#LoginPassword').keyup(function(event){  
+    if(event.keyCode ==13){  
+    	login();
+    }  
+  });
+</script>
 </body>
 </html>

@@ -14,11 +14,13 @@
 <script type="text/javascript" src="ckeditor/ckeditor.js"></script>
 <style type="text/css">
 	.dealOrder{
+		height:30px;
 		border-radius:10px;
 		background:#E0ECFF;
 		border:0px solid #fff;
 	}
 	.seeOrder{
+		height:30px;
 		border-radius:10px;
 		background:#E0ECFF;
 		border:0px solid #fff;
@@ -36,7 +38,7 @@
 	}
 </style>
 <script type="text/javascript">
-setInterval("getNewOrder()", 10000);
+setInterval("getNewOrder()", 30000);
 $(getNewOrder());
 function getNewOrder(){
 	$.post("manage/getNewOrder",function(data){
@@ -218,7 +220,7 @@ function doSearch(){
 		toolbar:'#tb'">
 		<thead>
 			<tr>
-				<th data-options="field:'orderno',align:'center'">订单编号</th>
+				<th data-options="field:'orderno',width:'50',align:'center'">订单编号</th>
 				<th data-options="field:'uname',align:'center',formatter:function(val,row){
 					if(row.user==null){
 						return '空';
@@ -230,7 +232,7 @@ function doSearch(){
 			            var createtime = new Date(value);  
 			            return createtime.toLocaleString();  
 			    }">下单时间</th>
-			    <th data-options="field:'addressid',align:'center',formatter:function(val,row){
+			    <th data-options="field:'addressid',width:'100',align:'center',formatter:function(val,row){
 					if(row.address==null){
 						return '空';
 					}else{
@@ -257,7 +259,7 @@ function doSearch(){
 			           }
 			            
 			    }">订单状态</th>
-				<th data-options="field:'id',width:50,align:'center',formatter:fmtbnt" >操作</th>
+				<th data-options="field:'id',align:'center',formatter:fmtbnt" >操作</th>
 			</tr>
 		</thead>
 	</table>
@@ -282,19 +284,19 @@ function doSearch(){
 			">
 		<form id="ff" method="post">
 			<input type="hidden" name="id" id="ffOrderId">
-			<input class="easyui-textbox" name="orderno" style="width:400px;" data-options="label:'订单编号'," readonly="readonly"/>
+			<input class="easyui-textbox" name="orderno" style="width:90%;" data-options="label:'订单编号'," readonly="readonly"/>
 			<br/>
 			<br/>
-			<input class="easyui-textbox" name="username" style="width:400px;" data-options="label:'下单用户'" readonly="readonly"/>
+			<input class="easyui-textbox" name="username" style="width:90%;" data-options="label:'下单用户'" readonly="readonly"/>
 			<br/>
 			<br/>
-			<input class="easyui-textbox" name="createtime" style="width:400px;" data-options="label:'下单时间'" readonly="readonly"/>
+			<input class="easyui-textbox" name="createtime" style="width:90%;" data-options="label:'下单时间'" readonly="readonly"/>
 			<br/>
 			<br/>
-			<input class="easyui-textbox" name="address" style="width:400px;" data-options="label:'收货地址'" readonly="readonly"/>
+			<input class="easyui-textbox" name="address" style="width:90%;" data-options="label:'收货地址'" readonly="readonly"/>
 			<br/>
 			<br/>
-			<input class="easyui-textbox" name="orderStatus" id="fforderStatus" style="width:400px;" data-options="label:'订单状态'" readonly="readonly"/>			
+			<input class="easyui-textbox" name="orderStatus" id="fforderStatus" style="width:90%;" data-options="label:'订单状态'" readonly="readonly"/>			
 			<br/>
 			<br/>
 			<span>订单详细</span>

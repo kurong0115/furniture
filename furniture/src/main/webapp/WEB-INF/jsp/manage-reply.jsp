@@ -53,9 +53,19 @@
 	
 	// 查看内容（提示框显示）
 	function fmtContent(value, row, index){
-		//return '<a href="#" class="easyui-tooltip" title='+ value +'>'+ value +'</a>';
-		//$("input").val();
-		return value;
+		value = value.replace(/<[^>]+>/g,"");	//消除html标签
+		content = value.length > 10 ? value.substring(0, 10) : value;
+		return '<a href="#" onMouseOver="showText(this)" onMouseOut="hideText(this)"'
+			+'style="text-decoration:none;">'+content+'</a>'
+			+'<textarea hidden style="background-color: #f8f9fa;position: absolute;'
+			+'border-radius: 10px;overflow-x:hidden;overflow-y: auto;width:300px;height:200px;">'+value+'</textarea>.'
+	}
+	function showText(input){
+		$(input).next().removeAttr("hidden");
+		//$(input).next().html($(input).text());
+	}
+	function hideText(input){
+		$(input).next().attr("hidden","true");
 	}
 	
 	// 日期格式化
@@ -71,10 +81,6 @@
 		}
 	}
 	
-	// 回复留言
-	function fmtReply(value, row, index){
-		return '<input type="button" value="回复" onclick=\'modify('+index+')\'>';
-	}
 	// 打开表单编辑
 	function modify(index){
 		var row = $('#dg').datagrid('getRows')[index];

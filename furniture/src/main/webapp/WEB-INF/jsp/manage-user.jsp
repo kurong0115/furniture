@@ -65,7 +65,7 @@
 	}
 	// 查看收货信息
 	function fmtop(value, row, index){
-		return '<input type="button" value="查看详情" onclick=\'modify('+index+')\'>';
+		return '<input type="button" value="查看详情" style="background:#f8f9fa;border-radius: 25px;" onclick=\'modify('+index+')\'>';
 	}
 	function modify(index){
 		var row = $('#dg').datagrid('getRows')[index];
@@ -128,7 +128,7 @@
 				<th data-options="field:'name',width:100">用户名</th>
 				<th data-options="field:'email',width:100">邮箱</th>
 				<th data-options="field:'head',width:100,formatter:fmtimgs">头像</th>
-				<th data-options="field:'id',width:100,formatter:fmtop">收货信息</th>
+				<th data-options="field:'id',align:'center',width:100,formatter:fmtop">收货信息</th>
 			</tr>
 	    </thead>
 	</table>
@@ -180,7 +180,7 @@
 	</div>
 	
 	<!-- 弹窗展示收货信息 -->
-	<div id="ddd" class="easyui-dialog" title="收货信息" style="width:900px;height:500px;padding:10px"
+	<div id="ddd" class="easyui-dialog" title="收货信息" style="width:900px;height:450px;padding:10px"
 		data-options="
 			iconCls: 'icon-save',
 			buttons: [{

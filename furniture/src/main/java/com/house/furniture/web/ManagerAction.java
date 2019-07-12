@@ -4,10 +4,12 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 import com.house.furniture.bean.Admin;
 import com.house.furniture.service.AdminService;
@@ -54,6 +56,7 @@ public class ManagerAction {
 	@RequestMapping("manage-product.do")
 	public String productManage() {
 		return "product-manage";
+
 	}
 	@RequestMapping(path= {"admin"})
 	public String adminLogin() {
@@ -76,5 +79,12 @@ public class ManagerAction {
 			return new Result(Result.EXECUTION_FAILED,e.getMessage());
 		}
 		
+	}
+	
+	@GetMapping("adminOut")
+	@ResponseBody
+	public Result adminOut(SessionStatus sessionStatus) {
+		sessionStatus.setComplete();
+		return new Result(Result.EXECUTION_SUCCESS,"退出成功");
 	}
 }
