@@ -1,4 +1,5 @@
 		
+		
 		function getSuccessMsg(msg) {
 			$.message({
 				message : msg,
@@ -74,6 +75,8 @@
 							
 						}
 						$('#addCartByPid').attr("onclick","addCart('"+data.data.pid+"','"+data.data.price+"','"+data.data.images[0].imgpath+"')");
+						$("#addWishListByPid").attr("onclick","addWishlist("+data.data.pid+")");
+						$("#addCompareListByPid").attr("onclick", "compare("+data.data.pid+")");
 						$("#stock").text(data.data.stock); 
 						var size=data.data.description;
 						if (size != ""){
@@ -138,6 +141,9 @@
 				success : function(data) {					
 					if (data.data == null) {
 						getInfoMsg("没有数据");
+						$("#gridList").empty();
+	                    $("#shop-2").empty();
+	                    $(".select-shoing-wrap p").text(0);
 					} else {
 						$("#gridList").empty();
 	                    $("#shop-2").empty();
@@ -148,6 +154,7 @@
 						setPage(data);
 						$("#pageNum").val(data.page);
 						$("#totalPage").val(data.totalPage);
+						$(".select-shoing-wrap p").text(data.totalSize);
 					}
 				},
 				error : function(data) {

@@ -123,6 +123,10 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public User getUserById(int id) {
+		return userMapper.selectByPrimaryKey(id);
+	}
+	
 	public List<User> findUserLikeName(String uname) {
 		UserExample example = new UserExample();
 		example.createCriteria().andNameLike("%"+uname+"%");
@@ -143,6 +147,7 @@ public class UserServiceImpl implements UserService {
 		return result;
 	}
 
+
 	@Override
 	public Integer updateHead(@Valid User user) {
 		Integer updateResult = userMapper.updateByPrimaryKeySelective(user);
@@ -152,4 +157,5 @@ public class UserServiceImpl implements UserService {
 	
 	
 	
+
 }

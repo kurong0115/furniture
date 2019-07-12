@@ -76,6 +76,13 @@ public interface UserService {
 	Page<User> queryAddress(int uid, int page, int rows);
 	
 	/**
+	 * 根据id获取该用户信息
+	 * @param id
+	 * @return
+	 */
+	User getUserById(int id);
+	
+	/**
 	 * 根据用户名模糊查询
 	 * @param uid
 	 * @param page
@@ -92,6 +99,7 @@ public interface UserService {
 	User selectByOpenID(String openId);
 	
 	Integer regByUser(User user);
+
 	/**
 	 * 用户上传头像
 	 * @param id
@@ -99,4 +107,5 @@ public interface UserService {
 	 */
 	Integer updateHead(User user);
 	
+
 }

@@ -31,19 +31,25 @@ public class ContactUs {
 	@PostMapping("sendInfo.do")
 	@ResponseBody
 	public Result sendInfo(Model model, String name, String password, Message message) {
-		//判断是否有未填信息
+		// 判断是否有未填信息
 		if(name == null || name.isEmpty() || password == null || password.isEmpty() || 
 			message.getTitle() == null || message.getTitle().isEmpty() || 
 			message.getContent() == null || message.getContent().isEmpty()) {
 			return new Result(Result.EXECUTION_FAILED, "请将信息填写完整");
 		}
-		//判断该用户是否存在
+		// 判断该用户是否存在
 		int uid = contactUsService.isExist(name, password);
 		if(uid == -1) {
 			return new Result(Result.EXECUTION_FAILED, "用户名或密码错误");
 		}
+		// 判断是否发送过消息还未回
+		String whetherReply = contactUsService.whetherReply(uid);
+		if("no".equals(whetherReply)) {
+			return new Result(Result.EXECUTION_FAILED, "已发送过留言，请耐心等待回复");
+		}
+		
 		message.setUid(uid);
-		//保存该消息
+		// 保存该消息
 		Result result = contactUsService.sendInfo(message);
 		return result;
 		

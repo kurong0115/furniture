@@ -44,7 +44,7 @@
 										<option value="">有货</option>
 									</select> -->
 								</div>
-								<p>总记录数：${result.totalSize }</p>
+								总记录数：<p>${result.totalSize }</p>
 							</div>
 							<div class="shop-tab nav">
 								<a class="active" href="#shop-1" data-toggle="tab"> <i
@@ -370,11 +370,11 @@
 											<a href="javascript:void(0)" id="addCartByPid" onclick="addCart()">添加到购物车</a>
 										</div>
 										<div class="pro-details-wishlist">
-											<a title="添加到愿望清单" href="#"><i
+											<a title="添加到愿望清单" href="#" id="addWishListByPid"><i
 												class="sli sli-heart"></i></a>
 										</div>
 										<div class="pro-details-compare">
-											<a title="对比" href="#"><i
+											<a title="对比" href="#" id="addCompareListByPid"><i
 												class="sli sli-refresh"></i></a>
 										</div>
 									</div>																	

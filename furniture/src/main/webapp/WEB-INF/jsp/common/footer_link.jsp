@@ -19,6 +19,7 @@
 <script src="/assets/js/message.js"></script>
 <script src="/assets/js/shop-details.js"></script>
 <script src="/assets/js/ystep.js"></script>
+<script src="/assets/js/header.js"></script>
 <script type="text/javascript" src="/assets/js/convince/area.js"></script>
 <script type="text/javascript" src="/assets/js/convince/location.js"></script>
 <script type="text/javascript" src="/assets/js/convince/select2.js"></script>

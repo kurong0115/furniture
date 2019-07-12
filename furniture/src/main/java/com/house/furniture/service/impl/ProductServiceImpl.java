@@ -6,11 +6,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.house.furniture.bean.Image;
 import com.house.furniture.bean.Product;
 import com.house.furniture.bean.ProductExample;
 import com.house.furniture.bean.ProductExample.Criteria;
 import com.house.furniture.dao.ProductMapper;
+import com.house.furniture.service.ImageService;
 import com.house.furniture.service.ProductService;
 
 @Service
@@ -18,6 +21,9 @@ public class ProductServiceImpl implements ProductService {
 	
 	@Autowired
 	ProductMapper productMapper;
+	
+	@Autowired
+	ImageService imageService;
 	
 	@Override
 	public List<Product> listProductsByType(int cid, int page, int size) {		
@@ -29,9 +35,11 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<Product> listProductByCondition(String condition) {
 		ProductExample example = new ProductExample();
-		if (!"".equals(condition.trim())) {
-			example.createCriteria().andProductnameLike("%" + condition + "%");
+		Criteria createCriteria = example.createCriteria();
+		if (!"".equals(condition.trim())) {			
+			createCriteria.andProductnameLike("%" + condition + "%");
 		}
+		createCriteria.andIsGroundEqualTo((byte) 1);
 		List<Product> productList = productMapper.selectByExample(example);
 		return productList.isEmpty()? null: productList;
 	}
@@ -89,5 +97,67 @@ public class ProductServiceImpl implements ProductService {
 		criteria.andPriceBetween(min, max);
 		criteria.andCidEqualTo(cid);
 		return productMapper.countByExample(example);
+	}
+
+	@Override
+	public int saveProduct(Product product, String[] images) {
+		product.setScore(0);
+		product.setCreatetime(new Timestamp(System.currentTimeMillis()));
+		int code = productMapper.insertSelective(product);
+		Image image = new Image();
+		image.setPid(product.getPid());
+		for (String string : images) {
+			image.setImgpath(string);
+			code = imageService.saveImage(image);
+		}
+		return code;
+	}
+
+	@Override
+	public Long getConditionSize(String condition) {
+		ProductExample example = new ProductExample();
+		if (!"".equals(condition.trim())) {
+			example.createCriteria().andProductnameLike("%" + condition + "%");
+		}
+		return productMapper.countByExample(example);
+	}
+
+	@Override
+	public Page<Product> listAllProductByPage(int page, int rows, Product product) {
+		ProductExample example = new ProductExample();
+		if (product != null) {
+			Criteria criteria = example.createCriteria();
+			if ((product.getProductname() != null) && (!"".equals(product.getProductname().trim()))) {
+				criteria.andProductnameLike("%" + product.getProductname() + "%");
+			}
+			if ((product.getCid() != null) && (product.getCid() != 0)) {
+				criteria.andCidEqualTo(product.getCid());
+			}
+		}		
+		Page<Product> pageList = PageHelper.startPage(page, rows);
+		productMapper.selectByExample(example);
+		return pageList;
+	}
+
+	@Override
+	public int updateProduct(Product product, String[] images) {	
+		int code = productMapper.updateByPrimaryKeySelective(product);
+		Image image = new Image();
+		image.setPid(product.getPid());
+		for (String string : images) {
+			image.setImgpath(string);
+			code = imageService.saveImage(image);
+		}
+		return code;
+	}
+
+	@Override
+	public int removeProduct(int pid) {		
+		return productMapper.removeProduct(pid);
+	}
+
+	@Override
+	public int uploadProduct(int pid) {		
+		return productMapper.uploadProduct(pid);
 	}
 }
