@@ -61,8 +61,9 @@ public class ProductDetailAction {
 	
 	@GetMapping("removeRemark")
 	@ResponseBody
-	public Result removeRemark(@RequestParam(value = "id", required = true) int id) {
-		int code = remarkService.removeRemark(id);
+	public Result removeRemark(@RequestParam(value = "id", required = true) int id, 
+			@RequestParam(value = "pid", required = true) int pid) {
+		int code = remarkService.removeRemark(id, pid);
 		if (code == 1) {
 			return new Result(Result.EXECUTION_SUCCESS, "删除成功");
 		}

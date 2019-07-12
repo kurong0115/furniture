@@ -30,24 +30,28 @@ import com.house.alipay.config.AlipayConfig;
 import com.house.furniture.bean.Cart;
 import com.house.furniture.bean.Operation;
 import com.house.furniture.bean.Orders;
+import com.house.furniture.bean.Product;
 import com.house.furniture.bean.User;
 import com.house.furniture.service.CartService;
 import com.house.furniture.service.OperationService;
 import com.house.furniture.service.OrdersService;
+import com.house.furniture.service.ProductService;
 
 @Controller
 @SessionAttributes(names= {"cartProductList","allSum"})
 public class CheckoutAction {
 
 	@Resource
-	OrdersService ordersservice;
+	private OrdersService ordersservice;
 	
 	@Resource
-	CartService cartservice;
+	private CartService cartservice;
 	
 	@Resource
-	OperationService operationservice;
+	private OperationService operationservice;
 	
+	@Resource
+	private ProductService productservice;
 	/**
 	 * 生成订单
 	 * @param cartProductList
@@ -61,7 +65,7 @@ public class CheckoutAction {
 	@RequestMapping("produceOrder")
 	@Transactional
 	public String produceOrder(@SessionAttribute("cartProductList") List<Cart> cartProductList,@SessionAttribute("user")User user,Model model,Orders orders,
-			HttpServletResponse rep) throws AlipayApiException, IOException {
+			HttpServletResponse rep,Product product) throws AlipayApiException, IOException {
 		orders.setUid(user.getId());
 		String orderNo = UUID.randomUUID().toString().replace("-", "").toUpperCase();
 		orders.setOrderno(orderNo);		
@@ -86,7 +90,12 @@ public class CheckoutAction {
      			operation.setPrice(cart.getProduct().getPrice());		
      			operation.setSum((int)(cart.getCount()*cart.getProduct().getPrice()));
      			operationservice.produceOperation(operation);
+     			product = cart.getProduct();
+     			product.setStock(product.getStock()-cart.getCount());
+     			productservice.updateProduct(product);
+     			
      		}
+     		
      		model.addAttribute("cartProductList", "");
      		model.addAttribute("allSum", 0);
 			model.addAttribute("orderNo", orders.getOrderno());
@@ -125,9 +134,6 @@ public class CheckoutAction {
 	        rep.getWriter().close();
 	        return null;
 		}
-		
-		
-
 	}
 	
 	/**
@@ -140,11 +146,13 @@ public class CheckoutAction {
     @RequestMapping("return_url")
     @Transactional
     public String returnUrl(@SessionAttribute("cartProductList") List<Cart> cartProductList,Model model,
-    		HttpServletResponse response,HttpServletRequest request) throws AlipayApiException, UnsupportedEncodingException{
+    		HttpServletResponse response,HttpServletRequest request,Product product) throws AlipayApiException, UnsupportedEncodingException{
         //获取支付宝POST过来反馈信息
         Map<String,String> params = new HashMap<String,String>();
-        Map requestParams = request.getParameterMap();
-        for (Iterator iter = requestParams.keySet().iterator(); iter.hasNext();) {
+        @SuppressWarnings("rawtypes")
+		Map requestParams = request.getParameterMap();
+        for (@SuppressWarnings("rawtypes")
+		Iterator iter = requestParams.keySet().iterator(); iter.hasNext();) {
             String name = (String) iter.next();
             String[] values = (String[]) requestParams.get(name);
             String valueStr = "";
@@ -215,6 +223,9 @@ public class CheckoutAction {
             			operation.setPrice(cart.getProduct().getPrice());		
             			operation.setSum((int)(cart.getCount()*cart.getProduct().getPrice()));
             			operationservice.produceOperation(operation);
+            			product = cart.getProduct();
+             			product.setStock(product.getStock()-cart.getCount());
+             			productservice.updateProduct(product);
             		}
             		model.addAttribute("cartProductList", "");
             		model.addAttribute("allSum", 0);
@@ -232,11 +243,13 @@ public class CheckoutAction {
     @RequestMapping("notify_url")
     @Transactional
     public String notifyUrl(@SessionAttribute("cartProductList") List<Cart> cartProductList,Model model,
-    		HttpServletResponse response,HttpServletRequest request) throws AlipayApiException, UnsupportedEncodingException{
+    		HttpServletResponse response,HttpServletRequest request,Product product) throws AlipayApiException, UnsupportedEncodingException{
         //获取支付宝POST过来反馈信息
         Map<String,String> params = new HashMap<String,String>();
-        Map requestParams = request.getParameterMap();
-        for (Iterator iter = requestParams.keySet().iterator(); iter.hasNext();) {
+        @SuppressWarnings("rawtypes")
+		Map requestParams = request.getParameterMap();
+        for (@SuppressWarnings("rawtypes")
+		Iterator iter = requestParams.keySet().iterator(); iter.hasNext();) {
             String name = (String) iter.next();
             String[] values = (String[]) requestParams.get(name);
             String valueStr = "";
@@ -300,6 +313,9 @@ public class CheckoutAction {
             			operation.setPrice(cart.getProduct().getPrice());		
             			operation.setSum((int)(cart.getCount()*cart.getProduct().getPrice()));
             			operationservice.produceOperation(operation);
+            			product = cart.getProduct();
+             			product.setStock(product.getStock()-cart.getCount());
+             			productservice.updateProduct(product);
             		}
             		model.addAttribute("cartProductList", "");
             		model.addAttribute("allSum", 0);

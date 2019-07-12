@@ -53,7 +53,6 @@ public class ShopAction {
 	
 	@ModelAttribute		//所有类别
 	public void initParam(Model model) {
-		System.err.println(staticLocations);
 		List<Category> categoryList = categoryService.listAllCategory();
 		model.addAttribute("categoryList", categoryList);
 	}
@@ -78,7 +77,6 @@ public class ShopAction {
 	public String selectByCondition(@RequestParam(value = "condition", defaultValue = "") String condition, 
 			Model model,@RequestParam(value = "page", defaultValue = "1") int page,
 			@RequestParam(value = "size", defaultValue = "15") int size) {
-//		PageHelper.startPage(page, size);
 		List<Product> productList = productService.listProductByCondition(condition);		
 		model.addAttribute("result", new Result(page, size, productList, productService.getConditionSize(condition)));
 		return "shop";

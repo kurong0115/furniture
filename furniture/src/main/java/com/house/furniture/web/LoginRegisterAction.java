@@ -248,7 +248,6 @@ public class LoginRegisterAction {
 	
 	@RequestMapping("loginOut")
 	public String loginOut(HttpSession session) {
-
 		session.invalidate();
 		return "login-register";
 	}

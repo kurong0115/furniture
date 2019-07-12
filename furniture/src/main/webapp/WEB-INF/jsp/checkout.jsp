@@ -27,6 +27,44 @@
 				location.href="produceOrder?addressid="+$('input[name="addr"]:checked').val()+"&sum="+$('#sum').val()+"&paymethod="+$('input[name="payment_method"]:checked').val()+"";
 			}
 		}
+    	function addAddress() {
+    		var phone = $('#addressPhone').val();
+    		if( $('#addressName').val() == ''){
+    			getFailMsg('请输入您的姓名！');
+    			return;
+    		}
+    		if( $('#addressPhone').val()==''){
+    			getFailMsg('请输入您的电话！');
+    			return;
+    		}
+    		if( $('#loc_province').val()=='' ){
+    			getFailMsg('请输入您的详细地址！');
+    			return;
+    		}
+    		if(checkPhone(phone) == false){
+    			getFailMsg('手机号码格式错误！');
+    			return;
+    		}
+    		$.post('addAddress',{
+    			name:$('#addressName').val(),
+    			phone:$('#addressPhone').val(),
+    			address:$('#loc_province').select2('data').text+"-"+$('#loc_city').select2('data').text+"-"+$('#loc_town').select2('data').text+"-"+$('#addressDetails').val()
+    		},function(data){
+    			if(data.code==1){
+    				getSuccessMsg(data.message);
+    						
+    				$("#closeModel").click();
+    				window.location.href='checkout';	 
+    			}else{
+    				getFailMsg(data.message);
+    			}
+    		})
+    	}
+    	function checkPhone(phone){ 
+    	    if(!(/^1[3456789]\d{9}$/.test(phone))){ 
+    	        return false; 
+    	    } 
+    	}
     </script>
     
    
@@ -46,7 +84,8 @@
     <div class="checkout-main-area pt-70 pb-70">
         <div class="container">
             <div class="customer-zone mb-20">
-                <p>确认收货地址<span style="float: right;"><a href="#">管理收货地址</a></span></p>
+                <p>确认收货地址<span style="float: right;">
+                <a href="#" data-toggle="modal" data-target="#exampleModal2">管理收货地址</a></span></p>
                 <div>
                 	<form action="" style="vertical-align: middle;">
                 		<ul id="addrUl">
@@ -114,9 +153,44 @@
                     </div>
                 </div>
             </div>
+            
+            <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4>新增地址</h4>
+							<button id="closeModel" type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">x</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<div class="row">
+                            <form action="" method="post" style="width: 100%;text-align: center;">
+                                <input id="addressName" placeholder="姓名" type="text" style="width: 50%;background: white;border-radius: 25px;">
+                                <input id="addressPhone" placeholder="电话" type="text" style="width: 50%;background: white;margin-top: 20px;margin-bottom:20px;border-radius: 25px;">
+                                <br/>
+                                <select id="loc_province" style="width:120px;">
+							    </select>
+							    <select id="loc_city" style="width:120px; margin-left: 10px">
+							    </select>
+							    <select id="loc_town" style="width:120px;margin-left: 10px">
+							    </select>
+							    <br/>
+                                <input id="addressDetails" placeholder="详细地址" type="text" style="width: 50%;background: white;margin-top: 20px;border-radius: 25px;">
+                                <br/>
+                                <button type="button" onclick="addAddress()" id="addAddr">确认新增</button>
+                            </form>
+
+	                      </div>
+						</div>
+					</div>
+				</div>
+			</div>
         </div>
     </div>
     <!-- compare main wrapper end -->
+    
     
     
     <!-- 引入底部 -->

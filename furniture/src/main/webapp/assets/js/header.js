@@ -91,8 +91,13 @@
 		
 		/* 用户注销 */
 		function loginOut(){
-			var flag = confirm("您确认注销当前账号？");
-			return flag;
+			Notiflix.Confirm.Init();
+			Notiflix.Confirm.Show( '提醒', '您确认注销当前账号？', '确认', '取消',function(){
+				location.href="loginOut";
+			} );
+			/*var flag = confirm("您确认注销当前账号？");
+			alert(flag);
+			return flag;*/
 		}
 		
 		function getSuccessMsg(msg) {

@@ -8,19 +8,26 @@
     <title>我的账户</title>  
     <!-- 引入首部链接 -->
     <%@include file="common/header_link.jsp" %>
-
+<style type="text/css">
+	#caozuo1:hover {
+		color: red;
+	}
+	#caozuo2:hover {
+		color: red;
+	}
+</style>
 </head>
 <body onload="getFlag();">
 <div class="wrapper">
     <!-- 引入首部 -->
     <%@include file="common/header.jsp" %>
-    <script src="assets/js/myAccount.js"></script>
+    
     <div class="breadcrumb-area pt-35 pb-35 bg-gray">
         <div class="container">
             <div class="breadcrumb-content text-center">
                 <ul>
                     <li>
-                        <a href="index.html">首页</a>
+                        <a href="index">首页</a>
                     </li>
                     <li class="active">我的账户 </li>
                 </ul>
@@ -40,11 +47,10 @@
                                 <div class="myaccount-tab-menu nav" role="tablist">
                                     <a href="#dashboad" class="active" data-toggle="tab">
                                     	<i class="fa fa-dashboard"></i>操作</a>   
-                                    <a href="#orders" data-toggle="tab" ><i class="fa fa-cart-arrow-down"></i> <span>订单</span></a> 
+                                    <a href="#orders" data-toggle="tab" id="cccc"><i class="fa fa-cart-arrow-down"></i> <span>订单</span></a> 
                                     <a href="#address-edit" data-toggle="tab"  id="aaaa"><i class="fa fa-map-marker"></i><span>地址</span></a>    
                                     <a href="#account-info" data-toggle="tab" id="hehao"><i class="fa fa-user" onclick="myAddress()" ></i><span> 帐户详细信息</span></a>    
-                                    <a href="loginOut" onclick="return loginOut();"><i class="fa fa-sign-out"></i> 注销</a>
-                                    
+                                    <a href="#" onclick="loginOut();"><i class="fa fa-sign-out"></i> 注销</a>
                                 </div>
                             </div>
                             <!-- My Account Tab Menu End -->    
@@ -94,12 +100,12 @@
 		                                                           		<td>订单已完成</td>
 		                                                           </c:if>
 		                                                           <td style="width: 180px;">
-																		<button  data-toggle="modal" data-target="#exampleModal" 
+		                                                         		<button  data-toggle="modal" data-target="#exampleModal" 
 																		onclick="checkDetail(${m.id},this)" class="comment" style="width:50%">详情</button>
+																		<input type="hidden" value="${m.id}">
 																		<c:if test="${m.isdeal==1 && m.isfinish==0}">
 																			<button  onclick="orderFinish(${m.id},this)" class="comment" style="width:50%">确认收货</button>
 																		</c:if>
-		                                                           		
 		                                                           </td>
 		                                                       </tr>
 			                                                  </c:forEach>
@@ -107,15 +113,17 @@
 	                                                    </c:if>
 	                                                    
                                                     </tbody>
-                                                    <c:if test="${count>10 }">
-                                                    	<tfoot id="orderTfoot">
-	                                                    	<tr>
-	                                                    		<td colspan="5">
-	                                                    			<button onclick="seeOrderMore()" class="comment" style="width:50%">查看更多</button>
-	                                                    		</td>
-	                                                    	</tr>
-	                                                    </tfoot>
-                                                    </c:if>
+                                                   	<tfoot id="orderTfoot">
+                                                    	<tr>
+                                                    		<td colspan="5">
+                                                    			<button onclick="orderFirstPage()" class="comment" style="width:10%">首页</button>
+                                                    			<button onclick="orderLastPage()" class="comment" style="width:10%">上一页</button>
+                                                    			<button class="comment" style="width:10%" disabled="disabled"><font id="orderPage">1</font>/<font id="orderTotalPage">${totalPage }</font></button>
+                                                    			<button onclick="orderNextPage()" class="comment" style="width:10%">下一页</button>
+                                                    			<button onclick="orderFinalPage()" class="comment" style="width:10%">末页</button>
+                                                    		</td>
+                                                    	</tr>
+                                                    </tfoot>
                                                     
                                                 </table>
                                             </div>
@@ -135,6 +143,7 @@
 												</div>
 												
 												<font id="orderNo" style="width: 100%;background: #eceff8;line-height: 50px;text-align: center;font-weight: 900"></font>
+												<font id="orderAddr" style="width: 100%;background: #eceff8;line-height: 50px;text-align: center;font-weight: 900"></font>
 												
 												<div class="ystep4" style="text-align: center;"></div>
 												<div style="text-align: center;" id="finishBnt"></div>
@@ -181,8 +190,8 @@
 	                                                           <td>${address.phone }</td>
 	                                                           <td>${address.address }</td>
 	                                                           <td>
-	                                                           		<a onclick="QueryAddress(${address.id})" title="Quick View" data-toggle="modal" data-target="#exampleModal3">修改</a>/
-	                                                           		<a onclick="deleteAddress(${address.id})">删除</a>
+	                                                           		<a onclick="QueryAddress(${address.id})" data-toggle="modal" data-target="#exampleModal3" id="caozuo1">修改</a>/
+	                                                           		<a onclick="deleteAddress(${address.id})" id="caozuo2">删除</a>
 	                                                           </td>
 	                                                       </tr>
                                                     	</c:forEach>
@@ -190,7 +199,7 @@
                                                     </tbody>
                                                 </table>
                                                 <a href="#" title="Quick View" data-toggle="modal"
-																		data-target="#exampleModal2">还没有收货地址？新增一个！</a>
+														data-target="#exampleModal2">还没有收货地址？新增一个！</a>
                                             
                                         </div>
                                     </div>
@@ -254,7 +263,10 @@
 													    <br/>
 			                                            <input id="addressDetails2" placeholder="详细地址" type="text" style="width: 50%;background: white;margin-top: 20px;border-radius: 25px;">
 			                                            <br/>
-			                                            <button type="button" onclick="ModefyAddress()" id="modefyAddr">确认修改</button>
+			                                            <button type="button" onclick="ModefyAddress()" id="modefyAddr" 
+			                                            	style="width:70px;height:35px;background:#eee;
+			                                            		border-radius: 25px;
+			                                            		margin-top: 20px;">确认修改</button>
 			                                        </form>
 
 							                      </div>
@@ -274,11 +286,8 @@
                                                     	
                                                         <div class="col-lg-7">
                                                             <div class="single-input-item">
-                                                            <br/>
-                                                                <label for="first-name" class="required">名字</label>
-                                                                
-                                                                <font id="first-name">${user.name }</font>
-                                                                
+                                                                <label for="first-name" class="required">用户名</label>
+                                                                <font id="first-name" style="color: red;">${user.name }</font>
                                                             </div>
                                                         </div> 
                                                         <div>
@@ -290,10 +299,8 @@
                                                     </div>
                                                     <div class="single-input-item">
                                                         <label for="email" class="required">邮箱地址</label>
-                                                        <font  id="email" >${user.email }</font>
-                                                    </div>
-                                                    
-                                                        
+                                                        <font  id="email" style="color: red;">${user.email }</font>
+                                                    </div>    
                                                     <fieldset>
                                                         <legend>更改密码</legend>
                                                         <div class="single-input-item">
