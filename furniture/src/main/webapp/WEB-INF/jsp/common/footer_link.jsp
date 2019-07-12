@@ -15,14 +15,15 @@
 <!-- Ajax Mail -->
 <script src="/assets/js/ajax-mail.js"></script>
 <!-- Main JS -->
-<script src="/assets/js/main.js"></script>
-<script src="/assets/js/message.js"></script>
-<script src="/assets/js/shop-details.js"></script>
-<script src="/assets/js/ystep.js"></script>
-<script src="/assets/js/header.js"></script>
+<script type="text/javascript" src="/assets/js/main.js"></script>
+<script type="text/javascript" src="/assets/js/message.js"></script>
+<script type="text/javascript" src="/assets/js/shop-details.js"></script>
+<script type="text/javascript" src="/assets/js/ystep.js"></script>
+<script type="text/javascript" src="/assets/js/header.js"></script>
 <script type="text/javascript" src="/assets/js/convince/area.js"></script>
 <script type="text/javascript" src="/assets/js/convince/location.js"></script>
 <script type="text/javascript" src="/assets/js/convince/select2.js"></script>
 <script type="text/javascript" src="/assets/js/convince/select2_locale_zh-CN.js"></script>
+<script type="text/javascript" src="assets/js/myAccount.js"></script>
 <!-- 注销的弹窗 -->
 <script type="text/javascript" src="assets/js/notiflix-1.3.0.min.js"></script>

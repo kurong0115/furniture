@@ -21,7 +21,7 @@
 <div class="wrapper">
     <!-- 引入首部 -->
     <%@include file="common/header.jsp" %>
-    <script src="assets/js/myAccount.js"></script>
+    
     <div class="breadcrumb-area pt-35 pb-35 bg-gray">
         <div class="container">
             <div class="breadcrumb-content text-center">
@@ -47,7 +47,7 @@
                                 <div class="myaccount-tab-menu nav" role="tablist">
                                     <a href="#dashboad" class="active" data-toggle="tab">
                                     	<i class="fa fa-dashboard"></i>操作</a>   
-                                    <a href="#orders" data-toggle="tab" ><i class="fa fa-cart-arrow-down"></i> <span>订单</span></a> 
+                                    <a href="#orders" data-toggle="tab" id="cccc"><i class="fa fa-cart-arrow-down"></i> <span>订单</span></a> 
                                     <a href="#address-edit" data-toggle="tab"  id="aaaa"><i class="fa fa-map-marker"></i><span>地址</span></a>    
                                     <a href="#account-info" data-toggle="tab" id="hehao"><i class="fa fa-user" onclick="myAddress()" ></i><span> 帐户详细信息</span></a>    
                                     <a href="#" onclick="loginOut();"><i class="fa fa-sign-out"></i> 注销</a>
@@ -100,8 +100,9 @@
 		                                                           		<td>订单已完成</td>
 		                                                           </c:if>
 		                                                           <td style="width: 180px;">
-																		<button  data-toggle="modal" data-target="#exampleModal" 
+		                                                         		<button  data-toggle="modal" data-target="#exampleModal" 
 																		onclick="checkDetail(${m.id},this)" class="comment" style="width:50%">详情</button>
+																		<input type="hidden" value="${m.id}">
 																		<c:if test="${m.isdeal==1 && m.isfinish==0}">
 																			<button  onclick="orderFinish(${m.id},this)" class="comment" style="width:50%">确认收货</button>
 																		</c:if>
@@ -112,15 +113,17 @@
 	                                                    </c:if>
 	                                                    
                                                     </tbody>
-                                                    <c:if test="${count>10 }">
-                                                    	<tfoot id="orderTfoot">
-	                                                    	<tr>
-	                                                    		<td colspan="5">
-	                                                    			<button onclick="seeOrderMore()" class="comment" style="width:50%">查看更多</button>
-	                                                    		</td>
-	                                                    	</tr>
-	                                                    </tfoot>
-                                                    </c:if>
+                                                   	<tfoot id="orderTfoot">
+                                                    	<tr>
+                                                    		<td colspan="5">
+                                                    			<button onclick="orderFirstPage()" class="comment" style="width:10%">首页</button>
+                                                    			<button onclick="orderLastPage()" class="comment" style="width:10%">上一页</button>
+                                                    			<button class="comment" style="width:10%" disabled="disabled"><font id="orderPage">1</font>/<font id="orderTotalPage">${totalPage }</font></button>
+                                                    			<button onclick="orderNextPage()" class="comment" style="width:10%">下一页</button>
+                                                    			<button onclick="orderFinalPage()" class="comment" style="width:10%">末页</button>
+                                                    		</td>
+                                                    	</tr>
+                                                    </tfoot>
                                                     
                                                 </table>
                                             </div>
@@ -140,6 +143,7 @@
 												</div>
 												
 												<font id="orderNo" style="width: 100%;background: #eceff8;line-height: 50px;text-align: center;font-weight: 900"></font>
+												<font id="orderAddr" style="width: 100%;background: #eceff8;line-height: 50px;text-align: center;font-weight: 900"></font>
 												
 												<div class="ystep4" style="text-align: center;"></div>
 												<div style="text-align: center;" id="finishBnt"></div>
