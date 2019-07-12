@@ -8,6 +8,7 @@
     <title>我的账户</title>  
     <!-- 引入首部链接 -->
     <%@include file="common/header_link.jsp" %>
+    
 <style type="text/css">
 	#caozuo1:hover {
 		color: red;
@@ -341,6 +342,7 @@
     
     <!-- 引入底部 -->
     <%@include file="common/footer.jsp" %>
+   
     
     
 </div>

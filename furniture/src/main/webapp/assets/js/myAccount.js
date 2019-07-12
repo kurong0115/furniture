@@ -1,16 +1,12 @@
 function getFlag(){
 	var flag = GetQueryString("flag");
-	
+	alert(flag);
 	if( flag == 'userinfo' ){
 		$("#hehao").click();
 		return;
 	}
 	if( flag == 'address' ){
 		$("#aaaa").click();
-		return;
-	}
-	if( flag == 'orderList' ){
-		$("#cccc").click();
 		return;
 	}
 	
