@@ -120,8 +120,9 @@ public class UserServiceImpl implements UserService {
 	public Page<User> queryAddress(int uid, int page, int rows) {
 		AddressExample example = new AddressExample();
 		example.createCriteria().andUidEqualTo(uid).andStatusEqualTo(1);
-		address.selectByExample(example);
 		Page<User> p = PageHelper.startPage(page, rows);
+		address.selectByExample(example);
+		
 		return p;
 	}
 
