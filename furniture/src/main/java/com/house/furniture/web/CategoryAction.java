@@ -1,5 +1,7 @@
 package com.house.furniture.web;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -56,5 +58,12 @@ public class CategoryAction {
 		} catch (ServiceException e) {
 			return new Result(Result.EXECUTION_FAILED, "修改失败");
 		}				
+	}
+	
+	@RequestMapping("selectAllCategory.do")
+	@ResponseBody
+	public Result listAllCategory() {
+		List<Category> categoryList = categoryService.listAllCategory();
+		return new Result(Result.EXECUTION_SUCCESS, "", categoryList);
 	}
 }

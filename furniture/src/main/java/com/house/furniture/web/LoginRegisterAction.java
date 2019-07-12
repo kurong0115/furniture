@@ -53,15 +53,7 @@ public class LoginRegisterAction {
 	@PostMapping("login.do")
 	@ResponseBody
 	public Result login(String username, String password, String code,  HttpSession session, HttpServletRequest request,Model model,HttpServletResponse response) {
-		Cookie[] cookies = request.getCookies();
-		if (cookies!=null) {
-			for (Cookie cookie : cookies) {
-				 if (cookie.getValue().equals(username)) {
-					  
-				       return new Result(Result.EXECUTION_FAILED,"您的账号已登录,请勿重复登录！");       
-				     }
-				}
-			}
+		
 		 String msg = "";
 	 		// 根据用户名和密码查询
 	 		User user = userservice.login(username, MyUtils.getMD5String(password));
@@ -256,19 +248,7 @@ public class LoginRegisterAction {
 	
 	@RequestMapping("loginOut")
 	public String loginOut(HttpSession session,HttpServletRequest request,HttpServletResponse response) {
-		User user = (User)session.getAttribute("user");
-		Cookie[] cookies = request.getCookies();
-		if (cookies!=null) {
-			for (int i = 0; i < cookies.length; i++) {
-			   Cookie cookie = cookies[i];
-			   if (cookie.getValue().equals(user.getName())) {
-			       cookie.setMaxAge(0); 
-			       cookie.setPath(request.getContextPath());
-					cookie.setDomain(request.getServerName());
-					response.addCookie(cookie);
-			     }
-			  }
-			}
+		
 		session.invalidate();
 		return "login-register";
 	}

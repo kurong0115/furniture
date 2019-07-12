@@ -39,14 +39,14 @@
                     <div class="story-img">
                         <a href="#"><img src="assets/img/banner/banner-16.png" alt=""></a>
                         <div class="about-logo">
-                            <h3></h3>
+                            <h3 style="font-size: 20px;">Our House</h3>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="story-details pl-50">
                         <div class="story-details-top">
-                            <h2>欢迎来到 <span>Our House</span></h2>
+                            <h2>欢迎来到 <span style="font-size: 40px;">Our House</span></h2>
                             <p>&emsp;&emsp;我们的公司设立于2003年，注册资本近900万元，
                             	总厂位于衡阳工业园，是一家专注于家具的研发、生产和销售的企业投资股份有限公司（已上市），
                             	公司厂房面积逾50000多平方米，拥有世界先进电脑控制的电子开料机、压板机、全自动封边机、打孔机等德国闻名公司的家具加工设备，

@@ -25,14 +25,19 @@ function onMenuSelect(item){
 }
 //json格式的菜单对象
 var dt = [{
-	text: '系统管理',
+	text: '用户管理',
 	iconCls: 'icon-sum',
 	state: 'open',
 	children: [{
 	    text: '用户管理',
 	    iconCls: 'icon-reload',
 	    url:"manage-user.do"
-	},{
+	}]
+},{
+	style:'background-color:#E0ECFF',
+	text: '产品管理',
+	iconCls: 'icon-sum',
+	children: [{
 	    text: '货品管理',
 	    iconCls: 'icon-reload',
 	    url:"manage-product.do"
@@ -46,9 +51,8 @@ var dt = [{
 	    url:"manage-category.do"
 	}]
 },{
-	text: '用户留言',
+	text: '留言管理',
 	iconCls: 'icon-sum',
-	state: 'close',
 	children: [{
 	    text: '未回复',
 	    iconCls: 'icon-reload',
@@ -64,7 +68,7 @@ var dt = [{
 
 <body class="easyui-layout" style="">
     <div data-options="region:'north'" style="height:50px;"></div>
-    <div data-options="region:'south',split:true" style="height:50px;"></div>
+    <!-- <div data-options="region:'south',split:true" style="height:50px;"></div> -->
     <div class="easyui-sidemenu" data-options="region:'west',split:true,data:dt,
     	onSelect:onMenuSelect" title="菜单栏" style="width:200px;"></div>
     <div class="easyui-tabs" data-options="region:'center'" id="tt">

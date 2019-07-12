@@ -74,7 +74,6 @@
                 },
                 success: function(result){
                 	result = JSON.parse(result);
-                	alert(result);
                     if (result.code == 1){
                         $.messager.show({
                             title: '提示',

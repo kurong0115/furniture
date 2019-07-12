@@ -140,7 +140,6 @@ function addAddress() {
 					
 			$("#closeModel").click();
 			window.location.href='my-account?flag=address';	 
-			
 		}else{
 			getFailMsg(data.message);
 		}
@@ -237,8 +236,8 @@ function orderDetailFinish(id,tableIndex){
 }
 
 function orderFinish(id,bnt) {
-	var flag=confirm("确认收货吗？");
-	if(flag){
+	Notiflix.Confirm.Init();
+	Notiflix.Confirm.Show( '提醒', '确认收货吗？', '确认', '取消',function(){
 		$.post('orderFinish',{
 			orderid:id
 		},function(data){
@@ -248,8 +247,7 @@ function orderFinish(id,bnt) {
 				$(bnt).remove();
 			}
 		});
-	}
-	
+	} );
 }
 
 function ModefyAddress(){
@@ -292,7 +290,8 @@ function ModefyAddress(){
 	})
 }
 function deleteAddress(id){
-	if(confirm("删除？")){
+	Notiflix.Confirm.Init();
+	Notiflix.Confirm.Show( '提醒', '确认删除？', '确认', '取消',function(){
 		$.post("deleteAddress",{
 			id:id
 		},function (data){
@@ -303,10 +302,10 @@ function deleteAddress(id){
 				getFailMsg(data.message);
 			}
 		});
-	}
+	} );
 }
 
-//xiu改密码
+// 修改密码
 function modefyPassword(){
 	if( $("#current-pwd").val() == '' ){
 		getFailMsg('请输入当前密码！');
@@ -332,9 +331,9 @@ function modefyPassword(){
 		if( data.code == 1 ){
 			getSuccessMsg(data.message);
 			setTimeout(
-					function(){
-						window.location.href='loginOut';
-					}
+				function(){
+					window.location.href='loginOut';
+				}
 			,1000);  
 		}else{
 			getFailMsg(data.message);
