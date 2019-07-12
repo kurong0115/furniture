@@ -82,6 +82,7 @@ public class MyAccountAction {
 			return new Result(Result.EXECUTION_FAILED,"请输入您的电话号码！");
 		}
 		address.setUid(user.getId());
+		//转态设置为1（表示启用）
 		address.setStatus(1);
 		//编译正则表达式
 		String reg ="^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\\d{8}$" ;
