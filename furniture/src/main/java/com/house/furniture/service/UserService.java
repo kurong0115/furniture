@@ -92,5 +92,11 @@ public interface UserService {
 	User selectByOpenID(String openId);
 	
 	Integer regByUser(User user);
+	/**
+	 * 用户上传头像
+	 * @param id
+	 * @param filepath
+	 */
+	Integer updateHead(User user);
 	
 }

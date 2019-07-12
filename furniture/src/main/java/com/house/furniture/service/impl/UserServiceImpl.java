@@ -1,6 +1,8 @@
 package com.house.furniture.service.impl;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
+
 import org.springframework.stereotype.Service;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -139,6 +141,12 @@ public class UserServiceImpl implements UserService {
 	public Integer regByUser(User user) {
 		Integer result = userMapper.insert(user);
 		return result;
+	}
+
+	@Override
+	public Integer updateHead(@Valid User user) {
+		Integer updateResult = userMapper.updateByPrimaryKeySelective(user);
+		return updateResult;
 	}
 
 	

@@ -1,6 +1,7 @@
 package com.house.furniture.web;
 
 import java.io.File;
+import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
@@ -9,6 +10,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.github.pagehelper.Page;
@@ -32,9 +34,11 @@ public class UserAction {
 	
 	// 文件上传（头像）
 	@RequestMapping("upload.do")
-	public Result upload(@RequestParam("file") MultipartFile file) {
+	public Result upload(@RequestParam("file") MultipartFile file,@SessionAttribute("user")User user) {
+		
 		try {
-			file.transferTo(new File("D:/PIAimages/head/" + file.getOriginalFilename()));
+			file.transferTo(new File("D:/PIAimages/head/" + UUID.randomUUID().toString() + file.getOriginalFilename()));
+			
 			return new Result(Result.EXECUTION_SUCCESS, "文件上传成功", "/head/"+file.getOriginalFilename());
 		} catch (Exception e) {
 			return new Result(Result.EXECUTION_FAILED, "文件上传失败");

@@ -42,7 +42,7 @@
                                     	<i class="fa fa-dashboard"></i>操作</a>   
                                     <a href="#orders" data-toggle="tab" ><i class="fa fa-cart-arrow-down"></i> <span>订单</span></a> 
                                     <a href="#address-edit" data-toggle="tab"  id="aaaa"><i class="fa fa-map-marker"></i><span>地址</span></a>    
-                                    <a href="#account-info" data-toggle="tab"><i class="fa fa-user" onclick="myAddress()" id="bbbb"></i><span> 帐户详细信息</span></a>    
+                                    <a href="#account-info" data-toggle="tab" id="hehao"><i class="fa fa-user" onclick="myAddress()" ></i><span> 帐户详细信息</span></a>    
                                     <a href="loginOut" onclick="return loginOut();"><i class="fa fa-sign-out"></i> 注销</a>
                                     
                                 </div>
@@ -269,19 +269,31 @@
                                         <div class="myaccount-content">
                                             <h3>账户详细信息</h3>    
                                             <div class="account-details-form">
-                                                <form>
+                                                <form id="ff" method="post">
                                                     <div class="row">
-                                                        <div class="col-lg-6">
+                                                    	
+                                                        <div class="col-lg-7">
                                                             <div class="single-input-item">
+                                                            <br/>
                                                                 <label for="first-name" class="required">名字</label>
+                                                                
                                                                 <font id="first-name">${user.name }</font>
+                                                                
                                                             </div>
                                                         </div> 
+                                                        <div>
+                                                        	<img src="${user.head }" onclick="uploadHead.click()" id="headPic"style="display:inline-block;width: 100px;height: 100px;float: right;border-radius: 50%;" >
+                                                        	<input type="file" name="file" style="display: none;" id="uploadHead" onchange="getFileName()"/>
+                                                        	<input type="hidden" name="head" style="display: none;" id="filename"/>
+                                                        </div>
+                                                        
                                                     </div>
                                                     <div class="single-input-item">
                                                         <label for="email" class="required">邮箱地址</label>
                                                         <font  id="email" >${user.email }</font>
-                                                    </div>    
+                                                    </div>
+                                                    
+                                                        
                                                     <fieldset>
                                                         <legend>更改密码</legend>
                                                         <div class="single-input-item">

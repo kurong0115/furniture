@@ -22,7 +22,7 @@ public class AddressServiceImpl implements AddressService {
 	public List<Address> getAddrByUser(User user) {
 		AddressExample example = new AddressExample();
 		
-		example.createCriteria().andUidEqualTo(user.getId());
+		example.createCriteria().andUidEqualTo(user.getId()).andStatusNotEqualTo(0);
 		List<Address> list = addressmapper.selectByExample(example);
 		return list;
 	}
@@ -45,7 +45,9 @@ public class AddressServiceImpl implements AddressService {
 	}
 	@Override
 	public Integer deleteAddressById(Integer id) {
-		Integer result =addressmapper.deleteByPrimaryKey(id);
+		Address address = queryAddressByID(id);
+		address.setStatus(0);
+		Integer result = addressmapper.updateByPrimaryKeySelective(address);
 		return result;
 	}
 

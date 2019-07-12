@@ -123,7 +123,7 @@ public class ShopAction {
 	@PostMapping("uploadImages.do")
 	@ResponseBody
 	public Result uploadImage(@RequestParam("file") MultipartFile file) {
-		System.err.println(1111);
+		
 		if (file.getSize()  == 0) {
 			return new Result(Result.EXECUTION_CANCEL, "取消上传");
 		}

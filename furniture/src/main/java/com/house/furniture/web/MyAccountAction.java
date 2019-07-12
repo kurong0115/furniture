@@ -1,7 +1,9 @@
 package com.house.furniture.web;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import javax.annotation.Resource;
 
@@ -10,8 +12,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.house.furniture.bean.Address;
 import com.house.furniture.bean.Operation;
@@ -83,6 +87,7 @@ public class MyAccountAction {
 			return new Result(Result.EXECUTION_FAILED,"请输入您的电话号码！");
 		}
 		address.setUid(user.getId());
+		address.setStatus(1);
 		//编译正则表达式
 		String reg ="^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\\d{8}$" ;
 		if(address.getPhone().matches(reg) == false) {
@@ -188,4 +193,26 @@ public class MyAccountAction {
 		orderService.finishOrder(order);
 		return new Result(Result.EXECUTION_SUCCESS,"收货成功，快去评论一下吧");
 	}
+	
+	// 文件上传（头像）
+		@PostMapping("uploadHead.do")
+		@ResponseBody
+		public Result upload(@RequestParam("file") MultipartFile file,@SessionAttribute("user")User user) {
+			if (file.getSize()  == 0) {
+				return new Result(Result.EXECUTION_CANCEL, "取消上传");
+			}
+			try {
+				String filepath = "/head/"+UUID.randomUUID().toString() + file.getOriginalFilename();
+				file.transferTo(new File("D:/PIAimages" + filepath));
+				user.setHead(filepath);
+				Integer updateResult = userService.updateHead(user);
+				if( updateResult>0 ) {
+					return new Result(Result.EXECUTION_SUCCESS, "文件上传成功", filepath);
+				}else {
+					return new Result(Result.EXECUTION_FAILED,"文件上传失败，刷新试试");
+				}
+			} catch (Exception e) {
+				return new Result(Result.EXECUTION_FAILED, "文件上传失败");
+			}
+		}
 }
