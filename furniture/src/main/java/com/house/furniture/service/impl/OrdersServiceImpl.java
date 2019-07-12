@@ -28,7 +28,7 @@ public class OrdersServiceImpl implements OrdersService {
 	
 	
 	@Override
-	public List<Orders> selectByUid(Integer uid) {
+	public List<Orders> selectByUid(Integer uid,Integer page, Integer size ) {
 		OrdersExample orderExample = new OrdersExample();
 		orderExample.createCriteria().andUidEqualTo(uid);
 		PageHelper.startPage(0, 10);
@@ -48,7 +48,6 @@ public class OrdersServiceImpl implements OrdersService {
 		AddressExample ae = new AddressExample();
 		ae.createCriteria().andUidEqualTo(uid).andStatusEqualTo(1);
 		List<Address> address = addressMapper.selectByExample(ae);
-		//List<Address> address = addressMapper.selectByUid(uid);
 		return address;
 	}
 

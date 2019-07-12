@@ -117,4 +117,11 @@ public interface ProductService {
 	 * @return
 	 */
 	int uploadProduct(int pid);
+
+
+	/**
+	 * 跟新库存
+	 * @param product
+	 */
+	void updateProduct(Product product);
 }

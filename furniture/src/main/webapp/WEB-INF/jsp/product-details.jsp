@@ -106,7 +106,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-8 col-md-8">
-						<div class="description-review-wrapper">
+						<div class="description-review-wrapper" id="ddddd">
 							<div class="description-review-topbar nav">
 								<a class="active" data-toggle="tab" href="#des-details1">描述</a>
 								<a data-toggle="tab" href="#des-details3">附加信息</a> <a
@@ -159,7 +159,7 @@
                                                         <c:if test="${sessionScope.user.id == remark.user.id }">
 	                                                        <div style="float:left;"> 	                                                           
                                                                 <button style="position:absolute;left:500px;margin-top: -5px;">
-                                                                    <i class="sli sli-trash" onclick="removeRemark(${remark.id })"></i>
+                                                                    <i class="sli sli-trash" onclick="removeRemark(${remark.id },${remark.pid })"></i>
                                                                 </button>                                                                                                                         	                                                            
 	                                                        </div> 
                                                         </c:if>
@@ -464,24 +464,28 @@
             }
         })
         
-        function removeRemark(id){
-        	$.ajax({
-        		url:'removeRemark?id=' + id,
-        		method:"get",
-        		async:true,
-        		success:function(data){
-        			if (data.code == 1){
-        				getSuccessMsg(data.message);
-        				var url = window.location.href + "&flag=comment";
-        				window.location.href = url;
-        			} else{
-        				getFailMsg(data.message);
-        			}
-        		},
-        		error:function(){
-        			getFailMsg("服务器繁忙");
-        		}
-        	})
+        function removeRemark(id, pid){
+        	Notiflix.Confirm.Init();
+            Notiflix.Confirm.Show( '提醒', '您确认删除此评论吗？', '确认', '取消',function(){
+            	$.ajax({
+                    url:'removeRemark?id=' + id + '&pid=' + pid,
+                    method:"get",
+                    async:true,
+                    success:function(data){
+                        if (data.code == 1){
+                            getSuccessMsg(data.message);
+                            var url = window.location.href + "&flag=comment";
+                            window.location.href = url;
+                        } else{
+                            getFailMsg(data.message);
+                        }
+                    },
+                    error:function(){
+                        getFailMsg("服务器繁忙");
+                    }
+                })
+            } );
+        	
         }
     </script>
 </body>

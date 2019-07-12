@@ -434,7 +434,7 @@
   </select>
   
   <update id="updateScore" parameterType="int" >
-    update product set score = (select ceil(AVG(LEVEL)) from remark where pid = #{pid}) where pid = #{pid};
+    UPDATE product SET score = IFNULL((SELECT  CEIL(AVG(LEVEL)) FROM remark WHERE pid = #{pid}),0) WHERE pid = #{pid}
   </update>
   
   <select id="getCountByCategory" parameterType="int" resultType="int">
