@@ -15,6 +15,16 @@
 <!-- Ajax Mail -->
 <script src="<%=request.getContextPath() %>/assets/js/ajax-mail.js"></script>
 <!-- Main JS -->
+<script type="text/javascript" src="/assets/js/main.js"></script>
+<script type="text/javascript" src="/assets/js/message.js"></script>
+<script type="text/javascript" src="/assets/js/shop-details.js"></script>
+<script type="text/javascript" src="/assets/js/ystep.js"></script>
+<script type="text/javascript" src="/assets/js/header.js"></script>
+<script type="text/javascript" src="/assets/js/convince/area.js"></script>
+<script type="text/javascript" src="/assets/js/convince/location.js"></script>
+<script type="text/javascript" src="/assets/js/convince/select2.js"></script>
+<script type="text/javascript" src="/assets/js/convince/select2_locale_zh-CN.js"></script>
+<script type="text/javascript" src="assets/js/myAccount.js"></script>
 <script src="<%=request.getContextPath() %>/assets/js/main.js"></script>
 <script src="<%=request.getContextPath() %>/assets/js/message.js"></script>
 <script src="<%=request.getContextPath() %>/assets/js/shop-details.js"></script>

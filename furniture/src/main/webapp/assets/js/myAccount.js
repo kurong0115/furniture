@@ -9,6 +9,10 @@ function getFlag(){
 		$("#aaaa").click();
 		return;
 	}
+	if( flag == 'orderList' ){
+		$("#cccc").click();
+		return;
+	}
 	
 }
 
@@ -24,8 +28,7 @@ function GetQueryString(name)
  * 查看订单详情
  * @returns
  */
-function checkDetail(orderid,bnt) {
-	var tableIndex=$(bnt).parent().parent().prevAll().length;
+function checkDetail(orderid) {
 	$.ajax({
 			url:"orderDetails",
 			type:'GET',
@@ -34,10 +37,13 @@ function checkDetail(orderid,bnt) {
 			},
 			dataType:"json",
 			success:function(data){
+				var address=data.data[0].address.address+'--'+data.data[0].address.name+'--'+data.data[0].address.phone;
+				var orderno=data.data[0].orderno;
 				if(data.code==1){
 					$('#orderDetails').html('');
 					$(".ystep4").html('');
-					$('#orderNo').text("订单编号："+data.data[0].orderno);
+					$('#orderNo').text("订单编号："+orderno);
+					$('#orderAddr').text("收货地址："+address);
 					var tr=$('#ordersTable thead tr').children("th");
 					for(var i=0;i<tr.length;i++){
 						if(tr.eq(i).text()=='操作'){
@@ -99,7 +105,7 @@ function checkDetail(orderid,bnt) {
 					if(data.data[0].isdeal==1){
 						$(".ystep4").setStep(4)
 						$('#finishBnt').empty();
-						$('#finishBnt').append('<button type="button" onclick="orderDetailFinish('+data.data[0].id+','+tableIndex+')" class="comment">确认收货</button>')	
+						$('#finishBnt').append('<button type="button" onclick="orderDetailFinish('+data.data[0].id+',\''+orderno+'\')" class="comment">确认收货</button>')	
 					}
 					if(data.data[0].isfinish==1){
 						$(".ystep4").setStep(5);
@@ -152,61 +158,113 @@ function addAddress() {
 	})
 }
 
-function seeOrderMore(){
-	$.post('seeOrderMore',function(data){
-		if(data.code==1){
-			$('#orderList tr').remove();
-			for(var i=0;i<data.data.length;i++){
-				var createTime=new Date(data.data[i].createtime);
-				if(data.data[i].ispay==1 && data.data[i].isdeal==0 && data.data[i].isfinish==0){
-					$('#orderList').append(
-							'<tr>'+
-			                    '<td>'+data.data[i].orderno+'</td>'+
-			                    '<td>'+createTime.toLocaleString()+'</td>'+
-			                    '<td>'+data.data[i].sum+'</td>'+
-			                    '<td>订单已付款</td>'+
-			                    '<td style="width: 180px;">'+
-								'		<button  data-toggle="modal" data-target="#exampleModal" '+
-								'		onclick="checkDetail('+data.data[i].id+',this)" class="comment" style="width:50%">详情</button>'+
-			                    '</td>'+
-			                '</tr>'
-					);
-				}
-				if(data.data[i].ispay==1 && data.data[i].isdeal==1 && data.data[i].isfinish==0){
-					$('#orderList').append(
-							'<tr>'+
-			                    '<td>'+data.data[i].orderno+'</td>'+
-			                    '<td>'+createTime.toLocaleString()+'</td>'+
-			                    '<td>'+data.data[i].sum+'</td>'+
-			                    '		<td>订单已发货</td>'+
-			                    '<td style="width: 180px;">'+
-								'		<button  data-toggle="modal" data-target="#exampleModal" '+
-								'		onclick="checkDetail('+data.data[i].id+')" class="comment" style="width:50%">详情</button>'+
-			                    '		<button  onclick="orderFinish('+data.data[i].id+',this)" class="comment" style="width:50%">确认收货</button>'+
-			                    '</td>'+
-			                '</tr>'
-					);
-				}
-				if(data.data[i].ispay==1 && data.data[i].isdeal==1 && data.data[i].isfinish==1){
-					$('#orderList').append(
-							'<tr>'+
-			                    '<td>'+data.data[i].orderno+'</td>'+
-			                    '<td>'+createTime.toLocaleString()+'</td>'+
-			                    '<td>'+data.data[i].sum+'</td>'+
-			                    '		<td>订单已完成</td>'+
-			                    '<td style="width: 180px;">'+
-								'		<button  data-toggle="modal" data-target="#exampleModal" '+
-								'		onclick="checkDetail('+data.data[i].id+',this)" class="comment" style="width:50%">详情</button>'+
-			                    '</td>'+
-			                '</tr>'
-					);
-				}
-				
+function loadOrderList(data){
+	if(data.code==1){
+		$('#orderList').html("");
+		for(var i=0;i<data.data.length;i++){
+			var createTime=new Date(data.data[i].createtime);
+			if(data.data[i].ispay==1 && data.data[i].isdeal==0 && data.data[i].isfinish==0){
+				$('#orderList').append(
+						'<tr>'+
+		                    '<td>'+data.data[i].orderno+'</td>'+
+		                    '<td>'+createTime.toLocaleString()+'</td>'+
+		                    '<td>'+data.data[i].sum+'</td>'+
+		                    '<td>订单已付款</td>'+
+		                    '<td style="width: 180px;">'+
+							'		<button  data-toggle="modal" data-target="#exampleModal" '+
+							'		onclick="checkDetail('+data.data[i].id+',this)" class="comment" style="width:50%">详情</button>'+
+		                    '</td>'+
+		                '</tr>'
+				);
 			}
-			$('#orderTfoot').remove();
+			if(data.data[i].ispay==1 && data.data[i].isdeal==1 && data.data[i].isfinish==0){
+				$('#orderList').append(
+						'<tr>'+
+		                    '<td>'+data.data[i].orderno+'</td>'+
+		                    '<td>'+createTime.toLocaleString()+'</td>'+
+		                    '<td>'+data.data[i].sum+'</td>'+
+		                    '		<td>订单已发货</td>'+
+		                    '<td style="width: 180px;">'+
+							'		<button  data-toggle="modal" data-target="#exampleModal" '+
+							'		onclick="checkDetail('+data.data[i].id+')" class="comment" style="width:50%">详情</button>'+
+		                    '		<button  onclick="orderFinish('+data.data[i].id+',this)" class="comment" style="width:50%">确认收货</button>'+
+		                    '</td>'+
+		                '</tr>'
+				);
+			}
+			if(data.data[i].ispay==1 && data.data[i].isdeal==1 && data.data[i].isfinish==1){
+				$('#orderList').append(
+						'<tr>'+
+		                    '<td>'+data.data[i].orderno+'</td>'+
+		                    '<td>'+createTime.toLocaleString()+'</td>'+
+		                    '<td>'+data.data[i].sum+'</td>'+
+		                    '		<td>订单已完成</td>'+
+		                    '<td style="width: 180px;">'+
+							'		<button  data-toggle="modal" data-target="#exampleModal" '+
+							'		onclick="checkDetail('+data.data[i].id+',this)" class="comment" style="width:50%">详情</button>'+
+		                    '</td>'+
+		                '</tr>'
+				);
+			}
 			
 		}
-	})	
+	}
+}
+
+function orderFinalPage(){
+	var totalPage=$('#orderTotalPage').text();
+	var page=$('#orderPage').text();
+	if(page==totalPage){
+		getInfoMsg("已经是最后一页了");
+		return ;
+	}
+	$.get('orderFirstPage',{
+		page:totalPage
+	},function(data){
+		loadOrderList(data);
+		$('#orderPage').text(totalPage);
+	});
+}
+function orderLastPage(){
+	var totalPage=$('#orderTotalPage').text();
+	var page=$('#orderPage').text();
+	if(page==1){
+		getInfoMsg("已经是第一页了");
+		return ;
+	}
+	$.get('orderLastPage',{
+		page:--page
+	},function(data){
+		loadOrderList(data);
+		$('#orderPage').text(page);
+	});
+}
+function orderNextPage(){
+	var totalPage=$('#orderTotalPage').text();
+	var page=$('#orderPage').text();
+	if(page==totalPage){
+		getInfoMsg("已经是最后一页了");
+		return ;
+	}
+	$.get('orderNextPage',{
+		page:++page
+	},function(data){
+		loadOrderList(data);
+		$('#orderPage').text(page);
+	});
+}
+
+function orderFirstPage() {
+	if($('#orderPage').text()==1){
+		getInfoMsg("已经是第一页了");
+		return ;
+	}
+	$.get('orderFirstPage',{
+		page:$('#orderPage').text()
+	},function(data){
+		loadOrderList(data);
+		$('#orderPage').text(1);
+	});
 }
 
 var addressid = null;
@@ -228,20 +286,28 @@ function QueryAddress(id){
 	)
 }
 
-function orderDetailFinish(id,tableIndex){
-	var flag=confirm("确认收货吗？");
-	if(flag){
+function orderDetailFinish(id,orderno){
+	Notiflix.Confirm.Init();
+	Notiflix.Confirm.Show( '提醒', '确认收货吗？', '确认', '取消',function(){
 		$.post('orderFinish',{
 			orderid:id
 		},function(data){
 			if(data.code==1){
 				$('#closeBnt').click();
 				getSuccessMsg(data.message);
-				$('#orderList tr:eq('+tableIndex+') td:eq(3)').text("订单已完成");
-				$('#orderList tr:eq('+tableIndex+') td:eq(4) button:eq(1)').remove();
+				for(var i=0;i<$('#orderList tr').length;i++){
+					var number=$('#orderList tr:eq('+i+') td:eq(0)').text();
+					if(orderno==number){
+						$('#orderList tr:eq('+i+') td:eq(3)').text("订单已完成");
+						$('#orderList tr:eq('+i+') td:eq(4) button:eq(1)').remove();						
+						return;
+					}
+					
+				}
+				
 			}
 		});
-	}
+	} );
 }
 
 function orderFinish(id,bnt) {
