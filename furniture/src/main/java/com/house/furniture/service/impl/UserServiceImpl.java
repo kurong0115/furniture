@@ -6,6 +6,7 @@ import javax.validation.Valid;
 import org.springframework.stereotype.Service;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.house.furniture.bean.AddressExample;
 import com.house.furniture.bean.User;
 import com.house.furniture.bean.UserExample;
 import com.house.furniture.bean.UserExample.Criteria;
@@ -117,8 +118,11 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public Page<User> queryAddress(int uid, int page, int rows) {
+		AddressExample ae = new AddressExample();
+		ae.createCriteria().andUidEqualTo(uid).andStatusEqualTo(1);
 		Page<User> p = PageHelper.startPage(page, rows);
-		address.selectByUid(uid);
+		address.selectByExample(ae);
+		//address.selectByUid(uid);
 		return p;
 	}
 

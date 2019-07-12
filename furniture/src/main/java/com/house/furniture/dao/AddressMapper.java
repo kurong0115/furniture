@@ -28,6 +28,6 @@ public interface AddressMapper {
 
     int updateByPrimaryKey(Address record);
     
-  //自定义，通过uid查找相关地址信息
-    List<Address> selectByUid(Integer uid);
+    //自定义，通过uid查找相关地址信息
+    //List<Address> selectByUid(Integer uid);
 }
