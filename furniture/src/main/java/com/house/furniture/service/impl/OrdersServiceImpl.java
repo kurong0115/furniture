@@ -25,8 +25,6 @@ public class OrdersServiceImpl implements OrdersService {
 	@Resource
 	private AddressMapper addressMapper;
 	
-	
-	
 	@Override
 	public List<Orders> selectByUid(Integer uid,Integer page, Integer size ) {
 		OrdersExample orderExample = new OrdersExample();
