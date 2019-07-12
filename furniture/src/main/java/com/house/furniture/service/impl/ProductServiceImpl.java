@@ -123,9 +123,19 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public Page<Product> listAllProductByPage(int page, int rows) {
+	public Page<Product> listAllProductByPage(int page, int rows, Product product) {
+		ProductExample example = new ProductExample();
+		if (product != null) {
+			Criteria criteria = example.createCriteria();
+			if ((product.getProductname() != null) && (!"".equals(product.getProductname().trim()))) {
+				criteria.andProductnameLike("%" + product.getProductname() + "%");
+			}
+			if ((product.getCid() != null) && (product.getCid() != 0)) {
+				criteria.andCidEqualTo(product.getCid());
+			}
+		}		
 		Page<Product> pageList = PageHelper.startPage(page, rows);
-		productMapper.selectByExample(null);
+		productMapper.selectByExample(example);
 		return pageList;
 	}
 
@@ -144,5 +154,10 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public int removeProduct(int pid) {		
 		return productMapper.removeProduct(pid);
+	}
+
+	@Override
+	public int uploadProduct(int pid) {		
+		return productMapper.uploadProduct(pid);
 	}
 }

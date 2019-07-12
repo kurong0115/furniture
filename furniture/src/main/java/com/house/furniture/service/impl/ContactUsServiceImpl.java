@@ -17,6 +17,7 @@ import com.house.furniture.bean.UserExample;
 import com.house.furniture.dao.MessageMapper;
 import com.house.furniture.dao.UserMapper;
 import com.house.furniture.service.ContactUsService;
+import com.house.furniture.util.MyUtils;
 import com.house.furniture.vo.Result;
 
 @Service
@@ -30,6 +31,8 @@ public class ContactUsServiceImpl implements ContactUsService {
 
 	@Override
 	public int isExist(String name, String password) {
+		// 加密
+		password = MyUtils.getMD5String(password);
 		UserExample ue = new UserExample();
 		ue.createCriteria().andNameEqualTo(name).andPasswordEqualTo(password);
 		List<User> list = userMapper.selectByExample(ue);

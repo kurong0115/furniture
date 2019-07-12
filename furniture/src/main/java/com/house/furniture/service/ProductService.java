@@ -88,12 +88,13 @@ public interface ProductService {
 	int saveProduct(Product product, String[] image);
 	
 	/**
-	  * 管理界面查询所有产品信息
+	 * 管理界面查询所有产品信息
 	 * @param page
 	 * @param rows
+	 * @param product
 	 * @return
 	 */
-	Page<Product> listAllProductByPage(int page, int rows);
+	Page<Product> listAllProductByPage(int page, int rows, Product product);
 
 	/**
 	 * 修改产品信息
@@ -109,4 +110,11 @@ public interface ProductService {
 	 * @return
 	 */
 	int removeProduct(int pid);
+
+	/**
+	 * 重新上架产品
+	 * @param pid
+	 * @return
+	 */
+	int uploadProduct(int pid);
 }

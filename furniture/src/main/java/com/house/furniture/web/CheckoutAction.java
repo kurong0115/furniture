@@ -125,9 +125,6 @@ public class CheckoutAction {
 	        rep.getWriter().close();
 	        return null;
 		}
-		
-		
-
 	}
 	
 	/**

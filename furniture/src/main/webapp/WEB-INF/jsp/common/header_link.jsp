@@ -20,6 +20,9 @@
 <link href="/assets/css/select2.css" rel="stylesheet"/>
 <!-- 引入ystep样式 -->
 <link rel="stylesheet" href="assets/css/ystep.css" type="text/css" />
-
+<!-- header需要的样式 -->
+<link rel="stylesheet" href="assets/css/header.css" type="text/css" />
+<!-- 注销弹窗样式 -->
+<link rel="stylesheet" href="assets/css/notiflix-1.3.0.min.css" type="text/css" />
 
 

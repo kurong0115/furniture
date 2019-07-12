@@ -8,10 +8,8 @@
 				<ul>
 					<li><a href="index">首页 </a></li>
 					<li><a href="shop">商城 </a></li>
-					<li><a href="shop">配饰 </a></li>
 					<li><a href="contact-us.do">联系我们 </a></li>
-					<li><a href="about-us.do">更多 </a></li>
-					<li><a href="blog.do">博客 </a></li>
+					<li><a href="about-us.do">关于我们 </a></li>
 				</ul>
 			</nav>
 		</div>

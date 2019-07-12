@@ -11,6 +11,8 @@ public class Address {
 
     private String phone;
 
+    private Integer status;
+
     public Integer getId() {
         return id;
     }
@@ -51,10 +53,11 @@ public class Address {
         this.phone = phone == null ? null : phone.trim();
     }
 
-	@Override
-	public String toString() {
-		return "Address [id=" + id + ", uid=" + uid + ", address=" + address + ", name=" + name + ", phone=" + phone
-				+ "]";
-	}
-    
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
 }

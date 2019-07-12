@@ -1,9 +1,15 @@
 function getFlag(){
 	var flag = GetQueryString("flag");
+	
+	if( flag == 'userinfo' ){
+		$("#hehao").click();
+		return;
+	}
 	if( flag == 'address' ){
 		$("#aaaa").click();
 		return;
 	}
+	
 }
 
 function GetQueryString(name)
@@ -140,7 +146,6 @@ function addAddress() {
 					
 			$("#closeModel").click();
 			window.location.href='my-account?flag=address';	 
-			
 		}else{
 			getFailMsg(data.message);
 		}
@@ -211,10 +216,13 @@ function QueryAddress(id){
 			id:id
 		},function(data){
 			if( data.code==1 ){
-				$('#addressName2').val(data.data.name);
-				$('#addressPhone2').val(data.data.phone);
-				var str = data.data.address.split('-');
-				$('#addressDetails2').val(str[3]);
+				console.info(data);
+				if( data.data.status == 1 ){
+					$('#addressName2').val(data.data.name);
+					$('#addressPhone2').val(data.data.phone);
+					var str = data.data.address.split('-');
+					$('#addressDetails2').val(str[3]);	
+				}
 			}
 		}	
 	)
@@ -237,8 +245,8 @@ function orderDetailFinish(id,tableIndex){
 }
 
 function orderFinish(id,bnt) {
-	var flag=confirm("确认收货吗？");
-	if(flag){
+	Notiflix.Confirm.Init();
+	Notiflix.Confirm.Show( '提醒', '确认收货吗？', '确认', '取消',function(){
 		$.post('orderFinish',{
 			orderid:id
 		},function(data){
@@ -248,8 +256,7 @@ function orderFinish(id,bnt) {
 				$(bnt).remove();
 			}
 		});
-	}
-	
+	} );
 }
 
 function ModefyAddress(){
@@ -292,7 +299,8 @@ function ModefyAddress(){
 	})
 }
 function deleteAddress(id){
-	if(confirm("删除？")){
+	Notiflix.Confirm.Init();
+	Notiflix.Confirm.Show( '提醒', '确认删除？', '确认', '取消',function(){
 		$.post("deleteAddress",{
 			id:id
 		},function (data){
@@ -303,10 +311,10 @@ function deleteAddress(id){
 				getFailMsg(data.message);
 			}
 		});
-	}
+	} );
 }
 
-//xiu改密码
+// 修改密码
 function modefyPassword(){
 	if( $("#current-pwd").val() == '' ){
 		getFailMsg('请输入当前密码！');
@@ -332,12 +340,49 @@ function modefyPassword(){
 		if( data.code == 1 ){
 			getSuccessMsg(data.message);
 			setTimeout(
-					function(){
-						window.location.href='loginOut';
-					}
+				function(){
+					window.location.href='loginOut';
+				}
 			,1000);  
 		}else{
 			getFailMsg(data.message);
 		}
 	});
 }
+
+function getFileName(){
+	$("#headPic").attr("src");
+	upload();
+}
+
+
+//文件上传
+function upload(){
+	$.ajax({
+        url: "uploadHead.do",
+        type: 'POST',
+        cache: false,
+        data: new FormData($('#ff')[0]),
+        processData: false,
+        contentType: false,
+        dataType:"json",
+        success : function(data) {
+            if (data.code == 1) {
+                $("#ti").attr("src", data.data);
+                $("#head").val(data.data);
+                getSuccessMsg(data.message);
+                setTimeout(
+                		function(){
+                			window.location.href="my-account?flag=userinfo";
+                		}
+    			,1000);  
+            } else {
+            	getFailMsg(data.message);
+            }
+        },error :function(data){
+        	getFailMsg(data.message);
+        }
+    });
+}
+
+

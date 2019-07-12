@@ -56,6 +56,7 @@ public class ManagerAction {
 	@RequestMapping("manage-product.do")
 	public String productManage() {
 		return "product-manage";
+
 	}
 	@RequestMapping(path= {"admin"})
 	public String adminLogin() {
@@ -86,5 +87,4 @@ public class ManagerAction {
 		sessionStatus.setComplete();
 		return new Result(Result.EXECUTION_SUCCESS,"退出成功");
 	}
-	
 }
