@@ -91,25 +91,25 @@ public class CheckoutAction {
 
 		ordersservice.produceOrder(orders);		
 		cartservice.clearCart(user.getId());
-
+        Operation operation = new Operation();
+ 		for (Cart cart : cartProductList) {
+ 			operation.setOrderid(orders.getId());
+ 			operation.setUid(cart.getUid());
+ 			operation.setCount(cart.getCount());
+ 			operation.setPid(cart.getPid());
+ 			operation.setPrice(cart.getProduct().getPrice());		
+ 			operation.setSum((int)(cart.getCount()*cart.getProduct().getPrice()));
+ 			operationservice.produceOperation(operation);
+ 			product = cart.getProduct();
+ 			product.setStock(product.getStock()-cart.getCount());
+ 			productservice.updateProduct(product);
+ 			
+ 		}
 		if(orders.getPaymethod().equals("货到付现")) {
 			
 			orders.setIspay(1);//修改订单状态为已支付
             ordersservice.updateOrders(orders);
-            Operation operation = new Operation();
-     		for (Cart cart : cartProductList) {
-     			operation.setOrderid(orders.getId());
-     			operation.setUid(cart.getUid());
-     			operation.setCount(cart.getCount());
-     			operation.setPid(cart.getPid());
-     			operation.setPrice(cart.getProduct().getPrice());		
-     			operation.setSum((int)(cart.getCount()*cart.getProduct().getPrice()));
-     			operationservice.produceOperation(operation);
-     			product = cart.getProduct();
-     			product.setStock(product.getStock()-cart.getCount());
-     			productservice.updateProduct(product);
-     			
-     		}
+
      		
      		model.addAttribute("cartProductList", "");
      		model.addAttribute("allSum", 0);
@@ -229,19 +229,6 @@ public class CheckoutAction {
                     ordersservice.updateOrders(order);
                     System.out.println("系统订单："+ out_trade_no + "成功支付。");
                     request.setAttribute("orderNo", out_trade_no);
-                    Operation operation = new Operation();
-            		for (Cart cart : cartProductList) {
-            			operation.setOrderid(order.getId());
-            			operation.setUid(cart.getUid());
-            			operation.setCount(cart.getCount());
-            			operation.setPid(cart.getPid());
-            			operation.setPrice(cart.getProduct().getPrice());		
-            			operation.setSum((int)(cart.getCount()*cart.getProduct().getPrice()));
-            			operationservice.produceOperation(operation);
-            			product = cart.getProduct();
-             			product.setStock(product.getStock()-cart.getCount());
-             			productservice.updateProduct(product);
-            		}
             		model.addAttribute("cartProductList", "");
             		model.addAttribute("allSum", 0);
                 }
@@ -319,19 +306,6 @@ public class CheckoutAction {
                     order.setIspay(1);//修改订单状态为已支付
                     ordersservice.updateOrders(order);
                     System.out.println("系统订单："+ out_trade_no + "成功支付。");
-                    Operation operation = new Operation();
-            		for (Cart cart : cartProductList) {
-            			operation.setOrderid(order.getId());
-            			operation.setUid(cart.getUid());
-            			operation.setCount(cart.getCount());
-            			operation.setPid(cart.getPid());
-            			operation.setPrice(cart.getProduct().getPrice());		
-            			operation.setSum((int)(cart.getCount()*cart.getProduct().getPrice()));
-            			operationservice.produceOperation(operation);
-            			product = cart.getProduct();
-             			product.setStock(product.getStock()-cart.getCount());
-             			productservice.updateProduct(product);
-            		}
             		model.addAttribute("cartProductList", "");
             		model.addAttribute("allSum", 0);
                 }
