@@ -27,11 +27,13 @@ import com.alipay.api.DefaultAlipayClient;
 import com.alipay.api.internal.util.AlipaySignature;
 import com.alipay.api.request.AlipayTradePagePayRequest;
 import com.house.alipay.config.AlipayConfig;
+import com.house.furniture.bean.Address;
 import com.house.furniture.bean.Cart;
 import com.house.furniture.bean.Operation;
 import com.house.furniture.bean.Orders;
 import com.house.furniture.bean.Product;
 import com.house.furniture.bean.User;
+import com.house.furniture.service.AddressService;
 import com.house.furniture.service.CartService;
 import com.house.furniture.service.OperationService;
 import com.house.furniture.service.OrdersService;
@@ -52,6 +54,9 @@ public class CheckoutAction {
 	
 	@Resource
 	private ProductService productservice;
+	
+	@Resource
+	private AddressService addressservice;
 	/**
 	 * 生成订单
 	 * @param cartProductList
@@ -66,6 +71,16 @@ public class CheckoutAction {
 	@Transactional
 	public String produceOrder(@SessionAttribute("cartProductList") List<Cart> cartProductList,@SessionAttribute("user")User user,Model model,Orders orders,
 			HttpServletResponse rep,Product product) throws AlipayApiException, IOException {
+		for (Cart cart : cartProductList) {
+ 			if(cart.getCount()>cart.getProduct().getStock()) {
+ 				model.addAttribute("msg",cart.getProduct().getProductname()+"库存不足");
+ 				List<Address> addrList=addressservice.getAddrByUser(user);
+ 				model.addAttribute("addrList", addrList);
+ 				return "checkout";
+ 			}
+ 			
+ 		}
+		
 		orders.setUid(user.getId());
 		String orderNo = UUID.randomUUID().toString().replace("-", "").toUpperCase();
 		orders.setOrderno(orderNo);		
@@ -76,25 +91,25 @@ public class CheckoutAction {
 
 		ordersservice.produceOrder(orders);		
 		cartservice.clearCart(user.getId());
-
+        Operation operation = new Operation();
+ 		for (Cart cart : cartProductList) {
+ 			operation.setOrderid(orders.getId());
+ 			operation.setUid(cart.getUid());
+ 			operation.setCount(cart.getCount());
+ 			operation.setPid(cart.getPid());
+ 			operation.setPrice(cart.getProduct().getPrice());		
+ 			operation.setSum((int)(cart.getCount()*cart.getProduct().getPrice()));
+ 			operationservice.produceOperation(operation);
+ 			product = cart.getProduct();
+ 			product.setStock(product.getStock()-cart.getCount());
+ 			productservice.updateProduct(product);
+ 			
+ 		}
 		if(orders.getPaymethod().equals("货到付现")) {
 			
 			orders.setIspay(1);//修改订单状态为已支付
             ordersservice.updateOrders(orders);
-            Operation operation = new Operation();
-     		for (Cart cart : cartProductList) {
-     			operation.setOrderid(orders.getId());
-     			operation.setUid(cart.getUid());
-     			operation.setCount(cart.getCount());
-     			operation.setPid(cart.getPid());
-     			operation.setPrice(cart.getProduct().getPrice());		
-     			operation.setSum((int)(cart.getCount()*cart.getProduct().getPrice()));
-     			operationservice.produceOperation(operation);
-     			product = cart.getProduct();
-     			product.setStock(product.getStock()-cart.getCount());
-     			productservice.updateProduct(product);
-     			
-     		}
+
      		
      		model.addAttribute("cartProductList", "");
      		model.addAttribute("allSum", 0);
@@ -214,19 +229,6 @@ public class CheckoutAction {
                     ordersservice.updateOrders(order);
                     System.out.println("系统订单："+ out_trade_no + "成功支付。");
                     request.setAttribute("orderNo", out_trade_no);
-                    Operation operation = new Operation();
-            		for (Cart cart : cartProductList) {
-            			operation.setOrderid(order.getId());
-            			operation.setUid(cart.getUid());
-            			operation.setCount(cart.getCount());
-            			operation.setPid(cart.getPid());
-            			operation.setPrice(cart.getProduct().getPrice());		
-            			operation.setSum((int)(cart.getCount()*cart.getProduct().getPrice()));
-            			operationservice.produceOperation(operation);
-            			product = cart.getProduct();
-             			product.setStock(product.getStock()-cart.getCount());
-             			productservice.updateProduct(product);
-            		}
             		model.addAttribute("cartProductList", "");
             		model.addAttribute("allSum", 0);
                 }
@@ -304,19 +306,6 @@ public class CheckoutAction {
                     order.setIspay(1);//修改订单状态为已支付
                     ordersservice.updateOrders(order);
                     System.out.println("系统订单："+ out_trade_no + "成功支付。");
-                    Operation operation = new Operation();
-            		for (Cart cart : cartProductList) {
-            			operation.setOrderid(order.getId());
-            			operation.setUid(cart.getUid());
-            			operation.setCount(cart.getCount());
-            			operation.setPid(cart.getPid());
-            			operation.setPrice(cart.getProduct().getPrice());		
-            			operation.setSum((int)(cart.getCount()*cart.getProduct().getPrice()));
-            			operationservice.produceOperation(operation);
-            			product = cart.getProduct();
-             			product.setStock(product.getStock()-cart.getCount());
-             			productservice.updateProduct(product);
-            		}
             		model.addAttribute("cartProductList", "");
             		model.addAttribute("allSum", 0);
                 }

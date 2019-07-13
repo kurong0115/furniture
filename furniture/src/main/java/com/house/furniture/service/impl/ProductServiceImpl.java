@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -56,14 +57,16 @@ public class ProductServiceImpl implements ProductService {
 		}
 		criteria.andPriceBetween(min, max);
 		criteria.andCidEqualTo(cid);
+		criteria.andIsGroundEqualTo((byte) 1);
 		List<Product> productList = productMapper.selectByExample(example);
 		return productList.isEmpty()? null: productList;
 	}
 
+	@SuppressWarnings("null")
 	@Override
 	public Product getProductById(int pid) {
 		Product product = productMapper.selectByPrimaryKey(pid);
-		return product == null? null: product;
+		return product == null && product.getIsGround() == 1? null: product;
 	}
 	
 	public List<Product> listRelatedProduct(int cid) {
@@ -80,7 +83,7 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public Long getProductSize(int cid) {
 		ProductExample example = new ProductExample();
-		example.createCriteria().andCidEqualTo(cid);		
+		example.createCriteria().andCidEqualTo(cid).andIsGroundEqualTo((byte)1);		
 		return productMapper.countByExample(example);
 	}
 
@@ -96,10 +99,12 @@ public class ProductServiceImpl implements ProductService {
 		}
 		criteria.andPriceBetween(min, max);
 		criteria.andCidEqualTo(cid);
+		criteria.andIsGroundEqualTo((byte)1);
 		return productMapper.countByExample(example);
 	}
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public int saveProduct(Product product, String[] images) {
 		product.setScore(0);
 		product.setCreatetime(new Timestamp(System.currentTimeMillis()));
@@ -116,9 +121,11 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public Long getConditionSize(String condition) {
 		ProductExample example = new ProductExample();
+		Criteria criteria = example.createCriteria();
 		if (!"".equals(condition.trim())) {
-			example.createCriteria().andProductnameLike("%" + condition + "%");
+			criteria.andProductnameLike("%" + condition + "%");
 		}
+		criteria.andIsGroundEqualTo((byte)1);
 		return productMapper.countByExample(example);
 	}
 
@@ -140,6 +147,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public int updateProduct(Product product, String[] images) {	
 		int code = productMapper.updateByPrimaryKeySelective(product);
 		Image image = new Image();

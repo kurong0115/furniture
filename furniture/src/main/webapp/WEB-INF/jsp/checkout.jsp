@@ -7,7 +7,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Parlo - eCommerce Bootstrap 4 Template</title>
+    <title>Our House-结算</title>
     
 	<!-- 引入首部链接 -->
     <%@include file="common/header_link.jsp" %>
@@ -17,55 +17,6 @@
 <div class="wrapper">
     <!-- 引入首部 -->
     <%@include file="common/header.jsp" %>
-    <script type="text/javascript">
-    	function produceOrder() {
-			if($('input[name="addr"]:checked').val()==null){
-				getInfoMsg("请选择收货地址")
-			}else if($('input[name="payment_method"]:checked').val()==null){
-				getInfoMsg("请选择支付方式")
-			}else{
-				location.href="produceOrder?addressid="+$('input[name="addr"]:checked').val()+"&sum="+$('#sum').val()+"&paymethod="+$('input[name="payment_method"]:checked').val()+"";
-			}
-		}
-    	function addAddress() {
-    		var phone = $('#addressPhone').val();
-    		if( $('#addressName').val() == ''){
-    			getFailMsg('请输入您的姓名！');
-    			return;
-    		}
-    		if( $('#addressPhone').val()==''){
-    			getFailMsg('请输入您的电话！');
-    			return;
-    		}
-    		if( $('#loc_province').val()=='' ){
-    			getFailMsg('请输入您的详细地址！');
-    			return;
-    		}
-    		if(checkPhone(phone) == false){
-    			getFailMsg('手机号码格式错误！');
-    			return;
-    		}
-    		$.post('addAddress',{
-    			name:$('#addressName').val(),
-    			phone:$('#addressPhone').val(),
-    			address:$('#loc_province').select2('data').text+"-"+$('#loc_city').select2('data').text+"-"+$('#loc_town').select2('data').text+"-"+$('#addressDetails').val()
-    		},function(data){
-    			if(data.code==1){
-    				getSuccessMsg(data.message);
-    						
-    				$("#closeModel").click();
-    				window.location.href='checkout';	 
-    			}else{
-    				getFailMsg(data.message);
-    			}
-    		})
-    	}
-    	function checkPhone(phone){ 
-    	    if(!(/^1[3456789]\d{9}$/.test(phone))){ 
-    	        return false; 
-    	    } 
-    	}
-    </script>
     
    
     <div class="breadcrumb-area pt-35 pb-35 bg-gray">
@@ -179,7 +130,7 @@
 							    <br/>
                                 <input id="addressDetails" placeholder="详细地址" type="text" style="width: 50%;background: white;margin-top: 20px;border-radius: 25px;">
                                 <br/>
-                                <button type="button" onclick="addAddress()" id="addAddr">确认新增</button>
+                                <button type="button" onclick="CheckOutAddAddress()" id="addAddr">确认新增</button>
                             </form>
 
 	                      </div>
@@ -191,7 +142,7 @@
     </div>
     <!-- compare main wrapper end -->
     
-    
+    <font style="display: none;" id="msg">${msg}</font>
     
     <!-- 引入底部 -->
     <%@include file="common/footer.jsp" %>
@@ -201,7 +152,14 @@
 
 <!-- 引入底部链接 -->
 <%@include file="common/footer_link.jsp" %>
-
+<script type="text/javascript" src="<%=request.getContextPath() %>/assets/js/checkout.js"></script>
+<script type="text/javascript">
+$(function(){
+	if($('#msg').text()!="" && $('#msg').text()!=null){
+		getInfoMsg($('#msg').text());
+	}
+});
+</script>
 
 </body>
 

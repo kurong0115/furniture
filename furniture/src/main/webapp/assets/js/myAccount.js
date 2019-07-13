@@ -83,6 +83,10 @@ function checkDetail(orderid) {
 						$(".ystep4").setStep(3)
 						$('#finishBnt').empty();
 						$('#finishBnt').append('<button type="button" class="comment" disabled=ture>订单已付款，等待商家处理</button>')	
+					}else{
+						$(".ystep4").setStep(2)
+						$('#finishBnt').empty();
+						$('#finishBnt').append('<button type="button" class="comment" disabled=ture>订单尚未付款</button>')	
 					}
 					if(data.data[0].isdeal==1){
 						$(".ystep4").setStep(4)
@@ -121,8 +125,9 @@ function addAddress() {
 		getFailMsg('请输入您的电话！');
 		return;
 	}
-	if( $('#loc_province').val()=='' ){
-		getFailMsg('请输入您的详细地址！');
+	if( $('#loc_province').val()=='' || $('#loc_city').val()==''
+		|| $('#loc_town').val()=='' || $('#addressDetails').val()==''){
+		getFailMsg('请输入完整的地址信息！');
 		return;
 	}
 	if(checkPhone(phone) == false){
@@ -150,6 +155,20 @@ function loadOrderList(data){
 		$('#orderList').html("");
 		for(var i=0;i<data.data.length;i++){
 			var createTime=new Date(data.data[i].createtime);
+			if(data.data[i].ispay==0 && data.data[i].isdeal==0 && data.data[i].isfinish==0){
+				$('#orderList').append(
+						'<tr>'+
+		                    '<td>'+data.data[i].orderno+'</td>'+
+		                    '<td>'+createTime.toLocaleString()+'</td>'+
+		                    '<td>'+data.data[i].sum+'</td>'+
+		                    '<td>订单未付款</td>'+
+		                    '<td style="width: 180px;">'+
+							'		<button  data-toggle="modal" data-target="#exampleModal" '+
+							'		onclick="checkDetail('+data.data[i].id+',this)" class="comment" style="width:50%">详情</button>'+
+		                    '</td>'+
+		                '</tr>'
+				);
+			}
 			if(data.data[i].ispay==1 && data.data[i].isdeal==0 && data.data[i].isfinish==0){
 				$('#orderList').append(
 						'<tr>'+
@@ -322,8 +341,9 @@ function ModefyAddress(){
 		getFailMsg('请输入您的电话！');
 		return;
 	}
-	if( $('#loc_province2').val()=='' ){
-		getFailMsg('请输入您的详细地址！');
+	if( $('#loc_province2').val()=='' || $('#loc_city2').val()==''
+		|| $('#loc_town2').val()=='' || $('#addressDetails2').val()==''){
+		getFailMsg('请输入完整的地址信息！');
 		return;
 	}
 	if(checkPhone(phone) == false){

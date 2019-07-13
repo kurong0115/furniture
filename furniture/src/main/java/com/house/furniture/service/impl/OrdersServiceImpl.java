@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.house.furniture.bean.Address;
+import com.house.furniture.bean.AddressExample;
 import com.house.furniture.bean.Orders;
 import com.house.furniture.bean.OrdersExample;
 import com.house.furniture.bean.OrdersExample.Criteria;
@@ -24,13 +25,11 @@ public class OrdersServiceImpl implements OrdersService {
 	@Resource
 	private AddressMapper addressMapper;
 	
-	
-	
 	@Override
-	public List<Orders> selectByUid(Integer uid,Integer page, Integer size) {
+	public List<Orders> selectByUid(Integer uid,Integer page, Integer size ) {
 		OrdersExample orderExample = new OrdersExample();
 		orderExample.createCriteria().andUidEqualTo(uid);
-		PageHelper.startPage(page, size);
+		PageHelper.startPage(0, 10);
 		orderExample.setOrderByClause("createTime desc");
 		List<Orders> order = orderMapper.selectByExample(orderExample);
 		return order.size() == 0 ? null : order;
@@ -44,7 +43,9 @@ public class OrdersServiceImpl implements OrdersService {
 	
 	@Override
 	public List<Address> selectAddress(int uid) {
-		List<Address> address = addressMapper.selectByUid(uid);
+		AddressExample example = new AddressExample();
+		example.createCriteria().andUidEqualTo(uid).andStatusEqualTo(1);
+		List<Address> address = addressMapper.selectByExample(example);
 		return address;
 	}
 

@@ -22,6 +22,14 @@
 			});
 		}
 		
+		function checkProductname(){
+			if ($.trim($("#condition").val()) == ''){
+				getFailMsg("产品名不能为空");
+				return false;
+			}
+			return true;
+		}
+		
 		function removeWishlist(wid){
         	$.ajax({
         		url:"removeWishlist?wid=" + wid,
@@ -142,20 +150,21 @@
 					if (data.data == null) {
 						getInfoMsg("没有数据");
 						$("#gridList").empty();
-	                    $("#shop-2").empty();
+	                    $("#shop-2").empty();					
 	                    $(".select-shoing-wrap p").text(0);
+	                    $("#totalPage").val(1);
 					} else {
 						$("#gridList").empty();
 	                    $("#shop-2").empty();
 						for (var i = 0; i < data.data.length; i++) {
 							setShop1(data.data[i]);
 							setShop2(data.data[i]);
-						}
-						setPage(data);
-						$("#pageNum").val(data.page);
+						}											
 						$("#totalPage").val(data.totalPage);
 						$(".select-shoing-wrap p").text(data.totalSize);
 					}
+					setPage(data);	
+					$("#pageNum").val(data.page);
 				},
 				error : function(data) {
 					getFailMsg(data.message);
