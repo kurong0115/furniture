@@ -11,7 +11,11 @@
 <script type="text/javascript" src="js/easyui/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="js/easyui/locale/easyui-lang-zh_CN.js"></script>
 <script type="text/javascript" src="ckeditor/ckeditor.js"></script>
-
+<style type="text/css">
+    a:hover{
+        color:red;
+    }
+</style>
 </head>
 <body> 
     <table id="dg" title="产品管理" class="easyui-datagrid" style="width:100%;height:500px"
@@ -35,7 +39,7 @@
                 <th field="stock" width="20">产品库存</th>
                 <th data-options="field:'createtime',width:40,formatter:fmtCreateTime">上架时间</th>
                 <th data-options="field:'images',width:20,formatter:fmtImages">图片预览</th>
-                <th field="content" width="50">产品内容</th>
+                <!-- <th field="content" width="50" data-options="formatter:fmtContent" align="center">产品内容</th> -->
             </tr>
         </thead>
     </table>
@@ -67,7 +71,7 @@
                 <select name="cid" style="width:40%;" label="产品分类：" id="options"></select><br><br>
                 <input name="price" class="easyui-textbox" required="true" label="产品价格:" style="width:40%" id="price"><br><br>
                 <input name="stock" class="easyui-textbox" required="true" label="产品数量:" style="width:40%" id="stock" ><br><br>
-                <input name="description" class="easyui-textbox" required="true" label="产品尺寸:" style="width:80%"><br><br>
+                <input name="description" class="easyui-textbox" label="产品尺寸:" style="width:80%"><br><br>
                 <!-- <input name="content" class="easyui-textbox" required="true" label="产品内容:" style="width:100%"><br><br> -->
                 <label style="position: relative;top:-80px;">产品内容:</label>
                 <textarea rows="6" cols="60" name="content" id="content" style="margin-left: 20px;"></textarea><br><br>
@@ -102,6 +106,17 @@
     </div>
     
     <script type="text/javascript">
+    
+	    $(function(){
+	        $('#price').textbox('textbox').bind('blur', function () {
+	            isMoney();
+	        });
+	        $('#stock').textbox('textbox').bind('blur', function () {
+	            isDigit();
+	        });
+	        getAllCategory();
+	    })
+	    
         // 文件上传
         function upload(){
         	$.ajax({
@@ -124,6 +139,8 @@
                 
             });
         }
+        
+        
         
         // 消息提示框
         function showInformation(message){
@@ -154,9 +171,14 @@
         	
         }
         
+        // 填充内容
+        /* function fmtContent(value, row, index){
+        	return '<span title="' + value + '">' + value + '</span>';
+        } */
+        
         // 图片预览标签
         function fmtImages(value, row, index){       	
-        	return '<a class="easyui-linkbutton" href="javascript:view()" style="text-decoration:none;">点击查看</a>';
+        	return '<a class="easyui-linkbutton" href="javascript:view()" style="text-decoration: none">点击查看</a>';
         }
         
         // 产品类别填充
@@ -196,15 +218,7 @@
         	$("#viewImages").dialog('open').dialog('center').dialog('setTitle','图片预览')
         }
         
-        $(function(){
-        	$('#price').textbox('textbox').bind('blur', function () {
-        		isMoney();
-            });
-            $('#stock').textbox('textbox').bind('blur', function () {
-            	isDigit();
-            });
-            getAllCategory();
-        })
+        
         
         
         
@@ -227,8 +241,12 @@
        				    }
         			}   
        				$("#options").combobox({});
-       				$("#productType").combobox({});       		      
-//       				$("#productType").combobox('select', 0);       			
+       				$("#productType").combobox({});       		       
+       				$("#productType").combobox({
+                        onLoadSuccess:function(){
+                            $("#productType").combobox('select',0);
+                        }
+                    });
         		},
         		error:function(){
         			showInformation("服务器繁忙");
@@ -374,14 +392,11 @@
         }
         
         // 条件查询产品信息
-        function query(){
-        	if ($("#productname").val() != ''){
-        		$('#dg').datagrid('load',{
-                    cid: $("#productType").val(),
-                    productname: $("#productname").val()
-                });
-        	}    
-        	
+        function query(){       	
+       		$('#dg').datagrid('load',{
+                   cid: $("#productType").val(),
+                   productname: $("#productname").val()
+            });       	           	
         }    
       </script>
 </body>

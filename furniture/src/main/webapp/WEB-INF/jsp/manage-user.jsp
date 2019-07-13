@@ -16,100 +16,7 @@
 		margin-top:5px
 	}
 </style>
-<script type="text/javascript">
-	// 条件查询
-	function query(){
-		$('#dg').datagrid('load',{
-			name: $("#name").val(),
-			email: $("#email").val()
-		});
-	}
-	
-	// 打开编辑弹窗
-	function openEdit(){
-		$('#ff').form('clear');
-		
-		$("#ti").attr("src", "/images/uploadimg.jpg");
-		$('#dlg').dialog('open');
-	}
-	
-	// 保存编辑信息
-	function save(){
-		$('#ff').form('submit',{
-			url: "save.do",
-			onSubmit: function(){
-				//扩展参数
-			},
-			success: function(data){	//data是json字符串而不是json对象
-				data = JSON.parse(data);
-				if(data.code == 0){
-					// 提示错误信息
-					for(var i = 0; i < data.data.length; i++){
-						$.messager.alert("提醒", data.data[i].defaultMessage);
-					}
-				}else {
-					if(data.code == 1){
-						$('#dg').datagrid('reload');
-						$('#dlg').dialog('close');
-					}
-					//消息框弹窗
-					$.messager.alert("提醒", data.message);
-				}
-			}
-		});
-	}
-	
-	// 头像格式化
-	function fmtimgs(value, row, index){
-		return '<img src="'+value+'" height="50px"/>';
-	}
-	// 查看收货信息
-	function fmtop(value, row, index){
-		return '<input type="button" value="查看详情" style="background:#f8f9fa;border-radius: 25px;" onclick=\'modify('+index+')\'>';
-	}
-	function modify(index){
-		var row = $('#dg').datagrid('getRows')[index];
-		
-		//将用户的uid传给控制器，利用uid查出其地址信息
-		$('#fff').datagrid({
-			url:'queryAddress.do',
-		    queryParams:{
-		        uid : row.id,
-		        state:'ok'
-		    }
-		});
-		
-		$('#fff').form('load', row);
-		$('#ddd').dialog('open');
-	}
-	
-	// 文件上传
-	function upload(){
-		$.ajax({
-	        url: "upload.do",
-	        type: 'POST',
-	        cache: false,
-	        data: new FormData($('#ff')[0]),
-	        processData: false,
-	        contentType: false,
-	        dataType:"json",
-	        success : function(data) {
-	            if (data.code == 1) {
-	                $("#ti").attr("src", data.data);
-	                $("#head").val(data.data);
-	                $.messager.show({
-	                	title:'系统提示',
-	                	msg:data.message,
-	                	timeout:2000,
-	                	showType:'slide'
-	                });
-	            } else {
-	            	$.messager.alert('系统提示', data.message, 'error');
-	            }
-	        }
-	    });
-	}
-</script>
+
 </head>
 <body>
 	<!-- 数据表格 -->
@@ -210,5 +117,99 @@
 		    </thead>
 		</table>
 	</div>
+	<script type="text/javascript">
+    // 条件查询
+    function query(){
+        $('#dg').datagrid('load',{
+            name: $("#name").val(),
+            email: $("#email").val()
+        });
+    }
+    
+    // 打开编辑弹窗
+    function openEdit(){
+        $('#ff').form('clear');
+        
+        $("#ti").attr("src", "/images/uploadimg.jpg");
+        $('#dlg').dialog('open');
+    }
+    
+    // 保存编辑信息
+    function save(){
+        $('#ff').form('submit',{
+            url: "save.do",
+            onSubmit: function(){
+                //扩展参数
+            },
+            success: function(data){    //data是json字符串而不是json对象
+                data = JSON.parse(data);
+                if(data.code == 0){
+                    // 提示错误信息
+                    for(var i = 0; i < data.data.length; i++){
+                        $.messager.alert("提醒", data.data[i].defaultMessage);
+                    }
+                }else {
+                    if(data.code == 1){
+                        $('#dg').datagrid('reload');
+                        $('#dlg').dialog('close');
+                    }
+                    //消息框弹窗
+                    $.messager.alert("提醒", data.message);
+                }
+            }
+        });
+    }
+    
+    // 头像格式化
+    function fmtimgs(value, row, index){
+        return '<img src="'+value+'" height="50px" width="50px" />';
+    }
+    // 查看收货信息
+    function fmtop(value, row, index){
+        return '<input type="button" value="查看详情" style="background:#f8f9fa;border-radius: 25px;" onclick=\'modify('+index+')\'>';
+    }
+    function modify(index){
+        var row = $('#dg').datagrid('getRows')[index];
+        
+        //将用户的uid传给控制器，利用uid查出其地址信息
+        $('#fff').datagrid({
+            url:'queryAddress.do',
+            queryParams:{
+                uid : row.id,
+                state:'ok'
+            }
+        });
+        
+        $('#fff').form('load', row);
+        $('#ddd').dialog('open');
+    }
+    
+    // 文件上传
+    function upload(){
+        $.ajax({
+            url: "upload.do",
+            type: 'POST',
+            cache: false,
+            data: new FormData($('#ff')[0]),
+            processData: false,
+            contentType: false,
+            dataType:"json",
+            success : function(data) {
+                if (data.code == 1) {
+                    $("#ti").attr("src", data.data);
+                    $("#head").val(data.data);
+                    $.messager.show({
+                        title:'系统提示',
+                        msg:data.message,
+                        timeout:2000,
+                        showType:'slide'
+                    });
+                } else {
+                    $.messager.alert('系统提示', data.message, 'error');
+                }
+            }
+        });
+    }
+</script>
 </body>
 </html>
