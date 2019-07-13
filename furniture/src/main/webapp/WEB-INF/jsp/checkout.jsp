@@ -7,7 +7,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Parlo - eCommerce Bootstrap 4 Template</title>
+    <title>Our House-结算</title>
     
 	<!-- 引入首部链接 -->
     <%@include file="common/header_link.jsp" %>
@@ -27,7 +27,7 @@
 				location.href="produceOrder?addressid="+$('input[name="addr"]:checked').val()+"&sum="+$('#sum').val()+"&paymethod="+$('input[name="payment_method"]:checked').val()+"";
 			}
 		}
-    	function addAddress() {
+    	function CheckOutAddAddress() {
     		var phone = $('#addressPhone').val();
     		if( $('#addressName').val() == ''){
     			getFailMsg('请输入您的姓名！');
@@ -37,8 +37,9 @@
     			getFailMsg('请输入您的电话！');
     			return;
     		}
-    		if( $('#loc_province').val()=='' ){
-    			getFailMsg('请输入您的详细地址！');
+    		if( $('#loc_province').val()=='' || $('#loc_city').val()==''
+    				|| $('#loc_town').val()=='' || $('#addressDetails').val()==''){
+    			getFailMsg('请输入完整的地址信息！');
     			return;
     		}
     		if(checkPhone(phone) == false){
@@ -179,7 +180,7 @@
 							    <br/>
                                 <input id="addressDetails" placeholder="详细地址" type="text" style="width: 50%;background: white;margin-top: 20px;border-radius: 25px;">
                                 <br/>
-                                <button type="button" onclick="addAddress()" id="addAddr">确认新增</button>
+                                <button type="button" onclick="CheckOutAddAddress()" id="addAddr">确认新增</button>
                             </form>
 
 	                      </div>

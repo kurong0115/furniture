@@ -33,7 +33,7 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                     <form action="#">
                         <div class="table-content table-responsive cart-table-content">
-                            <table>
+                            <table class="col-lg-12 col-md-12">
                                 <thead>
                                     <tr>
                                         <th>图片</th>

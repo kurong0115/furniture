@@ -231,7 +231,6 @@
 			                                            <br/>
 			                                            <button type="button" onclick="addAddress()" id="addAddr">确认新增</button>
 			                                        </form>
-
 							                      </div>
 												</div>
 											</div>

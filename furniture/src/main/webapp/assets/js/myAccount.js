@@ -121,8 +121,9 @@ function addAddress() {
 		getFailMsg('请输入您的电话！');
 		return;
 	}
-	if( $('#loc_province').val()=='' ){
-		getFailMsg('请输入您的详细地址！');
+	if( $('#loc_province').val()=='' || $('#loc_city').val()==''
+		|| $('#loc_town').val()=='' || $('#addressDetails').val()==''){
+		getFailMsg('请输入完整的地址信息！');
 		return;
 	}
 	if(checkPhone(phone) == false){
@@ -322,8 +323,9 @@ function ModefyAddress(){
 		getFailMsg('请输入您的电话！');
 		return;
 	}
-	if( $('#loc_province2').val()=='' ){
-		getFailMsg('请输入您的详细地址！');
+	if( $('#loc_province2').val()=='' || $('#loc_city2').val()==''
+		|| $('#loc_town2').val()=='' || $('#addressDetails2').val()==''){
+		getFailMsg('请输入完整的地址信息！');
 		return;
 	}
 	if(checkPhone(phone) == false){

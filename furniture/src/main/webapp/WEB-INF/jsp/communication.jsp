@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title></title>
+<title>消息中心</title>
 
 <!-- 引入首部链接 -->
 <%@include file="common/header_link.jsp" %>
@@ -104,7 +104,5 @@
 		return str.replace(/<[^>]+>/g,"");
 	}
 </script>
-
-
 </body>
 </html>

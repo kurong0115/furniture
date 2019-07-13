@@ -115,7 +115,10 @@ function getFailMsg(msg) {
     <div class="easyui-sidemenu" data-options="region:'west',split:true,data:dt,
     	onSelect:onMenuSelect" title="菜单栏" style="width:200px;"></div>
     <div class="easyui-tabs" data-options="region:'center'" id="tt">
-    	<div title="首页"></div>
+    	<div title="首页">
+    		<div style="margin:20px 0"></div>
+			<div class="easyui-calendar" style="width:250px;height:250px;"></div>
+    	</div>
     </div>
     <script src="/assets/js/message.js"></script>   
 </body>

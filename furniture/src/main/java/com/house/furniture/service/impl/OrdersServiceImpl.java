@@ -25,13 +25,11 @@ public class OrdersServiceImpl implements OrdersService {
 	@Resource
 	private AddressMapper addressMapper;
 	
-	
-	
 	@Override
-	public List<Orders> selectByUid(Integer uid,Integer page, Integer size) {
+	public List<Orders> selectByUid(Integer uid,Integer page, Integer size ) {
 		OrdersExample orderExample = new OrdersExample();
 		orderExample.createCriteria().andUidEqualTo(uid);
-		PageHelper.startPage(page, size);
+		PageHelper.startPage(0, 10);
 		orderExample.setOrderByClause("createTime desc");
 		List<Orders> order = orderMapper.selectByExample(orderExample);
 		return order.size() == 0 ? null : order;

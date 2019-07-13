@@ -179,16 +179,16 @@
 		                               			<h4>消息</h4>
 			                                   <ul>
 			                                       <li>
-			                                           <a href="communication.do?id=${user.id }" onclick="clearTip(this)">回复我的
+			                                           <a href="communication.do?id=${user.id }" onclick="clearTip(this)">留言回复
 			                                           	<i class="tip" id="type1"></i></a>         
 			                                       </li>
-			                                       <li>
+			                                       <!-- <li>
 			                                       		<a href="javascript:void(0)" onclick="clearTip(this)">系统通知
 			                                           	<i class="tip" id="type2"></i></a></li>
 			                                       <li>
 			                                       		<a href="javascript:void(0)" onclick="clearTip(this)">我的消息
 			                                           	<i class="tip" id="type3"></i></a>
-			                                       </li>
+			                                       </li> -->
 			                                   </ul>
 		                                   </li>
 		                               </ul>

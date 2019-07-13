@@ -122,7 +122,6 @@ public class UserServiceImpl implements UserService {
 		example.createCriteria().andUidEqualTo(uid).andStatusEqualTo(1);
 		Page<User> p = PageHelper.startPage(page, rows);
 		address.selectByExample(example);
-		
 		return p;
 	}
 
@@ -151,15 +150,9 @@ public class UserServiceImpl implements UserService {
 		return result;
 	}
 
-
 	@Override
 	public Integer updateHead(@Valid User user) {
 		Integer updateResult = userMapper.updateByPrimaryKeySelective(user);
 		return updateResult;
 	}
-
-	
-	
-	
-
 }
