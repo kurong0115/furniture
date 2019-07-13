@@ -106,7 +106,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-8 col-md-8">
-						<div class="description-review-wrapper">
+						<div class="description-review-wrapper" id="ddddd">
 							<div class="description-review-topbar nav">
 								<a class="active" data-toggle="tab" href="#des-details1">描述</a>
 								<a data-toggle="tab" href="#des-details3">附加信息</a> <a

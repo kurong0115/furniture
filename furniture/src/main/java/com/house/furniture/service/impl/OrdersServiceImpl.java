@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.house.furniture.bean.Address;
+import com.house.furniture.bean.AddressExample;
 import com.house.furniture.bean.Orders;
 import com.house.furniture.bean.OrdersExample;
 import com.house.furniture.bean.OrdersExample.Criteria;
@@ -44,7 +45,9 @@ public class OrdersServiceImpl implements OrdersService {
 	
 	@Override
 	public List<Address> selectAddress(int uid) {
-		List<Address> address = addressMapper.selectByUid(uid);
+		AddressExample example = new AddressExample();
+		example.createCriteria().andUidEqualTo(uid).andStatusEqualTo(1);
+		List<Address> address = addressMapper.selectByExample(example);
 		return address;
 	}
 
