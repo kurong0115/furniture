@@ -18,6 +18,8 @@
     <!-- 引入首部 -->
     <%@include file="common/header.jsp" %>
     <script type="text/javascript">
+    
+    	
     	function produceOrder() {
 			if($('input[name="addr"]:checked').val()==null){
 				getInfoMsg("请选择收货地址")
@@ -192,7 +194,7 @@
     </div>
     <!-- compare main wrapper end -->
     
-    
+    <font style="display: none;" id="msg">${msg}</font>
     
     <!-- 引入底部 -->
     <%@include file="common/footer.jsp" %>
@@ -202,7 +204,13 @@
 
 <!-- 引入底部链接 -->
 <%@include file="common/footer_link.jsp" %>
-
+<script type="text/javascript">
+$(function(){
+	if($('#msg').text()!="" && $('#msg').text()!=null){
+		getInfoMsg($('#msg').text());
+	}
+});
+</script>
 
 </body>
 
