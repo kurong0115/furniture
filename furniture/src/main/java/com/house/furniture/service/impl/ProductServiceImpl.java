@@ -57,14 +57,16 @@ public class ProductServiceImpl implements ProductService {
 		}
 		criteria.andPriceBetween(min, max);
 		criteria.andCidEqualTo(cid);
+		criteria.andIsGroundEqualTo((byte) 1);
 		List<Product> productList = productMapper.selectByExample(example);
 		return productList.isEmpty()? null: productList;
 	}
 
+	@SuppressWarnings("null")
 	@Override
 	public Product getProductById(int pid) {
 		Product product = productMapper.selectByPrimaryKey(pid);
-		return product == null? null: product;
+		return product == null && product.getIsGround() == 1? null: product;
 	}
 	
 	public List<Product> listRelatedProduct(int cid) {
@@ -81,7 +83,7 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public Long getProductSize(int cid) {
 		ProductExample example = new ProductExample();
-		example.createCriteria().andCidEqualTo(cid);		
+		example.createCriteria().andCidEqualTo(cid).andIsGroundEqualTo((byte)1);		
 		return productMapper.countByExample(example);
 	}
 
@@ -97,6 +99,7 @@ public class ProductServiceImpl implements ProductService {
 		}
 		criteria.andPriceBetween(min, max);
 		criteria.andCidEqualTo(cid);
+		criteria.andIsGroundEqualTo((byte)1);
 		return productMapper.countByExample(example);
 	}
 
@@ -118,9 +121,11 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public Long getConditionSize(String condition) {
 		ProductExample example = new ProductExample();
+		Criteria criteria = example.createCriteria();
 		if (!"".equals(condition.trim())) {
-			example.createCriteria().andProductnameLike("%" + condition + "%");
+			criteria.andProductnameLike("%" + condition + "%");
 		}
+		criteria.andIsGroundEqualTo((byte)1);
 		return productMapper.countByExample(example);
 	}
 
