@@ -22,6 +22,14 @@
 			});
 		}
 		
+		function checkProductname(){
+			if ($.trim($("#condition").val()) == ''){
+				getFailMsg("产品名不能为空");
+				return false;
+			}
+			return true;
+		}
+		
 		function removeWishlist(wid){
         	$.ajax({
         		url:"removeWishlist?wid=" + wid,

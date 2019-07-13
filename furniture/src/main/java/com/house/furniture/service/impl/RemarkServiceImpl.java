@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.house.furniture.bean.Operation;
 import com.house.furniture.bean.OperationExample;
@@ -38,6 +39,7 @@ public class RemarkServiceImpl implements RemarkService {
 	}
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public int saveRemark(Remark remark) throws ServiceException {	
 		OperationExample example = new OperationExample();
 		example.createCriteria().andPidEqualTo(remark.getPid()).andUidEqualTo(remark.getUid());
@@ -57,6 +59,7 @@ public class RemarkServiceImpl implements RemarkService {
 	}
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public int removeRemark(int id, int pid) {		
 		int code= remarkMapper.deleteByPrimaryKey(id);
 		code = productMapper.updateScore(pid);

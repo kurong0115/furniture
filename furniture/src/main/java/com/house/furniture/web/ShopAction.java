@@ -77,8 +77,10 @@ public class ShopAction {
 	public String selectByCondition(@RequestParam(value = "condition", defaultValue = "") String condition, 
 			Model model,@RequestParam(value = "page", defaultValue = "1") int page,
 			@RequestParam(value = "size", defaultValue = "15") int size) {
-		List<Product> productList = productService.listProductByCondition(condition);		
-		model.addAttribute("result", new Result(page, size, productList, productService.getConditionSize(condition)));
+		if (!"".equals(condition.trim())) {
+			List<Product> productList = productService.listProductByCondition(condition);		
+			model.addAttribute("result", new Result(page, size, productList, productService.getConditionSize(condition)));
+		}		
 		return "shop";
 	}
 	
