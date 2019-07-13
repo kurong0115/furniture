@@ -15,6 +15,7 @@
 <!-- Main Style CSS -->
 <link rel="stylesheet" href="<%=request.getContextPath() %>/assets/css/style.css">
 <!-- Modernizer JS -->
+<script src="<%=request.getContextPath() %>/assets/js/myAccount.js"></script>
 <script src="<%=request.getContextPath() %>/assets/js/vendor/modernizr-2.8.3.min.js"></script>
 <link href="<%=request.getContextPath() %>/assets/css/common.css" rel="stylesheet"/>
 <link href="<%=request.getContextPath() %>/assets/css/select2.css" rel="stylesheet"/>

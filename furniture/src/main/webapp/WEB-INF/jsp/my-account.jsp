@@ -8,6 +8,7 @@
     <title>我的账户</title>  
     <!-- 引入首部链接 -->
     <%@include file="common/header_link.jsp" %>
+    
 <style type="text/css">
 	#caozuo1:hover {
 		color: red;
@@ -292,8 +293,14 @@
                                                                 <font id="first-name" style="color: red;">${user.name }</font>
                                                             </div>
                                                         </div> 
+                                                        
                                                         <div>
-                                                        	<img src="${user.head }" onclick="uploadHead.click()" id="headPic"style="display:inline-block;width: 100px;height: 100px;float: right;border-radius: 50%;" >
+	                                                        <c:if test="${user.head == null }">
+	                                                        	<img src="assets/img/default.jpg" onclick="uploadHead.click()" id="headPic"style="display:inline-block;width: 100px;height: 100px;float: right;border-radius: 50%;" >
+	                                                        </c:if>
+                                                        	 <c:if test="${user.head != null}">
+                                                        		<img src="${user.head }" onclick="uploadHead.click()" id="headPic"style="display:inline-block;width: 100px;height: 100px;float: right;border-radius: 50%;" >
+                                                       		 </c:if>
                                                         	<input type="file" name="file" style="display: none;" id="uploadHead" onchange="getFileName()"/>
                                                         	<input type="hidden" name="head" style="display: none;" id="filename"/>
                                                         </div>
@@ -343,6 +350,7 @@
     
     <!-- 引入底部 -->
     <%@include file="common/footer.jsp" %>
+   
     
     
 </div>
