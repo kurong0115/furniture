@@ -1,17 +1,3 @@
-function getFlag(){
-	var flag = GetQueryString("flag");
-	alert(flag);
-	if( flag == 'userinfo' ){
-		$("#hehao").click();
-		return;
-	}
-	if( flag == 'address' ){
-		$("#aaaa").click();
-		return;
-	}
-	
-}
-
 function GetQueryString(name)
 {
      var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
@@ -57,7 +43,7 @@ function checkDetail(orderid) {
 			                        '<td>'+(data.data[1])[i].price+'</td>'+
 			                        '<td>'+(data.data[1])[i].count+'</td>'+
 			                        '<td>'+(data.data[1])[i].sum+'</td>'+
-			                        '<td><button type="button" onclick="gotoComment('+(data.data[1])[i].productList[0].pid+')" class="comment"  style="width:100%;">去评论</button> </td>'+
+			                        '<td><button type="button" onclick="goComment('+(data.data[1])[i].productList[0].pid+')" class="comment"  style="width:100%;">去评论</button> </td>'+
 			                        '</tr>'
 									);
 							
@@ -114,14 +100,15 @@ function checkDetail(orderid) {
 			}
 	  	});
 }
+
+function goComment(pid){
+	location.href='product-details?pid='+pid+'&flag=comment&#ddddd';
+}
+
 function checkPhone(phone){ 
     if(!(/^1[3456789]\d{9}$/.test(phone))){ 
         return false; 
     } 
-}
-
-function gotoComment(pid){
-	window.location.href="product-details?pid="+pid+"&flag=comment";
 }
 
 function addAddress() {
@@ -218,7 +205,7 @@ function orderFinalPage(){
 		getInfoMsg("已经是最后一页了");
 		return ;
 	}
-	$.get('orderFirstPage',{
+	$.get('orderFinalPage',{
 		page:totalPage
 	},function(data){
 		loadOrderList(data);
@@ -260,7 +247,7 @@ function orderFirstPage() {
 		return ;
 	}
 	$.get('orderFirstPage',{
-		page:$('#orderPage').text()
+		page:1
 	},function(data){
 		loadOrderList(data);
 		$('#orderPage').text(1);

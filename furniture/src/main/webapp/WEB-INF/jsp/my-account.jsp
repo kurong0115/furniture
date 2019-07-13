@@ -17,12 +17,12 @@
 		color: red;
 	}
 </style>
+
 </head>
-<body onload="getFlag();">
+<body>
 <div class="wrapper">
     <!-- 引入首部 -->
-    <%@include file="common/header.jsp" %>
-    
+    <%@include file="common/header.jsp" %> 
     <div class="breadcrumb-area pt-35 pb-35 bg-gray">
         <div class="container">
             <div class="breadcrumb-content text-center">
@@ -48,8 +48,8 @@
                                 <div class="myaccount-tab-menu nav" role="tablist">
                                     <a href="#dashboad" class="active" data-toggle="tab">
                                     	<i class="fa fa-dashboard"></i>操作</a>   
-                                    <a href="#orders" data-toggle="tab" id="cccc"><i class="fa fa-cart-arrow-down"></i> <span>订单</span></a> 
-                                    <a href="#address-edit" data-toggle="tab"  id="aaaa"><i class="fa fa-map-marker"></i><span>地址</span></a>    
+                                    <a href="#orders" data-toggle="tab"><i class="fa fa-cart-arrow-down"></i> <span>订单</span></a> 
+                                    <a href="#address-edit" data-toggle="tab" id="aaaa"><i class="fa fa-map-marker"></i><span>地址</span></a>    
                                     <a href="#account-info" data-toggle="tab" id="hehao"><i class="fa fa-user" onclick="myAddress()" ></i><span> 帐户详细信息</span></a>    
                                     <a href="#" onclick="loginOut();"><i class="fa fa-sign-out"></i> 注销</a>
                                 </div>
@@ -291,8 +291,14 @@
                                                                 <font id="first-name" style="color: red;">${user.name }</font>
                                                             </div>
                                                         </div> 
+                                                        
                                                         <div>
-                                                        	<img src="${user.head }" onclick="uploadHead.click()" id="headPic"style="display:inline-block;width: 100px;height: 100px;float: right;border-radius: 50%;" >
+	                                                        <c:if test="${user.head == null }">
+	                                                        	<img src="assets/img/default.jpg" onclick="uploadHead.click()" id="headPic"style="display:inline-block;width: 100px;height: 100px;float: right;border-radius: 50%;" >
+	                                                        </c:if>
+                                                        	 <c:if test="${user.head != null}">
+                                                        		<img src="${user.head }" onclick="uploadHead.click()" id="headPic"style="display:inline-block;width: 100px;height: 100px;float: right;border-radius: 50%;" >
+                                                       		 </c:if>
                                                         	<input type="file" name="file" style="display: none;" id="uploadHead" onchange="getFileName()"/>
                                                         	<input type="hidden" name="head" style="display: none;" id="filename"/>
                                                         </div>
@@ -349,8 +355,23 @@
 
 
 <!-- 引入底部链接 -->
-<%@include file="common/footer_link.jsp" %>
 
+<%@include file="common/footer_link.jsp" %>
+<script type="text/javascript">
+$(function(){
+	var flag = GetQueryString("flag");
+	
+	if( flag == 'userinfo' ){
+		$("#hehao").click();
+		return;
+	}
+	if( flag == 'address' ){
+		$("#aaaa").click();
+		return;
+	}
+	
+});
+</script>
 
 </body>
 

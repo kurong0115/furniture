@@ -232,4 +232,11 @@ public class MyAccountAction {
 		List<Orders> list = orderService.selectByUid(user.getId(), page, size);
 		return new Result(Result.EXECUTION_SUCCESS,"",list);
 	}
+	
+	@GetMapping("orderFinalPage")
+	@ResponseBody
+	public Result orderFinalPage(@SessionAttribute("user")User user,Integer page,@RequestParam(defaultValue="10") Integer size) {
+		List<Orders> list = orderService.selectByUid(user.getId(), page, size);
+		return new Result(Result.EXECUTION_SUCCESS,"",list);
+	}
 }
