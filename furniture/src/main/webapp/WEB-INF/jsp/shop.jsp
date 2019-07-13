@@ -246,8 +246,8 @@
 							<div class="sidebar-widget">
 								<h4 class="pro-sidebar-title">搜索</h4>
 								<div class="pro-sidebar-search mb-50 mt-25">
-									<form class="pro-sidebar-search-form" action="condition.do">
-										<input type="text" placeholder="在此处搜索..." name="condition">
+									<form class="pro-sidebar-search-form" action="condition.do" onsubmit="return checkProductname()">
+										<input type="text" placeholder="在此处根据产品名搜索..." name="condition" id="condition">
 										<button>
 											<i class="sli sli-magnifier"></i>
 										</button>

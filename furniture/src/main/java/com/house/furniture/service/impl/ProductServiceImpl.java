@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -100,6 +101,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public int saveProduct(Product product, String[] images) {
 		product.setScore(0);
 		product.setCreatetime(new Timestamp(System.currentTimeMillis()));
@@ -140,6 +142,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public int updateProduct(Product product, String[] images) {	
 		int code = productMapper.updateByPrimaryKeySelective(product);
 		Image image = new Image();

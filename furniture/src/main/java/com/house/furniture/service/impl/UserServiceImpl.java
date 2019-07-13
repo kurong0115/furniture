@@ -150,15 +150,9 @@ public class UserServiceImpl implements UserService {
 		return result;
 	}
 
-
 	@Override
 	public Integer updateHead(@Valid User user) {
 		Integer updateResult = userMapper.updateByPrimaryKeySelective(user);
 		return updateResult;
 	}
-
-	
-	
-	
-
 }
