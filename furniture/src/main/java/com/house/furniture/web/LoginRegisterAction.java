@@ -68,11 +68,7 @@ public class LoginRegisterAction {
 	 				// 登陆成功，将用户添加到会话当中
 	 				session.setAttribute("user", user);
 	 				msg = "登录成功!";
-	 				Cookie newcookie = new Cookie("UserName", user.getName());
-	 				newcookie.setPath(request.getContextPath());
-	 				newcookie.setDomain(request.getServerName());
-	 				response.addCookie(newcookie);
-	 				
+			
 	 				//成功之后把该用户的购物车查出来
 	 				List<Cart> cartProductList = cartservice.listCartProductByUser(user);
 	 				model.addAttribute("cartProductList", cartProductList);
@@ -292,7 +288,7 @@ public class LoginRegisterAction {
 				//成功之后把该用户的购物车查出来
  				List<Cart> cartProductList = cartservice.listCartProductByUser(user);
  				model.addAttribute("cartProductList", cartProductList);
- 				
+ 				System.out.println();
  				long allSum=0;
  				if(cartProductList.size()>0) {
  					for (Cart cart : cartProductList) {
@@ -304,6 +300,17 @@ public class LoginRegisterAction {
 				return new Result(Result.EXECUTION_SUCCESS,"注册成功！您的用户名为：QQ用户"+code+",密码：123,请及时修改！");
 			}
 		}else {
+			//成功之后把该用户的购物车查出来
+				List<Cart> cartProductList = cartservice.listCartProductByUser(user);
+				model.addAttribute("cartProductList", cartProductList);
+				System.out.println();
+				long allSum=0;
+				if(cartProductList.size()>0) {
+					for (Cart cart : cartProductList) {
+						allSum+=cart.getCount()*cart.getProduct().getPrice();
+					}
+				}
+				model.addAttribute("allSum", allSum);
 			session.setAttribute("user", user);
 			return new Result(Result.EXECUTION_SUCCESS,"");
 		}
