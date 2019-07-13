@@ -11,16 +11,12 @@
     
     <!-- 引入首部链接 -->
     <%@include file="common/header_link.jsp" %>
-   	<!-- 引入login-register.js文件 -->
-	<script src="assets/js/login-register.js"></script>
-	<script src="assets/js/forgetPassword.js"></script>
-	
-	<!-- 引入QQ登录js文件 -->
-	<script type="text/javascript"  charset="utf-8"
-	    src="http://connect.qq.com/qc_jssdk.js"
-	    data-appid="101701345"
-	    data-redirecturi="http://127.0.0.1:8080/QQLogin"
-	></script>
+   	<!-- 引入QQ登录js文件 -->
+    <script type="text/javascript"  charset="utf-8"
+        src="http://connect.qq.com/qc_jssdk.js"
+        data-appid="101701345"
+        data-redirecturi="http://127.0.0.1:8080/QQLogin"
+    ></script>
 	
 </head>
 
@@ -151,6 +147,11 @@
 </div>
 <!-- 引入底部链接 -->
 <%@include file="common/footer_link.jsp" %>
+<!-- 引入login-register.js文件 -->
+    <script src="<%=request.getContextPath() %>/assets/js/login-register.js"></script>
+    <script src="<%=request.getContextPath() %>/assets/js/forgetPassword.js"></script>
+    
+    
 <script type="text/javascript">
 $('#LoginCode,#LoginUsername,#LoginPassword').keyup(function(event){  
     if(event.keyCode ==13){  
