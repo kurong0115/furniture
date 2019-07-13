@@ -43,9 +43,9 @@ public class OrdersServiceImpl implements OrdersService {
 	
 	@Override
 	public List<Address> selectAddress(int uid) {
-		AddressExample ae = new AddressExample();
-		ae.createCriteria().andUidEqualTo(uid).andStatusEqualTo(1);
-		List<Address> address = addressMapper.selectByExample(ae);
+		AddressExample example = new AddressExample();
+		example.createCriteria().andUidEqualTo(uid).andStatusEqualTo(1);
+		List<Address> address = addressMapper.selectByExample(example);
 		return address;
 	}
 

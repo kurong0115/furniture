@@ -40,7 +40,7 @@ public class AddressServiceImpl implements AddressService {
 	}
 	@Override
 	public Integer updateAddress(Address address) {
-		Integer result = addressmapper.updateByPrimaryKey(address);
+		Integer result = addressmapper.updateByPrimaryKeySelective(address);
 		return result;
 	}
 	@Override

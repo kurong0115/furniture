@@ -303,14 +303,6 @@
 									</ul>
 								</div>
 							</div>
-							<div class="sidebar-widget mt-50">
-								<h4 class="pro-sidebar-title">标签</h4>
-								<div class="sidebar-widget-tag mt-25">
-									<ul>
-										<li><a href="#">配饰</a></li>
-									</ul>
-								</div>
-							</div>
 						</div>
 					</div>
 				</div>
