@@ -90,6 +90,9 @@
 		                                                           <td>${m.orderno}</td>
 		                                                           <td>${m.createtime.toLocaleString()}</td>
 		                                                           <td>${m.sum}</td>
+		                                                           <c:if test="${m.ispay==0 && m.isdeal==0 && m.isfinish==0}">
+		                                                           		<td>订单未付款</td>
+		                                                           </c:if>
 		                                                           <c:if test="${m.ispay==1 && m.isdeal==0 && m.isfinish==0}">
 		                                                           		<td>订单已付款</td>
 		                                                           </c:if>
