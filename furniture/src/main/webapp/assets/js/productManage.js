@@ -21,6 +21,8 @@
             });
         }
         
+        
+        
         // 消息提示框
         function showInformation(message){
         	$.messager.show({
@@ -50,21 +52,12 @@
         	
         }
         
-        // 图片预览标签
-        function fmtImages(value, row, index){       	
-        	return '<a class="easyui-linkbutton" href="javascript:view()" style="text-decoration:none;">点击查看</a>';
-        }
+        // 填充内容
+        /* function fmtContent(value, row, index){
+        	return '<span title="' + value + '">' + value + '</span>';
+        } */
         
-        // 产品类别填充
-        function fmtCategoryname(value, row, index){
-        	return row.category.categoryname;
-        }
         
-        // 表格时间填充
-        function fmtCreateTime(value, row, index){
-        	var date = new Date(value);
-            return date.toLocaleString();
-        }
         
         // 设置图片信息到编辑框
         function setImages(images){
@@ -92,45 +85,13 @@
         	$("#viewImages").dialog('open').dialog('center').dialog('setTitle','图片预览')
         }
         
-        $(function(){
-        	$('#price').textbox('textbox').bind('blur', function () {
-        		isMoney();
-            });
-            $('#stock').textbox('textbox').bind('blur', function () {
-            	isDigit();
-            });
-            getAllCategory();
-        })
         
         
         
         
         
-        // 将所有分类信息填充到下拉框
-        function getAllCategory(){
-        	$("#options").empty();
-        	$("#productType").empty();
-        	$("#productType").append("<option value='0'>全部</option>");        	
-        	$.ajax({
-        		url:'selectAllCategory.do',
-        		method:'get',
-        		async:true,
-        		success:function(data){
-        			if (data != null){
-       				    for(var i = 0; i < data.data.length; i++){
-       				        $("#options").append('<option  value="'+data.data[i].cid+'">'+data.data[i].categoryname+'</option>');
-       				        $("#productType").append('<option  value="'+data.data[i].cid+'">'+data.data[i].categoryname+'</option>');
-       				    }
-        			}   
-       				$("#options").combobox({});
-       				$("#productType").combobox({});       		      
-//       				$("#productType").combobox('select', 0);       			
-        		},
-        		error:function(){
-        			showInformation("服务器繁忙");
-        		}
-        	})
-        }
+        
+        
         
         // 用于改变请求的url
         var url;
@@ -270,12 +231,9 @@
         }
         
         // 条件查询产品信息
-        function query(){
-        	if ($("#productname").val() != ''){
-        		$('#dg').datagrid('load',{
-                    cid: $("#productType").val(),
-                    productname: $("#productname").val()
-                });
-        	}    
-        	
-        } 
+        function query(){       	
+       		$('#dg').datagrid('load',{
+                   cid: $("#productType").val(),
+                   productname: $("#productname").val()
+            });       	           	
+        }

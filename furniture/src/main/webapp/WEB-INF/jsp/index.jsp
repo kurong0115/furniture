@@ -124,8 +124,7 @@
 		                                   		<div class="ht-product-categories"><a href="#">${pro.category.categoryname }</a></div>
 		                                        <h4 class="ht-product-title"><a href="product-details.html">${pro.productname }</a></h4>
 		                                        <div class="ht-product-price">
-		                                            <span class="new">￥${String.format("%.1f", pro.price*0.75)}</span>
-		                                            <span class="old">￥${pro.price }</span>
+		                                            <span class="new">￥${pro.price }</span>		                                            
 		                                        </div>
 		                                        <div class="ht-product-ratting-wrap">
 		                                            <span class="ht-product-ratting">

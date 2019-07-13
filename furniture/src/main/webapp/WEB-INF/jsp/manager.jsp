@@ -7,6 +7,11 @@
 <title>后台管理</title>
 <link rel="stylesheet" type="text/css" href="js/easyui/themes/default/easyui.css">
 <link rel="stylesheet" type="text/css" href="js/easyui/themes/icon.css">
+<style type="text/css">
+    a:hover{
+        color:red;
+    }
+</style>
 <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
 <script type="text/javascript" src="js/easyui/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="js/easyui/locale/easyui-lang-zh_CN.js"></script>
@@ -104,7 +109,7 @@ function getFailMsg(msg) {
     	
     	<div style="display: inline-block;float: right;margin-right: 10%;height:65px;margin-top: 10px;">
     		<font style="font-size: 25px">欢迎您：${admin.name}</font>&nbsp;&nbsp;&nbsp;
-    		<a href="javascript:void(0)" onclick="adminOut()" style="font-size: 25px">注销</a>&nbsp;&nbsp;&nbsp;
+    		<a href="javascript:void(0)" onclick="adminOut()" style="font-size: 25px;text-decoration: none;">注销</a>&nbsp;&nbsp;&nbsp;
     		<img alt="" src="${admin.head }" width="50px" height="50px" style="vertical-align: middle;border-radius: 50%;">
     		
     	</div>

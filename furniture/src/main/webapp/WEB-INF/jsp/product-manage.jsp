@@ -11,7 +11,11 @@
 <script type="text/javascript" src="js/easyui/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="js/easyui/locale/easyui-lang-zh_CN.js"></script>
 <script type="text/javascript" src="ckeditor/ckeditor.js"></script>
-
+<style type="text/css">
+    a:hover{
+        color:red;
+    }
+</style>
 </head>
 <body> 
     <table id="dg" title="产品管理" class="easyui-datagrid" style="width:100%;height:500px"
@@ -35,7 +39,7 @@
                 <th field="stock" width="20">产品库存</th>
                 <th data-options="field:'createtime',width:40,formatter:fmtCreateTime">上架时间</th>
                 <th data-options="field:'images',width:20,formatter:fmtImages">图片预览</th>
-                <th field="content" width="50">产品内容</th>
+                <!-- <th field="content" width="50" data-options="formatter:fmtContent" align="center">产品内容</th> -->
             </tr>
         </thead>
     </table>
@@ -67,7 +71,7 @@
                 <select name="cid" style="width:40%;" label="产品分类：" id="options"></select><br><br>
                 <input name="price" class="easyui-textbox" required="true" label="产品价格:" style="width:40%" id="price"><br><br>
                 <input name="stock" class="easyui-textbox" required="true" label="产品数量:" style="width:40%" id="stock" ><br><br>
-                <input name="description" class="easyui-textbox" required="true" label="产品尺寸:" style="width:80%"><br><br>
+                <input name="description" class="easyui-textbox" label="产品尺寸:" style="width:80%"><br><br>
                 <!-- <input name="content" class="easyui-textbox" required="true" label="产品内容:" style="width:100%"><br><br> -->
                 <label style="position: relative;top:-80px;">产品内容:</label>
                 <textarea rows="6" cols="60" name="content" id="content" style="margin-left: 20px;"></textarea><br><br>
@@ -100,7 +104,66 @@
         <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="saveProduct()" style="width:90px">保存</a>
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')" style="width:90px">取消</a>
     </div>
+    <script type="text/javascript" src="/assets/js/productManage.js"></script>
+    <script type="text/javascript">
     
-    <script type="text/javascript" src="<%=request.getContextPath() %>/assets/js/productManage.js"></script>
+	    $(function(){
+	        $('#price').textbox('textbox').bind('blur', function () {
+	            isMoney();
+	        });
+	        $('#stock').textbox('textbox').bind('blur', function () {
+	            isDigit();
+	        });
+	        getAllCategory();
+	    })
+	    
+        // 产品类别填充
+        function fmtCategoryname(value, row, index){
+            return row.category.categoryname;
+        }
+	    
+	    // 图片预览标签
+        function fmtImages(value, row, index){          
+            return '<a class="easyui-linkbutton" href="javascript:view()" style="text-decoration: none">点击查看</a>';
+        }
+                  
+        // 表格时间填充
+        function fmtCreateTime(value, row, index){
+            var date = new Date(value);
+            return date.toLocaleString();
+        }
+        
+        // 将所有分类信息填充到下拉框
+        function getAllCategory(){
+            $("#options").empty();
+            $("#productType").empty();
+            $("#productType").append("<option value='0'>全部</option>");          
+            $.ajax({
+                url:'selectAllCategory.do',
+                method:'get',
+                async:true,
+                success:function(data){
+                    if (data != null){
+                        for(var i = 0; i < data.data.length; i++){
+                            $("#options").append('<option  value="'+data.data[i].cid+'">'+data.data[i].categoryname+'</option>');
+                            $("#productType").append('<option  value="'+data.data[i].cid+'">'+data.data[i].categoryname+'</option>');
+                        }
+                    }   
+                    $("#options").combobox({});
+                    $("#productType").combobox({});                    
+                    $("#productType").combobox({
+                        onLoadSuccess:function(){
+                            $("#productType").combobox('select',0);
+                        }
+                    });
+                },
+                error:function(){
+                    showInformation("服务器繁忙");
+                }
+            })
+        }
+     
+     
+      </script>
 </body>
 </html>
